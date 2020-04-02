@@ -24,4 +24,14 @@ animates the pacman to move according to the locations of the backend, should be
 a step function
  */
   void playAnimation();
+  /*
+  gets the PacMan image
+   */
+  ImageView getImage();
+
+  /*
+ sets the PacMan image
+  */
+  void setImage(ImageView image);
+
 }
