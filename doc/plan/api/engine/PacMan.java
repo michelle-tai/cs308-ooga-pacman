@@ -60,5 +60,13 @@ getter for x coordinate of object
      */
     public void decrementLives();
 
+    /*
+    getter for number of lives
+     */
+    public int getLivesLeft();
 
+    /*
+    resets pacman based on xml file
+     */
+    public void setHome(){}
 }

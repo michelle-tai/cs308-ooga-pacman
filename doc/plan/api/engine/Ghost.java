@@ -47,5 +47,10 @@ public interface Ghost{
     public void setY(int y);
 
 
+   /*
+   resets the ghost's properties based on collision data from xml file
+    */
+    public void setHome();
+
 
 }
