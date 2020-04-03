@@ -2,7 +2,7 @@
  * this holds all possible collisions for each sprite type and the behavior each sprite should have when colliding
  */
 
-public interface CollisionsController {
+public interface Visitor {
 
   /**
    * this can be implemented multiple times, based on the sprite type
@@ -11,5 +11,5 @@ public interface CollisionsController {
    * statements
    * @param other is the sprite it collides with
    */
-  public void visit(Sprite other);
+  public void collidedWith(Sprite other);
 }
