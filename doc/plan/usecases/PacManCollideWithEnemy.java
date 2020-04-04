@@ -211,4 +211,4 @@ class coinCollisions implements Visitor {
   }
 }
 
-// so if ghost collides with pacman, pacman calls visitor.getVisitable(this) to have the ghost do the pacman collision behavior
+// so if ghost collides with pacman, pacman calls ghost.getVisitable().collidedWith(this) to have the ghost do the pacman collision behavior
