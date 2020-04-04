@@ -1,0 +1,7 @@
+![](startdark.png)
+![](playdark.png)
+![](pauseddark.png)
+![](filechooser.png)
+![](startlight.png)
+![](playlight.png)
+![](pausedlight.png)
