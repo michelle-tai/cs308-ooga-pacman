@@ -19,6 +19,11 @@ public interface Ghost{
      */
     public String getStatus();
 
+    /*
+setter for object status, indicaticating the curent powerup, or lack of powerup
+ */
+    public String setStatus();
+
 
     /*
     updates the x and y of the object and checks for collisions. LocationObject is a subset of all game objects which

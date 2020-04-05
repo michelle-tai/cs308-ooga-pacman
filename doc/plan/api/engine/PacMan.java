@@ -20,6 +20,11 @@ public interface PacMan{
     public String getStatus();
 
     /*
+setter for object status, indicaticating the curent powerup, or lack of powerup
+ */
+    public String setStatus();
+
+    /*
     getter for pacman id for multiplayer purposes
      */
     public int getID();
