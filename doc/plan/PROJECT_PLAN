@@ -1,0 +1,100 @@
+## PROJECT_PLAN
+
+# Caleb Sanford (cis12)
+### Main area of focus : Data package
+- Data file formats
+- File loaders
+    - csv 
+    - xml
+    - properties 
+- Saving properties
+
+# Olga Suchankova (os33)
+### Main area of focus : Engine (backend)
+
+**Sprint1**
+
+- Game Loop
+    - collision checking
+    - interpreting and executing user input
+    - updating player status and in game object statuses
+- Creation and maintance of GameObjects (data structure)
+    - Generating/ loading levels using data from Data Module 
+    -  PacMan object, Ghost Object, Coin Object, PowerUp Object
+    -  Handeling Collisions
+
+
+
+- I will first focus on creating in essential in game objects, Pac-man and coins
+
+- Then I will generate a data representation of the game map and populate it with in game objects
+
+- Then create non-essential in game objects
+
+- Lastly, I will work on the level progression
+
+**Sprint2**
+
+- Scene/Level Progression
+- Finish implementing game objects
+- Start on implementation of different game types
+
+**Complete**
+- Add in AI player
+- Finish implementation of different game types
+
+# Hannah Taubenfeld (hbt3)
+### Main area of focus: Player
+ 
+- PacManView 
+    - changing images
+    - animation
+- GhostView
+    - chaning images
+    - animation
+- Visualizer
+    - setting up the scene and combining all elements
+    - user preferences/settings
+        - changing control keys
+    - changing the CSS to dark mode
+    - updating the high scores
+- CreateMap (frontend)
+    - create the maze layout
+    - update based on powerups and lives 
+- Start screen 
+    - Selecting two players 
+    - enabling uploading of files 
+
+- Sprint 1: I will start with creating the generalized PacManView, GhostView, CreateMap, and Visualizer
+- Sprint 2: Then I will add detailslike powerups, changing images, and settings, the last priority will be the start screen
+
+# Michelle 
+### Main area of Focus: Player and Engine (Generalist), Planning
+**Sprint 1**
+- Work on hierarchies and making abstractions/patterns to make things extendable, like Enemy, Pacman, etc.
+    - I'm planning on focusing on making movement as general as possible
+- binding properties, like number of lives and score, for the heads up display
+- Error checking
+
+**Sprint 2**
+- figuring out how to best organize things for reflection 
+- help connect player and engine as much as possible
+
+**Complete**
+- making different Pac-Man games
+
+
+# Overall Sprint Plan
+## Sprint 1
+* Basic moving pac-man
+* Create enemies + other game objects, not necessarily all together yet
+
+## Sprint 2
+* Focus on putting everything together and adding more details
+* Level Progression
+
+## Complete
+* Extensions 
+* different game types
+
+
