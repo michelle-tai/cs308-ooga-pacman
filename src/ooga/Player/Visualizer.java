@@ -1,25 +1,51 @@
 package ooga.Player;
 
+import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import ooga.Player.Graphics.NonUserInterface;
+import ooga.Player.Graphics.UserInterface;
+import ooga.Player.Map.MapView;
 
 public class Visualizer {
 
+    private static final int VIEWPANE_PADDING = 10;
+    private static final int VIEWPANE_MARGIN = 0;
+
     private Stage myStage;
     private Group pacmen;
+    private MapView myMapView;
+    private NonUserInterface nonUserInterface;
+    private UserInterface userInterface;
 
     public Visualizer (Stage stage){
         myStage = stage;
         pacmen = new Group();
-
+        myMapView = new MapView();
+        nonUserInterface = new NonUserInterface();
+        userInterface = new UserInterface();
     }
 
     public Scene setupScene(){
-        Group root = new Group();
-        //TODO: need to create a borderpane or viewpane and add everything to there and make that what creates the scene with CSS files
-        Scene myScene = new Scene(root, 500, 500, Color.AZURE);
+        Scene myScene = new Scene(createView());
+        //TODO: add CSS files that can be changes to light and dark mode
         return myScene;
+    }
+
+    private BorderPane createView(){
+        BorderPane viewPane = new BorderPane();
+        viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
+        Node map = myMapView.createMap();
+        Node nonUInferface = nonUserInterface.createComponents();
+        Node uInterface = userInterface.createComponents();
+
+        viewPane.setLeft(nonUInferface);
+        viewPane.setCenter(map);
+        viewPane.setRight(uInterface);
+
+        return viewPane;
     }
 }
