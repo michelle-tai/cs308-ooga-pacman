@@ -12,8 +12,10 @@ import ooga.Player.Map.MapView;
 
 public class Visualizer {
 
-    private static final int VIEWPANE_PADDING = 10;
-    private static final int VIEWPANE_MARGIN = 0;
+    public static final int VIEWPANE_PADDING = 10;
+    public static final int VIEWPANE_MARGIN = 0;
+    private static final String RESOURCES = "src/resources";
+    private static final String LEVEL_ONE = RESOURCES + "/levels/level1";
 
     private Stage myStage;
     private Group pacmen;
@@ -38,7 +40,7 @@ public class Visualizer {
     private BorderPane createView(){
         BorderPane viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-        Node map = myMapView.createMap();
+        Node map = myMapView.createMap(LEVEL_ONE);
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
 
