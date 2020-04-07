@@ -6,25 +6,29 @@ import ooga.Player.Visualizer;
 
 public class GhostView {
 
-    private static final int GHOST_WIDTH = 50;
-    private static final int GHOST_HEIGHT = 40;
+    private static final int GHOST_WIDTH = 35;
+    private static final int GHOST_HEIGHT = 35;
+    public static final int BLOCK_WIDTH = 40;
+    public static final int BLOCK_HEIGHT = 40;
 
     private Visualizer myVisualizer;
     private Group myGhosts;
     private ImageView myImage;
 
-    public GhostView(Group ghosts, Visualizer visualizer){
+    public GhostView(Group ghosts, Visualizer visualizer, int indexNum, int rowNum, int ghostNum){
         myVisualizer = visualizer;
         myGhosts = ghosts;
-        myImage = createGhostImage();
+        System.out.println(myGhosts.getChildren());
+        myImage = createGhostImage(indexNum, rowNum, ghostNum);
     }
 
-    private ImageView createGhostImage(){
-        String string = "resources/pacman/ghost1.png";
+    private ImageView createGhostImage(int index, int rows, int ghostNum){
+        String string = "resources/ghost/ghost" + ghostNum + ".png";
         ImageView ghostImage = new ImageView(string);
         ghostImage.setFitWidth(GHOST_WIDTH);
         ghostImage.setFitHeight(GHOST_HEIGHT);
-        //TODO: add a starting point
+        ghostImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - ghostImage.getBoundsInLocal().getWidth() / 2));
+        ghostImage.setY((BLOCK_HEIGHT * rows) + (BLOCK_HEIGHT / 2 - ghostImage.getBoundsInLocal().getHeight() / 2));
         myGhosts.getChildren().add(ghostImage);
         return ghostImage;
     }

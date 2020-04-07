@@ -4,6 +4,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import ooga.Player.PacMan.PacManView;
+import ooga.Player.Visualizer;
+
 import java.io.*;
 
 public class MapView {
@@ -13,28 +16,44 @@ public class MapView {
     public static final int FOOD_WIDTH = 10;
     public static final int FOOD_HEIGHT = 10;
 
-    public MapView(){
+    private Group pacmen;
+    private Group ghosts;
+    private Visualizer myVisualizer;
 
+    public MapView(Visualizer visualizer){
+        pacmen = new Group();
+        ghosts = new Group();
+        myVisualizer = visualizer;
+    }
+
+    public Node createMap(String level){
+        Group totalMap = new Group();
+        totalMap.getChildren().addAll(createMapFromFile(level), pacmen, ghosts);
+        return totalMap;
     }
 
     //TODO: create map from a data file and create other classes for power ups
-    public Node createMap(String level){
+    public Node createMapFromFile(String level){
         VBox map = new VBox();
         File file = new File(level);
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String string;
             int row = 0;
+            int ghostNum = 0;
             while ((string = br.readLine()) != null){
                 Group rows = new Group();
                 for( int i = 0; i < string.length(); i++){
-                    ImageView currImage = new ImageView();
                     if (string.charAt(i) == 'x'){
-                        currImage = generateBlock(i, row);
+                        rows.getChildren().add(generateBlock(i, row));
                     } else if (string.charAt(i) == 'o') {
-                        currImage = generateFood(i , row);
+                       rows.getChildren().add(generateFood(i , row));
+                    } else if (string.charAt(i) == 'p'){
+                        myVisualizer.addPacmen(i, row);
+                    } else if (string.charAt(i) == 'g'){
+                        ghostNum++;
+                        myVisualizer.addGhosts(i, row, ghostNum);
                     }
-                    rows.getChildren().add(currImage);
                 }
                 row++;
                 map.getChildren().add(rows);
@@ -68,4 +87,9 @@ public class MapView {
         foodImage.setY((BLOCK_HEIGHT * rowNum) + (BLOCK_HEIGHT / 2 - foodImage.getBoundsInLocal().getHeight() / 2));
         return foodImage;
     }
+
+    public Group getPacmen(){return pacmen;}
+
+    public Group getGhosts(){return ghosts;}
+
 }

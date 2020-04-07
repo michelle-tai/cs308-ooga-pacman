@@ -19,7 +19,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         Visualizer myVisualizer = new Visualizer(stage);
         stage.setScene(myVisualizer.setupScene());
         stage.setTitle(TITLE);
