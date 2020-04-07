@@ -41,8 +41,10 @@ public class MapView {
             }
         } catch(FileNotFoundException e){
             //TODO: add error here
+            System.out.println("File not found");
         } catch (IOException e) {
             //TODO: add error here
+            System.out.println(e);
         }
         return map;
     }
@@ -66,6 +68,4 @@ public class MapView {
         foodImage.setTranslateX((BLOCK_HEIGHT * rowNum) + (BLOCK_HEIGHT / 2 - foodImage.getBoundsInLocal().getHeight() / 2));
         return foodImage;
     }
-
-
 }

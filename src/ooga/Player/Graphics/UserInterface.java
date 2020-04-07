@@ -13,8 +13,6 @@ public class UserInterface {
 
     public Node createComponents(){
         VBox vbox = new VBox();
-        Rectangle placeholder = new Rectangle(200, 500, Color.BLUE);
-        vbox.getChildren().add(placeholder);
         return vbox;
     }
 }
