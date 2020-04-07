@@ -1,15 +1,15 @@
 package ooga.Player.Map;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.*;
 
 public class MapView {
 
-    public static final int BLOCK_WIDTH = 20;
-    public static final int BLOCK_HEIGHT = 20;
+    public static final int BLOCK_WIDTH = 40;
+    public static final int BLOCK_HEIGHT = 40;
     public static final int FOOD_WIDTH = 10;
     public static final int FOOD_HEIGHT = 10;
 
@@ -26,7 +26,7 @@ public class MapView {
             String string;
             int row = 0;
             while ((string = br.readLine()) != null){
-                HBox rows = new HBox();
+                Group rows = new Group();
                 for( int i = 0; i < string.length(); i++){
                     ImageView currImage = new ImageView();
                     if (string.charAt(i) == 'x'){
@@ -64,7 +64,7 @@ public class MapView {
         ImageView foodImage = new ImageView(string);
         foodImage.setFitWidth(FOOD_WIDTH);
         foodImage.setFitHeight(FOOD_HEIGHT);
-        foodImage.setTranslateX((BLOCK_WIDTH * (index -1)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
+        foodImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
         foodImage.setY((BLOCK_HEIGHT * rowNum) + (BLOCK_HEIGHT / 2 - foodImage.getBoundsInLocal().getHeight() / 2));
         return foodImage;
     }
