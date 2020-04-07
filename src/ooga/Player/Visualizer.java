@@ -14,8 +14,8 @@ public class Visualizer {
 
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
-    private static final String RESOURCES = "resources";
-    private static final String LEVEL_ONE = RESOURCES + ".levels.level1";
+    private static final String RESOURCES = "src/resources";
+    private static final String LEVEL_ONE = RESOURCES + "/levels/level1";
 
     private Stage myStage;
     private Group pacmen;

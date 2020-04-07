@@ -8,10 +8,10 @@ import java.io.*;
 
 public class MapView {
 
-    public static final int BLOCK_WIDTH = 10;
-    public static final int BLOCK_HEIGHT = 10;
-    public static final int FOOD_WIDTH = 5;
-    public static final int FOOD_HEIGHT = 5;
+    public static final int BLOCK_WIDTH = 20;
+    public static final int BLOCK_HEIGHT = 20;
+    public static final int FOOD_WIDTH = 10;
+    public static final int FOOD_HEIGHT = 10;
 
     public MapView(){
 
@@ -53,9 +53,9 @@ public class MapView {
         String string = "resources/map/block1.png";
         ImageView blockImage = new ImageView(string);
         blockImage.setFitWidth(BLOCK_WIDTH);
-        blockImage.setFitWidth(BLOCK_HEIGHT);
-        blockImage.setTranslateX(BLOCK_WIDTH * index);
-        blockImage.setTranslateX(BLOCK_HEIGHT * rowNum);
+        blockImage.setFitHeight(BLOCK_HEIGHT);
+        blockImage.setX(BLOCK_WIDTH * index);
+        blockImage.setY(BLOCK_HEIGHT * rowNum);
         return blockImage;
     }
 
@@ -63,9 +63,9 @@ public class MapView {
         String string = "resources/map/food1.png";
         ImageView foodImage = new ImageView(string);
         foodImage.setFitWidth(FOOD_WIDTH);
-        foodImage.setFitWidth(FOOD_HEIGHT);
-        foodImage.setTranslateX((BLOCK_WIDTH * index) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
-        foodImage.setTranslateX((BLOCK_HEIGHT * rowNum) + (BLOCK_HEIGHT / 2 - foodImage.getBoundsInLocal().getHeight() / 2));
+        foodImage.setFitHeight(FOOD_HEIGHT);
+        foodImage.setTranslateX((BLOCK_WIDTH * (index -1)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
+        foodImage.setY((BLOCK_HEIGHT * rowNum) + (BLOCK_HEIGHT / 2 - foodImage.getBoundsInLocal().getHeight() / 2));
         return foodImage;
     }
 }
