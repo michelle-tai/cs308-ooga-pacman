@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,6 +29,7 @@ public class Visualizer {
     private MapView myMapView;
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
+    private PacManView createPacMan;
 
     //
     public static final int FRAMES_PER_SECOND = 60;
@@ -46,6 +48,8 @@ public class Visualizer {
     public Scene setupScene(){
         Scene myScene = new Scene(createView());
         //TODO: add CSS files that can be changes to light and dark mode
+        myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+        beginAnimation();
         return myScene;
     }
 
@@ -66,7 +70,9 @@ public class Visualizer {
 
     public void addPacmen(int index, int row){
     //TODO: need to add an instance of the pacmen to the backend
-        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+
+//        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
     }
 
     public void addGhosts(int index, int row, int ghostNum){
@@ -80,6 +86,7 @@ public class Visualizer {
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.getKeyFrames().add(frame);
+            animation.play();
         }
         catch (java.lang.Exception e){
             throw new GameException(e); //can change later
@@ -88,7 +95,11 @@ public class Visualizer {
 
     //todo: add in step method implementation
     private void step(double elapsedTime){
+        createPacMan.update();
 
+    }
 
+    private void handleKeyInput(KeyCode code){
+        createPacMan.handleKeyInput(code);
     }
 }
