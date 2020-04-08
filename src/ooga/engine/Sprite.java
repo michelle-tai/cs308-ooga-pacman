@@ -37,4 +37,7 @@ public interface Sprite {
    */
   public Rectangle getHitBox();
 
+  public int getSpeed();
+  public void setSpeed(int newSpeed);
+
 }
