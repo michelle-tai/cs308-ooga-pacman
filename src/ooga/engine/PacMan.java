@@ -9,14 +9,15 @@ import ooga.Main;
  * @author Michelle Tai
  * @author Olga
  */
-public class MainCharacter implements Sprite{
+public class PacMan implements Sprite{
   private int xPos;
   private int yPos;
   private Rectangle hitbox;
   private int lifeCount;
   private int mySpeed;
+  private int movedist = 35;
 
-  public MainCharacter(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
+  public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
     xPos = startingX;
     yPos = startingY;
     hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
@@ -61,6 +62,34 @@ public class MainCharacter implements Sprite{
    */
   public int getSpeed(){
     return mySpeed;
+  }
+
+  //maybe change so that its not so many ifs
+
+  /**
+   * moves the pacman by updating its x and y positions. movement conditions is based on a properties file, so
+   * this keys can easily be changed. ideally, will have a move object so that there can be different types of movements, but
+   * that can come later
+   * @param direction is the String value (typically the KeyCode name) that holds which key is pressed.
+   *        this value is compared to the corresponding values of the "Right", "Left", ... keys in the properties file
+   */
+  public void move(String direction){
+    if(direction.equals(Main.MY_RESOURCES.getString("Right"))){
+      xPos += movedist;
+      System.out.println("moved right -> new x : " + xPos);
+    }
+    else if(direction.equals(Main.MY_RESOURCES.getString("Left"))){
+      xPos -= movedist;
+      System.out.println("moved left -> new x : " + xPos);
+    }
+    else if(direction.equals(Main.MY_RESOURCES.getString("Down"))){
+      yPos += movedist;
+      System.out.println("moved down -> new y : " + yPos);
+    }
+    else if(direction.equals(Main.MY_RESOURCES.getString("Up"))){
+      yPos -= movedist;
+      System.out.println("moved up -> new y : " + yPos);
+    }
   }
 
   /*

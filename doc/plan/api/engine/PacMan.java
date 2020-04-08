@@ -2,7 +2,7 @@
 Backend PacMan object. Stores state information and contains methods to update state
  */
 
-public interface PacMan{
+public interface iPacMan{
 
     /*
     setter for object movement speed
