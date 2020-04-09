@@ -43,6 +43,16 @@ public class Ghost implements Sprite {
     return hitbox;
   }
 
+  @Override
+  public String getMovementType() {
+    return null;
+  }
+
+  @Override
+  public void setMovementType(String movementType) {
+    //donothing
+  }
+
   /*
     setter for object movement speed
      */
