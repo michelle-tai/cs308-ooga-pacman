@@ -40,5 +40,16 @@ public interface Sprite {
   public String getMovementType();
 
   public void setMovementType(String movementType);
+  /**
+   * Get the current speed value of the sprite
+   * @return current speed of the sprite
+   */
+  public int getSpeed();
+
+  /**
+   * Set the speed value of the sprite to a new speed value
+   * @param newSpeed is the new speed of the sprite
+   */
+  public void setSpeed(int newSpeed);
 
 }
