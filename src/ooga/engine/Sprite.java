@@ -37,6 +37,9 @@ public interface Sprite {
    */
   public Rectangle getHitBox();
 
+  public String getMovementType();
+
+  public void setMovementType(String movementType);
   /**
    * Get the current speed value of the sprite
    * @return current speed of the sprite
