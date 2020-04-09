@@ -17,7 +17,7 @@ public class PacMan implements Sprite{
   private int mySpeed = 5;
   private int movedist = 1;
   private String direction;
-  private Movement myMovement;
+  private PacManMovement myMovement;
 
   public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
     xPos = startingX;
@@ -26,7 +26,7 @@ public class PacMan implements Sprite{
     lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
     mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
     direction = Main.MY_RESOURCES.getString("Right");
-    myMovement = new Movement(this);
+    myMovement = new PacManMovement(this);
   }
 
   @Override

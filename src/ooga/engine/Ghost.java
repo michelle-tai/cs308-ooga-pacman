@@ -1,7 +1,6 @@
 package ooga.engine;
 
 import javafx.scene.shape.Rectangle;
-import ooga.Main;
 
 public class Ghost implements Sprite {
   private int xPos;
@@ -9,7 +8,7 @@ public class Ghost implements Sprite {
   private Rectangle hitbox;
   private int mySpeed;
   private int movedist = 35;
-  private Movement ghostMove;
+  private PacManMovement ghostMove;
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
     xPos = startingX;
@@ -31,6 +30,7 @@ public class Ghost implements Sprite {
   @Override
   public void setX(int newX) {
     xPos = newX;
+    System.out.println("newX " + newX);
   }
 
   @Override
@@ -59,5 +59,6 @@ public class Ghost implements Sprite {
 
   public void move(){
     ghostMove.move();
+//    System.out.println("ghost move");
   }
 }

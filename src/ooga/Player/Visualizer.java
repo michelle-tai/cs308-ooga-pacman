@@ -1,5 +1,7 @@
 package ooga.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -29,8 +31,10 @@ public class Visualizer {
     private MapView myMapView;
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
-    private PacManView createPacMan;
-    private GhostView createGhosts;
+//    private PacManView createPacMan;
+//    private GhostView createGhosts;
+    private List<GhostView> ghostCollection;
+    private List<PacManView> pacmanCollection;
 
     //
     public static final int FRAMES_PER_SECOND = 10;
@@ -44,6 +48,8 @@ public class Visualizer {
         myMapView = new MapView(this);
         nonUserInterface = new NonUserInterface();
         userInterface = new UserInterface();
+        ghostCollection = new ArrayList<>();
+        pacmanCollection = new ArrayList<>();
     }
 
     public Scene setupScene(){
@@ -72,13 +78,15 @@ public class Visualizer {
     public void addPacmen(int index, int row){
     //TODO: need to add an instance of the pacmen to the backend
 
-//        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
-        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+//        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        pacmanCollection.add(createPacMan);
     }
 
     public void addGhosts(int index, int row, int ghostNum){
         //TODO: need to add an instance of the ghosts to the backend
-        createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
+        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
+        ghostCollection.add(createGhosts);
     }
 
     private void beginAnimation() {
@@ -96,12 +104,19 @@ public class Visualizer {
 
     //todo: add in step method implementation
     private void step(double elapsedTime){
-        createPacMan.update();
-        createGhosts.update();
-
+        for(PacManView pc : pacmanCollection){
+            pc.update();
+        }
+        for(GhostView gv : ghostCollection){
+            gv.update();
+        }
+//        createGhosts.update();
     }
 
     private void handleKeyInput(KeyCode code){
-        createPacMan.handleKeyInput(code);
+        for(PacManView pc : pacmanCollection){
+            pc.handleKeyInput(code);
+        }
+//        createPacMan.handleKeyInput(code);
     }
 }
