@@ -14,8 +14,10 @@ public class PacMan implements Sprite{
   private int yPos;
   private Rectangle hitbox;
   private int lifeCount;
-  private int mySpeed = 1;
+  private int mySpeed = 5;
   private int movedist = 1;
+  private String direction;
+  private Movement myMovement;
 
   public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
     xPos = startingX;
@@ -23,6 +25,8 @@ public class PacMan implements Sprite{
     hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
     lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
     mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
+    direction = Main.MY_RESOURCES.getString("Right");
+    myMovement = new Movement(this);
   }
 
   @Override
@@ -91,19 +95,27 @@ public class PacMan implements Sprite{
 //      System.out.println("moved up -> new y : " + yPos);
 //    }
 //  }
-  public void move(String direction){
-    int dx = -1;
-    int dy = -1;
-    int movedDistX = movedist*mySpeed;
-    int movedDistY = movedist * mySpeed;
-    if(direction.equals(Main.MY_RESOURCES.getString("Right")) || direction.equals(Main.MY_RESOURCES.getString("Left"))){
-      movedDistX = movedDistX * dx;
-    }
-    else if(direction.equals(Main.MY_RESOURCES.getString("Down")) || direction.equals(Main.MY_RESOURCES.getString("Up"))){
-      movedDistY = movedDistY * dy;
-    }
-    xPos += movedDistX;
-    yPos += movedDistY;
+//  public void move(String direction){
+//    int dx = -1;
+//    int dy = -1;
+//    int movedDistX = movedist*mySpeed;
+//    int movedDistY = movedist * mySpeed;
+//    if(direction.equals(Main.MY_RESOURCES.getString("Right")) || direction.equals(Main.MY_RESOURCES.getString("Left"))){
+//      movedDistX = movedDistX * dx;
+//    }
+//    else if(direction.equals(Main.MY_RESOURCES.getString("Down")) || direction.equals(Main.MY_RESOURCES.getString("Up"))){
+//      movedDistY = movedDistY * dy;
+//    }
+//    xPos += movedDistX;
+//    yPos += movedDistY;
+//  }
+
+  public void move(){
+    myMovement.move();
+  }
+
+  public void changeDirection(String dir){
+    myMovement.setNewDirection(dir);
   }
 
   /*

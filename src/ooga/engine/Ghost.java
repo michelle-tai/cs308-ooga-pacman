@@ -9,11 +9,13 @@ public class Ghost implements Sprite {
   private Rectangle hitbox;
   private int mySpeed;
   private int movedist = 35;
+  private Movement ghostMove;
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
     xPos = startingX;
     yPos = startingY;
     hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
+    ghostMove = new GhostMovement(this);
   }
 
   @Override
@@ -56,6 +58,6 @@ public class Ghost implements Sprite {
   }
 
   public void move(){
-
+    ghostMove.move();
   }
 }

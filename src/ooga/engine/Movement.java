@@ -1,17 +1,19 @@
 package ooga.engine;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import ooga.Main;
 
 public class Movement {
   private Sprite mySprite;
   private String currDirection;
-  private int movedist = 4;
+  private int movedist = 1;
   private int mySpeed;
 
   public Movement(Sprite sprite){
     mySprite = sprite;
     currDirection = Main.MY_RESOURCES.getString("Right");
-    mySpeed = sprite.getSpeed;
+    mySpeed = sprite.getSpeed();
   }
 
   public void setNewDirection(String direction){
@@ -19,19 +21,34 @@ public class Movement {
   }
 
   public void move(){
-    int dx = -1;
-    int dy = -1;
-    int movedDistX = movedist*;
-    int movedDistY = movedist * mySpeed;
-    if(direction.equals(Main.MY_RESOURCES.getString("Right")) || direction.equals(Main.MY_RESOURCES.getString("Left"))){
-      movedDistX = movedDistX * dx;
+    String directionMethod = "move" + currDirection;
+
+    try {
+      Method method = this.getClass().getDeclaredMethod(directionMethod);
+      method.invoke(Movement.this);
+    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+      // Do nothing
     }
-    else if(direction.equals(Main.MY_RESOURCES.getString("Down")) || direction.equals(Main.MY_RESOURCES.getString("Up"))){
-      movedDistY = movedDistY * dy;
-    }
-    xPos += movedDistX;
-    yPos += movedDistY;
   }
 
+  private void moveRight(){
+    int newX = mySprite.getX() + (movedist * mySpeed * 1);
+    mySprite.setX(newX);
+  }
+
+  private void moveLeft(){
+    int newX = mySprite.getX() + (movedist * mySpeed * -1);
+    mySprite.setX(newX);
+  }
+
+  private void moveUp(){
+    int newY = mySprite.getY() + (movedist * mySpeed * -1);
+    mySprite.setY(newY);
+  }
+
+  private void moveDown(){
+    int newY = mySprite.getY() + (movedist * mySpeed * 1);
+    mySprite.setY(newY);
+  }
 
 }

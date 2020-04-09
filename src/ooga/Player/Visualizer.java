@@ -30,9 +30,10 @@ public class Visualizer {
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
     private PacManView createPacMan;
+    private GhostView createGhosts;
 
     //
-    public static final int FRAMES_PER_SECOND = 60;
+    public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private Timeline animation;
@@ -77,7 +78,7 @@ public class Visualizer {
 
     public void addGhosts(int index, int row, int ghostNum){
         //TODO: need to add an instance of the ghosts to the backend
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
+        createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
     }
 
     private void beginAnimation() {
@@ -96,6 +97,7 @@ public class Visualizer {
     //todo: add in step method implementation
     private void step(double elapsedTime){
         createPacMan.update();
+        createGhosts.update();
 
     }
 
