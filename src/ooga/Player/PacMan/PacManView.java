@@ -53,8 +53,6 @@ public class PacManView {
         System.out.println("Key pressed is: " + code.getName());
     }
 
-
-
     private ImageView createPacManImage(int index, int rows){
         String string = "resources/pacman/pacman1.png";
         ImageView pacmanImage = new ImageView(string);
