@@ -19,32 +19,32 @@ public class MoveHandler {
         }
     }
 
-    public void moveSprite(Sprite sprite, String direction, int distance) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void moveSprite(Sprite sprite) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         String spriteMovement = sprite.getMovementType();
         if(myMoveMethods.contains(spriteMovement)){
             Method moveMethod
-                    = MoveHandler.class.getMethod(spriteMovement, Sprite.class, String.class, int.class);
+                    = MoveHandler.class.getMethod(spriteMovement, Sprite.class);
 
-            moveMethod.invoke(this, sprite, direction, distance);
+            moveMethod.invoke(this, sprite);
         }
     }
 
     //used in reflection
-    private void standard(Sprite sprite, String direction, int distance){
+    private void standard(Sprite sprite, String direction){
         if(direction.equals(Main.MY_RESOURCES.getString("Right"))){
-            sprite.setX(distance + sprite.getX());
+            sprite.setX(sprite.getSpeed() + sprite.getX());
             System.out.println("moved right -> new x : " + sprite.getX());
         }
         else if(direction.equals(Main.MY_RESOURCES.getString("Left"))){
-            sprite.setX(distance - sprite.getX());
+            sprite.setX(-sprite.getSpeed() + sprite.getX());
             System.out.println("moved left -> new x : " + sprite.getX());
         }
         else if(direction.equals(Main.MY_RESOURCES.getString("Down"))){
-            sprite.setY(distance + sprite.getY());
+            sprite.setY(sprite.getSpeed() + sprite.getY());
             System.out.println("moved down -> new y : " + sprite.getY());
         }
         else if(direction.equals(Main.MY_RESOURCES.getString("Up"))){
-            sprite.setY(distance - sprite.getY());
+            sprite.setY(sprite.getSpeed() + sprite.getY());
             System.out.println("moved up -> new y : " + sprite.getY());
         }
     }
