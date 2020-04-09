@@ -36,6 +36,7 @@ public class PacManView {
 //
 //    }
     public void update(){
+        modelPacMan.move();
         myImage.setX(modelPacMan.getX());
         myImage.setY(modelPacMan.getY());
 //        System.out.println("updated viewpc");
@@ -49,7 +50,7 @@ public class PacManView {
      * @param code is the KeyCode value of the key pressed
      */
     public void handleKeyInput(KeyCode code){
-        modelPacMan.move(code.getName());
+        modelPacMan.changeDirection(code.getName());
         System.out.println("Key pressed is: " + code.getName());
     }
 
