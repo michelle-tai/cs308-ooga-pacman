@@ -21,8 +21,11 @@ public class Visualizer {
 
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
-    private static final String RESOURCES = "src/resources";
-    private static final String LEVEL_ONE = RESOURCES + "/levels/level1";
+    public static final String RESOURCES = "src/resources";
+    public static final String LEVEL_ONE = RESOURCES + "/levels/level1";
+    public static final String RESOURCES1 = "resources";
+    public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES1 + "/formats/";
+    public static final String LIGHT_STYLESHEET = "LightStyling.css";
 
     private Stage myStage;
     private Group pacmen;
@@ -30,6 +33,7 @@ public class Visualizer {
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
     private PacManView createPacMan;
+    private Scene myScene;
 
     //
     public static final int FRAMES_PER_SECOND = 60;
@@ -42,13 +46,15 @@ public class Visualizer {
         pacmen = new Group();
         myMapView = new MapView(this);
         nonUserInterface = new NonUserInterface();
-        userInterface = new UserInterface();
+        userInterface = new UserInterface(this);
     }
 
     public Scene setupScene(){
-        Scene myScene = new Scene(createView());
-        //TODO: add CSS files that can be changes to light and dark mode
+        myScene = new Scene(createView());
         myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+        myScene.getStylesheets()
+                .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + LIGHT_STYLESHEET)
+                        .toExternalForm());
         beginAnimation();
         return myScene;
     }
@@ -68,18 +74,6 @@ public class Visualizer {
         return viewPane;
     }
 
-    public void addPacmen(int index, int row){
-    //TODO: need to add an instance of the pacmen to the backend
-
-//        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
-        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
-    }
-
-    public void addGhosts(int index, int row, int ghostNum){
-        //TODO: need to add an instance of the ghosts to the backend
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
-    }
-
     private void beginAnimation() {
         try {
             KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
@@ -96,10 +90,23 @@ public class Visualizer {
     //todo: add in step method implementation
     private void step(double elapsedTime){
         createPacMan.update();
-
     }
 
     private void handleKeyInput(KeyCode code){
         createPacMan.handleKeyInput(code);
     }
+
+    public void addPacmen(int index, int row){
+    //TODO: need to add an instance of the pacmen to the backend
+
+//        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+    }
+
+    public void addGhosts(int index, int row, int ghostNum){
+        //TODO: need to add an instance of the ghosts to the backend
+        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
+    }
+
+    public Scene getMyScene(){return myScene;}
 }
