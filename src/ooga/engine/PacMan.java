@@ -16,6 +16,8 @@ public class PacMan implements Sprite{
   private int lifeCount;
   private int mySpeed;
   private int movedist = 35;
+  private int myStatus;
+  private String pacManMovement;
 
   public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
     xPos = startingX;
@@ -23,6 +25,9 @@ public class PacMan implements Sprite{
     hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
     lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
     mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
+    myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
+    pacManMovement = Main.MY_RESOURCES.getString("PacManMovement");
+
   }
 
   @Override
@@ -48,6 +53,16 @@ public class PacMan implements Sprite{
   @Override
   public Rectangle getHitBox() {
     return hitbox;
+  }
+
+  @Override
+  public String getMovementType() {
+    return pacManMovement;
+  }
+
+  @Override
+  public void setMovementType(String movementType) {
+    pacManMovement = movementType;
   }
 
   /*
@@ -95,7 +110,9 @@ public class PacMan implements Sprite{
   /*
   getter for object status, indicaticating the curent powerup, or lack of powerup
    */
-//  public String getStatus();
+  public int getStatus(){
+    return myStatus;
+  }
 
   /*
 setter for object status, indicaticating the curent powerup, or lack of powerup
@@ -112,6 +129,17 @@ setter for object status, indicaticating the curent powerup, or lack of powerup
   allows for collision checking
    */
 //  public void move(LocationObject neighborhood);
+
+
+  /*
+  returns orientation of pacman
+   */
+ // public String getOrientation();
+
+    /*
+  sets orientation of pacman
+   */
+  // public void setOrientation(String newOrientation);
 
   /*
   increment pacman's lives by 1

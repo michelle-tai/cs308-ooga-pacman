@@ -37,4 +37,8 @@ public interface Sprite {
    */
   public Rectangle getHitBox();
 
+  public String getMovementType();
+
+  public void setMovementType(String movementType);
+
 }
