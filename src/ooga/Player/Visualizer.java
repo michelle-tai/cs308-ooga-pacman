@@ -43,7 +43,7 @@ public class Visualizer {
     private UserInterface userInterface;
     private PacManView createPacMan;
     private Scene myScene;
-//    private GhostView createGhosts;
+    private GhostView createGhosts;
     private List<GhostView> ghostCollection;
     private List<PacManView> pacmanCollection;
     private Timeline animation;
@@ -91,7 +91,7 @@ public class Visualizer {
     public void addPacmen(int index, int row){
     //TODO: need to add an instance of the pacmen to the backend
 
-//        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
         createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
         pacmanCollection.add(createPacMan);
     }
@@ -124,14 +124,14 @@ public class Visualizer {
         for(GhostView gv : ghostCollection){
             gv.update();
         }
-//        createGhosts.update();
+        createGhosts.update();
     }
 
     private void handleKeyInput(KeyCode code){
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
         }
-//        createPacMan.handleKeyInput(code);
+        createPacMan.handleKeyInput(code);
     }
 
     public Scene getMyScene(){return myScene;}

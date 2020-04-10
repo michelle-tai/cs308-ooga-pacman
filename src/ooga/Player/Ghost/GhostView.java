@@ -27,7 +27,17 @@ public class GhostView {
         int ghostWidth = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
         int ghostHeight = Integer.parseInt(Main.MY_RESOURCES.getString("GhostHeight"));
 
-        modelGhost = new Ghost(BLOCK_WIDTH * indexNum, BLOCK_HEIGHT * rowNum, ghostWidth, ghostHeight);
+        modelGhost = new Ghost(BLOCK_WIDTH * indexNum, BLOCK_HEIGHT * rowNum, ghostWidth, ghostHeight) {
+            @Override
+            public String getMovementType() {
+                return null;
+            }
+
+            @Override
+            public void setMovementType(String movementType) {
+
+            }
+        };
     }
 
     public void update() {

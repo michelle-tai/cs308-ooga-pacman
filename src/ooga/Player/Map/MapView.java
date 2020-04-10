@@ -3,12 +3,15 @@ package ooga.Player.Map;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ooga.Player.PacMan.PacManView;
 import ooga.Player.Visualizer;
 import ooga.engine.*;
 
+import java.awt.*;
 import java.io.*;
 import java.util.HashSet;
 
@@ -38,6 +41,7 @@ public class MapView {
     //TODO: create map from a data file and create other classes for power ups
     public Node createMapFromFile(String level){
         VBox map = new VBox();
+        map.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Paint.valueOf("#000000"), null, null)));
         File file = new File(level);
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));

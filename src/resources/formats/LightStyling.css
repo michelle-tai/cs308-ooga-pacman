@@ -1,6 +1,16 @@
 .root {
     -fx-font-size: 12pt;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Courier";
     -fx-base: #cfcfcf;
     -fx-background: #ffffff;
+}
+
+.label{
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.text-area{
+
 }
