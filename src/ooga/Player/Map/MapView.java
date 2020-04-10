@@ -6,11 +6,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 import ooga.Player.PacMan.PacManView;
 import ooga.Player.Visualizer;
+import ooga.engine.*;
 
 import java.awt.*;
 import java.io.*;
+import java.util.HashSet;
 
 public class MapView {
 
@@ -29,7 +32,7 @@ public class MapView {
         myVisualizer = visualizer;
     }
 
-    public Node createMap(String level){
+    public Node createMap(String level, GameContainer container){
         Group totalMap = new Group();
         totalMap.getChildren().addAll(createMapFromFile(level), pacmen, ghosts);
         return totalMap;
@@ -70,6 +73,24 @@ public class MapView {
             System.out.println(e);
         }
         return map;
+    }
+
+    private Node createMapFromContainer(String level, GameContainer container) throws IOException {
+        Group map = new Group();
+        int ghostNum = 0;
+        for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
+            HashSet<Sprite> objects = container.getModelMap().get(loc);
+            for (Sprite sprite : objects) {
+                if (sprite instanceof Block) {
+                    map.getChildren().add(generateBlock(loc.getKey(), loc.getValue()));
+                } else if (sprite instanceof Coin) {
+                    map.getChildren().add(generateFood(loc.getKey(), loc.getValue()));
+                } else if (sprite instanceof Ghost) {
+                    ghostNum++;
+                }
+            }
+        }
+            return map;
     }
 
     private ImageView generateBlock(int index, int rowNum){
