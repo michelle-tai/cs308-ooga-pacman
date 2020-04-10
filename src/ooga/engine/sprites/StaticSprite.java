@@ -1,9 +1,8 @@
-package ooga.engine;
+package ooga.engine.sprites;
 
-import javafx.scene.shape.Rectangle;
-import ooga.Main;
+import ooga.engine.Sprite;
 
-public abstract class StaticSprite implements Sprite{
+public abstract class StaticSprite implements Sprite {
 
     private int myXPos;
     private int myYPos;

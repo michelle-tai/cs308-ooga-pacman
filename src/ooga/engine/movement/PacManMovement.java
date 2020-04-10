@@ -1,8 +1,9 @@
-package ooga.engine;
+package ooga.engine.movement;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import ooga.Main;
+import ooga.engine.Sprite;
 
 public class PacManMovement {
   private Sprite mySprite;
@@ -39,6 +40,7 @@ public class PacManMovement {
   private void moveLeft(){
     int newX = mySprite.getX() + (movedist * mySpeed * -1);
     mySprite.setX(newX);
+//    System.out.println("left");
   }
 
   private void moveUp(){

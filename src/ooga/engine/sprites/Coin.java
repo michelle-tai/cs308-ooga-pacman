@@ -1,17 +1,18 @@
-package ooga.engine;
+package ooga.engine.sprites;
 
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
+import ooga.engine.StaticSprite;
 
-public class Block extends StaticSprite {
+public class Coin extends StaticSprite {
 
     private Rectangle hitbox;
 
-    private static final String movementType = Main.MY_RESOURCES.getString("BlockMovement");
+    private String movementType = Main.MY_RESOURCES.getString("CoinMovement");
 
-    public Block(int x, int y) {
+    public Coin(int x, int y) {
         super(x, y);
-        int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("BlockDim"));
+        int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("CoinDim"));
         hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);
     }
 
@@ -20,7 +21,6 @@ public class Block extends StaticSprite {
         return hitbox;
     }
 
-
     @Override
     public String getMovementType() {
         return movementType;
@@ -28,6 +28,7 @@ public class Block extends StaticSprite {
 
     @Override
     public void setMovementType(String movementType) {
-        //do nothing
+        this.movementType = movementType;
     }
+
 }

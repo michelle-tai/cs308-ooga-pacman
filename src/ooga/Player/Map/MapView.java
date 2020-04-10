@@ -7,7 +7,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-import ooga.Player.PacMan.PacManView;
 import ooga.Player.Visualizer;
 import ooga.engine.*;
 

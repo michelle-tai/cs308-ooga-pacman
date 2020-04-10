@@ -1,5 +1,5 @@
 /**
- * This will contribute to composition of the sprites by allowing sprites to have a Movement method that defines how
+ * This will contribute to composition of the sprites by allowing sprites to have a movement method that defines how
  * the sprite will be moved. For example, with the move up with be by 100 px or 50 px. this can make it easy to change how a sprite moves
  */
 public abstract class Movement {
