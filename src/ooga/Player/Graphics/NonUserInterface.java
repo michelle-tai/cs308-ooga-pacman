@@ -49,6 +49,7 @@ public class NonUserInterface {
             //TODO catch the error
         }
         rules.setEditable(false);
+        rules.setWrapText(true);
         return rules;
     }
 }

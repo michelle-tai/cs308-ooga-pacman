@@ -5,7 +5,7 @@ import ooga.engine.movement.GhostMovement;
 import ooga.engine.movement.PacManMovement;
 import ooga.engine.Sprite;
 
-public class Ghost implements Sprite {
+public class Ghost implements Sprite{
   private int xPos;
   private int yPos;
   private Rectangle hitbox;
