@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.Player.Visualizer;
 import ooga.engine.GameException;
+import ooga.engine.GameStep;
 
 import static javafx.application.Application.launch;
 
@@ -27,7 +28,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-
         Visualizer myVisualizer = new Visualizer(stage);
         stage.setScene(myVisualizer.setupScene());
         stage.setTitle(TITLE);
