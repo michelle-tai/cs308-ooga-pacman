@@ -2,7 +2,7 @@
 Backend Ghost object. Stores state information and contains methods to update state
  */
 
-public interface Ghost{
+public interface Ghost2 {
 
     /*
     setter for object movement speed

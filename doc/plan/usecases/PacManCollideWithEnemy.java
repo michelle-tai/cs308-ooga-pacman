@@ -2,7 +2,7 @@ public class PacManCollideWithEnemy {
 
 }
 
-class PacMann implements Sprite, Visitable {
+class PacMann implements Sprite2, Visitable {
   private Visitor myVisitor = new pacManCollisions();
 
   @Override
@@ -40,7 +40,7 @@ class PacMann implements Sprite, Visitable {
   }
 }
 
-class Coin implements Sprite, Visitable {
+class Coin implements Sprite2, Visitable {
   private Visitor myVisitor = new coinCollisions();
   public Visitor getVisitor(){
     return myVisitor;
@@ -77,7 +77,7 @@ class Coin implements Sprite, Visitable {
   }
 }
 
-class Ghost implements Sprite, Visitable {
+class Ghost implements Sprite2, Visitable {
   private Visitor myVisitor = new ghostCollisions();
   public Visitor getVisitor(){
     return myVisitor;
@@ -118,7 +118,7 @@ class Ghost implements Sprite, Visitable {
 class pacManCollisions implements Visitor {
 
   @Override
-  public void collidedWith(Sprite other) {
+  public void collidedWith(Sprite2 other) {
 
   }
 
@@ -126,7 +126,7 @@ class pacManCollisions implements Visitor {
    * pacman with ghost collision behavior
    * @param ghost
    */
-  public void collidedWith(Ghost ghost) {
+  public void collidedWith(Ghost2 ghost) {
 
   }
 
@@ -150,7 +150,7 @@ class pacManCollisions implements Visitor {
 class ghostCollisions implements Visitor {
 
   @Override
-  public void collidedWith(Sprite other) {
+  public void collidedWith(Sprite2 other) {
 
   }
 
@@ -158,7 +158,7 @@ class ghostCollisions implements Visitor {
    * ghost with ghost collision behavior
    * @param ghost
    */
-  public void collidedWith(Ghost ghost) {
+  public void collidedWith(Ghost2 ghost) {
 
   }
 
@@ -182,7 +182,7 @@ class ghostCollisions implements Visitor {
 class coinCollisions implements Visitor {
 
   @Override
-  public void collidedWith(Sprite other) {
+  public void collidedWith(Sprite2 other) {
 
   }
 
@@ -190,7 +190,7 @@ class coinCollisions implements Visitor {
    * coin with ghost collision behavior
    * @param ghost
    */
-  public void collidedWith(Ghost ghost) {
+  public void collidedWith(Ghost2 ghost) {
 
   }
 
