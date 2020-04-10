@@ -1,8 +1,10 @@
+import javafx.scene.image.ImageView;
+
 /**
  * Creates an instance of a ghost in the view portion of the program. This contains all the visual elements and responsibilities
  * of the ghost.
  */
-public interface GhostView {
+public interface GhostView2 {
   /*
   Creates an instance of the ghost, can have multiple instances
    */

@@ -124,7 +124,7 @@ public class Visualizer {
         for(GhostView gv : ghostCollection){
             gv.update();
         }
-        createGhosts.update();
+//        createGhosts.update();
     }
 
     private void handleKeyInput(KeyCode code){
@@ -132,7 +132,7 @@ public class Visualizer {
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
         }
-        createPacMan.handleKeyInput(code);
+//        createPacMan.handleKeyInput(code);
     }
 
     public Scene getMyScene(){return myScene;}
