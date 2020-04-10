@@ -4,7 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import ooga.Main;
 import ooga.Player.Visualizer;
-import ooga.engine.sprites.Ghost;
+import ooga.engine.sprites.*;
 
 public class GhostView {
 

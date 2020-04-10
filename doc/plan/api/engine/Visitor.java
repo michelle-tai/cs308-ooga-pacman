@@ -11,5 +11,5 @@ public interface Visitor {
    * statements
    * @param other is the sprite it collides with
    */
-  public void collidedWith(Sprite other);
+  public void collidedWith(Sprite2 other);
 }

@@ -1,4 +1,4 @@
-package ooga.engine.sprites;
+package ooga.engine;
 
 import ooga.engine.Sprite;
 
