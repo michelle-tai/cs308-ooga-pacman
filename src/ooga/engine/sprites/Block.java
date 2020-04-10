@@ -4,6 +4,7 @@ import javafx.scene.shape.Rectangle;
 import ooga.Main;
 import ooga.engine.StaticSprite;
 
+
 public class Block extends StaticSprite {
 
     private Rectangle hitbox;

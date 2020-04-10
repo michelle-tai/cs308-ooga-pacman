@@ -13,7 +13,7 @@ public interface Visualizer {
   /*
   Creates an an instnace of the ghost and adds it to the scene
    */
-  Ghost createGhost();
+  Ghost2 createGhost();
   /*
   Creates an instance of the map and adds it to the scene
    */

@@ -7,6 +7,7 @@ import ooga.Main;
 import java.io.*;
 import java.util.HashMap;
 import java.util.HashSet;
+import ooga.engine.sprites.*;
 
 public class GameContainer {
 

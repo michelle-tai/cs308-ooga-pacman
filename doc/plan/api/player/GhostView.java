@@ -6,7 +6,7 @@ public interface GhostView {
   /*
   Creates an instance of the ghost, can have multiple instances
    */
-  void GhostView(Ghost ghost, String name);
+  void GhostView(Ghost2 ghost, String name);
   /*
   Uses an imageView to create a visual of each ghost and visual store each object
    */

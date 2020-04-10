@@ -2,7 +2,7 @@
  * A possible interface or abstract class that any sprite in the game extends, like the pacman, the coins, the enemies, etc
  */
 
-public interface Sprite {
+public interface Sprite2 {
 
   /**
    * @return current x location

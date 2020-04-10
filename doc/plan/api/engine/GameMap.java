@@ -11,18 +11,18 @@ public interface GameMap {
    * Adds a game piece into the game map, since all game pieces will be a sprite (aka have a location and size)
    * @param sprite
    */
-  void addGamePiece(Sprite sprite);
+  void addGamePiece(Sprite2 sprite);
 
   /**
    * moves a sprite to a new location?
    */
-  void moveSprite(Sprite sprite, int newX, int newY);
+  void moveSprite(Sprite2 sprite, int newX, int newY);
 
   /**
    * gets a list of sprites so that the front end can render the images, but the list is copy
    * of the sprites bc dont want other people to be able to change thing?
    */
-  List<Sprite> iterableSpriteList();
+  List<Sprite2> iterableSpriteList();
 
 
 
