@@ -2,7 +2,7 @@ package ooga.engine;
 
 import javafx.scene.shape.Rectangle;
 
-public abstract class Ghost implements Sprite{
+public class Ghost implements Sprite{
   private int xPos;
   private int yPos;
   private Rectangle hitbox;
