@@ -1,9 +1,10 @@
-package ooga.engine;
+package ooga.engine.movement;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import ooga.engine.Sprite;
 
 public class GhostMovement extends PacManMovement {
   private List<String> directions = new ArrayList<>();

@@ -1,8 +1,9 @@
-package ooga.engine;
+package ooga.engine.movement;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import ooga.Main;
+import ooga.engine.Sprite;
 
 public class PacManMovement {
   private Sprite mySprite;

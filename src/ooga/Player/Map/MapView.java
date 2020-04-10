@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-import ooga.Player.PacMan.PacManView;
 import ooga.Player.Visualizer;
 import ooga.engine.*;
 

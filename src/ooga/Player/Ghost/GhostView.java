@@ -5,7 +5,6 @@ import javafx.scene.image.ImageView;
 import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.engine.Ghost;
-import ooga.engine.PacMan;
 
 public class GhostView {
 

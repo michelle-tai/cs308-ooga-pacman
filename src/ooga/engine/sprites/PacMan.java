@@ -1,6 +1,8 @@
-package ooga.engine;
+package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
+import ooga.engine.Sprite;
+import ooga.engine.movement.PacManMovement;
 
 /**
  * The MainCharacter class is what represents Pac-Man. The reason it's called MainCharacter and not Pac-Man
@@ -9,7 +11,7 @@ import ooga.Main;
  * @author Michelle Tai
  * @author Olga
  */
-public class PacMan implements Sprite{
+public class PacMan implements Sprite {
   private int xPos;
   private int yPos;
   private Rectangle hitbox;
