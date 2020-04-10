@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import ooga.engine.sprites.Coin;
+import ooga.engine.sprites.PacMan;
+
 public class CollisionHandler {
 
     private HashMap<Set<String>, Set<String>> myCollisionRules;

@@ -41,7 +41,7 @@ public class Visualizer {
     private GameContainer myContainer;
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
-//    private PacManView createPacMan;
+    private PacManView createPacMan;
     private Scene myScene;
     private GhostView createGhosts;
     private List<GhostView> ghostCollection;
@@ -60,7 +60,6 @@ public class Visualizer {
         pacmanCollection = new ArrayList<>();
         myContainer = new GameContainer();
         myStepper = new GameStep(myContainer);
-
 
     }
 

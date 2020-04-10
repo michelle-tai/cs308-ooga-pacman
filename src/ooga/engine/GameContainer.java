@@ -3,6 +3,9 @@ package ooga.engine;
 
 import javafx.util.Pair;
 import ooga.Main;
+import ooga.engine.sprites.Block;
+import ooga.engine.sprites.Coin;
+import ooga.engine.sprites.PacMan;
 
 import java.io.*;
 import java.util.HashMap;

@@ -9,6 +9,9 @@ import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ooga.Player.Visualizer;
 import ooga.engine.*;
+import ooga.engine.sprites.Block;
+import ooga.engine.sprites.Coin;
+import ooga.engine.sprites.Ghost;
 
 import java.awt.*;
 import java.io.*;

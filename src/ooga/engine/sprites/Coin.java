@@ -2,7 +2,7 @@ package ooga.engine.sprites;
 
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
-import ooga.engine.StaticSprite;
+import ooga.engine.sprites.StaticSprite;
 
 public class Coin extends StaticSprite {
 
