@@ -30,7 +30,7 @@ public class Ghost implements Sprite {
   @Override
   public void setX(int newX) {
     xPos = newX;
-    System.out.println("newX " + newX);
+//    System.out.println("newX " + newX);
   }
 
   @Override

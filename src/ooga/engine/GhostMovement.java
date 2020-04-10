@@ -33,7 +33,7 @@ public class GhostMovement extends PacManMovement {
     try {
       Method method = this.getClass().getDeclaredMethod(directionMethod);
       method.setAccessible(true);
-      System.out.println(method);
+//      System.out.println(method);
 //      System.out.println(getSuperClass());
       method.invoke(this);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {

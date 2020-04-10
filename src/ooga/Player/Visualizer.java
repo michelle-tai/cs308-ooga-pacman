@@ -41,12 +41,13 @@ public class Visualizer {
     private GameContainer myContainer;
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
-    private PacManView createPacMan;
+//    private PacManView createPacMan;
     private Scene myScene;
 //    private GhostView createGhosts;
     private List<GhostView> ghostCollection;
     private List<PacManView> pacmanCollection;
     private Timeline animation;
+    private BorderPane viewPane;
 
 
     public Visualizer (Stage stage){
@@ -65,7 +66,6 @@ public class Visualizer {
 
     public Scene setupScene(){
         myScene = new Scene(createView());
-        myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         myScene.getStylesheets()
                 .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + LIGHT_STYLESHEET)
                         .toExternalForm());
@@ -74,17 +74,16 @@ public class Visualizer {
     }
 
     private BorderPane createView(){
-        BorderPane viewPane = new BorderPane();
+        viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
         //TODO: for multiplayer, pass in different level 1 depending on how many players
         Node map = myMapView.createMap(LEVEL_ONE, myContainer);
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
-
         viewPane.setLeft(nonUInferface);
         viewPane.setCenter(map);
         viewPane.setRight(uInterface);
-
+        viewPane.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         return viewPane;
     }
 
@@ -92,7 +91,7 @@ public class Visualizer {
     //TODO: need to add an instance of the pacmen to the backend
 
 //        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
-        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
         pacmanCollection.add(createPacMan);
     }
 
@@ -117,7 +116,8 @@ public class Visualizer {
 
     //todo: add in step method implementation
     private void step(double elapsedTime){
-        createPacMan.update();
+//        createPacMan.update();
+        viewPane.requestFocus();
         for(PacManView pc : pacmanCollection){
             pc.update();
         }
@@ -128,6 +128,7 @@ public class Visualizer {
     }
 
     private void handleKeyInput(KeyCode code){
+//        System.out.println(code.getName());
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
         }

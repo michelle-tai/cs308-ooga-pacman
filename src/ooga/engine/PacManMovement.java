@@ -39,6 +39,7 @@ public class PacManMovement {
   private void moveLeft(){
     int newX = mySprite.getX() + (movedist * mySpeed * -1);
     mySprite.setX(newX);
+//    System.out.println("left");
   }
 
   private void moveUp(){
