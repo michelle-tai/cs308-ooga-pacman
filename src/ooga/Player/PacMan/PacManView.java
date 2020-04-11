@@ -1,13 +1,9 @@
 package ooga.Player.PacMan;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.engine.sprites.PacMan;
 
@@ -22,8 +18,6 @@ public class PacManView {
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
-    private int numLives;
-
 
     public PacManView(Group pacmen, PacMan modelPacMan, Visualizer visualizer, int indexNum, int rowNum){
         myVisualizer = visualizer;
@@ -38,13 +32,12 @@ public class PacManView {
         myImage.setY(pacmanModel.getY());
     }
 
-    public int getLives(){
-        numLives = pacmanModel.getLivesLeft();
-        return numLives;
+    public SimpleIntegerProperty pacmanLives(){
+            return new SimpleIntegerProperty(pacmanModel.getLivesLeft());
     }
 
-    public SimpleIntegerProperty pacmanLives(){
-            return new SimpleIntegerProperty(getLives());
+    public SimpleIntegerProperty pacmanStatus(){
+        return new SimpleIntegerProperty(pacmanModel.getStatus());
     }
 
     /**

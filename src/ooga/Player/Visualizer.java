@@ -94,16 +94,18 @@ public class Visualizer {
         setPacMan(pacmanCollection.size());
     }
 
+    public void setPacMan(int index){
+        currentPacMan = pacmanCollection.get(index -1 );
+        nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
+        nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
+    }
+
     public void addGhosts(int index, int row, int ghostNum, Ghost ghost){
         //TODO: need to add an instance of the ghosts to the backend
         GhostView createGhosts = new GhostView(myMapView.getGhosts(), ghost, this, index, row, ghostNum);
         ghostCollection.add(createGhosts);
     }
 
-    public void setPacMan(int index){
-        currentPacMan = pacmanCollection.get(index -1 );
-        nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
-    }
 
     private void beginAnimation() {
         try {
