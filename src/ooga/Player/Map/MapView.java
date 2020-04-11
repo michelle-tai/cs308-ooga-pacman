@@ -8,10 +8,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ooga.Player.Visualizer;
+import ooga.controller.Controller;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
-
-import java.awt.*;
 import java.io.*;
 import java.util.HashSet;
 
@@ -25,16 +24,18 @@ public class MapView {
     private Group pacmen;
     private Group ghosts;
     private Visualizer myVisualizer;
+    private Controller myController;
 
     public MapView(Visualizer visualizer){
         pacmen = new Group();
         ghosts = new Group();
         myVisualizer = visualizer;
+        myController = new Controller();
     }
 
-    public Node createMap(String level, GameContainer container){
+    public Node createMap() {
         Group totalMap = new Group();
-        totalMap.getChildren().addAll(createMapFromFile(level), pacmen, ghosts);
+        totalMap.getChildren().addAll(createMapFromContainer(), pacmen, ghosts);
         return totalMap;
     }
 
@@ -75,11 +76,11 @@ public class MapView {
         return map;
     }
 
-    private Node createMapFromContainer(String level, GameContainer container) throws IOException {
+    private Node createMapFromContainer(){
         Group map = new Group();
         int ghostNum = 0;
-        for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
-            HashSet<Sprite> objects = container.getModelMap().get(loc);
+        for(Pair<Integer, Integer> loc : myController.getGameContainerMap().keySet()) {
+            HashSet<Sprite> objects = myController.getGameContainerMap().get(loc);
             for (Sprite sprite : objects) {
                 if (sprite instanceof Block) {
                     map.getChildren().add(generateBlock(loc.getKey(), loc.getValue()));
