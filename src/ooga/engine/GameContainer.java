@@ -61,9 +61,9 @@ public class GameContainer {
 
     private void generateGhost(int i, int row) {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
-       // Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim);
-//        myGhostSet.add(modelGhost);
-//        addSpriteToMap(modelGhost, i, row);
+        Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim);
+        myGhostSet.add(modelGhost);
+        addSpriteToMap(modelGhost, i, row);
 
     }
 

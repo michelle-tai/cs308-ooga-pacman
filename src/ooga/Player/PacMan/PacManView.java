@@ -19,14 +19,14 @@ public class PacManView {
     private ImageView myImage;
     private PacMan modelPacMan;
 
-    public PacManView(Group pacmen, Visualizer visualizer, int indexNum, int rowNum){
+    public PacManView(Group pacmen, PacMan modelPacMan, Visualizer visualizer, int indexNum, int rowNum){
         myVisualizer = visualizer;
         myPacMen = pacmen;
         myImage = createPacManImage(indexNum, rowNum);
         int pacmanWidth = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
         int pacmanHeight = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterHeight"));
 
-        modelPacMan = new PacMan(BLOCK_WIDTH * indexNum, BLOCK_HEIGHT * rowNum, pacmanWidth, pacmanHeight);
+        this.modelPacMan = modelPacMan; //new PacMan(BLOCK_WIDTH * indexNum, BLOCK_HEIGHT * rowNum, pacmanWidth, pacmanHeight);
     }
 
     /*

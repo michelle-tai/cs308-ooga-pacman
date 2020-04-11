@@ -20,6 +20,8 @@ import ooga.Player.PacMan.PacManView;
 import ooga.engine.GameContainer;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
+import ooga.engine.sprites.Ghost;
+import ooga.engine.sprites.PacMan;
 
 public class Visualizer {
 
@@ -87,17 +89,17 @@ public class Visualizer {
         return viewPane;
     }
 
-    public void addPacmen(int index, int row){
+    public void addPacmen(int index, int row, PacMan pacMan){
     //TODO: need to add an instance of the pacmen to the backend
 
-        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
-        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), pacMan,this, index, row);
+        createPacMan = new PacManView(myMapView.getPacmen(), pacMan, this, index, row);
         pacmanCollection.add(createPacMan);
     }
 
-    public void addGhosts(int index, int row, int ghostNum){
+    public void addGhosts(int index, int row, int ghostNum, Ghost ghost){
         //TODO: need to add an instance of the ghosts to the backend
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
+        GhostView createGhosts = new GhostView(myMapView.getGhosts(), ghost, this, index, row, ghostNum);
         ghostCollection.add(createGhosts);
     }
 
@@ -124,7 +126,7 @@ public class Visualizer {
         for(GhostView gv : ghostCollection){
             gv.update();
         }
-        createGhosts.update();
+        //createGhosts.update();
     }
 
     private void handleKeyInput(KeyCode code){
@@ -132,7 +134,7 @@ public class Visualizer {
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
         }
-        createPacMan.handleKeyInput(code);
+      //  createPacMan.handleKeyInput(code);
     }
 
     public Scene getMyScene(){return myScene;}
