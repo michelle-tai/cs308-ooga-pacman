@@ -24,6 +24,9 @@ public class GhostView {
         ghostModel = modelGhost;
         System.out.println(myGhosts.getChildren());
         myImage = createGhostImage(indexNum, rowNum, ghostNum);
+
+
+
     }
 
     public void update() {

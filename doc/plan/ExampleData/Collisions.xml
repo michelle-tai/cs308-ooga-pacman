@@ -2,9 +2,10 @@
 <collisions>
     <PacMan>
         <Status1>
-            <Ghost>DestroyPacMan</Ghost>
+            <Ghost0>DestroyPacMan, decrementLives, </Ghost0>
             <Coin>Collect</Coin>
         </Status1>
+
         <Status2>
             <Ghost>DestroyGhost</Ghost>
             <Coin>Collect</Coin>

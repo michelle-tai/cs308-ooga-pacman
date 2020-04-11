@@ -19,5 +19,9 @@ public class Controller {
 
     public HashMap<Pair<Integer,Integer>, HashSet<Sprite>> getGameContainerMap(){ return container.getModelMap();}
 
+    public GameContainer getContainer(){
+        return container;
+    }
+
 
 }

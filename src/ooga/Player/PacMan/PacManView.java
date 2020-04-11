@@ -25,6 +25,7 @@ public class PacManView {
         myPacMen = pacmen;
         pacmanModel = modelPacMan;
         myImage = createPacManImage(indexNum, rowNum);
+
     }
 
     /*
