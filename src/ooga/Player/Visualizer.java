@@ -87,14 +87,13 @@ public class Visualizer {
     public void addPacmen(int index, int row){
     //TODO: need to add an instance of the pacmen to the backend
 
-        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
-        createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
+        //PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row);
         pacmanCollection.add(createPacMan);
     }
 
     public void addGhosts(int index, int row, int ghostNum){
         //TODO: need to add an instance of the ghosts to the backend
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
+        //GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ghostNum);
         ghostCollection.add(createGhosts);
     }
 
