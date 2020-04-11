@@ -1,18 +1,14 @@
 package ooga.Player.Graphics;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-
 import java.io.*;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class NonUserInterface {
 
@@ -21,25 +17,36 @@ public class NonUserInterface {
     public static final String ENGLISH_BUTTONS = "EnglishButtons";
     public static final String RULES_FILE = "src/resources/GameRules.txt";
     public static final int VBOX_SPACING = 10;
+    private static final int PACMAN_WIDTH = 25;
+    private static final int PACMAN_HEIGHT = 25;
 
     private Styler styler;
     private ResourceBundle myResources;
+    private SimpleIntegerProperty livesLeft;
 
     public NonUserInterface(){
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
         styler = new Styler(myResources);
+        livesLeft = new SimpleIntegerProperty();
     }
 
     public Node createComponents(){
         VBox vbox = new VBox(VBOX_SPACING);
-        vbox.getChildren().addAll( styler.createLabel("LiveCount"), styler.createLabel("DefaultRules"), readRules());
+        vbox.getChildren().addAll( styler.createLabel("LiveCount"), addLives(), styler.createLabel("DefaultRules"), readRules());
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
         return vbox;
     }
 
     private HBox addLives(){
-        //TODO: bind the number of lives to the images of lives 
-        return new HBox();
+        HBox hbox = new HBox(VBOX_SPACING);
+        for(int i=0; i < livesLeft.getValue(); i++){
+            String string = "resources/pacman/pacman1.png";
+            ImageView pacmanImage = new ImageView(string);
+            pacmanImage.setFitWidth(PACMAN_WIDTH);
+            pacmanImage.setFitHeight(PACMAN_HEIGHT);
+            hbox.getChildren().add(pacmanImage);
+        }
+        return hbox;
     }
 
     private TextArea readRules(){
@@ -58,4 +65,6 @@ public class NonUserInterface {
         rules.setWrapText(true);
         return rules;
     }
+
+    public SimpleIntegerProperty getLivesLeft() {return livesLeft;}
 }
