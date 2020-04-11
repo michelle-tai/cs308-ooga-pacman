@@ -3,6 +3,9 @@ package ooga.engine;
 
 import javafx.util.Pair;
 import ooga.Main;
+import ooga.engine.sprites.Block;
+import ooga.engine.sprites.Coin;
+import ooga.engine.sprites.PacMan;
 
 import java.io.*;
 import java.util.HashMap;
@@ -57,6 +60,7 @@ public class GameContainer {
             //TODO: add error here
             System.out.println(e);
         }
+        System.out.println(myMap.keySet().size());
     }
 
     private void generateGhost(int i, int row) {

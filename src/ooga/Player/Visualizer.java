@@ -17,6 +17,7 @@ import ooga.Player.Graphics.NonUserInterface;
 import ooga.Player.Graphics.UserInterface;
 import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
+import ooga.controller.Controller;
 import ooga.engine.GameContainer;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
@@ -39,17 +40,17 @@ public class Visualizer {
     private Stage myStage;
     private Group pacmen;
     private MapView myMapView;
-    private GameStep myStepper;
-    private GameContainer myContainer;
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
-//    private PacManView createPacMan;
+    private PacManView createPacMan;
     private Scene myScene;
     private GhostView createGhosts;
     private List<GhostView> ghostCollection;
     private List<PacManView> pacmanCollection;
     private Timeline animation;
     private BorderPane viewPane;
+    private Controller myController;
+
 
 
     public Visualizer (Stage stage){
@@ -60,10 +61,7 @@ public class Visualizer {
         userInterface = new UserInterface(this);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
-        myContainer = new GameContainer();
-        myStepper = new GameStep(myContainer);
-
-
+        myController = new Controller();
     }
 
     public Scene setupScene(){
@@ -79,7 +77,7 @@ public class Visualizer {
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
         //TODO: for multiplayer, pass in different level 1 depending on how many players
-        Node map = myMapView.createMap(LEVEL_ONE, myContainer);
+        Node map = myMapView.createMap(LEVEL_ONE, myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);
@@ -100,6 +98,7 @@ public class Visualizer {
     public void addGhosts(int index, int row, int ghostNum, Ghost ghost){
         //TODO: need to add an instance of the ghosts to the backend
         GhostView createGhosts = new GhostView(myMapView.getGhosts(), ghost, this, index, row, ghostNum);
+
         ghostCollection.add(createGhosts);
     }
 
