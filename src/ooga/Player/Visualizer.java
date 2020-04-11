@@ -21,8 +21,7 @@ import ooga.controller.Controller;
 import ooga.engine.GameContainer;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
-import ooga.engine.sprites.Ghost;
-import ooga.engine.sprites.PacMan;
+import ooga.engine.sprites.*;
 
 public class Visualizer {
 
