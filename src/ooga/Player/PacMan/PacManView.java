@@ -5,7 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import ooga.Player.Visualizer;
-import ooga.engine.sprites.PacMan;
+import ooga.engine.sprites.*;
 
 public class PacManView {
 
