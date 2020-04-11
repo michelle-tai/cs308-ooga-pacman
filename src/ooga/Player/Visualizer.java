@@ -42,9 +42,9 @@ public class Visualizer {
     private MapView myMapView;
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
-    private PacManView createPacMan;
+    private PacManView currentPacMan;
     private Scene myScene;
-    private GhostView createGhosts;
+    private GhostView currentGhost;
     private List<GhostView> ghostCollection;
     private List<PacManView> pacmanCollection;
     private Timeline animation;
@@ -89,17 +89,20 @@ public class Visualizer {
 
     public void addPacmen(int index, int row, PacMan pacMan){
     //TODO: need to add an instance of the pacmen to the backend
-
-        PacManView createPacMan = new PacManView(myMapView.getPacmen(), pacMan,this, index, row);
-        createPacMan = new PacManView(myMapView.getPacmen(), pacMan, this, index, row);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), pacMan, this, index, row);
         pacmanCollection.add(createPacMan);
+        setPacMan(pacmanCollection.size());
     }
 
     public void addGhosts(int index, int row, int ghostNum, Ghost ghost){
         //TODO: need to add an instance of the ghosts to the backend
         GhostView createGhosts = new GhostView(myMapView.getGhosts(), ghost, this, index, row, ghostNum);
-
         ghostCollection.add(createGhosts);
+    }
+
+    public void setPacMan(int index){
+        currentPacMan = pacmanCollection.get(index -1 );
+        nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
     }
 
     private void beginAnimation() {
