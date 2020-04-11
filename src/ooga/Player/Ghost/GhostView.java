@@ -16,33 +16,23 @@ public class GhostView {
     private Visualizer myVisualizer;
     private Group myGhosts;
     private ImageView myImage;
-    private Ghost modelGhost;
+    private Ghost ghostModel;
 
-    public GhostView(Group ghosts, Visualizer visualizer, int indexNum, int rowNum, int ghostNum){
+    public GhostView(Group ghosts, Ghost modelGhost, Visualizer visualizer, int indexNum, int rowNum, int ghostNum){
         myVisualizer = visualizer;
         myGhosts = ghosts;
+        ghostModel = modelGhost;
         System.out.println(myGhosts.getChildren());
         myImage = createGhostImage(indexNum, rowNum, ghostNum);
-        int ghostWidth = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
-        int ghostHeight = Integer.parseInt(Main.MY_RESOURCES.getString("GhostHeight"));
 
-        modelGhost = new Ghost(BLOCK_WIDTH * indexNum, BLOCK_HEIGHT * rowNum, ghostWidth, ghostHeight) {
-            @Override
-            public String getMovementType() {
-                return null;
-            }
 
-            @Override
-            public void setMovementType(String movementType) {
 
-            }
-        };
     }
 
     public void update() {
-        modelGhost.move();
-        myImage.setX(modelGhost.getX());
-        myImage.setY(modelGhost.getY());
+        ghostModel.move();
+        myImage.setX(ghostModel.getX());
+        myImage.setY(ghostModel.getY());
     }
 
     private ImageView createGhostImage(int index, int rows, int ghostNum){

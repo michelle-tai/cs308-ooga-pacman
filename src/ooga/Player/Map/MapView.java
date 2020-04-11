@@ -8,10 +8,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ooga.Player.Visualizer;
+import ooga.controller.Controller;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
-
-import java.awt.*;
 import java.io.*;
 import java.util.HashSet;
 
@@ -25,57 +24,60 @@ public class MapView {
     private Group pacmen;
     private Group ghosts;
     private Visualizer myVisualizer;
+    private Controller myController;
 
     public MapView(Visualizer visualizer){
         pacmen = new Group();
         ghosts = new Group();
         myVisualizer = visualizer;
+        myController = new Controller();
     }
 
-    public Node createMap(String level, GameContainer container){
+    public Node createMap(String level, GameContainer container) {
         Group totalMap = new Group();
-        totalMap.getChildren().addAll(createMapFromFile(level), pacmen, ghosts);
+        totalMap.getChildren().addAll(createMapFromContainer(level, container), pacmen, ghosts);
         return totalMap;
     }
 
     //TODO: create map from a data file and create other classes for power ups
-    public Node createMapFromFile(String level){
-        VBox map = new VBox();
-        map.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Paint.valueOf("#000000"), null, null)));
-        File file = new File(level);
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String string;
-            int row = 0;
-            int ghostNum = 0;
-            while ((string = br.readLine()) != null){
-                Group rows = new Group();
-                for( int i = 0; i < string.length(); i++){
-                    if (string.charAt(i) == 'x'){
-                        rows.getChildren().add(generateBlock(i, row));
-                    } else if (string.charAt(i) == 'o') {
-                       rows.getChildren().add(generateFood(i , row));
-                    } else if (string.charAt(i) == 'p'){
-                        myVisualizer.addPacmen(i, row);
-                    } else if (string.charAt(i) == 'g'){
-                        ghostNum++;
-                        myVisualizer.addGhosts(i, row, ghostNum);
-                    }
-                }
-                row++;
-                map.getChildren().add(rows);
-            }
-        } catch(FileNotFoundException e){
-            //TODO: add error here
-            System.out.println("File not found");
-        } catch (IOException e) {
-            //TODO: add error here
-            System.out.println(e);
-        }
-        return map;
-    }
+//    public Node createMapFromFile(String level){
+//        VBox map = new VBox();
+//        map.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Paint.valueOf("#000000"), null, null)));
+//        File file = new File(level);
+//        try{
+//            BufferedReader br = new BufferedReader(new FileReader(file));
+//            String string;
+//            int row = 0;
+//            int ghostNum = 0;
+//            while ((string = br.readLine()) != null){
+//                Group rows = new Group();
+//                for( int i = 0; i < string.length(); i++){
+//                    if (string.charAt(i) == 'x'){
+//                        rows.getChildren().add(generateBlock(i, row));
+//                    } else if (string.charAt(i) == 'o') {
+//                       rows.getChildren().add(generateFood(i , row));
+//                    } else if (string.charAt(i) == 'p'){
+//                        myVisualizer.addPacmen(i, row);
+//                    } else if (string.charAt(i) == 'g'){
+//                        ghostNum++;
+//                        myVisualizer.addGhosts(i, row, ghostNum);
+//                    }
+//                }
+//                row++;
+//                map.getChildren().add(rows);
+//            }
+//        } catch(FileNotFoundException e){
+//            //TODO: add error here
+//            System.out.println("File not found");
+//        } catch (IOException e) {
+//            //TODO: add error here
+//            System.out.println(e);
+//        }
+//        return map;
+//    }
 
-    private Node createMapFromContainer(String level, GameContainer container) throws IOException {
+    private Node createMapFromContainer(String level, GameContainer container) {
+        container.createMapFromFile(level);
         Group map = new Group();
         int ghostNum = 0;
         for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
@@ -87,6 +89,9 @@ public class MapView {
                     map.getChildren().add(generateFood(loc.getKey(), loc.getValue()));
                 } else if (sprite instanceof Ghost) {
                     ghostNum++;
+                    myVisualizer.addGhosts(loc.getKey(), loc.getValue(), ghostNum, (Ghost) sprite);
+                } else if (sprite instanceof PacMan){
+                    myVisualizer.addPacmen(loc.getKey(), loc.getValue(), (PacMan) sprite);
                 }
             }
         }

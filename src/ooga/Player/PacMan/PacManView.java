@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import ooga.Main;
 import ooga.Player.Visualizer;
-import ooga.engine.sprites.*;
+import ooga.engine.sprites.PacMan;
 
 public class PacManView {
 
@@ -17,16 +17,14 @@ public class PacManView {
     private Visualizer myVisualizer;
     private Group myPacMen;
     private ImageView myImage;
-    private PacMan modelPacMan;
+    private PacMan pacmanModel;
 
-    public PacManView(Group pacmen, Visualizer visualizer, int indexNum, int rowNum){
+    public PacManView(Group pacmen, PacMan modelPacMan, Visualizer visualizer, int indexNum, int rowNum){
         myVisualizer = visualizer;
         myPacMen = pacmen;
+        pacmanModel = modelPacMan;
         myImage = createPacManImage(indexNum, rowNum);
-        int pacmanWidth = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
-        int pacmanHeight = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterHeight"));
 
-        modelPacMan = new PacMan(BLOCK_WIDTH * indexNum, BLOCK_HEIGHT * rowNum, pacmanWidth, pacmanHeight);
     }
 
     /*
@@ -36,9 +34,9 @@ public class PacManView {
 //
 //    }
     public void update(){
-        modelPacMan.move();
-        myImage.setX(modelPacMan.getX());
-        myImage.setY(modelPacMan.getY());
+        pacmanModel.move();
+        myImage.setX(pacmanModel.getX());
+        myImage.setY(pacmanModel.getY());
 //        System.out.println("updated viewpc");
     }
 
@@ -50,7 +48,7 @@ public class PacManView {
      * @param code is the KeyCode value of the key pressed
      */
     public void handleKeyInput(KeyCode code){
-        modelPacMan.changeDirection(code.getName());
+        pacmanModel.changeDirection(code.getName());
         System.out.println("Key pressed is: " + code.getName());
     }
 
