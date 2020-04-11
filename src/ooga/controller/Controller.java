@@ -3,6 +3,7 @@ package ooga.controller;
 import javafx.util.Pair;
 import ooga.engine.GameContainer;
 import ooga.engine.Sprite;
+import ooga.engine.sprites.PacMan;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ public class Controller {
 
     public Controller(){
         container = new GameContainer();
+
     }
 
     public HashMap<Pair<Integer,Integer>, HashSet<Sprite>> getGameContainerMap(){ return container.getModelMap();}
@@ -20,6 +22,5 @@ public class Controller {
     public GameContainer getContainer(){
         return container;
     }
-
 
 }

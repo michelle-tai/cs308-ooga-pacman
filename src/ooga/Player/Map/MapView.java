@@ -39,43 +39,6 @@ public class MapView {
         return totalMap;
     }
 
-    //TODO: create map from a data file and create other classes for power ups
-//    public Node createMapFromFile(String level){
-//        VBox map = new VBox();
-//        map.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Paint.valueOf("#000000"), null, null)));
-//        File file = new File(level);
-//        try{
-//            BufferedReader br = new BufferedReader(new FileReader(file));
-//            String string;
-//            int row = 0;
-//            int ghostNum = 0;
-//            while ((string = br.readLine()) != null){
-//                Group rows = new Group();
-//                for( int i = 0; i < string.length(); i++){
-//                    if (string.charAt(i) == 'x'){
-//                        rows.getChildren().add(generateBlock(i, row));
-//                    } else if (string.charAt(i) == 'o') {
-//                       rows.getChildren().add(generateFood(i , row));
-//                    } else if (string.charAt(i) == 'p'){
-//                        myVisualizer.addPacmen(i, row);
-//                    } else if (string.charAt(i) == 'g'){
-//                        ghostNum++;
-//                        myVisualizer.addGhosts(i, row, ghostNum);
-//                    }
-//                }
-//                row++;
-//                map.getChildren().add(rows);
-//            }
-//        } catch(FileNotFoundException e){
-//            //TODO: add error here
-//            System.out.println("File not found");
-//        } catch (IOException e) {
-//            //TODO: add error here
-//            System.out.println(e);
-//        }
-//        return map;
-//    }
-
     private Node createMapFromContainer(String level, GameContainer container) {
         container.createMapFromFile(level);
         Group map = new Group();
