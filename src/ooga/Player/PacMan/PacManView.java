@@ -18,6 +18,7 @@ public class PacManView {
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
+    private int numLives;
 
     public PacManView(Group pacmen, PacMan modelPacMan, Visualizer visualizer, int indexNum, int rowNum){
         myVisualizer = visualizer;
@@ -37,6 +38,10 @@ public class PacManView {
         myImage.setX(pacmanModel.getX());
         myImage.setY(pacmanModel.getY());
 //        System.out.println("updated viewpc");
+    }
+
+    public void getLives(){
+        numLives = pacmanModel.getLivesLeft();
     }
 
     // here would tranlsate what up and down is I guess?

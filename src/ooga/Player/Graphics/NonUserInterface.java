@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -31,9 +32,14 @@ public class NonUserInterface {
 
     public Node createComponents(){
         VBox vbox = new VBox(VBOX_SPACING);
-        vbox.getChildren().addAll( styler.createLabel("DefaultRules"), readRules());
+        vbox.getChildren().addAll( styler.createLabel("LiveCount"), styler.createLabel("DefaultRules"), readRules());
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
         return vbox;
+    }
+
+    private HBox addLives(){
+        //TODO: bind the number of lives to the images of lives 
+        return new HBox();
     }
 
     private TextArea readRules(){
