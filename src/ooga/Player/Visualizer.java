@@ -141,4 +141,6 @@ public class Visualizer {
     }
 
     public Scene getMyScene(){return myScene;}
+
+    public PacManView getCurrentPacMan(){return currentPacMan;}
 }
