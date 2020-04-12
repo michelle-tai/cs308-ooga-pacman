@@ -1,11 +1,21 @@
 package ooga.Player.PacMan;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import ooga.Main;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import ooga.Player.Visualizer;
-import ooga.engine.sprites.PacMan;
+import ooga.engine.sprites.*;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class PacManView {
 
@@ -13,6 +23,8 @@ public class PacManView {
     private static final int PACMAN_HEIGHT = 35;
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
+    private static final String ERROR_DIALOG = "Please Choose Another File";
+    private static final String XML_FILEPATH = "user.dir";
 
     private Visualizer myVisualizer;
     private Group myPacMen;
@@ -24,23 +36,21 @@ public class PacManView {
         myPacMen = pacmen;
         pacmanModel = modelPacMan;
         myImage = createPacManImage(indexNum, rowNum);
-
     }
 
-    /*
-    updates the position of the pacman visual determined by the back end or engine
-    */
-//    void update(double newX, double newY, double orientation){
-//
-//    }
     public void update(){
         pacmanModel.move();
         myImage.setX(pacmanModel.getX());
         myImage.setY(pacmanModel.getY());
-//        System.out.println("updated viewpc");
     }
 
-    // here would tranlsate what up and down is I guess?
+    public SimpleIntegerProperty pacmanLives(){
+            return new SimpleIntegerProperty(pacmanModel.getLivesLeft());
+    }
+
+    public SimpleIntegerProperty pacmanStatus(){
+        return new SimpleIntegerProperty(pacmanModel.getStatus());
+    }
 
     /**
      * Passes the keycode string name to the backend so that the new location based on the key pressed
@@ -62,5 +72,66 @@ public class PacManView {
         myPacMen.getChildren().add(pacmanImage);
         return pacmanImage;
     }
+
+    public void choosePacMan(File imageFile) {
+        ImageView pacmanImage = new ImageView();
+        try {
+            BufferedImage bufferedImage = ImageIO.read(imageFile);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            pacmanImage.setImage(image);
+            setShape(pacmanImage);
+        } catch (IllegalArgumentException e){
+            return;
+        } catch (IOException e) {
+            retryLoadFile(e.getMessage());
+        }
+    }
+
+    private void retryLoadFile(String message) {
+        boolean badFile;
+        displayError(message);
+        do {
+            badFile = false;
+            try {
+                choosePacMan(getPacManImage(new Stage()));
+            } catch (NullPointerException e){
+                return;
+            } catch (Exception e){
+                displayError(e.getMessage());
+                badFile = true;
+            }
+        } while (badFile);
+    }
+
+    private void displayError(String message) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText(message);
+        errorAlert.setContentText(ERROR_DIALOG);
+        errorAlert.showAndWait();
+    }
+
+    public File getPacManImage(Stage stage) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose PacMan Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        fileChooser.setInitialDirectory(new File(System.getProperty(XML_FILEPATH)));
+        return fileChooser.showOpenDialog(stage);
+    }
+
+    public void setShape(ImageView pacMan){
+        pacMan.setFitWidth(PACMAN_WIDTH);
+        pacMan.setFitHeight(PACMAN_HEIGHT);
+        myPacMen.getChildren().remove(myImage);
+        myImage = pacMan;
+        myPacMen.getChildren().add(myImage);
+        set(pacmanModel.getX(), pacmanModel.getY());
+    }
+
+    public void set(int newX, int newY){
+        myImage.setX(newX);
+        myImage.setY(newY);
+    }
+
 
 }
