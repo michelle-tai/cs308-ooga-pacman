@@ -60,7 +60,6 @@ public class GameContainer {
             //TODO: add error here
             System.out.println(e);
         }
-        System.out.println(myMap.keySet().size());
     }
 
     private void generateGhost(int i, int row) {
@@ -99,5 +98,59 @@ public class GameContainer {
             locSet.add(sprite);
             myMap.put(loc, locSet);
         }
+    }
+
+    public HashSet<Sprite> getGhosts(){
+        return myGhostSet;
+    }
+
+
+    public HashSet<Sprite> getPacMen() {
+        return myPacManSet;
+    }
+
+    public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
+        HashSet<Sprite> neighborhood = new HashSet<Sprite>();
+        int i = X/BlockWidth;
+        int row = Y/BlockWidth;
+        addToNeighborhood(neighborhood, i, row);
+        addToNeighborhood(neighborhood, i -1, row -1);
+        addToNeighborhood(neighborhood, i , row -1);
+        addToNeighborhood(neighborhood, i + 1, row -1);
+        addToNeighborhood(neighborhood, i -1, row + 1);
+        addToNeighborhood(neighborhood, i , row + 1);
+        addToNeighborhood(neighborhood, i + 1, row + 1);
+        addToNeighborhood(neighborhood, i - 1, row );
+        addToNeighborhood(neighborhood, i + 1, row );
+
+        return neighborhood;
+    }
+
+    private void addToNeighborhood(HashSet<Sprite> neighborhood, int i, int row){
+        Pair<Integer, Integer> spriteLoc = new Pair<Integer, Integer>(i, row);
+        if(myMap.containsKey(spriteLoc)){
+            neighborhood.addAll(myMap.get(spriteLoc));
+        }
+    }
+
+    public void remove(Sprite gameObject){
+        if(gameObject instanceof PacMan){
+            myPacManSet.remove(gameObject);
+        }else if(gameObject instanceof Ghost){
+            myGhostSet.remove(gameObject);
+        }
+        int i= gameObject.getX() / BlockWidth;
+        int row = gameObject.getY() / BlockWidth;
+
+        Pair<Integer, Integer> loc = new Pair(i, row);
+
+        if(myMap.containsKey(loc)){
+            HashSet<Sprite> locSet = myMap.get(loc);
+            if(locSet.contains(gameObject)){
+                locSet.remove(gameObject);
+                myMap.put(loc, locSet);
+            }
+        }
+
     }
 }
