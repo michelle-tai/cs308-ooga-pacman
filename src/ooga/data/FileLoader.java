@@ -1,31 +1,44 @@
 package ooga.data;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Objects;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 public class FileLoader {
+
   public FileLoader() {
 
   }
 
-  private Document parseXmlFile(File xmlDoc) {
+  /**
+   * Method from https://howtodoinjava.com/xml/xml-to-string-write-xml-file/
+   */
+  private static Document convertXMLFileToXMLDocument(String filePath)
+  {
+    //Parser that produces DOM object trees from XML content
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    Document doc = null;
-    try {
-      DocumentBuilder builder = factory.newDocumentBuilder();
-      doc = builder.parse(xmlDoc);
-    } catch (ParserConfigurationException | SAXException | IOException e) {
-      System.out.println("ex");
+
+    //API to obtain DOM Document instance
+    DocumentBuilder builder = null;
+    try
+    {
+      //Create DocumentBuilder with default configuration
+      builder = factory.newDocumentBuilder();
+
+      //Parse the content to Document object
+      return builder.parse(new File(filePath));
     }
-    return (doc);
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   public static void main (String[] args) {
-    System.out.println(parseXmlFile(new File("resources.")));
+    System.out.println(Objects
+        .requireNonNull(convertXMLFileToXMLDocument("src/resources/collisions/collisions.xml")).getDocumentElement().getChildNodes());
   }
 }
