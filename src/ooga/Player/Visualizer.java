@@ -36,9 +36,13 @@ public class Visualizer {
     public static final String RESOURCES1 = "resources";
     public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES1 + "/formats/";
     public static final String LIGHT_STYLESHEET = "LightStyling.css";
+    public static final String START_STYLESHEET = "StartStyling.css";
     public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    public static final int STARTSCREEN_WIDTH = 600;
+    public static final int STARTSCREEN_HEIGHT = 400;
+    public static final int VBOX_INSETS = 100;
 
 
     private Stage myStage;
@@ -73,11 +77,16 @@ public class Visualizer {
 
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
+        start.getStylesheets()
+                .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + START_STYLESHEET)
+                        .toExternalForm());
         return start;
     }
 
     private VBox createStartScene(){
         VBox vbox = new VBox();
+        vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
+        vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
         vbox.getChildren().addAll(styler.createLabel("Pac-Man"), styler.createButton("Start", e->myStage.setScene(setupScene())));
         return vbox;
     }
