@@ -2,6 +2,8 @@ package ooga.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -10,10 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.Player.Ghost.GhostView;
 import ooga.Player.Graphics.NonUserInterface;
+import ooga.Player.Graphics.Styler;
 import ooga.Player.Graphics.UserInterface;
 import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
@@ -36,6 +40,7 @@ public class Visualizer {
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
+
     private Stage myStage;
     private Group pacmen;
     private MapView myMapView;
@@ -49,8 +54,9 @@ public class Visualizer {
     private Timeline animation;
     private BorderPane viewPane;
     private Controller myController;
-
-
+    private Styler styler;
+    private ResourceBundle myResources;
+    public static final String ENGLISH_BUTTONS = "EnglishButtons";
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -61,9 +67,22 @@ public class Visualizer {
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         myController = new Controller();
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
+        styler = new Styler(myResources);
     }
 
-    public Scene setupScene(){
+    public Scene startScene(){
+        Scene start = new Scene(createStartScene());
+        return start;
+    }
+
+    private VBox createStartScene(){
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(styler.createLabel("Pac-Man"), styler.createButton("Start", e->myStage.setScene(setupScene())));
+        return vbox;
+    }
+
+    private Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
                 .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + LIGHT_STYLESHEET)
