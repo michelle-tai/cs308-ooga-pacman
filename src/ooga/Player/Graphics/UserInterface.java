@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import ooga.Player.Visualizer;
 
 import java.util.ResourceBundle;
@@ -36,7 +37,8 @@ public class UserInterface {
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
-        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox);
+        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox, styler.createLabel("Change"),
+                styler.createButton("ChoosePacMan", e->myVisualizer.getCurrentPacMan().choosePacMan(myVisualizer.getCurrentPacMan().getPacManImage(new Stage()))));
         return vbox;
     }
 
