@@ -22,13 +22,11 @@ public class FileLoader {
 
 
 
-
-//
-//  public static void main (String[] args) {
-////    System.out.println(Objects
-////        .requireNonNull(convertXMLFileToXMLDocument("src/resources/collisions/collisions.xml"))
-////        .getElementsByTagName("PacMan").item(0).getTextContent());
-//    getCollisionRules(Objects
-//        .requireNonNull(convertXMLFileToXMLDocument("src/resources/collisions/collisions.xml")));
-//  }
+  public static void main (String[] args) {
+//    System.out.println(Objects
+//        .requireNonNull(convertXMLFileToXMLDocument("src/resources/collisions/collisions.xml"))
+//        .getElementsByTagName("PacMan").item(0).getTextContent());
+    Collision collision = new Collision("src/resources/collisions/collisions.xml");
+    System.out.println(collision.toString());
+  }
 }

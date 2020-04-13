@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -18,54 +18,46 @@ public class Collision {
     getCollisionRules(xmlFile);
   }
 
-  public List<String> getActions(String sprite1, String sprite2) {
-
-
-    return null;
+  public Set<String> getActions(Integer status, String sprite1, String sprite2) {
+    HashSet<String> set = new HashSet<>();
+    set.add(sprite1);
+    set.add("_"+sprite2);
+    return collisionList.get(status).get(set);
   }
 
-  public List getCollisionRules(Document collisions) {
-
+  private void getCollisionRules(Document collisions) {
     for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++){
-      HashSet<String> keys = new HashSet<>();
-      HashSet<String> values = new HashSet<>();
       HashMap<HashSet<String>, HashSet<String>> map = new HashMap<>();
       if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName().compareTo("#text") != 0){
         Node node = collisions.getChildNodes().item(0).getChildNodes().item(i);
-//        System.out.println(node.getTextContent());
-        for (int j = 0; j < node.getChildNodes().getLength(); j++){
-          Node subnode = node.getChildNodes().item(j);
-          for (int k = 0; k < subnode.getChildNodes().getLength(); k++){
-            Node subnode2 = subnode.getChildNodes().item(k);
-            if(subnode2.getNodeName().compareTo("#text") != 0) {
-              System.out.println("#########################");
-              System.out.println(subnode2.getParentNode().getNodeName());
-              keys.add(subnode2.getParentNode().getNodeName());
-              System.out.println(subnode2.getNodeName());
-              keys.add(subnode2.getNodeValue());
-              for (int l = 0; l < subnode2.getChildNodes().getLength(); l++) {
-                Node subnode3 = subnode2.getChildNodes().item(l);
-                if (subnode3.getNodeName().compareTo("#text") != 0) {
-                  System.out.println(subnode3.getTextContent());
-                  values.add(subnode3.getTextContent());
+          for (int j = 0; j < node.getChildNodes().getLength(); j++) {
+            Node subnode = node.getChildNodes().item(j);
+              for (int k = 0; k < subnode.getChildNodes().getLength(); k++) {
+                HashSet<String> keys = new HashSet<>();
+                HashSet<String> values = new HashSet<>();
+                Node subnode2 = subnode.getChildNodes().item(k);
+                if (subnode2.getNodeName().compareTo("#text") != 0) {
+                  keys.add(subnode2.getParentNode().getNodeName());
+                  keys.add(subnode2.getNodeName());
+                  for (int l = 0; l < subnode2.getChildNodes().getLength(); l++) {
+                    Node subnode3 = subnode2.getChildNodes().item(l);
+                    if (subnode3.getNodeName().compareTo("#text") != 0) {
+                      values.add(subnode3.getTextContent());
+                    }
+                  }
+                  map.put(keys, values);
                 }
               }
-              map.put(keys, values);
-              System.out.println("#########################");
             }
-          }
-        }
+        collisionList.add(map);
       }
-//      System.out.println(collisions.getChildNodes().item(0).getChildNodes().item(i).getTextContent());
-      collisionList.add(map);
     }
-    return null;
   }
 
   /**
    * Method from https://howtodoinjava.com/xml/xml-to-string-write-xml-file/
    */
-  private static Document convertXMLFileToXMLDocument(String filePath)
+  private Document convertXMLFileToXMLDocument(String filePath)
   {
     //Parser that produces DOM object trees from XML content
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -85,6 +77,14 @@ public class Collision {
       e.printStackTrace();
     }
     return null;
+  }
+
+  public String toString(){
+    StringBuilder s = new StringBuilder();
+    for (HashMap<HashSet<String>, HashSet<String>> h: collisionList){
+      s.append(h.toString());
+    }
+    return s.toString();
   }
 
 }
