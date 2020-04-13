@@ -2,20 +2,34 @@
 <collisions>
   <Status1>
     <PacMan>
-      <Ghost0>DestroyPacMan, decrementLives</Ghost0>
-      <Coin>Collect</Coin>
+      <Ghost0>
+        <action>destroyPacMan</action>
+        <action>decrementLives</action>
+      </Ghost0>
+      <Coin>
+        <action>Collect</action>
+      </Coin>
     </PacMan>
     <Ghost>
-      <PacMan0>DestroyPacMan</PacMan0>
+      <PacMan0>
+        <action>DestroyPacMan</action>
+      </PacMan0>
     </Ghost>
   </Status1>
   <Status2>
     <PacMan>
-      <Ghost0>DestroyPacMan, decrementLives</Ghost0>
-      <Coin>Collect</Coin>
+      <Ghost0>
+        <action>destroyPacMan</action>
+        <action>decrementLives</action>
+      </Ghost0>
+      <Coin>
+        <action>Collect</action>
+      </Coin>
     </PacMan>
     <Ghost>
-      <PacMan0>DestroyPacMan</PacMan0>
+      <PacMan0>
+        <action>DestroyPacMan</action>
+      </PacMan0>
     </Ghost>
   </Status2>
 </collisions>
