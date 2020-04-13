@@ -2,7 +2,7 @@ package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
 import ooga.engine.Sprite;
-import ooga.engine.movement.PacManMovement;
+import ooga.engine.movement.ControllableMovement;
 
 /**
  * The MainCharacter class is what represents Pac-Man. The reason it's called MainCharacter and not Pac-Man
@@ -19,7 +19,7 @@ public class PacMan implements Sprite {
   private int mySpeed = 5;
   private int movedist = 1;
   private String direction;
-  private PacManMovement myMovement;
+  private ControllableMovement myMovement;
   private int myStatus;
   private String pacManMovement;
 
@@ -33,7 +33,7 @@ public class PacMan implements Sprite {
     myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
     pacManMovement = Main.MY_RESOURCES.getString("PacManMovement");
     direction = Main.MY_RESOURCES.getString("Right");
-    myMovement = new PacManMovement(this);
+    myMovement = new ControllableMovement(this);
 
   }
 

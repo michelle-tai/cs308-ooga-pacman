@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.engine.Sprite;
 
-public class GhostMovement extends PacManMovement {
+public class RandomMovement extends ControllableMovement {
   private List<String> directions = new ArrayList<>();
   private Sprite mySprite;
   private int movedist = 10;
 
 
-  public GhostMovement(Sprite sprite){
+  public RandomMovement(Sprite sprite){
     super(sprite);
     mySprite = sprite;
     directions.addAll(List.of("Right", "Left", "Up", "Down"));

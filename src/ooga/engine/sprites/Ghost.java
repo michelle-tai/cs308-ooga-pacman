@@ -1,8 +1,8 @@
 package ooga.engine.sprites;
 
 import javafx.scene.shape.Rectangle;
-import ooga.engine.movement.GhostMovement;
-import ooga.engine.movement.PacManMovement;
+import ooga.engine.movement.RandomMovement;
+import ooga.engine.movement.ControllableMovement;
 import ooga.engine.Sprite;
 
 public class Ghost implements Sprite{
@@ -11,13 +11,13 @@ public class Ghost implements Sprite{
   private Rectangle hitbox;
   private int mySpeed;
   private int movedist = 35;
-  private PacManMovement ghostMove;
+  private ControllableMovement ghostMove;
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
     xPos = startingX;
     yPos = startingY;
     hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
-    ghostMove = new GhostMovement(this);
+    ghostMove = new RandomMovement(this);
   }
 
   @Override
