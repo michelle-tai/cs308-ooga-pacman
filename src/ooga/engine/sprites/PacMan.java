@@ -12,6 +12,10 @@ import ooga.engine.movement.PacManMovement;
  * @author Olga
  */
 public class PacMan implements Sprite {
+  private int homeXPos;
+  private int homeYPos;
+  private int prevX;
+  private int prevY;
   private int xPos;
   private int yPos;
   private Rectangle hitbox;
@@ -22,9 +26,15 @@ public class PacMan implements Sprite {
   private PacManMovement myMovement;
   private int myStatus;
   private String pacManMovement;
+  private int myPoints;
 
 
   public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
+    myPoints = 0;
+    homeXPos = startingX;
+    homeYPos = startingY;
+    prevX = startingX;
+    prevY = startingY;
     xPos = startingX;
     yPos = startingY;
     hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
@@ -49,11 +59,14 @@ public class PacMan implements Sprite {
 
   @Override
   public void setX(int newX) {
+    prevX = xPos;
     xPos = newX;
+
   }
 
   @Override
   public void setY(int newY) {
+    prevY = yPos;
     yPos = newY;
   }
 
@@ -194,5 +207,19 @@ setter for object status, indicaticating the curent powerup, or lack of powerup
   /*
   resets pacman based on xml file
    */
-//  public void setHome(){}
+public void setHome(){
+  setX(homeXPos);
+  setY(homeYPos);
+}
+
+public void addPoints(int newPoints){
+  myPoints += newPoints;
+}
+
+
+public void setPreviousLocation(){
+  xPos = prevX;
+  yPos = prevY;
+}
+
 }

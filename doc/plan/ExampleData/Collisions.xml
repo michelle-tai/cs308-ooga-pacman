@@ -1,17 +1,133 @@
 
 <collisions>
     <PacMan>
-        <Status1>
-            <Ghost0>DestroyPacMan, decrementLives, </Ghost0>
-            <Coin>Collect</Coin>
-        </Status1>
 
-        <Status2>
-            <Ghost>DestroyGhost</Ghost>
-            <Coin>Collect</Coin>
-        </Status2>
+        <Status>
+            <Type>0</Type>
+            <Ghost>
+                <Status>
+                    <Type>0</Type>
+                    <Action>decrementLives</Action>
+                    <Action>respawn</Action>
+                </Status>
+                <Status>
+                    <Type>1</Type>
+                    <Action>incrementPoints</Action>
+                </Status>
+                <Status>
+                    <Type>2</Type>
+                    <Action>decrementLives</Action>
+                    <Action>respawn</Action>
+                </Status>
+            </Ghost>
+            <Coin>
+                <Status>
+                    <Type>0</Type>
+                    <Action>incrementPoints</Action>
+                </Status>
+                <Status>
+                    <Type>1</Type>
+                    <Action>incrementPoints</Action>
+                    <Action>setStatus</Action>
+                </Status>
+                <Status>
+                    <Type>2</Type>
+                    <Action>incrementPoints</Action>
+                    <Action>setStatus</Action>
+                </Status>
+            </Coin>
+            <Block>
+                <Status>
+                    <Type>0</Type>
+                    <Action>directMovement</Action>
+                </Status>
+                <Status>
+                    <Type>1</Type>
+                    <Action>directMovement</Action>
+                </Status>
+                <Status>
+                    <Type>2</Type>
+                    <Action>directMovement</Action>
+                </Status>
+            </Block>
+        </Status>
+
+        <Status>
+            <Type>1</Type>
+            <Ghost>
+                <Status>
+                    <Type>0</Type>
+                    <Action>destroy</Action>
+                    <Action>decrementLives</Action>
+                </Status>
+                <Status>
+                    <Type>1</Type>
+                    <Action>incrementPoints</Action>
+                </Status>
+                <Status>
+                    <Type>2</Type>
+                    <Action>destroy</Action>
+                    <Action>decrementLives</Action>
+                </Status>
+            </Ghost>
+        </Status>
+
     </PacMan>
+
+
+
     <Ghost>
-        <PacMan>DestroyPacMan</PacMan>
+
+        <Status>
+            <Type>0</Type>
+            <PacMan>
+                <Status>
+                    <Type>1</Type>
+                    <Action>respawn</Action>
+                </Status>
+            </PacMan>
+
+            <Block>
+                <Status>
+                    <Type>0</Type>
+                    <Action>directMovement</Action>
+                </Status>
+                <Status>
+                    <Type>1</Type>
+                    <Action>directMovement</Action>
+                </Status>
+                <Status>
+                    <Type>2</Type>
+                    <Action>directMovement</Action>
+                </Status>
+            </Block>
+        </Status>
+
+
+
     </Ghost>
+
+
+
+
+
+    <Coin>
+
+        <Status>
+            <Type>0</Type>
+            <PacMan>
+                <Status>
+                    <Type>1</Type>
+                    <Action>destroy</Action>
+                </Status>
+            </PacMan>
+
+        </Status>
+
+    </Coin>
+
+
+
 </collisions>
+
+
