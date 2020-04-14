@@ -8,9 +8,12 @@
 .label{
     -fx-font-size: 16pt;
     -fx-font-weight: bold;
-    -fx-alignment: center;
+    -fx-text-alignment: center;
 }
 
-.text-area{
-
+#pause{
+    -fx-font-size: 80pt;
+    -fx-text-fill: #ffee00;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
 }

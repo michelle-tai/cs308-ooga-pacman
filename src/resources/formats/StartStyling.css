@@ -18,3 +18,8 @@
     -fx-background-color: #ffffff;
     -fx-cursor: hand;
 }
+
+.hyperlink{
+    -fx-text-fill: #0f00de;
+    -fx-border-color: transparent;
+}
