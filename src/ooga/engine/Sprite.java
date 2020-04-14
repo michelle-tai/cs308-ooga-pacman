@@ -54,4 +54,6 @@ public interface Sprite {
 
   public int getStatus();
 
+  public void setStatus(int newStatus);
+
 }

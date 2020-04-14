@@ -169,4 +169,8 @@ public class CollisionHandler {
         }
     }
 
+
+    private void setStatus(Sprite sprite, GameContainer container, Sprite actor){
+
+    }
 }
