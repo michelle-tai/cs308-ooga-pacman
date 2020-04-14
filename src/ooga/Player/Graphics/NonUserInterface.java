@@ -23,11 +23,13 @@ public class NonUserInterface {
     private Styler styler;
     private ResourceBundle myResources;
     private SimpleIntegerProperty livesLeft;
+    private SimpleIntegerProperty status;
 
     public NonUserInterface(){
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
         styler = new Styler(myResources);
         livesLeft = new SimpleIntegerProperty();
+        status = new SimpleIntegerProperty();
     }
 
     public Node createComponents(){
@@ -67,4 +69,6 @@ public class NonUserInterface {
     }
 
     public SimpleIntegerProperty getLivesLeft() {return livesLeft;}
+
+    public SimpleIntegerProperty getStatus() {return status;}
 }

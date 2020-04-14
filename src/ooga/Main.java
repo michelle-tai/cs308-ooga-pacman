@@ -29,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         Visualizer myVisualizer = new Visualizer(stage);
-        stage.setScene(myVisualizer.setupScene());
+        stage.setScene(myVisualizer.startScene());
         stage.setTitle(TITLE);
         stage.show();
     }
