@@ -151,6 +151,5 @@ public class GameContainer {
                 myMap.put(loc, locSet);
             }
         }
-
     }
 }
