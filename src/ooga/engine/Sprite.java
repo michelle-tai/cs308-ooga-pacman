@@ -52,4 +52,6 @@ public interface Sprite {
    */
   public void setSpeed(int newSpeed);
 
+  public int getStatus();
+
 }

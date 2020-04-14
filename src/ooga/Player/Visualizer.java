@@ -1,5 +1,6 @@
 package ooga.Player;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,7 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.Player.Ghost.GhostView;
@@ -37,12 +40,14 @@ public class Visualizer {
     public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES1 + "/formats/";
     public static final String LIGHT_STYLESHEET = "LightStyling.css";
     public static final String START_STYLESHEET = "StartStyling.css";
+    public static final String ENGLISH_BUTTONS = "EnglishButtons";
     public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     public static final int STARTSCREEN_WIDTH = 600;
     public static final int STARTSCREEN_HEIGHT = 400;
     public static final int VBOX_INSETS = 100;
+    public static final int VBOX_SPACING = 10;
 
 
     private Stage myStage;
@@ -60,7 +65,6 @@ public class Visualizer {
     private Controller myController;
     private Styler styler;
     private ResourceBundle myResources;
-    public static final String ENGLISH_BUTTONS = "EnglishButtons";
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -84,10 +88,13 @@ public class Visualizer {
     }
 
     private VBox createStartScene(){
-        VBox vbox = new VBox();
+        VBox vbox = new VBox(VBOX_SPACING);
         vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
         vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
-        vbox.getChildren().addAll(styler.createLabel("Pac-Man"), styler.createButton("Start", e->myStage.setScene(setupScene())));
+        HBox hbox = new HBox(styler.createLink("UploadGrid", e->launchFileChooser(new Stage(), "Grid")),
+                styler.createLink("UploadData", e->launchFileChooser(new Stage(), "Data")),
+                styler.createLink("UploadPlayers", e->launchFileChooser(new Stage(), "Players")));
+        vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, styler.createButton("Start", e->myStage.setScene(setupScene())));
         return vbox;
     }
 
@@ -98,6 +105,14 @@ public class Visualizer {
                         .toExternalForm());
         beginAnimation();
         return myScene;
+    }
+
+    private File launchFileChooser(Stage stage, String feature){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose" + feature);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Data Files", "*.XML", "*.txt"));
+        return fileChooser.showOpenDialog(stage);
     }
 
     private BorderPane createView(){
@@ -164,6 +179,10 @@ public class Visualizer {
 //        System.out.println(code.getName());
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
+        }
+        if(code == KeyCode.SPACE){
+            myMapView.changeGameStatus();
+            System.out.println(myMapView.gameStatus());
         }
       //  createPacMan.handleKeyInput(code);
     }

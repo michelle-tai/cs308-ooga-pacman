@@ -32,4 +32,9 @@ public class Block extends StaticSprite {
     public void setMovementType(String movementType) {
         //do nothing
     }
+
+    @Override
+    public int getStatus() {
+        return 0;
+    }
 }
