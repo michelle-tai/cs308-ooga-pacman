@@ -26,8 +26,7 @@ public class FileLoader {
 //    System.out.println(Objects
 //        .requireNonNull(convertXMLFileToXMLDocument("src/resources/collisions/collisions.xml"))
 //        .getElementsByTagName("PacMan").item(0).getTextContent());
-    PathManager pathManager = new PathManager("resources.FilePaths");
-    Collision collision = new Collision(pathManager.getPath(PathManager.COLLISIONS));
+    Collision collision = new Collision();
     System.out.println(collision.toString());
   }
 }

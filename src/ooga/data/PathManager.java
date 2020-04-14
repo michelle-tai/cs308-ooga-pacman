@@ -3,6 +3,8 @@ package ooga.data;
 import java.util.ResourceBundle;
 
 public class PathManager {
+  public static final String FILEPATHS = "resources.FilePaths";
+
   public static final String COLLISIONS = "Collisions";
   public static final String ERRORS = "Errors";
   public static final String PROPERTIES = "Properties";
@@ -19,8 +21,8 @@ public class PathManager {
 
   private ResourceBundle filePaths;
 
-  public PathManager(String filename) {
-    filePaths = ResourceBundle.getBundle(filename);
+  public PathManager() {
+    filePaths = ResourceBundle.getBundle(FILEPATHS);
   }
 
   public String getPath(String key){

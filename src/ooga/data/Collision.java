@@ -13,8 +13,9 @@ import org.w3c.dom.Node;
 public class Collision {
   private ArrayList<HashMap<HashSet<String>, HashSet<String>>> collisionList = new ArrayList<>();
 
-  public Collision (String filePath) {
-    Document xmlFile = convertXMLFileToXMLDocument(filePath);
+  public Collision () {
+    PathManager pathManager = new PathManager();
+    Document xmlFile = convertXMLFileToXMLDocument(pathManager.getPath(PathManager.COLLISIONS));
     getCollisionRules(xmlFile);
   }
 
