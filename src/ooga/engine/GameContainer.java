@@ -78,7 +78,7 @@ public class GameContainer {
     }
 
     private void generateFood(int i, int row) {
-        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row);
+        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0);
         addSpriteToMap(modelFood, i, row);
     }
 
@@ -151,6 +151,6 @@ public class GameContainer {
                 myMap.put(loc, locSet);
             }
         }
-
     }
+
 }
