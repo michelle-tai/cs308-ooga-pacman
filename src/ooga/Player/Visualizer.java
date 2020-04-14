@@ -40,6 +40,7 @@ public class Visualizer {
     public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES1 + "/formats/";
     public static final String LIGHT_STYLESHEET = "LightStyling.css";
     public static final String START_STYLESHEET = "StartStyling.css";
+    public static final String ENGLISH_BUTTONS = "EnglishButtons";
     public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -64,7 +65,6 @@ public class Visualizer {
     private Controller myController;
     private Styler styler;
     private ResourceBundle myResources;
-    public static final String ENGLISH_BUTTONS = "EnglishButtons";
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -179,6 +179,10 @@ public class Visualizer {
 //        System.out.println(code.getName());
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
+        }
+        if(code == KeyCode.SPACE){
+            myMapView.changeGameStatus();
+            System.out.println(myMapView.gameStatus());
         }
       //  createPacMan.handleKeyInput(code);
     }
