@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import ooga.Main;
 import ooga.Player.Visualizer;
+import ooga.controller.Controller;
+import ooga.engine.Sprite;
 import ooga.engine.sprites.*;
 
 public class GhostView {
@@ -17,16 +19,16 @@ public class GhostView {
     private Group myGhosts;
     private ImageView myImage;
     private Ghost ghostModel;
+    private Controller myController;
+    private int ID;
 
-    public GhostView(Group ghosts, Ghost modelGhost, Visualizer visualizer, int indexNum, int rowNum, int ghostNum){
+    public GhostView(Group ghosts, Visualizer visualizer, int indexNum, int rowNum, int idValue, Controller controller){
+        myController = controller;
         myVisualizer = visualizer;
         myGhosts = ghosts;
-        ghostModel = modelGhost;
-        System.out.println(myGhosts.getChildren());
-        myImage = createGhostImage(indexNum, rowNum, ghostNum);
-
-
-
+        ID = idValue;
+        ghostModel = myController.getCurrentGhost(ID);
+        myImage = createGhostImage(indexNum, rowNum);
     }
 
     public void update() {
@@ -35,8 +37,8 @@ public class GhostView {
         myImage.setY(ghostModel.getY());
     }
 
-    private ImageView createGhostImage(int index, int rows, int ghostNum){
-        String string = "resources/ghost/ghost" + ghostNum + ".png";
+    private ImageView createGhostImage(int index, int rows){
+        String string = "resources/ghost/ghost" + (ID+1) + ".png";
         ImageView ghostImage = new ImageView(string);
         ghostImage.setFitWidth(GHOST_WIDTH);
         ghostImage.setFitHeight(GHOST_HEIGHT);
