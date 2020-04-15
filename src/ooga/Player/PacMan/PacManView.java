@@ -10,6 +10,8 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.Player.Visualizer;
+import ooga.controller.Controller;
+import ooga.engine.Sprite;
 import ooga.engine.sprites.*;
 
 import javax.imageio.ImageIO;
@@ -30,11 +32,15 @@ public class PacManView {
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
+    private Controller myController;
+    private int ID;
 
-    public PacManView(Group pacmen, PacMan modelPacMan, Visualizer visualizer, int indexNum, int rowNum){
+    public PacManView(Group pacmen, Visualizer visualizer, int indexNum, int rowNum, int IDvalue, Controller controller){
+        myController = controller;
         myVisualizer = visualizer;
         myPacMen = pacmen;
-        pacmanModel = modelPacMan;
+        ID = IDvalue;
+        pacmanModel = myController.getCurrentPacMan(ID);
         myImage = createPacManImage(indexNum, rowNum);
     }
 
