@@ -8,12 +8,11 @@ import java.io.IOException;
 
 public class Level {
 
-    public Level(){
-
+    public Level(File level){
+        createMapFromFile(level);
     }
 
-    public void createMapFromFile(String level){
-        File file = new File(level);
+    public void createMapFromFile(File file){
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String string;
