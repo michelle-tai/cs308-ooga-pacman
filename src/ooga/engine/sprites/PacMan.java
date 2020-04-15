@@ -12,6 +12,7 @@ import ooga.engine.movement.PacManMovement;
  * @author Olga
  */
 public class PacMan implements Sprite {
+  private int myID;
   private int homeXPos;
   private int homeYPos;
   private int prevX;
@@ -29,7 +30,8 @@ public class PacMan implements Sprite {
   private int myPoints;
 
 
-  public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
+  public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
+    myID = ID;
     myPoints = 0;
     homeXPos = startingX;
     homeYPos = startingY;
@@ -159,7 +161,9 @@ public class PacMan implements Sprite {
   /*
 setter for object status, indicaticating the curent powerup, or lack of powerup
 */
-//  public String setStatus();
+  public void setStatus(int newStatus){
+    myStatus = newStatus;
+  }
 
   /*
   getter for pacman id for multiplayer purposes
@@ -222,4 +226,11 @@ public void setPreviousLocation(){
   yPos = prevY;
 }
 
+public int getID(){
+  return myID;
+}
+
+public void setID(int ID){
+  myID = ID;
+}
 }
