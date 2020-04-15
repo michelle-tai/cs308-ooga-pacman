@@ -67,9 +67,9 @@ public class MapView {
                 } else if (sprite instanceof Coin) {
                     map.getChildren().add(generateFood(loc.getKey(), loc.getValue()));
                 } else if (sprite instanceof Ghost) {
-                    myVisualizer.addGhosts(loc.getKey(), loc.getValue(), (Ghost) sprite);
+                    myVisualizer.addGhosts(loc.getKey(), loc.getValue(), ((Ghost) sprite).getID());
                 } else if (sprite instanceof PacMan){
-                    myVisualizer.addPacmen(loc.getKey(), loc.getValue(), (PacMan) sprite);
+                    myVisualizer.addPacmen(loc.getKey(), loc.getValue(), ((PacMan) sprite).getID());
                 }
             }
         }

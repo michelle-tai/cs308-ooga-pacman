@@ -8,8 +8,11 @@ import ooga.engine.sprites.Coin;
 import ooga.engine.sprites.PacMan;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+
 import ooga.engine.sprites.*;
 
 public class GameContainer {
@@ -20,6 +23,9 @@ public class GameContainer {
 
     private HashSet<Sprite> myGhostSet = new HashSet<Sprite>();
     private HashSet<Sprite> myPacManSet = new HashSet<Sprite>();
+
+    private List<Ghost> myGhostList = new ArrayList<>();
+    private List<PacMan> myPacManList = new ArrayList<>();
 
     private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
@@ -46,11 +52,11 @@ public class GameContainer {
                     } else if (string.charAt(i) == 'o') {
                         generateFood(i , row);
                     } else if (string.charAt(i) == 'p'){
-                        pacNum++;
                         generatePacMan(i, row, pacNum);
+                        pacNum++;
                     } else if (string.charAt(i) == 'g'){
-                        ghostNum++;
                         generateGhost(i, row, ghostNum);
+                        ghostNum++;
                     }
                 }
                 row++;
@@ -68,6 +74,7 @@ public class GameContainer {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
         myGhostSet.add(modelGhost);
+        myGhostList.add(modelGhost);
         addSpriteToMap(modelGhost, i, row);
 
     }
@@ -76,6 +83,7 @@ public class GameContainer {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
         PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
         myPacManSet.add(modelPacMan);
+        myPacManList.add(modelPacMan);
         addSpriteToMap(modelPacMan, i, row);
     }
 
@@ -106,10 +114,14 @@ public class GameContainer {
         return myGhostSet;
     }
 
+    public Ghost getGhost(int ID){
+        return myGhostList.get(ID);}
 
     public HashSet<Sprite> getPacMen() {
         return myPacManSet;
     }
+
+    public PacMan getPacMan(int ID){return myPacManList.get(ID);}
 
     public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();
