@@ -6,6 +6,8 @@ import ooga.engine.movement.ControllableMovement;
 import ooga.engine.Sprite;
 
 public class Ghost implements Sprite{
+  private int myStatus;
+  private int myID;
   private int prevX;
   private int prevY;
   private int homeXPos;
@@ -17,7 +19,9 @@ public class Ghost implements Sprite{
   private int movedist = 35;
   private ControllableMovement ghostMove;
 
-  public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength){
+  public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
+    myID = ID;
+    myStatus = 0;
     prevX = startingX;
     prevY = startingY;
     homeXPos = startingX;
@@ -75,7 +79,12 @@ public class Ghost implements Sprite{
 
   @Override
   public int getStatus() {
-    return 0;
+    return myStatus;
+  }
+
+  @Override
+  public void setStatus(int newStatus) {
+    myStatus = newStatus;
   }
 
   /*
@@ -98,6 +107,14 @@ public class Ghost implements Sprite{
   public void setPreviousLocation(){
     xPos = prevX;
     yPos = prevY;
+  }
+
+  public int getID(){
+    return myID;
+  }
+
+  public void setID(int ID){
+    myID = ID;
   }
 
 }

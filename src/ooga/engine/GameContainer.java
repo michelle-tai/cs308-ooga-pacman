@@ -38,6 +38,7 @@ public class GameContainer {
             String string;
             int row = 0;
             int ghostNum = 0;
+            int pacNum = 0;
             while ((string = br.readLine()) != null){
                 for( int i = 0; i < string.length(); i++){
                     if (string.charAt(i) == 'x'){
@@ -45,10 +46,11 @@ public class GameContainer {
                     } else if (string.charAt(i) == 'o') {
                         generateFood(i , row);
                     } else if (string.charAt(i) == 'p'){
-                        generatePacMan(i, row);
+                        pacNum++;
+                        generatePacMan(i, row, pacNum);
                     } else if (string.charAt(i) == 'g'){
                         ghostNum++;
-                        generateGhost(i, row);
+                        generateGhost(i, row, ghostNum);
                     }
                 }
                 row++;
@@ -62,17 +64,17 @@ public class GameContainer {
         }
     }
 
-    private void generateGhost(int i, int row) {
+    private void generateGhost(int i, int row, int ID) {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
-        Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim);
+        Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
         myGhostSet.add(modelGhost);
         addSpriteToMap(modelGhost, i, row);
 
     }
 
-    private void generatePacMan(int i, int row) {
+    private void generatePacMan(int i, int row, int ID) {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
-        PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim);
+        PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
         myPacManSet.add(modelPacMan);
         addSpriteToMap(modelPacMan, i, row);
     }
@@ -152,5 +154,7 @@ public class GameContainer {
             }
         }
     }
+
+
 
 }
