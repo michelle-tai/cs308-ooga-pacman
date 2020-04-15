@@ -59,7 +59,6 @@ public class MapView {
     private Node createMapFromContainer(String level, GameContainer container) {
         container.createMapFromFile(level);
         Group map = new Group();
-        int ghostNum = 0;
         for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
             HashSet<Sprite> objects = container.getModelMap().get(loc);
             for (Sprite sprite : objects) {
@@ -68,8 +67,7 @@ public class MapView {
                 } else if (sprite instanceof Coin) {
                     map.getChildren().add(generateFood(loc.getKey(), loc.getValue()));
                 } else if (sprite instanceof Ghost) {
-                    ghostNum++;
-                    myVisualizer.addGhosts(loc.getKey(), loc.getValue(), ghostNum, (Ghost) sprite);
+                    myVisualizer.addGhosts(loc.getKey(), loc.getValue(), (Ghost) sprite);
                 } else if (sprite instanceof PacMan){
                     myVisualizer.addPacmen(loc.getKey(), loc.getValue(), (PacMan) sprite);
                 }

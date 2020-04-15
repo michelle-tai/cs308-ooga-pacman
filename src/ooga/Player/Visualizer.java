@@ -142,9 +142,9 @@ public class Visualizer {
         nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
     }
 
-    public void addGhosts(int index, int row, int ghostNum, Ghost ghost){
+    public void addGhosts(int index, int row, Ghost ghost){
         //TODO: need to add an instance of the ghosts to the backend
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), ghost, this, index, row, ghostNum);
+        GhostView createGhosts = new GhostView(myMapView.getGhosts(), ghost, this, index, row);
         ghostCollection.add(createGhosts);
     }
 

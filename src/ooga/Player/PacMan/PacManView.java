@@ -30,11 +30,13 @@ public class PacManView {
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
+    private int ID;
 
     public PacManView(Group pacmen, PacMan modelPacMan, Visualizer visualizer, int indexNum, int rowNum){
         myVisualizer = visualizer;
         myPacMen = pacmen;
         pacmanModel = modelPacMan;
+        ID = pacmanModel.getID();
         myImage = createPacManImage(indexNum, rowNum);
     }
 

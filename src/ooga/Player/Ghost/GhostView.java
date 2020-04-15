@@ -17,13 +17,15 @@ public class GhostView {
     private Group myGhosts;
     private ImageView myImage;
     private Ghost ghostModel;
+    private int ID;
 
-    public GhostView(Group ghosts, Ghost modelGhost, Visualizer visualizer, int indexNum, int rowNum, int ghostNum){
+    public GhostView(Group ghosts, Ghost modelGhost, Visualizer visualizer, int indexNum, int rowNum){
         myVisualizer = visualizer;
         myGhosts = ghosts;
         ghostModel = modelGhost;
+        ID = ghostModel.getID();
         System.out.println(myGhosts.getChildren());
-        myImage = createGhostImage(indexNum, rowNum, ghostNum);
+        myImage = createGhostImage(indexNum, rowNum);
 
 
 
@@ -35,8 +37,8 @@ public class GhostView {
         myImage.setY(ghostModel.getY());
     }
 
-    private ImageView createGhostImage(int index, int rows, int ghostNum){
-        String string = "resources/ghost/ghost" + ghostNum + ".png";
+    private ImageView createGhostImage(int index, int rows){
+        String string = "resources/ghost/ghost" + ID + ".png";
         ImageView ghostImage = new ImageView(string);
         ghostImage.setFitWidth(GHOST_WIDTH);
         ghostImage.setFitHeight(GHOST_HEIGHT);
