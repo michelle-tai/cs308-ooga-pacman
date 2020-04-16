@@ -28,5 +28,6 @@ public class FileLoader {
 //        .getElementsByTagName("PacMan").item(0).getTextContent());
     Collision collision = new Collision();
     System.out.println(collision.toString());
+    System.out.println(collision.getActions(1, "PacMan", "Ghost"));
   }
 }

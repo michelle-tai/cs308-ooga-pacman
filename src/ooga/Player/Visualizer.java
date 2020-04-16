@@ -129,9 +129,9 @@ public class Visualizer {
         return viewPane;
     }
 
-    public void addPacmen(int index, int row, PacMan pacMan){
+    public void addPacmen(int index, int row, int ID){
     //TODO: need to add an instance of the pacmen to the backend
-        PacManView createPacMan = new PacManView(myMapView.getPacmen(), pacMan, this, index, row);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row, ID, myController);
         pacmanCollection.add(createPacMan);
         setPacMan(pacmanCollection.size());
     }
@@ -142,9 +142,9 @@ public class Visualizer {
         nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
     }
 
-    public void addGhosts(int index, int row, int ghostNum, Ghost ghost){
+    public void addGhosts(int index, int row, int ID){
         //TODO: need to add an instance of the ghosts to the backend
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), ghost, this, index, row, ghostNum);
+        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ID, myController);
         ghostCollection.add(createGhosts);
     }
 

@@ -5,13 +5,13 @@ import java.lang.reflect.Method;
 import ooga.Main;
 import ooga.engine.Sprite;
 
-public class PacManMovement {
+public class ControllableMovement {
   private Sprite mySprite;
   private String currDirection;
   private int movedist = 1;
   private int mySpeed;
 
-  public PacManMovement(Sprite sprite){
+  public ControllableMovement(Sprite sprite){
     mySprite = sprite;
     currDirection = Main.MY_RESOURCES.getString("Right");
     mySpeed = sprite.getSpeed();
@@ -26,7 +26,7 @@ public class PacManMovement {
 
     try {
       Method method = this.getClass().getDeclaredMethod(directionMethod);
-      method.invoke(PacManMovement.this);
+      method.invoke(ControllableMovement.this);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
       // Do nothing
     }
