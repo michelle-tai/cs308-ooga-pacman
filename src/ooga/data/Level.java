@@ -26,9 +26,14 @@ public class Level {
     private PathManager myPathManager = new PathManager();
 
     public Level(File level){
-        createMapFromFile(level);
         ResourceBundle resourceBundle = ResourceBundle.getBundle(PathManager.PROPERTIES);
         BlockWidth = Integer.parseInt(resourceBundle.getString("BlockDim"));
+        createMapFromFile(level);
+    }
+
+    public Level(File level, Integer blockWidth){
+        BlockWidth = blockWidth;
+        createMapFromFile(level);
     }
 
     public Image getMapElementImage(int row, int col) {

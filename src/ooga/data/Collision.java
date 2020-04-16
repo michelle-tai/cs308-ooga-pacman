@@ -27,7 +27,7 @@ public class Collision {
 
   public Set<String> getActions(Integer status, String sprite1, String sprite2) {
     Pair<String, String> set = new Pair<>(sprite1, sprite2);
-    return collisionList.get(status).get(set);
+    return collisionList.get(status-1).get(set);
   }
 
   private void getCollisionRules(Document collisions) {
