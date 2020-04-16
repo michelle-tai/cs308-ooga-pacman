@@ -1,9 +1,12 @@
 package ooga.data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PathManager {
-  public static final String FILEPATHS = "resources.FilePaths";
+  public static final String FILEPATHS = "FilePaths";
 
   public static final String COLLISIONS = "Collisions";
   public static final String ERRORS = "Errors";
@@ -16,8 +19,8 @@ public class PathManager {
   public static final String DARKFORMAT =  "DarkFormat";
   public static final String LIGHTFORMAT = "LightFormat";
   public static final String STARTFORMAT = "StartFormat";
-  public static final String GHOSTIMAGE = "GhostImages";
-  public static final String PACKMANIMAGE = "PackManImage";
+  public static final String GHOSTIMAGES = "GhostImages";
+  public static final String PACKMANIMAGE = "PackManImages";
 
   private ResourceBundle filePaths;
 
@@ -25,7 +28,25 @@ public class PathManager {
     filePaths = ResourceBundle.getBundle(FILEPATHS);
   }
 
-  public String getPath(String key){
+  public String getFilePath(String key){
     return filePaths.getString(key);
+  }
+
+  public String getGhostPath(Integer index) {
+    List<String> ghostList = Arrays.asList(filePaths.getString(GHOSTIMAGES).split(","));
+    if (index >= ghostList.size()) {
+      System.out.println("WARNING: Ghost requested does not have an associated image.");
+      index = ghostList.size()-1;
+    }
+    return ghostList.get(index);
+  }
+
+  public String getPacManPath(Integer index) {
+    List<String> pacmanList = Arrays.asList(filePaths.getString(PACKMANIMAGE).split(","));
+    if (index >= pacmanList.size()) {
+      System.out.println("WARNING: PacMan requested does not have an associated image.");
+      index = pacmanList.size()-1;
+    }
+    return pacmanList.get(index);
   }
 }

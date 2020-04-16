@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.util.Pair;
 import ooga.Main;
 import ooga.engine.Sprite;
@@ -19,15 +19,27 @@ import ooga.engine.sprites.PacMan;
 
 public class Level {
 
-    private Map<Pair<Integer, Integer>, ImageView> myImages = new HashMap<>();
+    private Map<Pair<Integer, Integer>, Image> myImages = new HashMap<>();
     private Map<Pair<Integer, Integer>, Sprite> myMap = new HashMap<>();
 
     private static Integer BlockWidth;
+    private PathManager myPathManager = new PathManager();
 
     public Level(File level){
         createMapFromFile(level);
         ResourceBundle resourceBundle = ResourceBundle.getBundle(PathManager.PROPERTIES);
         BlockWidth = Integer.parseInt(resourceBundle.getString("BlockDim"));
+    }
+
+    public Image getMapElementImage(int row, int col) {
+        Pair<Integer, Integer> pair = new Pair<>(row, col);
+        if (myImages.containsKey(pair)) {
+            return myImages.get(pair);
+        } else {
+            // TODO: handle error
+            System.out.println("Pair not in map");
+        }
+        return null;
     }
 
     public Map<Pair<Integer,Integer>, Sprite> getModelMap(){
@@ -77,6 +89,8 @@ public class Level {
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
         addSpriteToMap(modelGhost, i, row);
 
+        // @author Caleb Sanford
+        addImageToMap(myPathManager.getGhostPath(ID), i, row);
     }
 
     /**
@@ -86,6 +100,9 @@ public class Level {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
         PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
         addSpriteToMap(modelPacMan, i, row);
+
+        // @author Caleb Sanford
+        addImageToMap(myPathManager.getPacManPath(ID), i, row);
     }
 
     /**
@@ -94,6 +111,9 @@ public class Level {
     private void generateFood(int i, int row) {
         Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0);
         addSpriteToMap(modelFood, i, row);
+
+        // @author Caleb Sanford
+        addImageToMap(myPathManager.getFilePath(PathManager.FOODIMAGE), i, row);
     }
 
     /**
@@ -102,10 +122,19 @@ public class Level {
     private void generateBlock(int i, int row) {
         Block modelBlock = new Block(BlockWidth * i, BlockWidth * row);
         addSpriteToMap(modelBlock, i, row);
+
+        // @author Caleb Sanford
+        addImageToMap((myPathManager.getFilePath(PathManager.BLOCKIMAGE)), i, row);
     }
 
     private void addSpriteToMap(Sprite sprite, int i, int row){
         Pair<Integer, Integer> loc = new Pair(i,row);
         myMap.put(loc, sprite);
+    }
+
+    private void addImageToMap(String imagePath, int i, int row) {
+        Pair<Integer, Integer> loc = new Pair(i,row);
+        Image image = new Image(imagePath);
+        myImages.put(loc, image);
     }
 }

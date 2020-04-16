@@ -16,7 +16,12 @@ public class Collision {
 
   public Collision () {
     PathManager pathManager = new PathManager();
-    Document xmlFile = convertXMLFileToXMLDocument(pathManager.getPath(PathManager.COLLISIONS));
+    Document xmlFile = convertXMLFileToXMLDocument(pathManager.getFilePath(PathManager.COLLISIONS));
+    getCollisionRules(xmlFile);
+  }
+
+  public Collision (String filepath) {
+    Document xmlFile = convertXMLFileToXMLDocument(filepath);
     getCollisionRules(xmlFile);
   }
 
