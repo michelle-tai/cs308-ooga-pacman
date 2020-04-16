@@ -1,6 +1,7 @@
 package ooga.engine;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class GameStep {
     private CollisionHandler myCollisionHandler;

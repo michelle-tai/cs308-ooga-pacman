@@ -8,6 +8,7 @@ import ooga.engine.StaticSprite;
 public class Block extends StaticSprite {
 
     private Rectangle hitbox;
+    private int status;
 
     private static final String movementType = Main.MY_RESOURCES.getString("BlockMovement");
 

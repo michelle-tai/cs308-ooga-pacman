@@ -53,4 +53,9 @@ public abstract class DynamicSprite implements Sprite{
         return 0;
     }
 
+    @Override
+    public void setStatus(int newStatus) {
+
+    }
+
 }
