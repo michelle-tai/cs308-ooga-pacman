@@ -3,33 +3,30 @@
   <Status1>
     <PacMan>
       <Ghost>
-        <action>destroyPacMan</action>
-        <action>decrementLives</action>
+        <action>test1</action>
       </Ghost>
       <Coin>
-        <action>Collect</action>
+        <action>test2</action>
       </Coin>
     </PacMan>
     <Ghost>
       <PacMan>
-        <action>DestroyPacMan</action>
+        <action>test3</action>
       </PacMan>
     </Ghost>
   </Status1>
   <Status2>
     <PacMan>
       <Ghost>
-        <action>destroyPacMan</action>
-        <action>decrementLives</action>
-        <action>test</action>
+        <action>test4</action>
       </Ghost>
       <Coin>
-        <action>Collect</action>
+        <action>test5</action>
       </Coin>
     </PacMan>
     <Ghost>
       <PacMan>
-        <action>DestroyPacMan</action>
+        <action>test6</action>
       </PacMan>
     </Ghost>
   </Status2>
