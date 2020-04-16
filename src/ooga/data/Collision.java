@@ -25,7 +25,7 @@ public class Collision {
     return collisionList.get(status).get(set);
   }
 
-  private void getCollisionRules(Document collisions) {
+  public void getCollisionRules(Document collisions) {
     for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++){
       HashMap<Pair<String, String>, HashSet<String>> map = new HashMap<>();
       if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName().compareTo("#text") != 0){

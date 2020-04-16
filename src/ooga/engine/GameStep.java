@@ -1,5 +1,8 @@
 package ooga.engine;
 
+import ooga.data.Collision;
+
+import javax.xml.crypto.Data;
 import java.util.HashSet;
 import java.util.List;
 
@@ -7,10 +10,12 @@ public class GameStep {
     private String myStatus;
     private GameContainer myContainer;
     private CollisionHandler myCollisionHandler;
+    private Collision collision;
 
     public GameStep(GameContainer container){
         myContainer = container;
-        //myCollisionHandler = new CollisionHandler();
+        collision = new Collision();
+       // myCollisionHandler = new CollisionHandler(collision.getCollisionRules(););
     }
 
     public void step(){

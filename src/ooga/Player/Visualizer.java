@@ -69,12 +69,12 @@ public class Visualizer {
     public Visualizer (Stage stage){
         myStage = stage;
         pacmen = new Group();
+        myController = new Controller();
         myMapView = new MapView(this);
         nonUserInterface = new NonUserInterface();
         userInterface = new UserInterface(this);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
-        myController = new Controller();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
         styler = new Styler(myResources);
     }
@@ -172,6 +172,7 @@ public class Visualizer {
         for(GhostView gv : ghostCollection){
             gv.update();
         }
+        //myController.setGameStep();
         //createGhosts.update();
     }
 
