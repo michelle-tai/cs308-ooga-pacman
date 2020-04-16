@@ -22,7 +22,7 @@ import ooga.engine.sprites.*;
 
 public class CollisionHandler {
 
-    private HashMap<Pair<String, String>, Set<String>> myCollisionRules;
+    private HashMap<Pair<String, String>, HashSet<String>> myCollisionRules;
     private char dotDeliminator = '.';
     private HashSet<String> myMethodNames;
 
@@ -32,7 +32,7 @@ public class CollisionHandler {
     method names in this class, in order to check against them so the NoSuchMethod exception will never be encountered with
     proper use.
      */
-    public CollisionHandler(HashMap<Pair<String, String>, Set<String>> collisionRules) {
+    public CollisionHandler(HashMap<Pair<String, String>, HashSet<String>> collisionRules) {
         myCollisionRules = collisionRules;
         Class<?> c = this.getClass();
         Method[] methods = c.getDeclaredMethods();

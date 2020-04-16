@@ -151,7 +151,7 @@ public class Visualizer {
 
     private void beginAnimation() {
         try {
-            KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+            KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.getKeyFrames().add(frame);
@@ -163,8 +163,8 @@ public class Visualizer {
     }
 
     //todo: add in step method implementation
-    private void step(double elapsedTime){
-//        createPacMan.update();
+    private void step(){
+        myController.setGameStep();
         viewPane.requestFocus();
         for(PacManView pc : pacmanCollection){
             pc.update();
@@ -172,20 +172,15 @@ public class Visualizer {
         for(GhostView gv : ghostCollection){
             gv.update();
         }
-        //myController.setGameStep();
-        //createGhosts.update();
     }
 
     private void handleKeyInput(KeyCode code){
-//        System.out.println(code.getName());
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
         }
         if(code == KeyCode.SPACE){
             myMapView.changeGameStatus();
-            System.out.println(myMapView.gameStatus());
         }
-      //  createPacMan.handleKeyInput(code);
     }
 
     public Scene getMyScene(){return myScene;}
