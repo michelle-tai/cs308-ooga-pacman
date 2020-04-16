@@ -37,4 +37,9 @@ public class Block extends StaticSprite {
     public int getStatus() {
         return 0;
     }
+
+    @Override
+    public void setStatus(int newStatus) {
+        //do nothing
+    }
 }

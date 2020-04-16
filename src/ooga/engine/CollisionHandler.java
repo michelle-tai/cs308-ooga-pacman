@@ -25,6 +25,8 @@ public class CollisionHandler {
     private HashMap<Pair<String, String>, Set<String>> myCollisionRules;
     private char dotDeliminator = '.';
     private HashSet<String> myMethodNames;
+    private Method[] myMethods;
+    private int count;
 
 
     /*
@@ -32,14 +34,36 @@ public class CollisionHandler {
     method names in this class, in order to check against them so the NoSuchMethod exception will never be encountered with
     proper use.
      */
-    public CollisionHandler(HashMap<Pair<String, String>, Set<String>> collisionRules) {
-        myCollisionRules = collisionRules;
+    public CollisionHandler() {
+        mapTester();
+        //myCollisionRules = collisionRules;
         Class<?> c = this.getClass();
-        Method[] methods = c.getDeclaredMethods();
-        myMethodNames = new HashSet<String>();
-        for (int i = 0; i < methods.length; i++) {
-            myMethodNames.add(methods[i].getName());
+
+        myMethods = c.getDeclaredMethods();
+        for(int i = 0; i < myMethods.length; i++){
+            System.out.println(myMethods[i]);
         }
+        myMethodNames = new HashSet<String>();
+        for (int i = 0; i < myMethods.length; i++) {
+            myMethodNames.add(myMethods[i].getName());
+        }
+    }
+
+
+    private void mapTester(){
+        myCollisionRules = new HashMap<>();
+        HashSet<String> methodSet = new HashSet<String>();
+        methodSet.add("directMovement");
+        //methodSet.add("private void ooga.engine.CollisionHandler.directMovement(ooga.engine.Sprite,ooga.engine.GameContainer,ooga.engine.Sprite)");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Block"), methodSet);
+//        methodSet = new HashSet<String>();
+//        methodSet.add("destroy");
+//        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin"), methodSet);
+        methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin", "PacMan0"), methodSet);
+
+
     }
 
     /*
@@ -50,7 +74,6 @@ public class CollisionHandler {
 
         Rectangle firstBox = firstSprite.getHitBox();
         Rectangle secondBox = secondSprite.getHitBox();
-
         double topXFirst = firstBox.getX();
         double bottomXFirst = topXFirst + firstBox.getWidth();
         double topYFirst = firstBox.getY();
@@ -66,15 +89,16 @@ public class CollisionHandler {
                 || bottomXFirst < topXSecond // R1 is left to R2
                 || topYFirst < bottomYSecond // R1 is above R2
                 || bottomYFirst > topYSecond) { // R1 is below R1
-            return false;
+            return true;
         }
-        return true;
-    }
+            return true;
+        }
 
     /*
     Method that uses reflection to call the appropriate methods that modify sprite status and the game status as required.
      */
     public void checkAndExecute(Sprite firstSprite, Sprite secondSprite, GameContainer container) {
+
         if (checkCollision(firstSprite, secondSprite)) {
             String firstSpriteName = simpleStringName(firstSprite);
             String secondSpriteName = simpleStringName(secondSprite);
@@ -90,21 +114,36 @@ public class CollisionHandler {
     }
 
     private void invokeMethods(Pair<String, String> collisionObjects, GameContainer container, Sprite firstSprite, Sprite secondSprite){
-        try {
-            for (String m : myCollisionRules.get(collisionObjects)) {
-                if (myMethodNames.contains(m)) {
-                    Method collisionMethod
-                            = CollisionHandler.class.getMethod(m, Sprite.class, GameContainer.class, Sprite.class);
 
-                    collisionMethod.invoke(this, firstSprite, container, secondSprite);
-                }
+        try {
+            Set<String> methodSet = myCollisionRules.get(collisionObjects);
+            if(null != methodSet){
+                for (String mName : methodSet) {
+                   // if (myMethodNames.contains(m)) {
+                    for(Method m : myMethods){
+                        if(m.getName().startsWith(mName)){
+
+                            m.invoke(this, firstSprite, container, secondSprite);
+                        }
+
+//                        Method collisionMethod
+//                                = this.getClass().getMethod(mName, Sprite.class, GameContainer.class, Sprite.class);
+
+//                        collisionMethod.invoke(this, firstSprite, container, secondSprite);
+                    }
+
+                   // }
+            }
 
             }
-        }catch (NoSuchMethodException e) {
+        //}catch (NoSuchMethodException e) {
         //do nothing
+        //    System.out.println("nosuch");
         } catch (InvocationTargetException e) {
+            System.out.println("invocation");
         //do nothing
         } catch (IllegalAccessException e) {
+            System.out.println("illegalAccess");
         //do nothing
         }
     }
@@ -124,7 +163,11 @@ public class CollisionHandler {
 
     //used in reflection
     private void destroy(Sprite sprite, GameContainer container, Sprite actor){
+//        count++;
+//        System.out.println(count);
+//        System.out.println("destroyMethod");
         container.remove(sprite);
+
     }
 
     private void respawn(Sprite sprite, GameContainer container, Sprite actor){
@@ -159,18 +202,19 @@ public class CollisionHandler {
     }
 
     private void directMovement(Sprite sprite, GameContainer container, Sprite actor){
-        if(sprite instanceof PacMan){
-            PacMan pM = (PacMan) sprite;
-            pM.setPreviousLocation();
-        }
-        if(sprite instanceof Ghost){
-            Ghost g = (Ghost) sprite;
-            g.setPreviousLocation();
-        }
+      //  System.out.println("directMovementMethod");
+//        if(sprite instanceof PacMan){
+//            PacMan pM = (PacMan) sprite;
+//            pM.setPreviousLocation();
+//        }
+//        if(sprite instanceof Ghost){
+//            Ghost g = (Ghost) sprite;
+//            g.setPreviousLocation();
+//        }
     }
 
 
     private void setStatus(Sprite sprite, GameContainer container, Sprite actor){
-
+        sprite.setStatus(actor.getStatus());
     }
 }

@@ -2,7 +2,7 @@ package ooga.engine;
 
 import javafx.scene.shape.Rectangle;
 
-public class DynamicSprite implements Sprite{
+public abstract class DynamicSprite implements Sprite{
     @Override
     public int getX() {
         return 0;
@@ -53,8 +53,4 @@ public class DynamicSprite implements Sprite{
         return 0;
     }
 
-    @Override
-    public int setStatus() {
-        return 0;
-    }
 }
