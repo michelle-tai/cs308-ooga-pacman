@@ -1,6 +1,7 @@
 package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
+import ooga.engine.DynamicSprite;
 import ooga.engine.Sprite;
 import ooga.engine.movement.ControllableMovement;
 
@@ -11,14 +12,14 @@ import ooga.engine.movement.ControllableMovement;
  * @author Michelle Tai
  * @author Olga
  */
-public class PacMan implements Sprite {
-  private int myID;
-  private int homeXPos;
-  private int homeYPos;
-  private int prevX;
-  private int prevY;
-  private int xPos;
-  private int yPos;
+public class PacMan extends DynamicSprite implements Sprite {
+//  private int myID;
+//  private int homeXPos;
+//  private int homeYPos;
+//  private int prevX;
+//  private int prevY;
+//  private int xPos;
+//  private int yPos;
   private Rectangle hitbox;
   private int lifeCount;
   private int mySpeed = 5;
@@ -31,15 +32,8 @@ public class PacMan implements Sprite {
 
 
   public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
-    myID = ID;
-    myPoints = 0;
-    homeXPos = startingX;
-    homeYPos = startingY;
-    prevX = startingX;
-    prevY = startingY;
-    xPos = startingX;
-    yPos = startingY;
-    hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
+    super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
+
     lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
     mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
     myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
@@ -50,32 +44,15 @@ public class PacMan implements Sprite {
   }
 
   @Override
-  public int getX() {
-    return xPos;
+  public int getStatus() {
+    return myStatus;
   }
 
   @Override
-  public int getY() {
-    return yPos;
+  public void setStatus(int newStatus) {
+    myStatus = newStatus;
   }
 
-  @Override
-  public void setX(int newX) {
-    prevX = xPos;
-    xPos = newX;
-
-  }
-
-  @Override
-  public void setY(int newY) {
-    prevY = yPos;
-    yPos = newY;
-  }
-
-  @Override
-  public Rectangle getHitBox() {
-    return hitbox;
-  }
 
   @Override
   public String getMovementType() {
@@ -87,19 +64,6 @@ public class PacMan implements Sprite {
     pacManMovement = movementType;
   }
 
-  /*
-    setter for object movement speed
-     */
-  public void setSpeed(int speed){
-    mySpeed = speed;
-  }
-
-  /*
-  getter for object movement speed
-   */
-  public int getSpeed(){
-    return mySpeed;
-  }
 
   //maybe change so that its not so many ifs
 
@@ -107,7 +71,7 @@ public class PacMan implements Sprite {
    * moves the pacman by updating its x and y positions. movement conditions is based on a properties file, so
    * this keys can easily be changed. ideally, will have a move object so that there can be different types of movements, but
    * that can come later
-   * @param direction is the String value (typically the KeyCode name) that holds which key is pressed.
+   *  direction is the String value (typically the KeyCode name) that holds which key is pressed.
    *        this value is compared to the corresponding values of the "Right", "Left", ... keys in the properties file
    */
 //  public void move(String direction){
@@ -149,20 +113,6 @@ public class PacMan implements Sprite {
 
   public void changeDirection(String dir){
     myMovement.setNewDirection(dir);
-  }
-
-  /*
-  getter for object status, indicaticating the curent powerup, or lack of powerup
-   */
-  public int getStatus(){
-    return myStatus;
-  }
-
-  /*
-setter for object status, indicaticating the curent powerup, or lack of powerup
-*/
-  public void setStatus(int newStatus){
-    myStatus = newStatus;
   }
 
   /*
@@ -211,26 +161,19 @@ setter for object status, indicaticating the curent powerup, or lack of powerup
   /*
   resets pacman based on xml file
    */
-public void setHome(){
-  setX(homeXPos);
-  setY(homeYPos);
-}
+
 
 public void addPoints(int newPoints){
   myPoints += newPoints;
 }
 
+  @Override
+  public int getSpeed() {
+    return mySpeed;
+  }
 
-public void setPreviousLocation(){
-  xPos = prevX;
-  yPos = prevY;
-}
-
-public int getID(){
-  return myID;
-}
-
-public void setID(int ID){
-  myID = ID;
-}
+  @Override
+  public void setSpeed(int newSpeed) {
+    mySpeed = newSpeed;
+  }
 }
