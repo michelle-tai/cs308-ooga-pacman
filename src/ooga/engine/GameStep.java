@@ -4,13 +4,14 @@ import java.util.HashSet;
 import java.util.List;
 
 public class GameStep {
-    private String myStatus;
-    private GameContainer myContainer;
     private CollisionHandler myCollisionHandler;
+    private GameContainer myContainer;
+    private String myStatus;
+
 
     public GameStep(GameContainer container){
         myContainer = container;
-        //myCollisionHandler = new CollisionHandler();
+        myCollisionHandler = new CollisionHandler();
     }
 
     public void step(){

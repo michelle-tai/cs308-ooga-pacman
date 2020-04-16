@@ -41,6 +41,6 @@ public class Block extends StaticSprite {
 
     @Override
     public void setStatus(int newStatus) {
-        status = newStatus;
+        //do nothing
     }
 }
