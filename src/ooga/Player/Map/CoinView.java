@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
+import ooga.engine.sprites.Coin;
+import ooga.engine.sprites.Ghost;
 
 public class CoinView {
 
@@ -15,14 +17,23 @@ public class CoinView {
     private Group myCoins;
     private ImageView myImage;
     private Controller myController;
+    private Coin coinModel;
+    private int myID;
 
 
-    public CoinView(Group coins, int indexNum, int rowNum, Controller controller){
+    public CoinView(Group coins, int indexNum, int rowNum, int ID, Controller controller){
         myCoins = coins;
+        myID = ID;
         myController = controller;
+        coinModel = (Coin) myController.getCurrentCoin(ID);
         myImage = generateFood(indexNum, rowNum);
     }
 
+    public void update(){
+        if(!coinModel.checkActive()){
+            myCoins.getChildren().remove(myImage);
+        }
+    }
 
     private ImageView generateFood(int index, int rowNum){
         ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGE));

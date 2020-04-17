@@ -26,12 +26,9 @@ public class GameContainer {
 //    private HashSet<Sprite> myPacManSet = new HashSet<Sprite>();
     private HashSet<Sprite> allGameObjects = new HashSet<>();
 
-    private List<Ghost> myGhostList = new ArrayList<>();
-    private List<PacMan> myPacManList = new ArrayList<>();
-
-
     private List<Sprite> myGhostSet = new ArrayList<>();
     private List<Sprite> myPacManSet = new ArrayList<>();
+    private List<Sprite> myCoinSet = new ArrayList<>();
 
 
     private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
@@ -54,12 +51,14 @@ public class GameContainer {
             int row = 0;
             int ghostNum = 0;
             int pacNum = 0;
+            int coinNum = 0;
             while ((string = br.readLine()) != null){
                 for( int i = 0; i < string.length(); i++){
                     if (string.charAt(i) == 'x'){
                         generateBlock(i, row);
                     } else if (string.charAt(i) == 'o') {
-                        generateFood(i , row);
+                        generateFood(i , row, coinNum);
+                        coinNum++;
                     } else if (string.charAt(i) == 'p'){
                         generatePacMan(i, row, pacNum);
                         pacNum++;
@@ -84,10 +83,7 @@ public class GameContainer {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
         myGhostSet.add(modelGhost);
-
-        myGhostList.add(modelGhost);
         allGameObjects.add(modelGhost);
-
         addSpriteToMap(modelGhost, i, row);
 
     }
@@ -96,15 +92,13 @@ public class GameContainer {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
         PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
         myPacManSet.add(modelPacMan);
-
-        myPacManList.add(modelPacMan);
         allGameObjects.add(modelPacMan);
-
         addSpriteToMap(modelPacMan, i, row);
     }
 
-    private void generateFood(int i, int row) {
-        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0);
+    private void generateFood(int i, int row, int ID) {
+        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0, ID);
+        myCoinSet.add(modelFood);
         addSpriteToMap(modelFood, i, row);
         allGameObjects.add(modelFood);
     }
@@ -140,6 +134,8 @@ public class GameContainer {
     }
 
     public Sprite getPacMan(int ID){return myPacManSet.get(ID);}
+
+    public Sprite getCoin(int ID){return myCoinSet.get(ID);}
 
     public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();

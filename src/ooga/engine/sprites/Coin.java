@@ -9,13 +9,15 @@ public class Coin extends StaticSprite {
     private Rectangle hitbox;
     private int myStatus;
     private boolean myActivity;
+    private int myID;
 
     private int[] myPoints = new int[]{0, 1 ,2};
 
     private String movementType = Main.MY_RESOURCES.getString("CoinMovement");
 
-    public Coin(int x, int y, int type) {
+    public Coin(int x, int y, int type, int ID) {
         super(x, y);
+        myID = ID;
         int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("CoinDim"));
         hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);
         myStatus = type;
@@ -44,6 +46,8 @@ public class Coin extends StaticSprite {
     public boolean checkActive(){return myActivity;}
 
     public void setActive(){myActivity = !myActivity;}
+
+    public int getMyID() {return myID;}
 
     public int getStatus(){
         return myStatus;

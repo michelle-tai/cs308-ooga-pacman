@@ -148,8 +148,8 @@ public class Visualizer {
         ghostCollection.add(createGhosts);
     }
 
-    public void addCoins(int index, int row){
-        CoinView createCoins = new CoinView(myMapView.getCoins(), index, row, myController);
+    public void addCoins(int index, int row, int ID){
+        CoinView createCoins = new CoinView(myMapView.getCoins(), index, row, ID, myController);
         coinCollection.add(createCoins);
     }
 
@@ -177,6 +177,9 @@ public class Visualizer {
         }
         for(GhostView gv : ghostCollection){
             gv.update();
+        }
+        for(CoinView cw: coinCollection){
+            cw.update();
         }
     }
 
