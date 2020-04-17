@@ -22,6 +22,7 @@ import ooga.Player.Ghost.GhostView;
 import ooga.Player.Graphics.NonUserInterface;
 import ooga.Player.Graphics.Styler;
 import ooga.Player.Graphics.UserInterface;
+import ooga.Player.Map.CoinView;
 import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
 import ooga.controller.Controller;
@@ -60,6 +61,7 @@ public class Visualizer {
     private GhostView currentGhost;
     private List<GhostView> ghostCollection;
     private List<PacManView> pacmanCollection;
+    private List<CoinView> coinCollection;
     private Timeline animation;
     private BorderPane viewPane;
     private Controller myController;
@@ -76,6 +78,7 @@ public class Visualizer {
         userInterface = new UserInterface(this);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
+        coinCollection = new ArrayList<>();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
         styler = new Styler(myResources);
         myGameStep = new GameStep(myController.getContainer());
@@ -132,8 +135,7 @@ public class Visualizer {
     }
 
     public void addPacmen(int index, int row, int ID){
-    //TODO: need to add an instance of the pacmen to the backend
-        PacManView createPacMan = new PacManView(myMapView.getPacmen(), this, index, row, ID, myController);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), index, row, ID, myController);
         pacmanCollection.add(createPacMan);
         setPacMan(pacmanCollection.size());
     }
@@ -145,11 +147,14 @@ public class Visualizer {
     }
 
     public void addGhosts(int index, int row, int ID){
-        //TODO: need to add an instance of the ghosts to the backend
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), this, index, row, ID, myController);
+        GhostView createGhosts = new GhostView(myMapView.getGhosts(), index, row, ID, myController);
         ghostCollection.add(createGhosts);
     }
 
+    public void addCoins(int index, int row){
+        CoinView createCoins = new CoinView(myMapView.getCoins(), index, row, myController);
+        coinCollection.add(createCoins);
+    }
 
     private void beginAnimation() {
         try {
