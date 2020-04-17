@@ -26,6 +26,7 @@ import ooga.Player.Map.CoinView;
 import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
 import ooga.controller.Controller;
+import ooga.data.PathManager;
 import ooga.engine.GameContainer;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
@@ -35,13 +36,8 @@ public class Visualizer {
 
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
-    public static final String RESOURCES = "src/resources";
-    public static final String LEVEL_ONE = RESOURCES + "/levels/level1";
-    public static final String RESOURCES1 = "resources";
-    public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES1 + "/formats/";
-    public static final String LIGHT_STYLESHEET = "LightStyling.css";
-    public static final String START_STYLESHEET = "StartStyling.css";
-    public static final String ENGLISH_BUTTONS = "EnglishButtons";
+    public static final String RESOURCES = "";
+    public static final String LEVEL_ONE = RESOURCES + "levels/level1";
     public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -79,7 +75,8 @@ public class Visualizer {
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
+        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
+
         styler = new Styler(myResources);
         myGameStep = new GameStep(myController.getContainer());
     }
@@ -87,7 +84,7 @@ public class Visualizer {
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
         start.getStylesheets()
-                .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + START_STYLESHEET)
+                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.STARTFORMAT))
                         .toExternalForm());
         return start;
     }
@@ -106,7 +103,7 @@ public class Visualizer {
     private Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
-                .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + LIGHT_STYLESHEET)
+                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.LIGHTFORMAT))
                         .toExternalForm());
         beginAnimation();
         return myScene;
@@ -124,7 +121,7 @@ public class Visualizer {
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
         //TODO: for multiplayer, pass in different level 1 depending on how many players
-        Node map = myMapView.createMap(LEVEL_ONE, myController.getContainer());
+        Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);

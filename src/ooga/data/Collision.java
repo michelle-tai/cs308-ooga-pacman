@@ -1,7 +1,12 @@
 package ooga.data;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javafx.util.Pair;
 import javax.xml.parsers.DocumentBuilder;
@@ -10,27 +15,36 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public class Collision {
-  private ArrayList<HashMap<Pair<String, String>, HashSet<String>>> collisionList = new ArrayList<>();
+  private List<Map<Pair<String, String>, Set<String>>> collisionList = new ArrayList<>();
 
   public Collision () {
     PathManager pathManager = new PathManager();
-    Document xmlFile = convertXMLFileToXMLDocument(pathManager.getPath(PathManager.COLLISIONS));
+    Document xmlFile = convertXMLFileToXMLDocument(pathManager.getFilePath(PathManager.COLLISIONS));
+    getCollisionRules(xmlFile);
+  }
+
+  public Collision (String filepath) {
+    Document xmlFile = convertXMLFileToXMLDocument(filepath);
     getCollisionRules(xmlFile);
   }
 
   public Set<String> getActions(Integer status, String sprite1, String sprite2) {
     Pair<String, String> set = new Pair<>(sprite1, sprite2);
-    return collisionList.get(status).get(set);
+    return collisionList.get(status-1).get(set);
+  }
+
+  public Map<Pair<String, String>, Set<String>> getCollisionRules(Integer status) {
+    return collisionList.get(status-1);
   }
 
 
-  public HashMap<Pair<String, String>, HashSet<String>> getCollisionRulesMap(Integer status) {
+  public Map<Pair<String, String>, Set<String>> getCollisionRulesMap(Integer status) {
     return collisionList.get(status-1);
   }
 
   public void getCollisionRules(Document collisions) {
     for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++){
-      HashMap<Pair<String, String>, HashSet<String>> map = new HashMap<>();
+      Map<Pair<String, String>, Set<String>> map = new HashMap<>();
       if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName().compareTo("#text") != 0){
         Node node = collisions.getChildNodes().item(0).getChildNodes().item(i);
           for (int j = 0; j < node.getChildNodes().getLength(); j++) {
@@ -83,7 +97,7 @@ public class Collision {
 
   public String toString(){
     StringBuilder s = new StringBuilder();
-    for (HashMap<Pair<String, String>, HashSet<String>> h: collisionList){
+    for (Map<Pair<String, String>, Set<String>> h: collisionList){
       s.append(h.toString());
     }
     return s.toString();

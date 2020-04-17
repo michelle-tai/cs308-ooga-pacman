@@ -1,5 +1,6 @@
 package ooga.Player.Map;
 
+import java.nio.file.Path;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.util.Pair;
 import ooga.Player.Graphics.Styler;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
+import ooga.data.PathManager;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
 import java.io.*;
@@ -24,9 +26,6 @@ public class MapView {
     public static final int BLOCK_HEIGHT = 40;
     public static final int FOOD_WIDTH = 10;
     public static final int FOOD_HEIGHT = 10;
-    public static final String RESOURCES1 = "resources";
-    public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES1 + "/formats/";
-    public static final String ENGLISH_BUTTONS = "EnglishButtons";
 
     private Group pacmen;
     private Group ghosts;
@@ -46,7 +45,7 @@ public class MapView {
         myVisualizer = visualizer;
         myController = new Controller();
         gameStatus = true;
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
+        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
@@ -79,8 +78,7 @@ public class MapView {
     }
 
     private ImageView generateBlock(int index, int rowNum){
-        String string = "resources/map/block1.png";
-        ImageView blockImage = new ImageView(string);
+        ImageView blockImage = new ImageView(PathManager.getFilePath(PathManager.BLOCKIMAGE));
         blockImage.setFitWidth(BLOCK_WIDTH);
         blockImage.setFitHeight(BLOCK_HEIGHT);
         blockImage.setX(BLOCK_WIDTH * index);

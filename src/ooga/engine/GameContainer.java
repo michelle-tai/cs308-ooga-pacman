@@ -72,6 +72,7 @@ public class GameContainer {
             }
         } catch(FileNotFoundException e){
             //TODO: add error here
+            e.printStackTrace();
             System.out.println("File not found");
         } catch (IOException e) {
             //TODO: add error here

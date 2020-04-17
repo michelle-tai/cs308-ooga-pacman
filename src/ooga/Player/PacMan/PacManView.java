@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
+import ooga.data.PathManager;
 import ooga.engine.Sprite;
 import ooga.engine.sprites.*;
 
@@ -82,7 +83,7 @@ public class PacManView {
 
     private ImageView createPacManImage(int index, int rows){
         String string = "resources/pacman/pacman1.png";
-        ImageView pacmanImage = new ImageView(string);
+        ImageView pacmanImage = new ImageView(PathManager.getPacManPath(ID));
         pacmanImage.setFitWidth(PACMAN_WIDTH);
         pacmanImage.setFitHeight(PACMAN_HEIGHT);
         pacmanImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - pacmanImage.getBoundsInLocal().getWidth() / 2));
