@@ -28,6 +28,7 @@ public class GameContainer {
 
     private List<Ghost> myGhostList = new ArrayList<>();
     private List<PacMan> myPacManList = new ArrayList<>();
+    private MapGraphNode[][] emptySpots;
 
 
     private List<Sprite> myGhostSet = new ArrayList<>();
@@ -54,8 +55,12 @@ public class GameContainer {
             int row = 0;
             int ghostNum = 0;
             int pacNum = 0;
+            emptySpots = new MapGraphNode[50][50];
             while ((string = br.readLine()) != null){
                 for( int i = 0; i < string.length(); i++){
+                    if(string.charAt(i) != 'x'){
+                        emptySpots[i][row] = new MapGraphNode(i, row);
+                    }
                     if (string.charAt(i) == 'x'){
                         generateBlock(i, row);
                     } else if (string.charAt(i) == 'o') {
@@ -76,6 +81,14 @@ public class GameContainer {
         } catch (IOException e) {
             //TODO: add error here
             System.out.println(e);
+        }
+    }
+
+    private void initializeEmptySpots(int i, int row){
+        for(int j = 0; i < emptySpots.length; j++){
+            for(int k = 0; k <emptySpots[0].length; k++){
+                
+            }
         }
     }
 
