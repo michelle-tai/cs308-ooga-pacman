@@ -66,5 +66,5 @@ public class NonUserInterface {
 
     public SimpleIntegerProperty getLivesLeft() {return livesLeft;}
 
-    public SimpleIntegerProperty getStatus() {return status;}
+//    public SimpleIntegerProperty getStatus() {return status;}
 }
