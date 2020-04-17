@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javafx.util.Pair;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,7 +37,12 @@ public class Collision {
     return collisionList.get(status-1);
   }
 
-  private void getCollisionRules(Document collisions) {
+
+  public Map<Pair<String, String>, Set<String>> getCollisionRulesMap(Integer status) {
+    return collisionList.get(status-1);
+  }
+
+  public void getCollisionRules(Document collisions) {
     for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++){
       Map<Pair<String, String>, Set<String>> map = new HashMap<>();
       if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName().compareTo("#text") != 0){

@@ -25,6 +25,7 @@ import ooga.Player.Graphics.UserInterface;
 import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
 import ooga.controller.Controller;
+import ooga.data.PathManager;
 import ooga.engine.GameContainer;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
@@ -34,13 +35,8 @@ public class Visualizer {
 
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
-    public static final String RESOURCES = "src/resources";
-    public static final String LEVEL_ONE = RESOURCES + "/levels/level1";
-    public static final String RESOURCES1 = "resources";
-    public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES1 + "/formats/";
-    public static final String LIGHT_STYLESHEET = "LightStyling.css";
-    public static final String START_STYLESHEET = "StartStyling.css";
-    public static final String ENGLISH_BUTTONS = "EnglishButtons";
+    public static final String RESOURCES = "";
+    public static final String LEVEL_ONE = RESOURCES + "levels/level1";
     public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -65,24 +61,26 @@ public class Visualizer {
     private Controller myController;
     private Styler styler;
     private ResourceBundle myResources;
+    private GameStep myGameStep;
 
     public Visualizer (Stage stage){
         myStage = stage;
         pacmen = new Group();
+        myController = new Controller();
         myMapView = new MapView(this);
         nonUserInterface = new NonUserInterface();
         userInterface = new UserInterface(this);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
-        myController = new Controller();
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
+        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
+        myGameStep = new GameStep(myController.getContainer());
     }
 
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
         start.getStylesheets()
-                .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + START_STYLESHEET)
+                .add(getClass().getClassLoader().getResource(PathManager.STARTFORMAT)
                         .toExternalForm());
         return start;
     }
@@ -101,7 +99,7 @@ public class Visualizer {
     private Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
-                .add(getClass().getClassLoader().getResource(DEFAULT_RESOURCE_FOLDER + LIGHT_STYLESHEET)
+                .add(getClass().getClassLoader().getResource(PathManager.LIGHTFORMAT)
                         .toExternalForm());
         beginAnimation();
         return myScene;
@@ -151,7 +149,7 @@ public class Visualizer {
 
     private void beginAnimation() {
         try {
-            KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+            KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.getKeyFrames().add(frame);
@@ -163,8 +161,10 @@ public class Visualizer {
     }
 
     //todo: add in step method implementation
-    private void step(double elapsedTime){
+    private void step(){
+        myController.setGameStep();
 //        createPacMan.update();
+        myGameStep.step();
         viewPane.requestFocus();
         for(PacManView pc : pacmanCollection){
             pc.update();
@@ -172,19 +172,15 @@ public class Visualizer {
         for(GhostView gv : ghostCollection){
             gv.update();
         }
-        //createGhosts.update();
     }
 
     private void handleKeyInput(KeyCode code){
-//        System.out.println(code.getName());
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
         }
         if(code == KeyCode.SPACE){
             myMapView.changeGameStatus();
-            System.out.println(myMapView.gameStatus());
         }
-      //  createPacMan.handleKeyInput(code);
     }
 
     public Scene getMyScene(){return myScene;}

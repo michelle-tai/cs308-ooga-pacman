@@ -1,6 +1,5 @@
 package ooga.data;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,18 +20,18 @@ public class PathManager {
   public static final String STARTFORMAT = "StartFormat";
   public static final String GHOSTIMAGES = "GhostImages";
   public static final String PACKMANIMAGE = "PackManImages";
+  public static final String ENGLISHBUTTONS = "EnglishButtons";
 
-  private ResourceBundle filePaths;
+  private static ResourceBundle filePaths = ResourceBundle.getBundle(FILEPATHS);
 
   public PathManager() {
-    filePaths = ResourceBundle.getBundle(FILEPATHS);
   }
 
-  public String getFilePath(String key){
+  public static String getFilePath(String key){
     return filePaths.getString(key);
   }
 
-  public String getGhostPath(Integer index) {
+  public static String getGhostPath(Integer index) {
     List<String> ghostList = Arrays.asList(filePaths.getString(GHOSTIMAGES).split(","));
     if (index >= ghostList.size()) {
       System.out.println("WARNING: Ghost requested does not have an associated image.");
@@ -41,7 +40,7 @@ public class PathManager {
     return ghostList.get(index);
   }
 
-  public String getPacManPath(Integer index) {
+  public static String getPacManPath(Integer index) {
     List<String> pacmanList = Arrays.asList(filePaths.getString(PACKMANIMAGE).split(","));
     if (index >= pacmanList.size()) {
       System.out.println("WARNING: PacMan requested does not have an associated image.");

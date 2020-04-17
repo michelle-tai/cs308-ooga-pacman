@@ -79,7 +79,7 @@ public class Level {
             }
         } catch(FileNotFoundException e){
             //TODO: add error here
-            System.out.println("File not found");
+            System.out.println("Test File not found");
         } catch (IOException e) {
             //TODO: add error here
             System.out.println(e);

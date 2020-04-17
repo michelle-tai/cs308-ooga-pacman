@@ -9,14 +9,10 @@ import javafx.stage.Stage;
 import ooga.Player.Visualizer;
 
 import java.util.ResourceBundle;
+import ooga.data.PathManager;
 
 public class UserInterface {
 
-    public static final String RESOURCES = "resources";
-    public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES + "/formats/";
-    public static final String DARK_STYLESHEET = "DarkStyling.css";
-    public static final String LIGHT_STYLESHEET = "LightStyling.css";
-    public static final String ENGLISH_BUTTONS = "EnglishButtons";
     public static final int VBOX_SPACING = 10;
 
     private Styler styler;
@@ -26,14 +22,14 @@ public class UserInterface {
 
     public UserInterface(Visualizer visualizer){
         myVisualizer = visualizer;
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
+        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
     }
 
     public Node createComponents(){
         VBox vbox = new VBox(VBOX_SPACING);
-        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(DARK_STYLESHEET)),
-                styler.createButton("LightMode", e-> changeStyleSheet(LIGHT_STYLESHEET)));
+        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(PathManager.DARKFORMAT)),
+                styler.createButton("LightMode", e-> changeStyleSheet(PathManager.LIGHTFORMAT)));
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
@@ -42,11 +38,11 @@ public class UserInterface {
         return vbox;
     }
 
-    private void changeStyleSheet(String stylesheet){
+    private void changeStyleSheet(String stylesheetPath){
         myVisualizer.getMyScene().getStylesheets().clear();
         myVisualizer.getMyScene().getStylesheets()
                 .add(getClass().getClassLoader()
-                        .getResource(DEFAULT_RESOURCE_FOLDER + stylesheet).toExternalForm());
+                        .getResource(stylesheetPath).toExternalForm());
     }
 
 }

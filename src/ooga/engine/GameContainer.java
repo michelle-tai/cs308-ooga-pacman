@@ -21,11 +21,9 @@ public class GameContainer {
 
     private HashMap<Pair<Integer,Integer>, HashSet<Sprite>> myMap;
 
-    private HashSet<Sprite> myGhostSet = new HashSet<Sprite>();
-    private HashSet<Sprite> myPacManSet = new HashSet<Sprite>();
-
-    private List<Ghost> myGhostList = new ArrayList<>();
-    private List<PacMan> myPacManList = new ArrayList<>();
+    //made these lists
+    private List<Sprite> myGhostSet = new ArrayList<>();
+    private List<Sprite> myPacManSet = new ArrayList<>();
 
     private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
@@ -74,7 +72,6 @@ public class GameContainer {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
         myGhostSet.add(modelGhost);
-        myGhostList.add(modelGhost);
         addSpriteToMap(modelGhost, i, row);
 
     }
@@ -83,7 +80,6 @@ public class GameContainer {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
         PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
         myPacManSet.add(modelPacMan);
-        myPacManList.add(modelPacMan);
         addSpriteToMap(modelPacMan, i, row);
     }
 
@@ -110,18 +106,18 @@ public class GameContainer {
         }
     }
 
-    public HashSet<Sprite> getGhosts(){
+    public List<Sprite> getGhosts(){
         return myGhostSet;
     }
 
-    public Ghost getGhost(int ID){
-        return myGhostList.get(ID);}
+    public Sprite getGhost(int ID){
+        return myGhostSet.get(ID);}
 
-    public HashSet<Sprite> getPacMen() {
+    public List<Sprite> getPacMen() {
         return myPacManSet;
     }
 
-    public PacMan getPacMan(int ID){return myPacManList.get(ID);}
+    public Sprite getPacMan(int ID){return myPacManSet.get(ID);}
 
     public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();

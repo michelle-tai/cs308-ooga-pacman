@@ -21,12 +21,17 @@ import java.io.IOException;
 
 public class PacManView {
 
-    private static final int PACMAN_WIDTH = 35;
-    private static final int PACMAN_HEIGHT = 35;
+    public static final int PACMAN_WIDTH = 35;
+    public static final int PACMAN_HEIGHT = 35;
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
-    private static final String ERROR_DIALOG = "Please Choose Another File";
-    private static final String XML_FILEPATH = "user.dir";
+    public static final String ERROR_DIALOG = "Please Choose Another File";
+    public static final String XML_FILEPATH = "user.dir";
+    public static final double RIGHT_ROTATE = 0;
+    public static final double LEFT_ROTATE = 180;
+    public static final double UP_ROTATE = 270;
+    public static final double DOWN_ROTATE = 90;
+
 
     private Visualizer myVisualizer;
     private Group myPacMen;
@@ -40,7 +45,7 @@ public class PacManView {
         myVisualizer = visualizer;
         myPacMen = pacmen;
         ID = IDvalue;
-        pacmanModel = myController.getCurrentPacMan(ID);
+        pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
         myImage = createPacManImage(indexNum, rowNum);
     }
 
@@ -65,6 +70,15 @@ public class PacManView {
      */
     public void handleKeyInput(KeyCode code){
         pacmanModel.changeDirection(code.getName());
+        if(code == KeyCode.RIGHT){
+            updateOrientation(0);
+        } else if (code == KeyCode.LEFT){
+            updateOrientation(1);
+        } else if (code == KeyCode.UP){
+            updateOrientation(2);
+        } else if (code == KeyCode.DOWN){
+            updateOrientation(3);
+        }
         System.out.println("Key pressed is: " + code.getName());
     }
 
@@ -138,6 +152,20 @@ public class PacManView {
         myImage.setX(newX);
         myImage.setY(newY);
     }
+
+    private void updateOrientation(int direction){
+        switch(direction){
+            case 0: myImage.setRotate(RIGHT_ROTATE);
+            break;
+            case 1: myImage.setRotate(LEFT_ROTATE);
+            break;
+            case 2: myImage.setRotate(UP_ROTATE);
+            break;
+            case 3: myImage.setRotate(DOWN_ROTATE);
+            break;
+        }
+    }
+
 
 
 }
