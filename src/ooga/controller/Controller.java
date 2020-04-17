@@ -32,4 +32,6 @@ public class Controller extends GameContainer {
 
     public Sprite getCurrentPacMan(int ID) {return container.getPacMan(ID);}
 
+    public Sprite getCurrentCoin(int ID) {return container.getCoin(ID);}
+
 }
