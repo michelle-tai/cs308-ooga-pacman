@@ -22,8 +22,8 @@ public class GameContainer {
     private HashMap<Pair<Integer,Integer>, HashSet<Sprite>> myMap;
 
     //made these lists
-    private List<Ghost> myGhostSet = new ArrayList<>();
-    private List<PacMan> myPacManSet = new ArrayList<>();
+    private List<Sprite> myGhostSet = new ArrayList<>();
+    private List<Sprite> myPacManSet = new ArrayList<>();
 
     private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
@@ -106,18 +106,18 @@ public class GameContainer {
         }
     }
 
-    public List<Ghost> getGhosts(){
+    public List<Sprite> getGhosts(){
         return myGhostSet;
     }
 
-    public Ghost getGhost(int ID){
+    public Sprite getGhost(int ID){
         return myGhostSet.get(ID);}
 
-    public List<PacMan> getPacMen() {
+    public List<Sprite> getPacMen() {
         return myPacManSet;
     }
 
-    public PacMan getPacMan(int ID){return myPacManSet.get(ID);}
+    public Sprite getPacMan(int ID){return myPacManSet.get(ID);}
 
     public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();

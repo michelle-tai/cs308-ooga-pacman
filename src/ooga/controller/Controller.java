@@ -28,8 +28,8 @@ public class Controller extends GameContainer {
 
     public void setGameStep() {gameStep.step();}
 
-    public Ghost getCurrentGhost(int ID) {return container.getGhost(ID);}
+    public Sprite getCurrentGhost(int ID) {return container.getGhost(ID);}
 
-    public PacMan getCurrentPacMan(int ID) {return container.getPacMan(ID);}
+    public Sprite getCurrentPacMan(int ID) {return container.getPacMan(ID);}
 
 }

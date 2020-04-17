@@ -29,8 +29,8 @@ public class GameStep {
         return myStatus;
     }
 
-    private void checkAndExecuteCollisions(List<PacMan> objectSet) {
-        for(PacMan pM : objectSet){
+    private void checkAndExecuteCollisions(List<Sprite> objectSet) {
+        for(Sprite pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();
             HashSet<Sprite> neighborhood = myContainer.getNeighborhood(X, Y);

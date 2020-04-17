@@ -45,7 +45,7 @@ public class PacManView {
         myVisualizer = visualizer;
         myPacMen = pacmen;
         ID = IDvalue;
-        pacmanModel = myController.getCurrentPacMan(ID);
+        pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
         myImage = createPacManImage(indexNum, rowNum);
     }
 
