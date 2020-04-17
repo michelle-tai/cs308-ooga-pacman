@@ -28,8 +28,8 @@ public class UserInterface {
 
     public Node createComponents(){
         VBox vbox = new VBox(VBOX_SPACING);
-        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(PathManager.DARKFORMAT)),
-                styler.createButton("LightMode", e-> changeStyleSheet(PathManager.LIGHTFORMAT)));
+        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(PathManager.getFilePath(PathManager.DARKFORMAT))),
+                styler.createButton("LightMode", e-> changeStyleSheet(PathManager.getFilePath(PathManager.LIGHTFORMAT))));
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));

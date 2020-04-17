@@ -76,7 +76,7 @@ public class MapView {
     }
 
     private ImageView generateBlock(int index, int rowNum){
-        ImageView blockImage = new ImageView(PathManager.BLOCKIMAGE);
+        ImageView blockImage = new ImageView(PathManager.getFilePath(PathManager.BLOCKIMAGE));
         blockImage.setFitWidth(BLOCK_WIDTH);
         blockImage.setFitHeight(BLOCK_HEIGHT);
         blockImage.setX(BLOCK_WIDTH * index);
@@ -85,7 +85,7 @@ public class MapView {
     }
 
     private ImageView generateFood(int index, int rowNum){
-        ImageView foodImage = new ImageView(PathManager.FOODIMAGE);
+        ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGE));
         foodImage.setFitWidth(FOOD_WIDTH);
         foodImage.setFitHeight(FOOD_HEIGHT);
         foodImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));

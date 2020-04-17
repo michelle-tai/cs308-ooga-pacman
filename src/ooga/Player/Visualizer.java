@@ -80,7 +80,7 @@ public class Visualizer {
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
         start.getStylesheets()
-                .add(getClass().getClassLoader().getResource(PathManager.STARTFORMAT)
+                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.STARTFORMAT))
                         .toExternalForm());
         return start;
     }
@@ -99,7 +99,7 @@ public class Visualizer {
     private Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
-                .add(getClass().getClassLoader().getResource(PathManager.LIGHTFORMAT)
+                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.LIGHTFORMAT))
                         .toExternalForm());
         beginAnimation();
         return myScene;
@@ -117,7 +117,7 @@ public class Visualizer {
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
         //TODO: for multiplayer, pass in different level 1 depending on how many players
-        Node map = myMapView.createMap(LEVEL_ONE, myController.getContainer());
+        Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);

@@ -49,8 +49,8 @@ public class PathManager {
     return pacmanList.get(index);
   }
 
-  public static ResourceBundle getResourceBundle (String path) {
-    return ResourceBundle.getBundle(path);
+  public static ResourceBundle getResourceBundle (String name) {
+    return ResourceBundle.getBundle(getFilePath(name));
   }
 
   public static String getProperty (String bundlePath, String key) {
