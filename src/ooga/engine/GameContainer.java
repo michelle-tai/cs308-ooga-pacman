@@ -21,9 +21,18 @@ public class GameContainer {
 
     private HashMap<Pair<Integer,Integer>, HashSet<Sprite>> myMap;
 
-    //made these lists
+
+//    private HashSet<Sprite> myGhostSet = new HashSet<Sprite>();
+//    private HashSet<Sprite> myPacManSet = new HashSet<Sprite>();
+    private HashSet<Sprite> allGameObjects = new HashSet<>();
+
+    private List<Ghost> myGhostList = new ArrayList<>();
+    private List<PacMan> myPacManList = new ArrayList<>();
+
+
     private List<Sprite> myGhostSet = new ArrayList<>();
     private List<Sprite> myPacManSet = new ArrayList<>();
+
 
     private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
@@ -34,6 +43,8 @@ public class GameContainer {
     public HashMap<Pair<Integer,Integer>, HashSet<Sprite>> getModelMap(){
         return myMap;
     }
+
+    public HashSet<Sprite> getAllGameObjects(){ return allGameObjects;}
 
     public void createMapFromFile(String level){
         File file = new File(level);
@@ -72,6 +83,10 @@ public class GameContainer {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
         myGhostSet.add(modelGhost);
+
+        myGhostList.add(modelGhost);
+        allGameObjects.add(modelGhost);
+
         addSpriteToMap(modelGhost, i, row);
 
     }
@@ -80,17 +95,23 @@ public class GameContainer {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
         PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
         myPacManSet.add(modelPacMan);
+
+        myPacManList.add(modelPacMan);
+        allGameObjects.add(modelPacMan);
+
         addSpriteToMap(modelPacMan, i, row);
     }
 
     private void generateFood(int i, int row) {
         Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0);
         addSpriteToMap(modelFood, i, row);
+        allGameObjects.add(modelFood);
     }
 
     private void generateBlock(int i, int row) {
         Block modelBlock = new Block(BlockWidth * i, BlockWidth * row);
         addSpriteToMap(modelBlock, i, row);
+        allGameObjects.add(modelBlock);
     }
 
     private void addSpriteToMap(Sprite sprite, int i, int row){
