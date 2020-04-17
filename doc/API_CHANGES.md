@@ -7,3 +7,9 @@ handleKeyInput for the pacmanview
 move(String key) for updating the backend x and y values based on key press 
 
 changeDirection 
+
+
+### Data
+
+#### Collision
+public Set

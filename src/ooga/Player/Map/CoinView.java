@@ -3,6 +3,7 @@ package ooga.Player.Map;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import ooga.controller.Controller;
+import ooga.data.PathManager;
 
 public class CoinView {
 
@@ -24,8 +25,7 @@ public class CoinView {
 
 
     private ImageView generateFood(int index, int rowNum){
-        String string = "resources/map/food1.png";
-        ImageView foodImage = new ImageView(string);
+        ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGE));
         foodImage.setFitWidth(FOOD_WIDTH);
         foodImage.setFitHeight(FOOD_HEIGHT);
         foodImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
