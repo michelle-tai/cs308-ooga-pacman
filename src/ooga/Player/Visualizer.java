@@ -134,13 +134,13 @@ public class Visualizer {
     public void addPacmen(int index, int row, int ID){
         PacManView createPacMan = new PacManView(myMapView.getPacmen(), index, row, ID, myController);
         pacmanCollection.add(createPacMan);
-        setPacMan(pacmanCollection.size());
+        setPacMan(pacmanCollection.get(ID));
     }
 
     public void setPacMan(int index){
         currentPacMan = pacmanCollection.get(index -1 );
         nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
-        nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
+//        nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
     }
 
     public void addGhosts(int index, int row, int ID){

@@ -52,6 +52,7 @@ public class PacManView {
         pacmanModel.move();
         myImage.setX(pacmanModel.getX());
         myImage.setY(pacmanModel.getY());
+        checkStatus();
     }
 
     public SimpleIntegerProperty pacmanLives(){
@@ -60,6 +61,17 @@ public class PacManView {
 
     public SimpleIntegerProperty pacmanStatus(){
         return new SimpleIntegerProperty(pacmanModel.getStatus());
+    }
+
+    public void checkStatus(){
+        int status = pacmanModel.getStatus();
+        if (status == 0){
+            //TODO: set regular speed
+        } else if (status == 1){
+            //TODO: set regular speed
+        } else if (status == 2){
+            //TODO: set faster speed
+        }
     }
 
     /**
