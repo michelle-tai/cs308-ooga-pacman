@@ -22,7 +22,7 @@ import ooga.engine.sprites.*;
 
 public class CollisionHandler {
 
-    private HashMap<Pair<String, String>, Set<String>> myCollisionRules;
+    private HashMap<Pair<String, String>, HashSet<String>> myCollisionRules;
     private char dotDeliminator = '.';
     private HashSet<String> myMethodNames;
     private Method[] myMethods;
