@@ -1,18 +1,25 @@
 package ooga.engine;
 
+import ooga.data.Collision;
+import ooga.engine.sprites.PacMan;
+
+import javax.xml.crypto.Data;
 import java.util.HashSet;
 import java.util.List;
 
 public class GameStep {
     private CollisionHandler myCollisionHandler;
+    private Collision collision;
     private GameContainer myContainer;
     private String myStatus;
 
-
-    public GameStep(GameContainer container){
+    public GameStep(GameContainer container) {
         myContainer = container;
+        collision = new Collision();
         myCollisionHandler = new CollisionHandler();
+        System.out.println(collision.getCollisionRulesMap(1));
     }
+
 
     public void step(){
         checkAndExecuteCollisions(myContainer.getPacMen());
@@ -23,7 +30,7 @@ public class GameStep {
         return myStatus;
     }
 
-    private void checkAndExecuteCollisions(HashSet<Sprite> objectSet) {
+    private void checkAndExecuteCollisions(List<Sprite> objectSet) {
         for(Sprite pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();
