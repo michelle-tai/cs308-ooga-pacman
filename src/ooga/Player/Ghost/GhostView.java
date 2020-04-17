@@ -27,7 +27,7 @@ public class GhostView {
         myVisualizer = visualizer;
         myGhosts = ghosts;
         ID = idValue;
-        ghostModel = myController.getCurrentGhost(ID);
+        ghostModel = (Ghost) myController.getCurrentGhost(ID);
         myImage = createGhostImage(indexNum, rowNum);
     }
 

@@ -1,10 +1,8 @@
 package ooga.data;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 import javafx.util.Pair;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,7 +23,12 @@ public class Collision {
     return collisionList.get(status).get(set);
   }
 
-  private void getCollisionRules(Document collisions) {
+
+  public HashMap<Pair<String, String>, HashSet<String>> getCollisionRulesMap(Integer status) {
+    return collisionList.get(status-1);
+  }
+
+  public void getCollisionRules(Document collisions) {
     for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++){
       HashMap<Pair<String, String>, HashSet<String>> map = new HashMap<>();
       if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName().compareTo("#text") != 0){

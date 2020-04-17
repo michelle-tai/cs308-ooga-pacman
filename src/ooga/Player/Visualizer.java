@@ -65,18 +65,20 @@ public class Visualizer {
     private Controller myController;
     private Styler styler;
     private ResourceBundle myResources;
+    private GameStep myGameStep;
 
     public Visualizer (Stage stage){
         myStage = stage;
         pacmen = new Group();
+        myController = new Controller();
         myMapView = new MapView(this);
         nonUserInterface = new NonUserInterface();
         userInterface = new UserInterface(this);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
-        myController = new Controller();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
         styler = new Styler(myResources);
+        myGameStep = new GameStep(myController.getContainer());
     }
 
     public Scene startScene(){
@@ -151,7 +153,7 @@ public class Visualizer {
 
     private void beginAnimation() {
         try {
-            KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+            KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.getKeyFrames().add(frame);
@@ -163,8 +165,10 @@ public class Visualizer {
     }
 
     //todo: add in step method implementation
-    private void step(double elapsedTime){
+    private void step(){
+        myController.setGameStep();
 //        createPacMan.update();
+        myGameStep.step();
         viewPane.requestFocus();
         for(PacManView pc : pacmanCollection){
             pc.update();
@@ -172,19 +176,15 @@ public class Visualizer {
         for(GhostView gv : ghostCollection){
             gv.update();
         }
-        //createGhosts.update();
     }
 
     private void handleKeyInput(KeyCode code){
-//        System.out.println(code.getName());
         for(PacManView pc : pacmanCollection){
             pc.handleKeyInput(code);
         }
         if(code == KeyCode.SPACE){
             myMapView.changeGameStatus();
-            System.out.println(myMapView.gameStatus());
         }
-      //  createPacMan.handleKeyInput(code);
     }
 
     public Scene getMyScene(){return myScene;}
