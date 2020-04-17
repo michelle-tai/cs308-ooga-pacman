@@ -17,9 +17,7 @@ public class GameStep {
         myContainer = container;
         collision = new Collision();
         myCollisionHandler = new CollisionHandler();
-        System.out.println(collision.getCollisionRulesMap(1));
     }
-
 
     public void step(){
         checkAndExecuteCollisions(myContainer.getPacMen());

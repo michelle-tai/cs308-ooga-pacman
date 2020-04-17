@@ -33,16 +33,14 @@ public class PacManView {
     public static final double DOWN_ROTATE = 90;
 
 
-    private Visualizer myVisualizer;
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
     private Controller myController;
     private int ID;
 
-    public PacManView(Group pacmen, Visualizer visualizer, int indexNum, int rowNum, int IDvalue, Controller controller){
+    public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller){
         myController = controller;
-        myVisualizer = visualizer;
         myPacMen = pacmen;
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);

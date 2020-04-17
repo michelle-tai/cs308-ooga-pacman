@@ -15,16 +15,14 @@ public class GhostView {
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
 
-    private Visualizer myVisualizer;
     private Group myGhosts;
     private ImageView myImage;
     private Ghost ghostModel;
     private Controller myController;
     private int ID;
 
-    public GhostView(Group ghosts, Visualizer visualizer, int indexNum, int rowNum, int idValue, Controller controller){
+    public GhostView(Group ghosts, int indexNum, int rowNum, int idValue, Controller controller){
         myController = controller;
-        myVisualizer = visualizer;
         myGhosts = ghosts;
         ID = idValue;
         ghostModel = (Ghost) myController.getCurrentGhost(ID);

@@ -37,10 +37,12 @@ public class MapView {
     private ResourceBundle myResources;
     private Group totalMap;
     private Label pauseLabel;
+    private Group coins;
 
     public MapView(Visualizer visualizer){
         pacmen = new Group();
         ghosts = new Group();
+        coins = new Group();
         myVisualizer = visualizer;
         myController = new Controller();
         gameStatus = true;
@@ -52,7 +54,7 @@ public class MapView {
 
     public Node createMap(String level, GameContainer container) {
         totalMap = new Group();
-        totalMap.getChildren().addAll(createMapFromContainer(level, container), pacmen, ghosts);
+        totalMap.getChildren().addAll(createMapFromContainer(level, container), coins, pacmen, ghosts);
         return totalMap;
     }
 
@@ -65,7 +67,7 @@ public class MapView {
                 if (sprite instanceof Block) {
                     map.getChildren().add(generateBlock(loc.getKey(), loc.getValue()));
                 } else if (sprite instanceof Coin) {
-                    map.getChildren().add(generateFood(loc.getKey(), loc.getValue()));
+                    myVisualizer.addCoins(loc.getKey(), loc.getValue());
                 } else if (sprite instanceof Ghost) {
                     myVisualizer.addGhosts(loc.getKey(), loc.getValue(), ((Ghost) sprite).getID());
                 } else if (sprite instanceof PacMan){
@@ -86,19 +88,11 @@ public class MapView {
         return blockImage;
     }
 
-    private ImageView generateFood(int index, int rowNum){
-        String string = "resources/map/food1.png";
-        ImageView foodImage = new ImageView(string);
-        foodImage.setFitWidth(FOOD_WIDTH);
-        foodImage.setFitHeight(FOOD_HEIGHT);
-        foodImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
-        foodImage.setY((BLOCK_HEIGHT * rowNum) + (BLOCK_HEIGHT / 2 - foodImage.getBoundsInLocal().getHeight() / 2));
-        return foodImage;
-    }
-
     public Group getPacmen(){return pacmen;}
 
     public Group getGhosts(){return ghosts;}
+
+    public Group getCoins(){return coins;}
 
     public void changeGameStatus(){
        gameStatus = !gameStatus;
