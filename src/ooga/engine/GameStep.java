@@ -8,21 +8,22 @@ import java.util.HashSet;
 import java.util.List;
 
 public class GameStep {
-    private String myStatus;
-    private GameContainer myContainer;
     private CollisionHandler myCollisionHandler;
     private Collision collision;
+    private GameContainer myContainer;
+    private String myStatus;
 
-    public GameStep(GameContainer container){
+    public GameStep(GameContainer container) {
         myContainer = container;
         collision = new Collision();
-        myCollisionHandler = new CollisionHandler(collision.getCollisionRulesMap(1));
+        myCollisionHandler = new CollisionHandler();
         System.out.println(collision.getCollisionRulesMap(1));
     }
 
+
     public void step(){
         checkAndExecuteCollisions(myContainer.getPacMen());
-//        checkAndExecuteCollisions(myContainer.getGhosts());
+        checkAndExecuteCollisions(myContainer.getGhosts());
     }
 
     public String getStatus(){

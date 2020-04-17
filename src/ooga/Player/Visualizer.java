@@ -65,6 +65,7 @@ public class Visualizer {
     private Controller myController;
     private Styler styler;
     private ResourceBundle myResources;
+    private GameStep myGameStep;
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -77,6 +78,7 @@ public class Visualizer {
         pacmanCollection = new ArrayList<>();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
         styler = new Styler(myResources);
+        myGameStep = new GameStep(myController.getContainer());
     }
 
     public Scene startScene(){
@@ -163,8 +165,14 @@ public class Visualizer {
     }
 
     //todo: add in step method implementation
+<<<<<<< HEAD
     private void step(){
         myController.setGameStep();
+=======
+    private void step(double elapsedTime){
+//        createPacMan.update();
+        myGameStep.step();
+>>>>>>> 04012e87ffab326e0ffd4a10aa21fccf96c532d6
         viewPane.requestFocus();
         for(PacManView pc : pacmanCollection){
             pc.update();
