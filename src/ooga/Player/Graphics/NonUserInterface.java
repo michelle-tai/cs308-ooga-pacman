@@ -9,13 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.*;
 import java.util.ResourceBundle;
+import ooga.data.PathManager;
 
 public class NonUserInterface {
 
-    public static final String RESOURCES = "resources";
-    public static final String DEFAULT_RESOURCE_FOLDER = RESOURCES + "/formats/";
-    public static final String ENGLISH_BUTTONS = "EnglishButtons";
-    public static final String RULES_FILE = "src/resources/GameRules.txt";
     public static final int VBOX_SPACING = 10;
     private static final int PACMAN_WIDTH = 25;
     private static final int PACMAN_HEIGHT = 25;
@@ -26,7 +23,7 @@ public class NonUserInterface {
     private SimpleIntegerProperty status;
 
     public NonUserInterface(){
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FOLDER + ENGLISH_BUTTONS);
+        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         livesLeft = new SimpleIntegerProperty();
         status = new SimpleIntegerProperty();
@@ -42,8 +39,7 @@ public class NonUserInterface {
     private HBox addLives(){
         HBox hbox = new HBox(VBOX_SPACING);
         for(int i=0; i < livesLeft.getValue(); i++){
-            String string = "resources/pacman/pacman1.png";
-            ImageView pacmanImage = new ImageView(string);
+            ImageView pacmanImage = new ImageView(PathManager.getPacManPath(0));
             pacmanImage.setFitWidth(PACMAN_WIDTH);
             pacmanImage.setFitHeight(PACMAN_HEIGHT);
             hbox.getChildren().add(pacmanImage);
@@ -53,7 +49,7 @@ public class NonUserInterface {
 
     private TextArea readRules(){
         TextArea rules = new TextArea();
-        File file = new File(RULES_FILE);
+        File file = new File(PathManager.RULES);
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;

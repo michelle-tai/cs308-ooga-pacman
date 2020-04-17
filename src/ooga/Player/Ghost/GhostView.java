@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
+import ooga.data.PathManager;
 import ooga.engine.Sprite;
 import ooga.engine.sprites.*;
 
@@ -15,16 +16,14 @@ public class GhostView {
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
 
-    private Visualizer myVisualizer;
     private Group myGhosts;
     private ImageView myImage;
     private Ghost ghostModel;
     private Controller myController;
     private int ID;
 
-    public GhostView(Group ghosts, Visualizer visualizer, int indexNum, int rowNum, int idValue, Controller controller){
+    public GhostView(Group ghosts, int indexNum, int rowNum, int idValue, Controller controller){
         myController = controller;
-        myVisualizer = visualizer;
         myGhosts = ghosts;
         ID = idValue;
         ghostModel = (Ghost) myController.getCurrentGhost(ID);
@@ -39,7 +38,8 @@ public class GhostView {
 
     private ImageView createGhostImage(int index, int rows){
         String string = "resources/ghost/ghost" + (ID+1) + ".png";
-        ImageView ghostImage = new ImageView(string);
+        System.out.println(PathManager.getGhostPath(ID));
+        ImageView ghostImage = new ImageView(PathManager.getGhostPath(ID));
         ghostImage.setFitWidth(GHOST_WIDTH);
         ghostImage.setFitHeight(GHOST_HEIGHT);
         ghostImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - ghostImage.getBoundsInLocal().getWidth() / 2));
