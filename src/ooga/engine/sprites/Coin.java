@@ -8,6 +8,7 @@ public class Coin extends StaticSprite {
 
     private Rectangle hitbox;
     private int myStatus;
+    private boolean myActivity;
 
     private int[] myPoints = new int[]{0, 1 ,2};
 
@@ -18,6 +19,7 @@ public class Coin extends StaticSprite {
         int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("CoinDim"));
         hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);
         myStatus = type;
+        myActivity = true;
     }
 
     @Override
@@ -38,6 +40,10 @@ public class Coin extends StaticSprite {
     public void setStatus(int status){
 
     }
+
+    public boolean checkActive(){return myActivity;}
+
+    public void setActive(){myActivity = !myActivity;}
 
     public int getStatus(){
         return myStatus;

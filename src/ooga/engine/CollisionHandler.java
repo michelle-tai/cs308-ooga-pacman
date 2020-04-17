@@ -171,6 +171,7 @@ public class CollisionHandler {
         System.out.println(count);
         System.out.println("destroyMethod");
         container.remove(sprite);
+        ((Coin) sprite).setActive();
 
     }
 
