@@ -54,7 +54,7 @@ public class Level {
     /**
      * @author Olga Suchankova
      */
-    public void createMapFromFile(File file){
+    private void createMapFromFile(File file){
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String string;
