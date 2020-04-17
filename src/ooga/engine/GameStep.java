@@ -1,6 +1,7 @@
 package ooga.engine;
 
 import ooga.data.Collision;
+import ooga.engine.sprites.PacMan;
 
 import javax.xml.crypto.Data;
 import java.util.HashSet;
@@ -21,15 +22,15 @@ public class GameStep {
 
     public void step(){
         checkAndExecuteCollisions(myContainer.getPacMen());
-        checkAndExecuteCollisions(myContainer.getGhosts());
+//        checkAndExecuteCollisions(myContainer.getGhosts());
     }
 
     public String getStatus(){
         return myStatus;
     }
 
-    private void checkAndExecuteCollisions(HashSet<Sprite> objectSet) {
-        for(Sprite pM : objectSet){
+    private void checkAndExecuteCollisions(List<PacMan> objectSet) {
+        for(PacMan pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();
             HashSet<Sprite> neighborhood = myContainer.getNeighborhood(X, Y);
