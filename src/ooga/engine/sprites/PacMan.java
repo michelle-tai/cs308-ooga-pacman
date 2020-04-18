@@ -35,7 +35,7 @@ public class PacMan extends DynamicSprite implements Sprite {
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
 
     lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
-    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
+    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed"));
     myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
     pacManMovement = Main.MY_RESOURCES.getString("PacManMovement");
     direction = Main.MY_RESOURCES.getString("Right");
