@@ -87,7 +87,7 @@ public class GameContainer {
     private void initializeEmptySpots(int i, int row){
         for(int j = 0; i < emptySpots.length; j++){
             for(int k = 0; k <emptySpots[0].length; k++){
-                
+                emptySpots[i][row].addNeighbor(emptySpots);
             }
         }
     }

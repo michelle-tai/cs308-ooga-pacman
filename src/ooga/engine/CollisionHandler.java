@@ -103,7 +103,7 @@ public class CollisionHandler {
      */
     public void checkAndExecute(Sprite firstSprite, Sprite secondSprite, GameContainer container) {
 
-        if (checkCollision(firstSprite, secondSprite)) {
+        if (true) {
             String firstSpriteName = simpleStringName(firstSprite);
             String secondSpriteName = simpleStringName(secondSprite);
 
@@ -207,14 +207,14 @@ public class CollisionHandler {
 
     private void directMovement(Sprite sprite, GameContainer container, Sprite actor){
 //        System.out.println("directMovementMethod");
-        if(sprite instanceof PacMan){
-            PacMan pM = (PacMan) sprite;
-            pM.setPreviousLocation();
-        }
-        if(sprite instanceof Ghost){
-            Ghost g = (Ghost) sprite;
-            g.setPreviousLocation();
-        }
+//        if(sprite instanceof PacMan){
+//            PacMan pM = (PacMan) sprite;
+//            pM.setPreviousLocation();
+//        }
+//        if(sprite instanceof Ghost){
+//            Ghost g = (Ghost) sprite;
+//            g.setPreviousLocation();
+//        }
     }
 
 
