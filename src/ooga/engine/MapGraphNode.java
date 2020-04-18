@@ -27,16 +27,16 @@ public class MapGraphNode {
 
     public void addNeighbor(MapGraphNode[][] grid){ //todo: make this more accurate
         if(yPos > 0 ){
-            topNeighbor = grid[yPos - 1][xPos];
+            topNeighbor = grid[xPos][yPos - 1];
         }
         if(yPos < grid.length){
-            bottomNeighbor = grid[yPos + 1][xPos];
+            bottomNeighbor = grid[xPos][yPos + 1];
         }
         if(xPos > 0){
-            leftNeighbor = grid[yPos][xPos -1];
+            leftNeighbor = grid[xPos - 1][yPos];
         }
         if(xPos < grid[0].length){
-            rightNeighbor = grid[yPos][xPos + 1];
+            rightNeighbor = grid[xPos + 1][yPos];
         }
     }
 

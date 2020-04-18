@@ -45,6 +45,27 @@ public class GameContainer {
         return myMap;
     }
 
+    public MapGraphNode getSpriteMapNode(Sprite sprite){
+        int i = sprite.getX()/BlockWidth;
+        int row = sprite.getY()/BlockWidth;
+        if(emptySpots[i][row] != null){
+            return emptySpots[i][row];
+        }else{
+            return getNonNullMapNode(i, row);
+        }
+    }
+
+    private MapGraphNode getNonNullMapNode(int i, int row){
+        for(int col = i; col < emptySpots.length; col++){
+            for(int j = row; j <emptySpots[0].length; col++){
+                if(emptySpots[col][j] != null){
+                    return emptySpots[col][j];
+                }
+            }
+        }
+        return emptySpots[0][0];
+    }
+
     public HashSet<Sprite> getAllGameObjects(){ return allGameObjects;}
 
     public void createMapFromFile(String level){
@@ -75,6 +96,7 @@ public class GameContainer {
                 }
                 row++;
             }
+            initializeEmptySpots();
         } catch(FileNotFoundException e){
             //TODO: add error here
             System.out.println("File not found");
@@ -84,10 +106,15 @@ public class GameContainer {
         }
     }
 
-    private void initializeEmptySpots(int i, int row){
-        for(int j = 0; i < emptySpots.length; j++){
-            for(int k = 0; k <emptySpots[0].length; k++){
-                emptySpots[i][row].addNeighbor(emptySpots);
+    private void initializeEmptySpots(){
+        for(int i = 0; i < emptySpots.length; i++){
+            for(int row = 0; row <emptySpots[0].length; row++){
+                System.out.println(row);
+                System.out.println(i);
+                if(emptySpots[i][row] != null){
+                    emptySpots[i][row].addNeighbor(emptySpots);
+                }
+
             }
         }
     }
@@ -196,7 +223,5 @@ public class GameContainer {
             }
         }
     }
-
-
 
 }

@@ -24,6 +24,9 @@ public class GameStep {
     public void step(){
         checkAndExecuteCollisions(myContainer.getPacMen());
         checkAndExecuteCollisions(myContainer.getGhosts());
+        moveSprites(myContainer.getPacMen());
+        moveSprites(myContainer.getGhosts());
+
     }
 
     public String getStatus(){
@@ -43,6 +46,12 @@ public class GameStep {
             for(Sprite obj : neighborhood){
                 myCollisionHandler.checkAndExecute(pM, obj, myContainer);
             }
+        }
+    }
+
+    private void moveSprites(List<Sprite> objectSet){
+        for(Sprite sprite : objectSet){
+            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite));
         }
     }
 
