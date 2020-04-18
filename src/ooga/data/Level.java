@@ -54,25 +54,27 @@ public class Level {
     /**
      * @author Olga Suchankova
      */
-    public void createMapFromFile(File file){
+    private void createMapFromFile(File file){
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String string;
             int row = 0;
             int ghostNum = 0;
             int pacNum = 0;
+            int coinNum = 0;
             while ((string = br.readLine()) != null){
                 for( int i = 0; i < string.length(); i++){
                     if (string.charAt(i) == 'x'){
                         generateBlock(i, row);
                     } else if (string.charAt(i) == 'o') {
-                        generateFood(i , row);
+                        generateFood(i , row, coinNum);
+                        coinNum++;
                     } else if (string.charAt(i) == 'p'){
-                        pacNum++;
                         generatePacMan(i, row, pacNum);
+                        pacNum++;
                     } else if (string.charAt(i) == 'g'){
-                        ghostNum++;
                         generateGhost(i, row, ghostNum);
+                        ghostNum++;
                     }
                 }
                 row++;
@@ -113,8 +115,8 @@ public class Level {
     /**
      * @author Olga Suchankova
      */
-    private void generateFood(int i, int row) {
-        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0);
+    private void generateFood(int i, int row, int ID) {
+        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0, ID);
         addSpriteToMap(modelFood, i, row);
 
         // @author Caleb Sanford

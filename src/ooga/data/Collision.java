@@ -37,12 +37,7 @@ public class Collision {
     return collisionList.get(status-1);
   }
 
-
-  public Map<Pair<String, String>, Set<String>> getCollisionRulesMap(Integer status) {
-    return collisionList.get(status-1);
-  }
-
-  public void getCollisionRules(Document collisions) {
+  private void getCollisionRules(Document collisions) {
     for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++){
       Map<Pair<String, String>, Set<String>> map = new HashMap<>();
       if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName().compareTo("#text") != 0){

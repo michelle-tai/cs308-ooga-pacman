@@ -66,7 +66,7 @@ public class MapView {
                 if (sprite instanceof Block) {
                     map.getChildren().add(generateBlock(loc.getKey(), loc.getValue()));
                 } else if (sprite instanceof Coin) {
-                    myVisualizer.addCoins(loc.getKey(), loc.getValue());
+                    myVisualizer.addCoins(loc.getKey(), loc.getValue(), ((Coin) sprite).getMyID());
                 } else if (sprite instanceof Ghost) {
                     myVisualizer.addGhosts(loc.getKey(), loc.getValue(), ((Ghost) sprite).getID());
                 } else if (sprite instanceof PacMan){
