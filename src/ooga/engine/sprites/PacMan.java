@@ -2,6 +2,7 @@ package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
 import ooga.engine.DynamicSprite;
+import ooga.engine.MapGraphNode;
 import ooga.engine.Sprite;
 import ooga.engine.movement.ControllableMovement;
 
@@ -107,9 +108,12 @@ public class PacMan extends DynamicSprite implements Sprite {
 //    yPos += movedDistY;
 //  }
 
-  public void move(){
-    myMovement.move();
+  public void move(MapGraphNode currentLocation){
+    myMovement.move(currentLocation);
   }
+//  public void move(){
+//    myMovement.move();
+//  }
 
   public void changeDirection(String dir){
     myMovement.setNewDirection(dir);

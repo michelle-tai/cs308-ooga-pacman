@@ -50,11 +50,13 @@ public class PacManView {
     }
 
     public void update(){
-        pacmanModel.move();
-        myImage.setX(pacmanModel.getX());
-        myImage.setY(pacmanModel.getY());
+
+        //pacmanModel.move();
+        myImage.setX(pacmanModel.getX()-20);
+        myImage.setY(pacmanModel.getY()-20);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
+
     }
 
     public SimpleIntegerProperty pacmanLives(){

@@ -3,6 +3,7 @@ package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
 import ooga.engine.DynamicSprite;
+import ooga.engine.MapGraphNode;
 import ooga.engine.movement.RandomMovement;
 import ooga.engine.movement.ControllableMovement;
 import ooga.engine.Sprite;
@@ -52,10 +53,13 @@ public class Ghost extends DynamicSprite{
 
 
 
-  public void move(){
-    ghostMove.move();
-//    System.out.println("ghost move");
+  public void move(MapGraphNode currentLocation){
+    ghostMove.move(currentLocation);
   }
+
+//  public void move(){
+//    ghostMove.move();
+//  }
 
   @Override
   public int getSpeed() {

@@ -41,9 +41,6 @@ public class CollisionHandler {
         Class<?> c = this.getClass();
 
         myMethods = c.getDeclaredMethods();
-        for(int i = 0; i < myMethods.length; i++){
-            System.out.println(myMethods[i]);
-        }
         myMethodNames = new HashSet<String>();
         for (int i = 0; i < myMethods.length; i++) {
             myMethodNames.add(myMethods[i].getName());
@@ -103,7 +100,7 @@ public class CollisionHandler {
      */
     public void checkAndExecute(Sprite firstSprite, Sprite secondSprite, GameContainer container) {
 
-        if (checkCollision(firstSprite, secondSprite)) {
+        if (true) {
             String firstSpriteName = simpleStringName(firstSprite);
             String secondSpriteName = simpleStringName(secondSprite);
 
