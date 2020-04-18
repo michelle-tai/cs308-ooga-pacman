@@ -21,10 +21,12 @@ public class GhostView {
     private ImageView myImage;
     private Ghost ghostModel;
     private Controller myController;
+    private Visualizer myVisualizer;
     private int ID;
 
-    public GhostView(Group ghosts, int indexNum, int rowNum, int idValue, Controller controller){
+    public GhostView(Group ghosts, int indexNum, int rowNum, int idValue, Controller controller, Visualizer visualizer){
         myController = controller;
+        myVisualizer = visualizer;
         myGhosts = ghosts;
         ID = idValue;
         ghostModel = (Ghost) myController.getCurrentGhost(ID);
@@ -36,6 +38,7 @@ public class GhostView {
         myImage.setX(ghostModel.getX());
         myImage.setY(ghostModel.getY());
         checkStatus();
+        myVisualizer.setGhostSpeed(ghostModel.getSpeed());
     }
 
     private void checkStatus(){
