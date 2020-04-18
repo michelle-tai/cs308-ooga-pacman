@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
@@ -68,11 +69,11 @@ public class PacManView {
     public void checkStatus(){
         int status = pacmanModel.getStatus();
         if (status == 0){
-            //TODO: set regular speed
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed")));
         } else if (status == 1){
-            //TODO: set regular speed
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed")));
         } else if (status == 2){
-            //TODO: set faster speed
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed")) * 2);
         }
     }
 
