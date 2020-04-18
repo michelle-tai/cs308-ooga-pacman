@@ -168,8 +168,6 @@ public class CollisionHandler {
     //used in reflection
     private void destroy(Sprite sprite, GameContainer container, Sprite actor){
         count++;
-        System.out.println(count);
-        System.out.println("destroyMethod");
         container.remove(sprite);
         ((Coin) sprite).setActive();
 
