@@ -33,15 +33,16 @@ public class PacManView {
     public static final double UP_ROTATE = 270;
     public static final double DOWN_ROTATE = 90;
 
-
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
     private Controller myController;
+    private Visualizer myVisualizer;
     private int ID;
 
-    public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller){
+    public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller, Visualizer visualizer){
         myController = controller;
+        myVisualizer = visualizer;
         myPacMen = pacmen;
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
@@ -53,6 +54,7 @@ public class PacManView {
         myImage.setX(pacmanModel.getX());
         myImage.setY(pacmanModel.getY());
         checkStatus();
+        myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
     }
 
     public SimpleIntegerProperty pacmanLives(){

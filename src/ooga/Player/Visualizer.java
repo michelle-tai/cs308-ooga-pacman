@@ -37,10 +37,8 @@ public class Visualizer {
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
     public static final String RESOURCES = "";
-    public static final String LEVEL_ONE = RESOURCES + "levels/level1";
     public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     public static final int STARTSCREEN_WIDTH = 600;
     public static final int STARTSCREEN_HEIGHT = 400;
     public static final int VBOX_INSETS = 100;
@@ -58,7 +56,9 @@ public class Visualizer {
     private List<GhostView> ghostCollection;
     private List<PacManView> pacmanCollection;
     private List<CoinView> coinCollection;
-    private Timeline animation;
+    private Timeline pacmanAnimation;
+    private Timeline ghostAnimation;
+    private Timeline otherAnimation;
     private BorderPane viewPane;
     private Controller myController;
     private Styler styler;
@@ -132,7 +132,7 @@ public class Visualizer {
     }
 
     public void addPacmen(int index, int row, int ID){
-        PacManView createPacMan = new PacManView(myMapView.getPacmen(), index, row, ID, myController);
+        PacManView createPacMan = new PacManView(myMapView.getPacmen(), index, row, ID, myController, this);
         pacmanCollection.add(createPacMan);
         setPacMan(ID);
     }
@@ -144,7 +144,7 @@ public class Visualizer {
     }
 
     public void addGhosts(int index, int row, int ID){
-        GhostView createGhosts = new GhostView(myMapView.getGhosts(), index, row, ID, myController);
+        GhostView createGhosts = new GhostView(myMapView.getGhosts(), index, row, ID, myController, this);
         ghostCollection.add(createGhosts);
     }
 
@@ -155,29 +155,50 @@ public class Visualizer {
 
     private void beginAnimation() {
         try {
-            KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
-            animation = new Timeline();
-            animation.setCycleCount(Timeline.INDEFINITE);
-            animation.getKeyFrames().add(frame);
-            animation.play();
+            KeyFrame step = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
+            otherAnimation = new Timeline();
+            otherAnimation.setCycleCount(Timeline.INDEFINITE);
+            otherAnimation.getKeyFrames().addAll(step);
+            otherAnimation.play();
+            KeyFrame pacManStep = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> pacmanStep());
+            pacmanAnimation = new Timeline();
+            pacmanAnimation.setCycleCount(Timeline.INDEFINITE);
+            pacmanAnimation.getKeyFrames().addAll(pacManStep);
+            pacmanAnimation.play();
+            KeyFrame ghostStep = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> ghostStep());
+            ghostAnimation = new Timeline();
+            ghostAnimation.setCycleCount(Timeline.INDEFINITE);
+            ghostAnimation.getKeyFrames().addAll(ghostStep);
+            ghostAnimation.play();
         }
         catch (java.lang.Exception e){
             throw new GameException(e); //can change later
         }
     }
 
-    //todo: add in step method implementation
+    private void pacmanStep(){
+        for(PacManView pc : pacmanCollection){
+            pc.update();
+        }
+    }
+
+    private void ghostStep(){
+        for(GhostView gv : ghostCollection){
+            gv.update();
+        }
+    }
+
     private void step(){
         myController.setGameStep();
 //        createPacMan.update();
         myGameStep.step();
         viewPane.requestFocus();
-        for(PacManView pc : pacmanCollection){
-            pc.update();
-        }
-        for(GhostView gv : ghostCollection){
-            gv.update();
-        }
+//        for(PacManView pc : pacmanCollection){
+//            pc.update();
+//        }
+//        for(GhostView gv : ghostCollection){
+//            gv.update();
+//        }
         for(CoinView cw: coinCollection){
             cw.update();
         }
@@ -190,6 +211,14 @@ public class Visualizer {
         if(code == KeyCode.SPACE){
             myMapView.changeGameStatus();
         }
+    }
+
+    public void setPacManSpeed(double speed){
+        pacmanAnimation.setRate(speed);
+    }
+
+    public void setGhostSpeed(double speed){
+        ghostAnimation.setRate(speed);
     }
 
     public Scene getMyScene(){return myScene;}
