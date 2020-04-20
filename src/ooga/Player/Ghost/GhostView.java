@@ -45,12 +45,12 @@ public class GhostView {
         int status = ghostModel.getStatus();
         if (status == 0){
             changeImage(ID);
-            //TODO: set regular speed
+            ghostModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed")));
         } else if (status == 1){
             changeImage(SCARED_GHOST);
-            //TODO: set regular speed
+            ghostModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed")));
         } else if (status == 2){
-            //TODO: set faster speed
+            ghostModel.setSpeed((Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"))) * 2);
         }
     }
 

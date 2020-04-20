@@ -24,7 +24,7 @@ public class Ghost extends DynamicSprite{
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
-    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
+    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"));
     myStatus = 0;
     ghostMove = new RandomMovement(this);
   }
