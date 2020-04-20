@@ -28,15 +28,19 @@ public class MapGraphNode {
     public void addNeighbor(MapGraphNode[][] grid){ //todo: make this more accurate
         if(yPos > 0 ){
             topNeighbor = grid[xPos][yPos - 1];
+
         }
         if(yPos < grid.length){
             bottomNeighbor = grid[xPos][yPos + 1];
+
         }
         if(xPos > 0){
             leftNeighbor = grid[xPos - 1][yPos];
+
         }
         if(xPos < grid[0].length){
             rightNeighbor = grid[xPos + 1][yPos];
+
         }
     }
 
