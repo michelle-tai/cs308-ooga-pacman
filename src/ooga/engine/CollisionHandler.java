@@ -52,14 +52,15 @@ public class CollisionHandler {
         myCollisionRules = new HashMap<>();
         HashSet<String> methodSet = new HashSet<String>();
         methodSet.add("directMovement");
-        //methodSet.add("private void ooga.engine.CollisionHandler.directMovement(ooga.engine.Sprite,ooga.engine.GameContainer,ooga.engine.Sprite)");
         myCollisionRules.put(new Pair<String, String>("PacMan0", "Block"), methodSet);
-//        methodSet = new HashSet<String>();
-//        methodSet.add("destroy");
-//        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin"), methodSet);
+
         methodSet = new HashSet<String>();
         methodSet.add("destroy");
         myCollisionRules.put(new Pair<String, String>("Coin", "PacMan0"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("incrementPoints");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin"), methodSet);
 
 
     }
