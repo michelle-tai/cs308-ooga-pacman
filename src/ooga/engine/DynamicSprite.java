@@ -18,12 +18,13 @@ public abstract class DynamicSprite implements Sprite{
 
     public DynamicSprite(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID) {
         myID = ID;
-        prevX = startingX;
-        prevY = startingY;
-        homeXPos = startingX;
-        homeYPos = startingY;
-        xPos = startingX;
-        yPos = startingY;
+        xPos = startingX +20;
+        yPos = startingY +20 ;
+        prevX = xPos;
+        prevY = yPos;
+        homeXPos = xPos;
+        homeYPos = yPos;
+
         hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
     }
 
@@ -81,6 +82,6 @@ public abstract class DynamicSprite implements Sprite{
     }
 
 
-    public abstract void move();
+    public abstract void move(MapGraphNode currentLocation);
 
 }

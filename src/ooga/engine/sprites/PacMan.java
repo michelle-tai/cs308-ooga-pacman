@@ -2,6 +2,7 @@ package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
 import ooga.engine.DynamicSprite;
+import ooga.engine.MapGraphNode;
 import ooga.engine.Sprite;
 import ooga.engine.movement.ControllableMovement;
 
@@ -35,7 +36,7 @@ public class PacMan extends DynamicSprite implements Sprite {
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
 
     lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
-    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
+    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed"));
     myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
     pacManMovement = Main.MY_RESOURCES.getString("PacManMovement");
     direction = Main.MY_RESOURCES.getString("Right");
@@ -107,9 +108,12 @@ public class PacMan extends DynamicSprite implements Sprite {
 //    yPos += movedDistY;
 //  }
 
-  public void move(){
-    myMovement.move();
+  public void move(MapGraphNode currentLocation){
+    myMovement.move(currentLocation);
   }
+//  public void move(){
+//    myMovement.move();
+//  }
 
   public void changeDirection(String dir){
     myMovement.setNewDirection(dir);

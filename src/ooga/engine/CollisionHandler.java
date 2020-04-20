@@ -41,9 +41,6 @@ public class CollisionHandler {
         Class<?> c = this.getClass();
 
         myMethods = c.getDeclaredMethods();
-        for(int i = 0; i < myMethods.length; i++){
-            System.out.println(myMethods[i]);
-        }
         myMethodNames = new HashSet<String>();
         for (int i = 0; i < myMethods.length; i++) {
             myMethodNames.add(myMethods[i].getName());
@@ -73,29 +70,29 @@ public class CollisionHandler {
      */
     private boolean checkCollision(Sprite firstSprite, Sprite secondSprite) {
 
-//        Rectangle firstBox = firstSprite.getHitBox();
-//        Rectangle secondBox = secondSprite.getHitBox();
-//        double topXFirst = firstBox.getX();
-//        double bottomXFirst = topXFirst + firstBox.getWidth();
-//        double topYFirst = firstBox.getY();
-//        double bottomYFirst = topYFirst + firstBox.getHeight();
-//
-//        double topXSecond = secondBox.getX();
-//        double bottomXSecond = topXSecond + secondBox.getWidth();
-//        double topYSecond = secondBox.getY();
-//        double bottomYSecond = topYSecond + secondBox.getHeight();
-//
-//
-//        if (topXFirst > bottomXSecond // R1 is right to R2
-//                || bottomXFirst < topXSecond // R1 is left to R2
-//                || topYFirst < bottomYSecond // R1 is above R2
-//                || bottomYFirst > topYSecond) { // R1 is below R1
-//            return false;
-//        }
-//            return true;
+        Rectangle firstBox = firstSprite.getHitBox();
+        Rectangle secondBox = secondSprite.getHitBox();
+        double topXFirst = firstBox.getX();
+        double bottomXFirst = topXFirst + firstBox.getWidth();
+        double topYFirst = firstBox.getY();
+        double bottomYFirst = topYFirst + firstBox.getHeight();
 
-        Shape intersection = Shape.intersect(firstSprite.getHitBox(), secondSprite.getHitBox());
-        return !firstSprite.equals(secondSprite) && intersection.getBoundsInLocal().getWidth() != -1;
+        double topXSecond = secondBox.getX();
+        double bottomXSecond = topXSecond + secondBox.getWidth();
+        double topYSecond = secondBox.getY();
+        double bottomYSecond = topYSecond + secondBox.getHeight();
+
+
+        if (topXFirst > bottomXSecond // R1 is right to R2
+                || bottomXFirst < topXSecond // R1 is left to R2
+                || topYFirst < bottomYSecond // R1 is above R2
+                || bottomYFirst > topYSecond) { // R1 is below R1
+            return true;
+        }
+            return true;
+
+//        Shape intersection = Shape.intersect(firstSprite.getHitBox(), secondSprite.getHitBox());
+//        return !firstSprite.equals(secondSprite) && intersection.getBoundsInLocal().getWidth() != -1;
         }
 
     /*
@@ -103,7 +100,7 @@ public class CollisionHandler {
      */
     public void checkAndExecute(Sprite firstSprite, Sprite secondSprite, GameContainer container) {
 
-        if (checkCollision(firstSprite, secondSprite)) {
+        if (true) {
             String firstSpriteName = simpleStringName(firstSprite);
             String secondSpriteName = simpleStringName(secondSprite);
 
@@ -168,8 +165,6 @@ public class CollisionHandler {
     //used in reflection
     private void destroy(Sprite sprite, GameContainer container, Sprite actor){
         count++;
-        System.out.println(count);
-        System.out.println("destroyMethod");
         container.remove(sprite);
         ((Coin) sprite).setActive();
 
@@ -208,14 +203,14 @@ public class CollisionHandler {
 
     private void directMovement(Sprite sprite, GameContainer container, Sprite actor){
 //        System.out.println("directMovementMethod");
-        if(sprite instanceof PacMan){
-            PacMan pM = (PacMan) sprite;
-            pM.setPreviousLocation();
-        }
-        if(sprite instanceof Ghost){
-            Ghost g = (Ghost) sprite;
-            g.setPreviousLocation();
-        }
+//        if(sprite instanceof PacMan){
+//            PacMan pM = (PacMan) sprite;
+//            pM.setPreviousLocation();
+//        }
+//        if(sprite instanceof Ghost){
+//            Ghost g = (Ghost) sprite;
+//            g.setPreviousLocation();
+//        }
     }
 
 

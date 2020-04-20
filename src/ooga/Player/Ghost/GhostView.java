@@ -21,10 +21,12 @@ public class GhostView {
     private ImageView myImage;
     private Ghost ghostModel;
     private Controller myController;
+    private Visualizer myVisualizer;
     private int ID;
 
-    public GhostView(Group ghosts, int indexNum, int rowNum, int idValue, Controller controller){
+    public GhostView(Group ghosts, int indexNum, int rowNum, int idValue, Controller controller, Visualizer visualizer){
         myController = controller;
+        myVisualizer = visualizer;
         myGhosts = ghosts;
         ID = idValue;
         ghostModel = (Ghost) myController.getCurrentGhost(ID);
@@ -32,22 +34,23 @@ public class GhostView {
     }
 
     public void update() {
-        ghostModel.move();
+        //ghostModel.move();
         myImage.setX(ghostModel.getX());
         myImage.setY(ghostModel.getY());
         checkStatus();
+        myVisualizer.setGhostSpeed(ghostModel.getSpeed());
     }
 
     private void checkStatus(){
         int status = ghostModel.getStatus();
         if (status == 0){
             changeImage(ID);
-            //TODO: set regular speed
+            ghostModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed")));
         } else if (status == 1){
             changeImage(SCARED_GHOST);
-            //TODO: set regular speed
+            ghostModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed")));
         } else if (status == 2){
-            //TODO: set faster speed
+            ghostModel.setSpeed((Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"))) * 2);
         }
     }
 

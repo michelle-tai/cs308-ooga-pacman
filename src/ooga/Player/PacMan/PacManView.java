@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
@@ -33,15 +34,16 @@ public class PacManView {
     public static final double UP_ROTATE = 270;
     public static final double DOWN_ROTATE = 90;
 
-
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
     private Controller myController;
+    private Visualizer myVisualizer;
     private int ID;
 
-    public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller){
+    public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller, Visualizer visualizer){
         myController = controller;
+        myVisualizer = visualizer;
         myPacMen = pacmen;
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
@@ -49,10 +51,13 @@ public class PacManView {
     }
 
     public void update(){
-        pacmanModel.move();
-        myImage.setX(pacmanModel.getX());
-        myImage.setY(pacmanModel.getY());
+
+        //pacmanModel.move();
+        myImage.setX(pacmanModel.getX()-20);
+        myImage.setY(pacmanModel.getY()-20);
         checkStatus();
+        myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
+
     }
 
     public SimpleIntegerProperty pacmanLives(){
@@ -66,11 +71,11 @@ public class PacManView {
     public void checkStatus(){
         int status = pacmanModel.getStatus();
         if (status == 0){
-            //TODO: set regular speed
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")));
         } else if (status == 1){
-            //TODO: set regular speed
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")));
         } else if (status == 2){
-            //TODO: set faster speed
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")) * 2);
         }
     }
 

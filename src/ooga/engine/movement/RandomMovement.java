@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import ooga.engine.MapGraphNode;
 import ooga.engine.Sprite;
 
 public class RandomMovement extends ControllableMovement {
@@ -20,7 +22,7 @@ public class RandomMovement extends ControllableMovement {
 
   //not the best design but will change later
   @Override
-  public void move(){
+  public void move(MapGraphNode currentLocation){
     //todo: change the design struture rn, but it have this do nothing rn
     int min = 0;
     int max = directions.size();
@@ -44,23 +46,23 @@ public class RandomMovement extends ControllableMovement {
   }
 
   private void moveRight(){
-    int newX = mySprite.getX() + (movedist * 1 * 1);
-    mySprite.setX(newX);
+//    int newX = mySprite.getX() + (movedist * 1 * 1);
+//    mySprite.setX(newX);
   }
 
   private void moveLeft(){
-    int newX = mySprite.getX() + (movedist * 1 * -1);
-    mySprite.setX(newX);
+//    int newX = mySprite.getX() + (movedist * 1 * -1);
+//    mySprite.setX(newX);
   }
 
   private void moveUp(){
-    int newY = mySprite.getY() + (movedist * 1 * -1);
-    mySprite.setY(newY);
+//    int newY = mySprite.getY() + (movedist * 1 * -1);
+//    mySprite.setY(newY);
   }
 
   private void moveDown(){
-    int newY = mySprite.getY() + (movedist * 1 * 1);
-    mySprite.setY(newY);
+//    int newY = mySprite.getY() + (movedist * 1 * 1);
+//    mySprite.setY(newY);
   }
 
 
