@@ -53,6 +53,8 @@ public class ControllableMovement {
       } else {
         if (currentLocation.getRightNeighbor() != null) {
           int newX = currentLocation.getRightNeighbor().getXPos() * 40;
+          int newY = currentLocation.getRightNeighbor().getXPos()*40 + 20;
+          mySprite.setY(newY);
           mySprite.setX(newX);
         }
       }
@@ -64,12 +66,14 @@ public class ControllableMovement {
 //    int newX = mySprite.getX() + (movedist * mySpeed * -1);
 //    mySprite.setX(newX);
     if (!directionChanged) {
-      if (currentLocation.getRightNeighbor() != null) {
+      if (currentLocation.getLeftNeighbor() != null) {
         int newX = mySprite.getX() + (movedist * mySpeed * -1);
         mySprite.setX(newX);
       } else {
-        if (currentLocation.getRightNeighbor() != null) {
+        if (currentLocation.getLeftNeighbor() != null) {
           int newX = currentLocation.getLeftNeighbor().getXPos() * 40;
+          int newY = currentLocation.getLeftNeighbor().getYPos()*40 + 20;
+          mySprite.setY(newY);
           mySprite.setX(newX);
         }
       }
@@ -80,13 +84,15 @@ public class ControllableMovement {
 //    int newY = mySprite.getY() + (movedist * mySpeed * -1);
 //    mySprite.setY(newY);
     if (!directionChanged) {
-      if (currentLocation.getRightNeighbor() != null) {
+      if (currentLocation.getTopNeighbor() != null) {
         int newY = mySprite.getY() + (movedist * mySpeed * -1);
         mySprite.setY(newY);
       } else {
-        if (currentLocation.getRightNeighbor() != null) {
+        if (currentLocation.getTopNeighbor() != null) {
           int newY = currentLocation.getTopNeighbor().getYPos() * 40;
+          int newX = currentLocation.getTopNeighbor().getXPos()*40 + 20;
           mySprite.setY(newY);
+          mySprite.setX(newX);
         }
       }
     }
@@ -96,13 +102,15 @@ public class ControllableMovement {
 //    int newY = mySprite.getY() + (movedist * mySpeed * 1);
 //    mySprite.setY(newY);
     if (!directionChanged) {
-      if (currentLocation.getRightNeighbor() != null) {
+      if (currentLocation.getBottomNeighbor() != null) {
         int newY = mySprite.getY() + (movedist * mySpeed * 1);
         mySprite.setY(newY);
       } else {
-        if (currentLocation.getRightNeighbor() != null) {
+        if (currentLocation.getBottomNeighbor() != null) {
           int newY = currentLocation.getBottomNeighbor().getYPos() * 40;
+          int newX = currentLocation.getBottomNeighbor().getXPos()*40 + 20;
           mySprite.setY(newY);
+          mySprite.setX(newX);
         }
       }
     }

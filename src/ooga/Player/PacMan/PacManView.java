@@ -52,8 +52,8 @@ public class PacManView {
     public void update(){
 
         //pacmanModel.move();
-        myImage.setX(pacmanModel.getX()-20);
-        myImage.setY(pacmanModel.getY()-20);
+        myImage.setX(pacmanModel.getX() - 20);
+        myImage.setY(pacmanModel.getY() - 20);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
 
@@ -84,15 +84,19 @@ public class PacManView {
      * @param code is the KeyCode value of the key pressed
      */
     public void handleKeyInput(KeyCode code){
-        pacmanModel.changeDirection(code.getName());
-        if(code == KeyCode.RIGHT){
+
+        if(code == KeyCode.RIGHT && myController.getContainer().getSpriteMapNode(pacmanModel).getRightNeighbor() != null){
             updateOrientation(0);
-        } else if (code == KeyCode.LEFT){
+            pacmanModel.changeDirection(code.getName());
+        } else if (code == KeyCode.LEFT && myController.getContainer().getSpriteMapNode(pacmanModel).getLeftNeighbor() != null){
             updateOrientation(1);
-        } else if (code == KeyCode.UP){
+            pacmanModel.changeDirection(code.getName());
+        } else if (code == KeyCode.UP && myController.getContainer().getSpriteMapNode(pacmanModel).getTopNeighbor() != null){
             updateOrientation(2);
-        } else if (code == KeyCode.DOWN){
+            pacmanModel.changeDirection(code.getName());
+        } else if (code == KeyCode.DOWN && myController.getContainer().getSpriteMapNode(pacmanModel).getBottomNeighbor() != null){
             updateOrientation(3);
+            pacmanModel.changeDirection(code.getName());
         }
         System.out.println("Key pressed is: " + code.getName());
     }
