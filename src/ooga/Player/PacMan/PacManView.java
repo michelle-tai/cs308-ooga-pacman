@@ -13,7 +13,6 @@ import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
-import ooga.engine.Sprite;
 import ooga.engine.sprites.*;
 
 import javax.imageio.ImageIO;

@@ -1,10 +1,10 @@
 package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
-import ooga.engine.DynamicSprite;
 import ooga.engine.MapGraphNode;
-import ooga.engine.Sprite;
 import ooga.engine.movement.ControllableMovement;
+
+import java.util.List;
 
 /**
  * The MainCharacter class is what represents Pac-Man. The reason it's called MainCharacter and not Pac-Man
@@ -61,7 +61,7 @@ public class PacMan extends DynamicSprite implements Sprite {
   }
 
   @Override
-  public void setMovementType(String movementType) {
+  public void setMovementType(String movementType, List<Sprite> targetSprite) {
     pacManMovement = movementType;
   }
 
@@ -167,9 +167,11 @@ public class PacMan extends DynamicSprite implements Sprite {
    */
 
 
-public void addPoints(int newPoints){
+  public void addPoints(int newPoints){
   myPoints += newPoints;
 }
+
+public int getPoints(){ return myPoints; }
 
   @Override
   public int getSpeed() {

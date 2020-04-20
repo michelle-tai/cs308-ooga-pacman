@@ -1,9 +1,9 @@
-package ooga.engine;
+package ooga.engine.sprites;
 
 import javafx.scene.shape.Rectangle;
-import ooga.engine.movement.ControllableMovement;
+import ooga.engine.MapGraphNode;
 
-public abstract class DynamicSprite implements Sprite{
+public abstract class DynamicSprite implements Sprite {
     private int myID;
     private int prevX;
     private int prevY;
