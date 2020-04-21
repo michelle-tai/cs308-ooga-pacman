@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.util.Pair;
 import ooga.engine.sprites.*;
 
@@ -124,8 +123,15 @@ public class CollisionHandler {
                    // if (myMethodNames.contains(m)) {
                     for(Method m : myMethods){
                         if(m.getName().startsWith(mName)){
+                            try {
+                                m.invoke(this, firstSprite, container, secondSprite);
+                            } catch (InvocationTargetException e){
+                                System.err.println("An InvocationTargetException was caught!");
+                                Throwable cause = e.getCause();
+                                System.out.format("Invocation of %s failed because of: %s%n",
+                                        m.getName(), cause.getMessage());
+                            }
 
-                            m.invoke(this, firstSprite, container, secondSprite);
                         }
 
 //                        Method collisionMethod
@@ -141,9 +147,6 @@ public class CollisionHandler {
         //}catch (NoSuchMethodException e) {
         //do nothing
         //    System.out.println("nosuch");
-        } catch (InvocationTargetException e) {
-            System.out.println("invocation");
-        //do nothing
         } catch (IllegalAccessException e) {
             System.out.println("illegalAccess");
         //do nothing
@@ -196,8 +199,9 @@ public class CollisionHandler {
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             if(actor instanceof Coin){
-                Coin c = (Coin) sprite;
+                Coin c = (Coin) actor;
                 pM.addPoints(c.getPoints());
+                //System.out.println(pM.getPoints());
             }
         }
     }

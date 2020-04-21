@@ -1,9 +1,9 @@
 package ooga.engine;
 
 import ooga.data.Collision;
-import ooga.engine.sprites.PacMan;
+import ooga.engine.sprites.DynamicSprite;
+import ooga.engine.sprites.Sprite;
 
-import javax.xml.crypto.Data;
 import java.util.HashSet;
 import java.util.List;
 

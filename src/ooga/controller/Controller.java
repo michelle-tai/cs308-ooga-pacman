@@ -4,9 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Pair;
 import ooga.engine.GameContainer;
 import ooga.engine.GameStep;
-import ooga.engine.Sprite;
-import ooga.engine.sprites.Ghost;
-import ooga.engine.sprites.PacMan;
+import ooga.engine.sprites.Sprite;
 
 import java.util.HashMap;
 import java.util.HashSet;

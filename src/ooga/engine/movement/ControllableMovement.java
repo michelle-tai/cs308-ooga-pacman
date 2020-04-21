@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import ooga.Main;
 import ooga.engine.MapGraphNode;
-import ooga.engine.Sprite;
+import ooga.engine.sprites.Sprite;
 
 public class ControllableMovement {
   private Sprite mySprite;
@@ -20,14 +20,13 @@ public class ControllableMovement {
   }
 
   public void setNewDirection(String direction){
-    currDirection = direction;
-    directionChanged = true;
+    if(!currDirection.equals(direction)){
+      currDirection = direction;
+      directionChanged = true;
+    }
   }
 
 
-  private void checkNeighbor(MapGraphNode currentLocation){
-    
-  }
 
 
   public void move(MapGraphNode currentLocation){

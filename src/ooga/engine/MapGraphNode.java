@@ -59,4 +59,5 @@ public class MapGraphNode {
     public MapGraphNode getRightNeighbor(){
         return rightNeighbor;
     }
+
 }

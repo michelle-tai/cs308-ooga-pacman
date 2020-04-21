@@ -37,7 +37,7 @@ public class GameContainer {
     private List<Sprite> myCoinSet = new ArrayList<>();
 
 
-    private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
+   // private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
     public GameContainer(){
         myMap = new HashMap<>();
@@ -80,7 +80,7 @@ public class GameContainer {
             int pacNum = 0;
             int coinNum = 0;
 
-            emptySpots = new MapGraphNode[50][50];
+            emptySpots = new MapGraphNode[50][50]; //todo: read from data
 
             while ((string = br.readLine()) != null){
                 for( int i = 0; i < string.length(); i++){
@@ -103,6 +103,9 @@ public class GameContainer {
                 row++;
             }
             initializeEmptySpots();
+            for(Sprite ghost : myGhostSet){
+                ghost.setMovementType("", myPacManSet); //todo: load targets from data
+            }
         } catch(FileNotFoundException e){
             //TODO: add error here
             e.printStackTrace();

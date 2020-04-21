@@ -2,6 +2,7 @@ package ooga.engine;
 
 
 import ooga.Main;
+import ooga.engine.sprites.Sprite;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

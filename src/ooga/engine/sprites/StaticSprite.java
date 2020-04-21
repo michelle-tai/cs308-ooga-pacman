@@ -1,6 +1,6 @@
-package ooga.engine;
+package ooga.engine.sprites;
 
-import ooga.engine.Sprite;
+import ooga.engine.sprites.Sprite;
 
 public abstract class StaticSprite implements Sprite {
 

@@ -1,5 +1,7 @@
-package ooga.engine;
+package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
+
+import java.util.List;
 
 /**
  * This is the interface all the objects in the game will implement. Everything in the game will have an x and y position, as well as a hit box
@@ -39,7 +41,7 @@ public interface Sprite {
 
   public String getMovementType();
 
-  public void setMovementType(String movementType);
+  public void setMovementType(String movementType, List<Sprite> targetSprites);
   /**
    * Get the current speed value of the sprite
    * @return current speed of the sprite
