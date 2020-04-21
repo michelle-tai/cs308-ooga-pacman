@@ -48,8 +48,8 @@ public class GameContainer {
     }
 
     public MapGraphNode getSpriteMapNode(Sprite sprite){
-        int i = sprite.getX()/BlockWidth;
-        int row = sprite.getY()/BlockWidth;
+        int i = (sprite.getX())/BlockWidth;
+        int row = (sprite.getY())/BlockWidth;
         if(emptySpots[i][row] != null){
             return emptySpots[i][row];
         }else{

@@ -19,7 +19,7 @@ public abstract class DynamicSprite implements Sprite {
     public DynamicSprite(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID) {
         myID = ID;
         xPos = startingX + 20;
-        yPos = startingY + 20;
+        yPos = startingY+20;
         prevX = xPos;
         prevY = yPos;
         homeXPos = xPos;

@@ -29,7 +29,7 @@ public class AggressiveMovement extends RandomMovement{
 
     public void move(MapGraphNode currentLocation){
         List<String> possibleDirections = getDirections(currentLocation);
-        System.out.println(possibleDirections.size());
+
         String moveDir = "";
         for(String direction : possibleDirections){
             int X = Integer.MAX_VALUE;
@@ -58,7 +58,7 @@ public class AggressiveMovement extends RandomMovement{
             }
         }
         setNewDirection(moveDir);
-        System.out.println(moveDir);
+
         String directionMethod = "move" + moveDir;
 
         try {
@@ -68,7 +68,7 @@ public class AggressiveMovement extends RandomMovement{
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
             // Do nothing
         }
-        System.out.println("");
+
     }
 
     private void moveRight(){
