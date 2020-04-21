@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -120,11 +122,9 @@ public class Visualizer {
     private BorderPane createView(){
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-        //TODO: for multiplayer, pass in different level 1 depending on how many players
         Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
-        nonUserInterface.getScore().bind(myController.getCurrentScore());
         viewPane.setLeft(nonUInferface);
         viewPane.setCenter(map);
         viewPane.setRight(uInterface);
@@ -140,7 +140,11 @@ public class Visualizer {
 
     public void setPacMan(int index){
         currentPacMan = pacmanCollection.get(index);
-        nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
+        System.out.println(currentPacMan);
+        System.out.println(currentPacMan.pacmanScore());
+        System.out.println(nonUserInterface.getScore());
+//        nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
+        nonUserInterface.getScore().textProperty().bind(currentPacMan.pacmanScore().asString());
 //        nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
     }
 

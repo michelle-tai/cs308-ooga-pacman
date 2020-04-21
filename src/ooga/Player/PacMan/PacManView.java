@@ -1,6 +1,9 @@
 package ooga.Player.PacMan;
 
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
@@ -38,6 +41,7 @@ public class PacManView {
     private PacMan pacmanModel;
     private Controller myController;
     private Visualizer myVisualizer;
+    private SimpleIntegerProperty score;
     private int ID;
 
     public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller, Visualizer visualizer){
@@ -47,6 +51,7 @@ public class PacManView {
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
         myImage = createPacManImage(indexNum, rowNum);
+        score = new SimpleIntegerProperty();
     }
 
     public void update(){
@@ -56,11 +61,16 @@ public class PacManView {
         myImage.setY(pacmanModel.getY() - 20);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
-
+//        System.out.println(pacmanModel.getPoints());
     }
 
     public SimpleIntegerProperty pacmanLives(){
             return new SimpleIntegerProperty(pacmanModel.getLivesLeft());
+    }
+
+    public SimpleIntegerProperty pacmanScore(){
+        score.setValue(pacmanModel.getPoints());
+        return score;
     }
 
     public SimpleIntegerProperty pacmanStatus(){
@@ -184,7 +194,5 @@ public class PacManView {
             break;
         }
     }
-
-
 
 }
