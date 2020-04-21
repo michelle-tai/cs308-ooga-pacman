@@ -14,7 +14,6 @@ import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
 import ooga.engine.sprites.*;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -38,6 +37,7 @@ public class PacManView {
     private PacMan pacmanModel;
     private Controller myController;
     private Visualizer myVisualizer;
+    private SimpleIntegerProperty score;
     private int ID;
 
     public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller, Visualizer visualizer){
@@ -47,24 +47,23 @@ public class PacManView {
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
         myImage = createPacManImage(indexNum, rowNum);
+        score = new SimpleIntegerProperty();
     }
 
     public void update(){
-
-        //pacmanModel.move();
+//        pacmanModel.move();
         myImage.setX(pacmanModel.getX() - 20);
         myImage.setY(pacmanModel.getY() - 20);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
-
     }
 
     public SimpleIntegerProperty pacmanLives(){
-            return new SimpleIntegerProperty(pacmanModel.getLivesLeft());
+        return pacmanModel.getLivesLeft();
     }
 
-    public SimpleIntegerProperty pacmanStatus(){
-        return new SimpleIntegerProperty(pacmanModel.getStatus());
+    public SimpleIntegerProperty pacmanScore(){
+        return pacmanModel.getPointsProperty();
     }
 
     public void checkStatus(){
@@ -184,7 +183,4 @@ public class PacManView {
             break;
         }
     }
-
-
-
 }
