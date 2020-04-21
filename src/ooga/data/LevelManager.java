@@ -76,7 +76,6 @@ public class LevelManager {
 //                    }
 
           try {
-            System.out.println("method"+string.charAt(i));
             method = level.getClass().getMethod("method"+string.charAt(i), Integer.class, Integer.class);
           } catch (NoSuchMethodException e) {
             e.printStackTrace();

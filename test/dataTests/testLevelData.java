@@ -43,7 +43,7 @@ class testLevelData {
     pairs.add(new Pair<>(3,2));
     pairs.add(new Pair<>(3,3));
 
-    Level level = new Level(levelFile1, 10);
+//    Level level = new Level(levelFile1, 10);
 //    Map<Pair<Integer, Integer>, Sprite> levelMap = level.getModelMap();
 //
 //    for (Pair<Integer, Integer> p: pairs){
