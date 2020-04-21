@@ -23,7 +23,7 @@ public class CoinView {
         myCoins = coins;
         myController = controller;
         coinModel = (Coin) myController.getCurrentCoin(ID);
-        myImage = generateFood(indexNum, rowNum);
+        myImage = generateFood(indexNum, rowNum, ID);
     }
 
     public void update(){
@@ -32,8 +32,8 @@ public class CoinView {
         }
     }
 
-    private ImageView generateFood(int index, int rowNum){
-        ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGE));
+    private ImageView generateFood(int index, int rowNum, int ID){
+        ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGES, ID));
         foodImage.setFitWidth(FOOD_WIDTH);
         foodImage.setFitHeight(FOOD_HEIGHT);
         foodImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
