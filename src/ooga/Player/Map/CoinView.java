@@ -29,6 +29,7 @@ public class CoinView {
     public void update(){
         if(!coinModel.checkActive()){
             myCoins.getChildren().remove(myImage);
+            myController.addScore(coinModel.getPoints());
         }
     }
 

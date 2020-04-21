@@ -124,6 +124,7 @@ public class Visualizer {
         Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
+        nonUserInterface.getScore().bind(myController.getCurrentScore());
         viewPane.setLeft(nonUInferface);
         viewPane.setCenter(map);
         viewPane.setRight(uInterface);

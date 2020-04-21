@@ -3,6 +3,7 @@ package ooga.Player.Graphics;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -21,17 +22,22 @@ public class NonUserInterface {
     private ResourceBundle myResources;
     private SimpleIntegerProperty livesLeft;
     private SimpleIntegerProperty status;
+    private SimpleIntegerProperty score;
 
     public NonUserInterface(){
         myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         livesLeft = new SimpleIntegerProperty();
         status = new SimpleIntegerProperty();
+        score = new SimpleIntegerProperty();
     }
 
     public Node createComponents(){
         VBox vbox = new VBox(VBOX_SPACING);
-        vbox.getChildren().addAll( styler.createLabel("LiveCount"), addLives(), styler.createLabel("DefaultRules"), readRules());
+        Label currentScore = new Label(Integer.toString(score.getValue()));
+        vbox.getChildren().addAll( styler.createLabel("LiveCount"), addLives(),
+                styler.createLabel("CurrentScore"), currentScore,
+                styler.createLabel("DefaultRules"), readRules());
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
         return vbox;
     }
@@ -65,6 +71,10 @@ public class NonUserInterface {
     }
 
     public SimpleIntegerProperty getLivesLeft() {return livesLeft;}
+
+    public SimpleIntegerProperty getScore() {
+        return score;}
+
 
 //    public SimpleIntegerProperty getStatus() {return status;}
 }
