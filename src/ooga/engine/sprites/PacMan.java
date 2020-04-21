@@ -171,7 +171,7 @@ public class PacMan extends DynamicSprite implements Sprite {
   myPoints += newPoints;
 }
 
-public int getPoints(){ return myPoints; }
+ public int getPoints(){ return myPoints; }
 
   @Override
   public int getSpeed() {
