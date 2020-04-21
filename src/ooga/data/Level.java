@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -25,10 +27,10 @@ public class Level {
     private static Integer BlockWidth;
     private PathManager myPathManager = new PathManager();
 
-    public Level(File level){
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(PathManager.PROPERTIES);
+    public Level(){
+        ResourceBundle resourceBundle = PathManager.getResourceBundle(PathManager.PROPERTIES);
         BlockWidth = Integer.parseInt(resourceBundle.getString("BlockDim"));
-        createMapFromFile(level);
+//        createMapFromFile(level);
     }
 
     public Level(File level, Integer blockWidth){
@@ -64,17 +66,34 @@ public class Level {
             int coinNum = 0;
             while ((string = br.readLine()) != null){
                 for( int i = 0; i < string.length(); i++){
-                    if (string.charAt(i) == 'x'){
-                        generateBlock(i, row);
-                    } else if (string.charAt(i) == 'o') {
-                        generateFood(i , row, coinNum);
-                        coinNum++;
-                    } else if (string.charAt(i) == 'p'){
-                        generatePacMan(i, row, pacNum);
-                        pacNum++;
-                    } else if (string.charAt(i) == 'g'){
-                        generateGhost(i, row, ghostNum);
-                        ghostNum++;
+//                    if (string.charAt(i) == 'x'){
+//                        generateBlock(i, row);
+//                    } else if (string.charAt(i) == '0') {
+//                        generateFood(i , row, coinNum);
+//                        coinNum++;
+//                    } else if (string.charAt(i) == 'p'){
+//                        generatePacMan(i, row, pacNum);
+//                        pacNum++;
+//                    } else if (string.charAt(i) == 'g'){
+//                        generateGhost(i, row, ghostNum);
+//                        ghostNum++;
+//                    }
+                    Method method = null;
+                    try {
+                        System.out.println("method"+string.charAt(i));
+                        method = this.getClass().getMethod("method"+string.charAt(i), Integer.class, Integer.class);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                        //TODO
+                    }
+                    try {
+                        method.invoke(this, i, row);
+                    } catch (IllegalArgumentException e) {
+                        // TODO
+                    } catch (IllegalAccessException e) {
+                        // TODO
+                    } catch (InvocationTargetException e) {
+                        // TODO
                     }
                 }
                 row++;
@@ -86,6 +105,10 @@ public class Level {
             //TODO: add error here
             System.out.println(e);
         }
+    }
+
+    public void methodx(Integer i, Integer row) {
+        System.out.println("ran method x");
     }
 
     /**

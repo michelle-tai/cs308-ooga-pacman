@@ -51,6 +51,7 @@ public class PathManager {
 
   public static ResourceBundle getResourceBundle (String name) {
     return ResourceBundle.getBundle(getFilePath(name));
+    // TODO add error checking
   }
 
   public static String getProperty (String bundlePath, String key) {
