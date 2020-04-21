@@ -49,7 +49,7 @@ public class NonUserInterface {
 
     private TextArea readRules(){
         TextArea rules = new TextArea();
-        File file = new File(PathManager.RULES);
+        File file = new File(PathManager.getFilePath(PathManager.RULES));
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
@@ -58,6 +58,7 @@ public class NonUserInterface {
             }
         } catch(IOException e){
             //TODO catch the error
+            e.printStackTrace();
         }
         rules.setEditable(false);
         rules.setWrapText(true);
