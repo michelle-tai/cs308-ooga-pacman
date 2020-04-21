@@ -36,8 +36,10 @@ public class AggressiveMovement extends ControllableMovement{
 
     public void move(MapGraphNode currentLocation){
 
+
         setNewDirection("Right");
         String directionMethod = "move" + "Right";
+
 
         try {
             Method method = this.getClass().getDeclaredMethod(directionMethod, MapGraphNode.class);
@@ -47,7 +49,9 @@ public class AggressiveMovement extends ControllableMovement{
             // Do nothing
             System.out.println("hi");
         }
+
         directionChanged = false;
+
     }
 
     protected void moveRight(MapGraphNode currentLocation){

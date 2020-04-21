@@ -1,4 +1,5 @@
 package ooga.engine.sprites;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
 import ooga.engine.MapGraphNode;
@@ -22,20 +23,21 @@ public class PacMan extends DynamicSprite implements Sprite {
 //  private int xPos;
 //  private int yPos;
   private Rectangle hitbox;
-  private int lifeCount;
+  private SimpleIntegerProperty lifeCount;
   private int mySpeed = 5;
   private int movedist = 1;
   private String direction;
   private ControllableMovement myMovement;
   private int myStatus;
   private String pacManMovement;
-  private int myPoints;
+  private SimpleIntegerProperty myPoints;
 
 
   public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
     super(startingX, startingY , hitBoxWidth, hitBoxLength, ID);
-
-    lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
+    myPoints = new SimpleIntegerProperty();
+    lifeCount = new SimpleIntegerProperty();
+    lifeCount.setValue(Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives")));
     mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed"));
     myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
     pacManMovement = Main.MY_RESOURCES.getString("PacManMovement");
@@ -145,20 +147,20 @@ public class PacMan extends DynamicSprite implements Sprite {
   increment pacman's lives by 1
    */
   public void incrementLives(){
-    lifeCount++;
+    lifeCount.setValue(lifeCount.getValue() + 1);
   }
 
   /*
   decrements pacman's lives by 1
    */
   public void decrementLives(){
-    lifeCount--;
+    lifeCount.setValue(lifeCount.getValue() -1);
   }
 
   /*
   getter for number of lives
    */
-  public int getLivesLeft(){
+  public SimpleIntegerProperty getLivesLeft(){
     return lifeCount;
   }
 
@@ -168,10 +170,15 @@ public class PacMan extends DynamicSprite implements Sprite {
 
 
   public void addPoints(int newPoints){
-  myPoints += newPoints;
+    myPoints.setValue(myPoints.getValue() + newPoints);
+
 }
 
- public int getPoints(){ return myPoints; }
+
+  public SimpleIntegerProperty getPointsProperty(){
+    return myPoints;
+  }
+
 
   @Override
   public int getSpeed() {
