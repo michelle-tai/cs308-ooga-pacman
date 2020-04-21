@@ -195,4 +195,6 @@ public class PacManView {
         }
     }
 
+    public int getSpeed() {return pacmanModel.getSpeed();}
+
 }

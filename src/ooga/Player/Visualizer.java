@@ -66,6 +66,7 @@ public class Visualizer {
     private Styler styler;
     private ResourceBundle myResources;
     private GameStep myGameStep;
+    private Boolean gameStatus;
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -78,9 +79,9 @@ public class Visualizer {
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
         myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
-
         styler = new Styler(myResources);
         myGameStep = new GameStep(myController.getContainer());
+        gameStatus = true;
     }
 
     public Scene startScene(){
@@ -140,9 +141,6 @@ public class Visualizer {
 
     public void setPacMan(int index){
         currentPacMan = pacmanCollection.get(index);
-        System.out.println(currentPacMan);
-        System.out.println(currentPacMan.pacmanScore());
-        System.out.println(nonUserInterface.getScore());
 //        nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
         nonUserInterface.getScore().textProperty().bind(currentPacMan.pacmanScore().asString());
 //        nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
@@ -151,6 +149,7 @@ public class Visualizer {
     public void addGhosts(int index, int row, int ID){
         GhostView createGhosts = new GhostView(myMapView.getGhosts(), index, row, ID, myController, this);
         ghostCollection.add(createGhosts);
+        currentGhost = ghostCollection.get(ghostCollection.size() -1 );
     }
 
     public void addCoins(int index, int row, int ID){
@@ -215,8 +214,20 @@ public class Visualizer {
         }
         if(code == KeyCode.SPACE){
             myMapView.changeGameStatus();
+            changeGameStatus();
+            if(!gameStatus){
+                otherAnimation.stop();
+                pacmanAnimation.stop();
+                ghostAnimation.stop();
+            } else{
+                pacmanAnimation.play();
+                ghostAnimation.play();
+                otherAnimation.play();
+            }
         }
     }
+
+    private void changeGameStatus() {gameStatus = !gameStatus;}
 
     public void setPacManSpeed(double speed){
         pacmanAnimation.setRate(speed);

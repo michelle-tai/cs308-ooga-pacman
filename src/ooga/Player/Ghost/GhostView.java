@@ -80,4 +80,6 @@ public class GhostView {
         myImage.setY(newY);
     }
 
+    public int getSpeed() {return ghostModel.getSpeed();}
+
 }
