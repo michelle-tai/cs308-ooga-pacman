@@ -19,11 +19,9 @@ public class ControllableMovement {
     mySpeed = sprite.getSpeed();
   }
 
-  public void setNewDirection(String direction){
+  public String setNewDirection(String direction){
     if(!currDirection.equals(direction)){
-      if(direction.equals(currDirection)){
-        directionChanged = false;
-      } else if((direction.equals("Right") && currDirection.equals("Left")) ||(direction.equals("Left") && currDirection.equals("Right"))){
+      if((direction.equals("Right") && currDirection.equals("Left")) ||(direction.equals("Left") && currDirection.equals("Right"))){
         directionChanged = false;
       } else if ((direction.equals("Down") && currDirection.equals("Up")) ||(direction.equals("Up") && currDirection.equals("Down"))) {
         directionChanged = false;
@@ -32,6 +30,7 @@ public class ControllableMovement {
       }
       currDirection = direction;
     }
+    return currDirection;
   }
 
 
@@ -51,7 +50,7 @@ public class ControllableMovement {
 
 
   //todo: get rid of magic values
-  private void moveRight(MapGraphNode currentLocation) {
+  protected void moveRight(MapGraphNode currentLocation) {
 //    int newX = mySprite.getX() + (movedist * mySpeed * 1);
 //    mySprite.setX(newX);
 
@@ -74,7 +73,7 @@ public class ControllableMovement {
 
   }
 
-  private void moveLeft(MapGraphNode currentLocation) {
+  protected void moveLeft(MapGraphNode currentLocation) {
 //    int newX = mySprite.getX() + (movedist * mySpeed * -1);
 //    mySprite.setX(newX);
     if (!directionChanged) {
@@ -95,7 +94,7 @@ public class ControllableMovement {
       }
   }
 
-  private void moveUp(MapGraphNode currentLocation) {
+  protected void moveUp(MapGraphNode currentLocation) {
 //    int newY = mySprite.getY() + (movedist * mySpeed * -1);
 //    mySprite.setY(newY);
     if (!directionChanged){
@@ -116,7 +115,7 @@ public class ControllableMovement {
       }
   }
 
-  private void moveDown(MapGraphNode currentLocation) {
+  protected void moveDown(MapGraphNode currentLocation) {
 //    int newY = mySprite.getY() + (movedist * mySpeed * 1);
 //    mySprite.setY(newY);
     if (!directionChanged) {

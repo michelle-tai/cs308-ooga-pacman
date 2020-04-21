@@ -1,5 +1,6 @@
 package ooga.engine.movement;
 
+import ooga.Main;
 import ooga.engine.MapGraphNode;
 import ooga.engine.sprites.Sprite;
 
@@ -8,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AggressiveMovement extends RandomMovement{
+public class AggressiveMovement extends ControllableMovement{
   // would need to either know the map or where pacman currently is
   // i guess can have a target method and based on the target, ...
     //todo: make it so ghosts leave their spawn location;
@@ -17,6 +18,8 @@ public class AggressiveMovement extends RandomMovement{
     private int movedist = 10;
     private List<String> directions = new ArrayList<>();
     private List<Sprite> myTarget;
+    private String currDirection;
+    private boolean directionChanged = true;
 
 
     public AggressiveMovement(Sprite sprite, List<Sprite> targetSprites){
@@ -24,71 +27,43 @@ public class AggressiveMovement extends RandomMovement{
         mySprite = sprite;
         directions.addAll(List.of("Right", "Left", "Up", "Down"));
         myTarget = targetSprites;
+        currDirection = Main.MY_RESOURCES.getString("Right");
+
     }
+
+
 
 
     public void move(MapGraphNode currentLocation){
-        List<String> possibleDirections = getDirections(currentLocation);
 
-        String moveDir = "";
-        for(String direction : possibleDirections){
-            int X = Integer.MAX_VALUE;
-            int Y = Integer.MAX_VALUE;
-            double minDistance = Integer.MAX_VALUE;
-            if(isDirection(direction)){
-                switch(direction) {
-                    case("Right"):
-                        X = mySprite.getX() + (movedist * 1 * 1);
-                        Y = mySprite.getY();
-                    case("Left"):
-                        X = mySprite.getX() + (movedist * 1 * -1);
-                        Y = mySprite.getY();
-                    case("Up"):
-                        X = mySprite.getX();
-                        Y = mySprite.getY() + (movedist * 1 * -1);
-                    case("Down"):
-                        X = mySprite.getX();
-                        Y = mySprite.getY() + (movedist * 1 * 1);
-                }
-                double curDistance = distanceFromPacMan(X, Y);
-                if(curDistance < minDistance){
-                    minDistance = curDistance;
-                    moveDir = direction;
-                }
-            }
-        }
-        setNewDirection(moveDir);
-
-        String directionMethod = "move" + moveDir;
+        setNewDirection("Right");
+        String directionMethod = "move" + "Right";
 
         try {
-            Method method = this.getClass().getDeclaredMethod(directionMethod);
+            Method method = this.getClass().getDeclaredMethod(directionMethod, MapGraphNode.class);
             method.setAccessible(true);
-            method.invoke(this);
+            method.invoke(AggressiveMovement.this, currentLocation);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
             // Do nothing
+            System.out.println("hi");
         }
+        directionChanged = false;
+    }
+
+    protected void moveRight(MapGraphNode currentLocation){
 
     }
 
-    private void moveRight(){
-        int newX = mySprite.getX() + (movedist * 1 * 1);
-        mySprite.setX(newX);
+    protected void moveLeft(MapGraphNode currentLocation){
+
     }
 
-    private void moveLeft(){
-        int newX = mySprite.getX() + (movedist * 1 * -1);
-        mySprite.setX(newX);
+    protected void moveUp(MapGraphNode currentLocation){
+
     }
 
-    private void moveUp(){
-        int newY = mySprite.getY() + (movedist * 1 * -1);
-        mySprite.setY(newY);
-    }
+    protected void moveDown(MapGraphNode currentLocation){
 
-    private void moveDown(){
-        int newY = mySprite.getY() + (movedist * 1 * 1);
-        mySprite.setY(newY);
     }
 
 
@@ -114,7 +89,6 @@ public class AggressiveMovement extends RandomMovement{
         }
         return false;
     }
-
 
 
 }
