@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import ooga.Main;
 import ooga.engine.MapGraphNode;
-import ooga.engine.Sprite;
+import ooga.engine.sprites.Sprite;
 
 public class ControllableMovement {
   private Sprite mySprite;
@@ -20,14 +20,13 @@ public class ControllableMovement {
   }
 
   public void setNewDirection(String direction){
-    currDirection = direction;
-    directionChanged = true;
+    if(!currDirection.equals(direction)){
+      currDirection = direction;
+      directionChanged = true;
+    }
   }
 
 
-  private void checkNeighbor(MapGraphNode currentLocation){
-    
-  }
 
 
   public void move(MapGraphNode currentLocation){
@@ -53,6 +52,8 @@ public class ControllableMovement {
       } else {
         if (currentLocation.getRightNeighbor() != null) {
           int newX = currentLocation.getRightNeighbor().getXPos() * 40;
+          int newY = currentLocation.getRightNeighbor().getXPos()*40;
+          mySprite.setY(newY);
           mySprite.setX(newX);
         }
       }
@@ -64,12 +65,14 @@ public class ControllableMovement {
 //    int newX = mySprite.getX() + (movedist * mySpeed * -1);
 //    mySprite.setX(newX);
     if (!directionChanged) {
-      if (currentLocation.getRightNeighbor() != null) {
+      if (currentLocation.getLeftNeighbor() != null) {
         int newX = mySprite.getX() + (movedist * mySpeed * -1);
         mySprite.setX(newX);
       } else {
-        if (currentLocation.getRightNeighbor() != null) {
+        if (currentLocation.getLeftNeighbor() != null) {
           int newX = currentLocation.getLeftNeighbor().getXPos() * 40;
+          int newY = currentLocation.getLeftNeighbor().getYPos()*40;
+          mySprite.setY(newY);
           mySprite.setX(newX);
         }
       }
@@ -80,13 +83,15 @@ public class ControllableMovement {
 //    int newY = mySprite.getY() + (movedist * mySpeed * -1);
 //    mySprite.setY(newY);
     if (!directionChanged) {
-      if (currentLocation.getRightNeighbor() != null) {
+      if (currentLocation.getTopNeighbor() != null) {
         int newY = mySprite.getY() + (movedist * mySpeed * -1);
         mySprite.setY(newY);
       } else {
-        if (currentLocation.getRightNeighbor() != null) {
+        if (currentLocation.getTopNeighbor() != null) {
           int newY = currentLocation.getTopNeighbor().getYPos() * 40;
+          int newX = currentLocation.getTopNeighbor().getXPos()*40 ;
           mySprite.setY(newY);
+          mySprite.setX(newX);
         }
       }
     }
@@ -96,13 +101,15 @@ public class ControllableMovement {
 //    int newY = mySprite.getY() + (movedist * mySpeed * 1);
 //    mySprite.setY(newY);
     if (!directionChanged) {
-      if (currentLocation.getRightNeighbor() != null) {
+      if (currentLocation.getBottomNeighbor() != null) {
         int newY = mySprite.getY() + (movedist * mySpeed * 1);
         mySprite.setY(newY);
       } else {
-        if (currentLocation.getRightNeighbor() != null) {
+        if (currentLocation.getBottomNeighbor() != null) {
           int newY = currentLocation.getBottomNeighbor().getYPos() * 40;
+          int newX = currentLocation.getBottomNeighbor().getXPos()*40;
           mySprite.setY(newY);
+          mySprite.setX(newX);
         }
       }
     }

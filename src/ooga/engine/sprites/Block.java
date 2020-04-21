@@ -2,7 +2,8 @@ package ooga.engine.sprites;
 
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
-import ooga.engine.StaticSprite;
+
+import java.util.List;
 
 
 public class Block extends StaticSprite {
@@ -30,7 +31,7 @@ public class Block extends StaticSprite {
     }
 
     @Override
-    public void setMovementType(String movementType) {
+    public void setMovementType(String movementType, List<Sprite> targetSprite) {
         //do nothing
     }
 

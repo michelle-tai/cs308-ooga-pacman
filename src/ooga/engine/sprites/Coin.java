@@ -2,7 +2,8 @@ package ooga.engine.sprites;
 
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
-import ooga.engine.StaticSprite;
+
+import java.util.List;
 
 public class Coin extends StaticSprite {
 
@@ -11,7 +12,7 @@ public class Coin extends StaticSprite {
     private boolean myActivity;
     private int myID;
 
-    private int[] myPoints = new int[]{0, 1 ,2};
+    private int[] myPoints = new int[]{1, 2 ,3};
 
     private String movementType = Main.MY_RESOURCES.getString("CoinMovement");
 
@@ -35,7 +36,7 @@ public class Coin extends StaticSprite {
     }
 
     @Override
-    public void setMovementType(String movementType) {
+    public void setMovementType(String movementType, List<Sprite> targetSprite) {
         this.movementType = movementType;
     }
 
