@@ -1,9 +1,6 @@
 package ooga.Player.PacMan;
 
-import javafx.beans.Observable;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
@@ -17,7 +14,6 @@ import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
 import ooga.engine.sprites.*;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -55,26 +51,19 @@ public class PacManView {
     }
 
     public void update(){
-
 //        pacmanModel.move();
         myImage.setX(pacmanModel.getX() - 20);
         myImage.setY(pacmanModel.getY() - 20);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
-//        System.out.println(pacmanModel.getPoints());
     }
 
     public SimpleIntegerProperty pacmanLives(){
-            return new SimpleIntegerProperty(pacmanModel.getLivesLeft());
+        return pacmanModel.getLivesLeft();
     }
 
     public SimpleIntegerProperty pacmanScore(){
-        score.setValue(pacmanModel.getPoints());
-        return score;
-    }
-
-    public SimpleIntegerProperty pacmanStatus(){
-        return new SimpleIntegerProperty(pacmanModel.getStatus());
+        return pacmanModel.getPointsProperty();
     }
 
     public void checkStatus(){
@@ -194,7 +183,4 @@ public class PacManView {
             break;
         }
     }
-
-    public int getSpeed() {return pacmanModel.getSpeed();}
-
 }

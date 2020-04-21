@@ -21,7 +21,6 @@ public class NonUserInterface {
     private Styler styler;
     private ResourceBundle myResources;
     private SimpleIntegerProperty livesLeft;
-    private SimpleIntegerProperty status;
     private SimpleIntegerProperty score;
     private Label currentScore;
 
@@ -29,15 +28,12 @@ public class NonUserInterface {
         myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         livesLeft = new SimpleIntegerProperty();
-        status = new SimpleIntegerProperty();
         score = new SimpleIntegerProperty();
         currentScore = new Label();
     }
 
     public Node createComponents(){
         VBox vbox = new VBox(VBOX_SPACING);
-//        Label currentScore = new Label();
-//        currentScore.setText(Integer.toString(score.getValue()));
         vbox.getChildren().addAll( styler.createLabel("LiveCount"), addLives(),
                 styler.createLabel("CurrentScore"), currentScore,
                 styler.createLabel("DefaultRules"), readRules());
@@ -79,6 +75,4 @@ public class NonUserInterface {
     public Label getScore() {
         return currentScore;}
 
-
-//    public SimpleIntegerProperty getStatus() {return status;}
 }

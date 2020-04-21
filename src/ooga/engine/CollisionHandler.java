@@ -189,7 +189,7 @@ public class CollisionHandler {
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.decrementLives();
-            if(pM.getLivesLeft() == 0){
+            if(pM.getLivesLeft().getValue() == 0){
                 container.remove(sprite);
             }
         }
