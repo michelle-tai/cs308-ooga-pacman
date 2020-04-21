@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import ooga.Main;
-import ooga.engine.Sprite;
+import ooga.engine.sprites.Sprite;
 import ooga.engine.sprites.Block;
 import ooga.engine.sprites.Coin;
 import ooga.engine.sprites.Ghost;

@@ -1,14 +1,9 @@
 package ooga.Player.Map;
 
-import java.nio.file.Path;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ooga.Player.Graphics.Styler;
 import ooga.Player.Visualizer;
@@ -16,7 +11,7 @@ import ooga.controller.Controller;
 import ooga.data.PathManager;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
-import java.io.*;
+
 import java.util.HashSet;
 import java.util.ResourceBundle;
 

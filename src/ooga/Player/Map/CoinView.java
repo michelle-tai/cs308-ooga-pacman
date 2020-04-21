@@ -5,7 +5,6 @@ import javafx.scene.image.ImageView;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
 import ooga.engine.sprites.Coin;
-import ooga.engine.sprites.Ghost;
 
 public class CoinView {
 
@@ -18,12 +17,10 @@ public class CoinView {
     private ImageView myImage;
     private Controller myController;
     private Coin coinModel;
-    private int myID;
 
 
     public CoinView(Group coins, int indexNum, int rowNum, int ID, Controller controller){
         myCoins = coins;
-        myID = ID;
         myController = controller;
         coinModel = (Coin) myController.getCurrentCoin(ID);
         myImage = generateFood(indexNum, rowNum);

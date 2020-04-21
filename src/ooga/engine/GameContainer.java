@@ -26,12 +26,18 @@ public class GameContainer {
 //    private HashSet<Sprite> myPacManSet = new HashSet<Sprite>();
     private HashSet<Sprite> allGameObjects = new HashSet<>();
 
+
+    private List<Ghost> myGhostList = new ArrayList<>();
+    private List<PacMan> myPacManList = new ArrayList<>();
+    private MapGraphNode[][] emptySpots;
+
+
     private List<Sprite> myGhostSet = new ArrayList<>();
     private List<Sprite> myPacManSet = new ArrayList<>();
     private List<Sprite> myCoinSet = new ArrayList<>();
 
 
-    private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
+   // private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
     public GameContainer(){
         myMap = new HashMap<>();
@@ -39,6 +45,27 @@ public class GameContainer {
 
     public HashMap<Pair<Integer,Integer>, HashSet<Sprite>> getModelMap(){
         return myMap;
+    }
+
+    public MapGraphNode getSpriteMapNode(Sprite sprite){
+        int i = sprite.getX()/BlockWidth;
+        int row = sprite.getY()/BlockWidth;
+        if(emptySpots[i][row] != null){
+            return emptySpots[i][row];
+        }else{
+            return getNonNullMapNode(i, row);
+        }
+    }
+
+    private MapGraphNode getNonNullMapNode(int i, int row){
+        for(int col = i; col < emptySpots.length; col++){
+            for(int j = row; j <emptySpots[0].length; col++){
+                if(emptySpots[col][j] != null){
+                    return emptySpots[col][j];
+                }
+            }
+        }
+        return emptySpots[0][0];
     }
 
     public HashSet<Sprite> getAllGameObjects(){ return allGameObjects;}
@@ -52,8 +79,14 @@ public class GameContainer {
             int ghostNum = 0;
             int pacNum = 0;
             int coinNum = 0;
+
+            emptySpots = new MapGraphNode[50][50]; //todo: read from data
+
             while ((string = br.readLine()) != null){
                 for( int i = 0; i < string.length(); i++){
+                    if(string.charAt(i) != 'x'){
+                        emptySpots[i][row] = new MapGraphNode(i, row);
+                    }
                     if (string.charAt(i) == 'x'){
                         generateBlock(i, row);
                     } else if (string.charAt(i) == 'o') {
@@ -69,6 +102,10 @@ public class GameContainer {
                 }
                 row++;
             }
+            initializeEmptySpots();
+            for(Sprite ghost : myGhostSet){
+                ghost.setMovementType("", myPacManSet); //todo: load targets from data
+            }
         } catch(FileNotFoundException e){
             //TODO: add error here
             e.printStackTrace();
@@ -76,6 +113,19 @@ public class GameContainer {
         } catch (IOException e) {
             //TODO: add error here
             System.out.println(e);
+        }
+    }
+
+    private void initializeEmptySpots(){
+        for(int i = 0; i < emptySpots.length; i++){
+            for(int row = 0; row <emptySpots[0].length; row++){
+//                System.out.println(row);
+//                System.out.println(i);
+                if(emptySpots[i][row] != null){
+                    emptySpots[i][row].addNeighbor(emptySpots);
+                }
+
+            }
         }
     }
 
@@ -180,7 +230,5 @@ public class GameContainer {
             }
         }
     }
-
-
 
 }

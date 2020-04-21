@@ -9,10 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
-import ooga.engine.Sprite;
 import ooga.engine.sprites.*;
 
 import javax.imageio.ImageIO;
@@ -33,15 +33,16 @@ public class PacManView {
     public static final double UP_ROTATE = 270;
     public static final double DOWN_ROTATE = 90;
 
-
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
     private Controller myController;
+    private Visualizer myVisualizer;
     private int ID;
 
-    public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller){
+    public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller, Visualizer visualizer){
         myController = controller;
+        myVisualizer = visualizer;
         myPacMen = pacmen;
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
@@ -49,9 +50,13 @@ public class PacManView {
     }
 
     public void update(){
-        pacmanModel.move();
-        myImage.setX(pacmanModel.getX());
-        myImage.setY(pacmanModel.getY());
+
+        //pacmanModel.move();
+        myImage.setX(pacmanModel.getX() - 20);
+        myImage.setY(pacmanModel.getY() - 20);
+        checkStatus();
+        myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
+
     }
 
     public SimpleIntegerProperty pacmanLives(){
@@ -62,21 +67,36 @@ public class PacManView {
         return new SimpleIntegerProperty(pacmanModel.getStatus());
     }
 
+    public void checkStatus(){
+        int status = pacmanModel.getStatus();
+        if (status == 0){
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")));
+        } else if (status == 1){
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")));
+        } else if (status == 2){
+            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")) * 2);
+        }
+    }
+
     /**
      * Passes the keycode string name to the backend so that the new location based on the key pressed
      * can be calculated accordingly.
      * @param code is the KeyCode value of the key pressed
      */
     public void handleKeyInput(KeyCode code){
-        pacmanModel.changeDirection(code.getName());
-        if(code == KeyCode.RIGHT){
+
+        if(code == KeyCode.RIGHT && myController.getContainer().getSpriteMapNode(pacmanModel).getRightNeighbor() != null){
             updateOrientation(0);
-        } else if (code == KeyCode.LEFT){
+            pacmanModel.changeDirection(code.getName());
+        } else if (code == KeyCode.LEFT && myController.getContainer().getSpriteMapNode(pacmanModel).getLeftNeighbor() != null){
             updateOrientation(1);
-        } else if (code == KeyCode.UP){
+            pacmanModel.changeDirection(code.getName());
+        } else if (code == KeyCode.UP && myController.getContainer().getSpriteMapNode(pacmanModel).getTopNeighbor() != null){
             updateOrientation(2);
-        } else if (code == KeyCode.DOWN){
+            pacmanModel.changeDirection(code.getName());
+        } else if (code == KeyCode.DOWN && myController.getContainer().getSpriteMapNode(pacmanModel).getBottomNeighbor() != null){
             updateOrientation(3);
+            pacmanModel.changeDirection(code.getName());
         }
         System.out.println("Key pressed is: " + code.getName());
     }

@@ -1,9 +1,10 @@
 package ooga.engine.sprites;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
-import ooga.engine.DynamicSprite;
-import ooga.engine.Sprite;
+import ooga.engine.MapGraphNode;
 import ooga.engine.movement.ControllableMovement;
+
+import java.util.List;
 
 /**
  * The MainCharacter class is what represents Pac-Man. The reason it's called MainCharacter and not Pac-Man
@@ -35,7 +36,7 @@ public class PacMan extends DynamicSprite implements Sprite {
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
 
     lifeCount = Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives"));
-    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("DefaultSpeed"));
+    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed"));
     myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
     pacManMovement = Main.MY_RESOURCES.getString("PacManMovement");
     direction = Main.MY_RESOURCES.getString("Right");
@@ -60,7 +61,7 @@ public class PacMan extends DynamicSprite implements Sprite {
   }
 
   @Override
-  public void setMovementType(String movementType) {
+  public void setMovementType(String movementType, List<Sprite> targetSprite) {
     pacManMovement = movementType;
   }
 
@@ -107,9 +108,12 @@ public class PacMan extends DynamicSprite implements Sprite {
 //    yPos += movedDistY;
 //  }
 
-  public void move(){
-    myMovement.move();
+  public void move(MapGraphNode currentLocation){
+    myMovement.move(currentLocation);
   }
+//  public void move(){
+//    myMovement.move();
+//  }
 
   public void changeDirection(String dir){
     myMovement.setNewDirection(dir);
@@ -163,9 +167,11 @@ public class PacMan extends DynamicSprite implements Sprite {
    */
 
 
-public void addPoints(int newPoints){
+  public void addPoints(int newPoints){
   myPoints += newPoints;
 }
+
+public int getPoints(){ return myPoints; }
 
   @Override
   public int getSpeed() {

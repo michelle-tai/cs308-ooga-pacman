@@ -1,9 +1,9 @@
 package ooga.engine;
 
 import ooga.data.Collision;
-import ooga.engine.sprites.PacMan;
+import ooga.engine.sprites.DynamicSprite;
+import ooga.engine.sprites.Sprite;
 
-import javax.xml.crypto.Data;
 import java.util.HashSet;
 import java.util.List;
 
@@ -22,6 +22,9 @@ public class GameStep {
     public void step(){
         checkAndExecuteCollisions(myContainer.getPacMen());
         checkAndExecuteCollisions(myContainer.getGhosts());
+        moveSprites(myContainer.getPacMen());
+        moveSprites(myContainer.getGhosts());
+
     }
 
     public String getStatus(){
@@ -41,6 +44,12 @@ public class GameStep {
             for(Sprite obj : neighborhood){
                 myCollisionHandler.checkAndExecute(pM, obj, myContainer);
             }
+        }
+    }
+
+    private void moveSprites(List<Sprite> objectSet){
+        for(Sprite sprite : objectSet){
+            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite));
         }
     }
 

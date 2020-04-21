@@ -1,30 +1,26 @@
 package ooga.engine.sprites;
 
-import javafx.scene.shape.Rectangle;
-import ooga.engine.DynamicSprite;
-import ooga.engine.movement.RandomMovement;
+import ooga.Main;
+import ooga.engine.MapGraphNode;
+import ooga.engine.movement.AggressiveMovement;
 import ooga.engine.movement.ControllableMovement;
-import ooga.engine.Sprite;
+
+import java.util.List;
 
 public class Ghost extends DynamicSprite{
   private int myStatus;
-//  private int myID;
-//  private int prevX;
-//  private int prevY;
-//  private int homeXPos;
-//  private int homeYPos;
-//  private int xPos;
-//  private int yPos;
-//  private Rectangle hitbox;
+
   private int mySpeed;
   private int movedist = 35;
   private ControllableMovement ghostMove;
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
+    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"));
     myStatus = 0;
-    ghostMove = new RandomMovement(this);
+    //ghostMove = new AggressiveMovement(this, targetSprites);
   }
+
 
 
   @Override
@@ -33,8 +29,9 @@ public class Ghost extends DynamicSprite{
   }
 
   @Override
-  public void setMovementType(String movementType) {
-    //donothing
+  public void setMovementType(String movementType, List<Sprite> targetSprites) {
+    //todo: fix with reflection
+    ghostMove = new AggressiveMovement(this, targetSprites);
   }
 
 
@@ -50,10 +47,13 @@ public class Ghost extends DynamicSprite{
 
 
 
-  public void move(){
-    ghostMove.move();
-//    System.out.println("ghost move");
+  public void move(MapGraphNode currentLocation){
+    ghostMove.move(currentLocation);
   }
+
+//  public void move(){
+//    ghostMove.move();
+//  }
 
   @Override
   public int getSpeed() {

@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.util.Pair;
 import ooga.engine.sprites.*;
 
@@ -41,9 +40,6 @@ public class CollisionHandler {
         Class<?> c = this.getClass();
 
         myMethods = c.getDeclaredMethods();
-        for(int i = 0; i < myMethods.length; i++){
-            System.out.println(myMethods[i]);
-        }
         myMethodNames = new HashSet<String>();
         for (int i = 0; i < myMethods.length; i++) {
             myMethodNames.add(myMethods[i].getName());
@@ -55,14 +51,15 @@ public class CollisionHandler {
         myCollisionRules = new HashMap<>();
         HashSet<String> methodSet = new HashSet<String>();
         methodSet.add("directMovement");
-        //methodSet.add("private void ooga.engine.CollisionHandler.directMovement(ooga.engine.Sprite,ooga.engine.GameContainer,ooga.engine.Sprite)");
         myCollisionRules.put(new Pair<String, String>("PacMan0", "Block"), methodSet);
-//        methodSet = new HashSet<String>();
-//        methodSet.add("destroy");
-//        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin"), methodSet);
+
         methodSet = new HashSet<String>();
         methodSet.add("destroy");
         myCollisionRules.put(new Pair<String, String>("Coin", "PacMan0"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("incrementPoints");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin"), methodSet);
 
 
     }
@@ -73,29 +70,29 @@ public class CollisionHandler {
      */
     private boolean checkCollision(Sprite firstSprite, Sprite secondSprite) {
 
-//        Rectangle firstBox = firstSprite.getHitBox();
-//        Rectangle secondBox = secondSprite.getHitBox();
-//        double topXFirst = firstBox.getX();
-//        double bottomXFirst = topXFirst + firstBox.getWidth();
-//        double topYFirst = firstBox.getY();
-//        double bottomYFirst = topYFirst + firstBox.getHeight();
-//
-//        double topXSecond = secondBox.getX();
-//        double bottomXSecond = topXSecond + secondBox.getWidth();
-//        double topYSecond = secondBox.getY();
-//        double bottomYSecond = topYSecond + secondBox.getHeight();
-//
-//
-//        if (topXFirst > bottomXSecond // R1 is right to R2
-//                || bottomXFirst < topXSecond // R1 is left to R2
-//                || topYFirst < bottomYSecond // R1 is above R2
-//                || bottomYFirst > topYSecond) { // R1 is below R1
-//            return false;
-//        }
-//            return true;
+        Rectangle firstBox = firstSprite.getHitBox();
+        Rectangle secondBox = secondSprite.getHitBox();
+        double topXFirst = firstBox.getX();
+        double bottomXFirst = topXFirst + firstBox.getWidth();
+        double topYFirst = firstBox.getY();
+        double bottomYFirst = topYFirst + firstBox.getHeight();
 
-        Shape intersection = Shape.intersect(firstSprite.getHitBox(), secondSprite.getHitBox());
-        return !firstSprite.equals(secondSprite) && intersection.getBoundsInLocal().getWidth() != -1;
+        double topXSecond = secondBox.getX();
+        double bottomXSecond = topXSecond + secondBox.getWidth();
+        double topYSecond = secondBox.getY();
+        double bottomYSecond = topYSecond + secondBox.getHeight();
+
+
+        if (topXFirst > bottomXSecond // R1 is right to R2
+                || bottomXFirst < topXSecond // R1 is left to R2
+                || topYFirst < bottomYSecond // R1 is above R2
+                || bottomYFirst > topYSecond) { // R1 is below R1
+            return true;
+        }
+            return true;
+
+//        Shape intersection = Shape.intersect(firstSprite.getHitBox(), secondSprite.getHitBox());
+//        return !firstSprite.equals(secondSprite) && intersection.getBoundsInLocal().getWidth() != -1;
         }
 
     /*
@@ -103,7 +100,7 @@ public class CollisionHandler {
      */
     public void checkAndExecute(Sprite firstSprite, Sprite secondSprite, GameContainer container) {
 
-        if (checkCollision(firstSprite, secondSprite)) {
+        if (true) {
             String firstSpriteName = simpleStringName(firstSprite);
             String secondSpriteName = simpleStringName(secondSprite);
 
@@ -126,8 +123,15 @@ public class CollisionHandler {
                    // if (myMethodNames.contains(m)) {
                     for(Method m : myMethods){
                         if(m.getName().startsWith(mName)){
+                            try {
+                                m.invoke(this, firstSprite, container, secondSprite);
+                            } catch (InvocationTargetException e){
+                                System.err.println("An InvocationTargetException was caught!");
+                                Throwable cause = e.getCause();
+                                System.out.format("Invocation of %s failed because of: %s%n",
+                                        m.getName(), cause.getMessage());
+                            }
 
-                            m.invoke(this, firstSprite, container, secondSprite);
                         }
 
 //                        Method collisionMethod
@@ -143,9 +147,6 @@ public class CollisionHandler {
         //}catch (NoSuchMethodException e) {
         //do nothing
         //    System.out.println("nosuch");
-        } catch (InvocationTargetException e) {
-            System.out.println("invocation");
-        //do nothing
         } catch (IllegalAccessException e) {
             System.out.println("illegalAccess");
         //do nothing
@@ -168,8 +169,6 @@ public class CollisionHandler {
     //used in reflection
     private void destroy(Sprite sprite, GameContainer container, Sprite actor){
         count++;
-        System.out.println(count);
-        System.out.println("destroyMethod");
         container.remove(sprite);
         ((Coin) sprite).setActive();
 
@@ -200,22 +199,23 @@ public class CollisionHandler {
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             if(actor instanceof Coin){
-                Coin c = (Coin) sprite;
+                Coin c = (Coin) actor;
                 pM.addPoints(c.getPoints());
+                //System.out.println(pM.getPoints());
             }
         }
     }
 
     private void directMovement(Sprite sprite, GameContainer container, Sprite actor){
 //        System.out.println("directMovementMethod");
-        if(sprite instanceof PacMan){
-            PacMan pM = (PacMan) sprite;
-            pM.setPreviousLocation();
-        }
-        if(sprite instanceof Ghost){
-            Ghost g = (Ghost) sprite;
-            g.setPreviousLocation();
-        }
+//        if(sprite instanceof PacMan){
+//            PacMan pM = (PacMan) sprite;
+//            pM.setPreviousLocation();
+//        }
+//        if(sprite instanceof Ghost){
+//            Ghost g = (Ghost) sprite;
+//            g.setPreviousLocation();
+//        }
     }
 
 
