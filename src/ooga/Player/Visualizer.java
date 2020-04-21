@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -122,8 +123,13 @@ public class Visualizer {
         viewPane.setLeft(nonUInferface);
         viewPane.setCenter(map);
         viewPane.setRight(uInterface);
+        viewPane.setBottom(createPauseButton());
         viewPane.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         return viewPane;
+    }
+
+    private Button createPauseButton(){
+        return styler.createButton("PausePlay", e->pauseOrPlay());
     }
 
     public void addPacmen(int index, int row, int ID){
@@ -205,17 +211,22 @@ public class Visualizer {
             pc.handleKeyInput(code);
         }
         if(code == KeyCode.SPACE){
-            myMapView.changeGameStatus();
-            changeGameStatus();
-            if(!gameStatus){
-                otherAnimation.stop();
-                pacmanAnimation.stop();
-                ghostAnimation.stop();
-            } else{
-                pacmanAnimation.play();
-                ghostAnimation.play();
-                otherAnimation.play();
-            }
+            pauseOrPlay();
+        }
+    }
+
+    private void pauseOrPlay(){
+        myMapView.changeGameStatus();
+        changeGameStatus();
+        if(!gameStatus){
+            otherAnimation.stop();
+            pacmanAnimation.stop();
+            ghostAnimation.stop();
+        } else{
+            viewPane.requestFocus();
+            pacmanAnimation.play();
+            ghostAnimation.play();
+            otherAnimation.play();
         }
     }
 
