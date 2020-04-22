@@ -30,9 +30,6 @@ public class MapView {
     private Group coins;
 
     public MapView(Visualizer visualizer){
-        pacmen = new Group();
-        ghosts = new Group();
-        coins = new Group();
         myVisualizer = visualizer;
         gameStatus = true;
         myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
@@ -41,8 +38,11 @@ public class MapView {
         pauseLabel.setId("pause");
     }
 
-    public Node createMap(String level, GameContainer container) {
+    public Group createMap(String level, GameContainer container) {
         totalMap = new Group();
+        pacmen = new Group();
+        ghosts = new Group();
+        coins = new Group();
         totalMap.getChildren().addAll(createMapFromContainer(level, container), coins, pacmen, ghosts);
         return totalMap;
     }

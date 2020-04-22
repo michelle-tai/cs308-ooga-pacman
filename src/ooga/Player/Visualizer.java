@@ -62,6 +62,7 @@ public class Visualizer {
     private ResourceBundle myResources;
     private GameStep myGameStep;
     private Boolean gameStatus;
+    private Group map;
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -117,7 +118,7 @@ public class Visualizer {
     private BorderPane createView(){
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-        Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+        map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);
@@ -233,4 +234,11 @@ public class Visualizer {
     public Scene getMyScene(){return myScene;}
 
     public PacManView getCurrentPacMan(){return currentPacMan;}
+
+   public void restartLevel(){
+       myController.getContainer().clearContainer();
+       map = new Group();
+       map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+       viewPane.setCenter(map);
+   }
 }

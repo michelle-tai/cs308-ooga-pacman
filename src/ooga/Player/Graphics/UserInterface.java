@@ -31,7 +31,7 @@ public class UserInterface {
     public Node createComponents(){
         BorderPane pane = new BorderPane();
         pane.setTop(createVbox());
-        pane.setBottom(styler.createLink("Restart", e->{}));
+        pane.setBottom(styler.createLink("Restart", e->{myVisualizer.restartLevel();}));
         return pane;
     }
 
