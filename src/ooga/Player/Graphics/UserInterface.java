@@ -33,7 +33,8 @@ public class UserInterface {
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
-        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox, styler.createLabel("Change"),
+        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox,  styler.createButton("PausePlay", e->myVisualizer.pauseOrPlay()),
+                styler.createLabel("Change"),
                 styler.createButton("ChoosePacMan", e->myVisualizer.getCurrentPacMan().choosePacMan(myVisualizer.getCurrentPacMan().getPacManImage(new Stage()))));
         return vbox;
     }
