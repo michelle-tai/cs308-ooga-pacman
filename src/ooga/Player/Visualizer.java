@@ -4,13 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -27,16 +28,13 @@ import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
-import ooga.engine.GameContainer;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
-import ooga.engine.sprites.*;
 
 public class Visualizer {
 
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
-    public static final String RESOURCES = "";
     public static final int FRAMES_PER_SECOND = 10;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final int STARTSCREEN_WIDTH = 600;
@@ -46,7 +44,6 @@ public class Visualizer {
 
 
     private Stage myStage;
-    private Group pacmen;
     private MapView myMapView;
     private NonUserInterface nonUserInterface;
     private UserInterface userInterface;
@@ -64,10 +61,11 @@ public class Visualizer {
     private Styler styler;
     private ResourceBundle myResources;
     private GameStep myGameStep;
+    private Boolean gameStatus;
+    private Group map;
 
     public Visualizer (Stage stage){
         myStage = stage;
-        pacmen = new Group();
         myController = new Controller();
         myMapView = new MapView(this);
         nonUserInterface = new NonUserInterface();
@@ -76,9 +74,9 @@ public class Visualizer {
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
         myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
-
         styler = new Styler(myResources);
         myGameStep = new GameStep(myController.getContainer());
+        gameStatus = true;
     }
 
     public Scene startScene(){
@@ -120,8 +118,7 @@ public class Visualizer {
     private BorderPane createView(){
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-        //TODO: for multiplayer, pass in different level 1 depending on how many players
-        Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+        map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);
@@ -140,12 +137,13 @@ public class Visualizer {
     public void setPacMan(int index){
         currentPacMan = pacmanCollection.get(index);
         nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
-//        nonUserInterface.getStatus().bind(currentPacMan.pacmanStatus());
+        nonUserInterface.getScore().textProperty().bind(currentPacMan.pacmanScore().asString());
     }
 
     public void addGhosts(int index, int row, int ID){
         GhostView createGhosts = new GhostView(myMapView.getGhosts(), index, row, ID, myController, this);
         ghostCollection.add(createGhosts);
+        currentGhost = ghostCollection.get(ghostCollection.size() -1 );
     }
 
     public void addCoins(int index, int row, int ID){
@@ -190,15 +188,8 @@ public class Visualizer {
 
     private void step(){
         myController.setGameStep();
-//        createPacMan.update();
         myGameStep.step();
         viewPane.requestFocus();
-//        for(PacManView pc : pacmanCollection){
-//            pc.update();
-//        }
-//        for(GhostView gv : ghostCollection){
-//            gv.update();
-//        }
         for(CoinView cw: coinCollection){
             cw.update();
         }
@@ -209,9 +200,28 @@ public class Visualizer {
             pc.handleKeyInput(code);
         }
         if(code == KeyCode.SPACE){
-            myMapView.changeGameStatus();
+            pauseOrPlay();
         }
     }
+
+    public void pauseOrPlay(){
+        myMapView.changeGameStatus();
+        changeGameStatus();
+        if(!gameStatus){
+            otherAnimation.stop();
+            pacmanAnimation.stop();
+            ghostAnimation.stop();
+        } else{
+            viewPane.requestFocus();
+            pacmanAnimation.play();
+            ghostAnimation.play();
+            otherAnimation.play();
+        }
+    }
+
+    private void changeGameStatus() {gameStatus = !gameStatus;}
+
+    public boolean getGameStatus() {return gameStatus;}
 
     public void setPacManSpeed(double speed){
         pacmanAnimation.setRate(speed);
@@ -224,4 +234,11 @@ public class Visualizer {
     public Scene getMyScene(){return myScene;}
 
     public PacManView getCurrentPacMan(){return currentPacMan;}
+
+   public void restartLevel(){
+       myController.getContainer().clearContainer();
+       map = new Group();
+       map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+       viewPane.setCenter(map);
+   }
 }

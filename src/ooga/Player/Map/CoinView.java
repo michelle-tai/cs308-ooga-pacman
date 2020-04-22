@@ -29,13 +29,19 @@ public class CoinView {
     public void update(){
         if(!coinModel.checkActive()){
             myCoins.getChildren().remove(myImage);
+            myController.addScore(coinModel.getPoints());
         }
     }
 
     private ImageView generateFood(int index, int rowNum, int ID){
         ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGES, ID));
-        foodImage.setFitWidth(FOOD_WIDTH);
-        foodImage.setFitHeight(FOOD_HEIGHT);
+        if(coinModel.getStatus() == 0){
+            foodImage.setFitWidth(FOOD_WIDTH);
+            foodImage.setFitHeight(FOOD_HEIGHT);
+        } else if (coinModel.getStatus() == 1 || coinModel.getStatus() == 2){
+            foodImage.setFitWidth(FOOD_WIDTH * 2);
+            foodImage.setFitHeight(FOOD_HEIGHT * 2);
+        }
         foodImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - foodImage.getBoundsInLocal().getWidth() / 2));
         foodImage.setY((BLOCK_HEIGHT * rowNum) + (BLOCK_HEIGHT / 2 - foodImage.getBoundsInLocal().getHeight() / 2));
         myCoins.getChildren().add(foodImage);

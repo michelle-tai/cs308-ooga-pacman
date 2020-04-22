@@ -34,7 +34,7 @@ public class GhostView {
     }
 
     public void update() {
-        //ghostModel.move();
+//        ghostModel.move();
         myImage.setX(ghostModel.getX());
         myImage.setY(ghostModel.getY());
         checkStatus();
@@ -79,5 +79,7 @@ public class GhostView {
         myImage.setX(newX);
         myImage.setY(newY);
     }
+
+    public int getSpeed() {return ghostModel.getSpeed();}
 
 }

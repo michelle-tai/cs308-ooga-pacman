@@ -17,3 +17,12 @@
     -fx-alignment: center;
     -fx-text-alignment: center;
 }
+
+#Restart{
+    -fx-font-size: 40pt;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-text-fill: #f70008;
+}
