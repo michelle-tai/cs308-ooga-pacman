@@ -20,18 +20,8 @@ public class GameContainer {
     private static int BlockWidth = Integer.parseInt(Main.MY_RESOURCES.getString("BlockDim"));
 
     private HashMap<Pair<Integer,Integer>, HashSet<Sprite>> myMap;
-
-
-//    private HashSet<Sprite> myGhostSet = new HashSet<Sprite>();
-//    private HashSet<Sprite> myPacManSet = new HashSet<Sprite>();
     private HashSet<Sprite> allGameObjects = new HashSet<>();
-
-
-    private List<Ghost> myGhostList = new ArrayList<>();
-    private List<PacMan> myPacManList = new ArrayList<>();
     private MapGraphNode[][] emptySpots;
-
-
     private List<Sprite> myGhostSet = new ArrayList<>();
     private List<Sprite> myPacManSet = new ArrayList<>();
     private List<Sprite> myCoinSet = new ArrayList<>();
@@ -229,6 +219,14 @@ public class GameContainer {
                 myMap.put(loc, locSet);
             }
         }
+    }
+
+    public void clearContainer(){
+        myMap.clear();
+        myCoinSet.clear();
+        myPacManSet.clear();
+        myGhostSet.clear();
+        allGameObjects.clear();
     }
 
 }
