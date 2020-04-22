@@ -59,7 +59,7 @@ public class GameContainer {
 
     private MapGraphNode getNonNullMapNode(int i, int row){
         for(int col = i; col < emptySpots.length; col++){
-            for(int j = row; j <emptySpots[0].length; col++){
+            for(int j = row; j <emptySpots[0].length; j++){
                 if(emptySpots[col][j] != null){
                     return emptySpots[col][j];
                 }
