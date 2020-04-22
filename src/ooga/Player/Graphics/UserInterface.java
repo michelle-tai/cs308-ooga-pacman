@@ -2,6 +2,7 @@ package ooga.Player.Graphics;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -26,7 +27,15 @@ public class UserInterface {
         styler = new Styler(myResources);
     }
 
+
     public Node createComponents(){
+        BorderPane pane = new BorderPane();
+        pane.setTop(createVbox());
+        pane.setBottom(styler.createLink("Restart", e->{}));
+        return pane;
+    }
+
+    private VBox createVbox(){
         VBox vbox = new VBox(VBOX_SPACING);
         HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(PathManager.getFilePath(PathManager.DARKFORMAT))),
                 styler.createButton("LightMode", e-> changeStyleSheet(PathManager.getFilePath(PathManager.LIGHTFORMAT))));
@@ -36,7 +45,7 @@ public class UserInterface {
         vbox.getChildren().addAll( styler.createLabel("Settings"), hbox,  styler.createButtonImage(e->myVisualizer.pauseOrPlay(), PathManager.getFilePath(PathManager.PLAYPAUSEIMAGE)),
                 styler.createLabel("Change"),
                 styler.createButton("ChoosePacMan", e->myVisualizer.getCurrentPacMan().choosePacMan(myVisualizer.getCurrentPacMan().getPacManImage(new Stage()))));
-        return vbox;
+                return vbox;
     }
 
     private void changeStyleSheet(String stylesheetPath){

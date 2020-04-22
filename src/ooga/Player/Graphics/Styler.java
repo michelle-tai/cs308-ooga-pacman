@@ -22,6 +22,7 @@ public class Styler {
 
     public Label createLabel(String string){
         Label label = new Label(getResourceText(string));
+        label.setId(string);
         return label;
     }
 
@@ -44,6 +45,7 @@ public class Styler {
     public Hyperlink createLink(String string, EventHandler e){
         Hyperlink link = new Hyperlink(getResourceText(string));
         link.setOnAction(e);
+        link.setId(string);
         return link;
     }
 }
