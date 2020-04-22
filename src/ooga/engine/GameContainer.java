@@ -108,11 +108,13 @@ public class GameContainer {
             }
         } catch(FileNotFoundException e){
             //TODO: add error here
-            e.printStackTrace();
-            System.out.println("File not found");
+            throw new GameException(Main.ERROR_RESOURCES.getString("FileNotFound"));
+//            e.printStackTrace();
+//            System.out.println("File not found");
         } catch (IOException e) {
             //TODO: add error here
-            System.out.println(e);
+            throw new GameException(Main.ERROR_RESOURCES.getString("GeneralError"));
+//            System.out.println(e);
         }
     }
 

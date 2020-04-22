@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import ooga.Main;
+import ooga.engine.GameException;
 import ooga.engine.sprites.Sprite;
 import ooga.engine.sprites.Block;
 import ooga.engine.sprites.Coin;
@@ -42,9 +43,10 @@ public class Level {
             return myImages.get(pair);
         } else {
             // TODO: handle error
-            System.out.println("Pair not in map");
+            throw new GameException(Main.ERROR_RESOURCES.getString("PairNotInMap"));
+//            System.out.println("Pair not in map");
         }
-        return null;
+//        return null;
     }
 
     public Map<Pair<Integer,Integer>, Sprite> getModelMap(){
@@ -81,10 +83,12 @@ public class Level {
             }
         } catch(FileNotFoundException e){
             //TODO: add error here
-            System.out.println("Test File not found");
+            throw new GameException(Main.ERROR_RESOURCES.getString("FileNotFound"));
+//            System.out.println("Test File not found");
         } catch (IOException e) {
             //TODO: add error here
-            System.out.println(e);
+            throw new GameException(Main.ERROR_RESOURCES.getString("GeneralError"));
+//            System.out.println(e);
         }
     }
 
