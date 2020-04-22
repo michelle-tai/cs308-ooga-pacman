@@ -7,6 +7,7 @@ import ooga.engine.sprites.Sprite;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class AggressiveMovement extends ControllableMovement{
@@ -19,6 +20,7 @@ public class AggressiveMovement extends ControllableMovement{
     private List<String> directions = new ArrayList<>();
     private List<Sprite> myTarget;
     private String currDirection;
+    private String prevDirection;
     private boolean directionChanged = true;
 
 
@@ -27,7 +29,8 @@ public class AggressiveMovement extends ControllableMovement{
         mySprite = sprite;
         directions.addAll(List.of("Right", "Left", "Up", "Down"));
         myTarget = targetSprites;
-        currDirection = Main.MY_RESOURCES.getString("Right");
+        currDirection = Main.MY_RESOURCES.getString("");
+        prevDirection = "";
 
     }
 
@@ -52,6 +55,28 @@ public class AggressiveMovement extends ControllableMovement{
 
         directionChanged = false;
 
+    }
+
+    private String pickDirection(MapGraphNode currentLocation){
+        List<String> exclude = new ArrayList<String>();
+        exclude.add(RandomMovement.directionOpposites.get(currDirection));
+        exclude.add(RandomMovement.directionOpposites.get(prevDirection));
+
+        List<String> potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
+
+        HashSet<MapGraphNode> visited = new HashSet<>();
+
+        visited.add(currentLocation);
+
+        for(String dir : potentialDirections){
+            ArrayList<String> dirList = new ArrayList<>();
+            dirList.add(dir);
+            visited.addAll(getNode(currentLocation, dirList));
+            List<MapGraphNode> quene = 
+            while
+        }
+
+        return "";
     }
 
     protected void moveRight(MapGraphNode currentLocation){
@@ -92,6 +117,26 @@ public class AggressiveMovement extends ControllableMovement{
             }
         }
         return false;
+    }
+
+    //todo: potentially implement map for neighbors so you dont need lots of if statements
+    private static List<MapGraphNode> getNode(MapGraphNode currentLocation, List<String> dir){
+        List<MapGraphNode> ret = new ArrayList<>();
+        for(String direction : dir ) {
+            if (direction.equals("Right")) {
+                ret.add(currentLocation.getRightNeighbor());
+            }
+            if (direction.equals("Left")) {
+                ret.add(currentLocation.getLeftNeighbor());
+            }
+            if (direction.equals("Up")) {
+                ret.add(currentLocation.getTopNeighbor());
+            }
+            if (direction.equals("Down")) {
+                ret.add(currentLocation.getBottomNeighbor());
+            }
+        }
+        return ret;
     }
 
 

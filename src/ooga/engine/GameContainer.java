@@ -147,7 +147,7 @@ public class GameContainer {
     }
 
     private void generateFood(int i, int row, int ID) {
-        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0, ID);
+        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 1, ID);
         myCoinSet.add(modelFood);
         addSpriteToMap(modelFood, i, row);
         allGameObjects.add(modelFood);

@@ -11,7 +11,7 @@ public class ControllableMovement {
   private String currDirection;
   private int movedist = 1;
   private int mySpeed;
-  private boolean directionChanged = false;
+  protected boolean directionChanged = false;
 
   public ControllableMovement(Sprite sprite){
     mySprite = sprite;

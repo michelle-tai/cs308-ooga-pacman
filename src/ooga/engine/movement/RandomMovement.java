@@ -12,11 +12,11 @@ import ooga.engine.sprites.Sprite;
 
 public class RandomMovement extends ControllableMovement {
   private static List<String> directions = new ArrayList<>();
-  private static HashMap<String, String> directionOpposites = new HashMap<>();
+  protected static HashMap<String, String> directionOpposites = new HashMap<>();
   private Sprite mySprite;
   protected String currDirection;
+  private String prevDirection;
   private int movedist = 10;
-  private boolean directionChanged = false;
 
 
   public RandomMovement(Sprite sprite){
@@ -27,7 +27,8 @@ public class RandomMovement extends ControllableMovement {
     directionOpposites.put("Left", "Right");
     directionOpposites.put("Up", "Down");
     directionOpposites.put("Down", "Up");
-    currDirection = Main.MY_RESOURCES.getString("Right");
+    currDirection = "";
+    prevDirection = "";
   }
 
 
@@ -36,8 +37,10 @@ public class RandomMovement extends ControllableMovement {
   @Override
   public void move(MapGraphNode currentLocation){
     //todo: change the design struture rn, but it have this do nothing rn
-
-    List<String> possibleDirections = getDirections(currentLocation, directionOpposites.get(currDirection));
+    List<String> avoid = new ArrayList<>();
+    avoid.add(directionOpposites.get(currDirection));
+    avoid.add(directionOpposites.get(prevDirection));
+    List<String> possibleDirections = getDirections(currentLocation, avoid);
     int min = 0;
     int max = possibleDirections.size();
     int range = max - min; //max 3 min0 range = max - min + 1
@@ -56,6 +59,7 @@ public class RandomMovement extends ControllableMovement {
       // Do nothing
     }
 
+    directionChanged = false;
   }
 
   protected void moveRight(MapGraphNode currentLocation){
@@ -148,7 +152,7 @@ public class RandomMovement extends ControllableMovement {
   }
 
 
-  protected static List<String> getDirections(MapGraphNode currentLocation, String exclude){
+  protected static List<String> getDirections(MapGraphNode currentLocation, List<String> exclude){
     ArrayList<String> possibleDirections = new ArrayList<>();
     if(currentLocation.getRightNeighbor()!= null){
       possibleDirections.add("Right");
@@ -165,11 +169,15 @@ public class RandomMovement extends ControllableMovement {
     if(possibleDirections.size() < 1){
       possibleDirections.add("Do Nothing");
     }
-    if(possibleDirections.size() > 1){
-      if(possibleDirections.contains(exclude)){
-        possibleDirections.remove(exclude);
+
+    for(int i = 0; i < exclude.size(); i++){
+      if(possibleDirections.size() > 1){
+        if(possibleDirections.contains(exclude.get(i))){
+          possibleDirections.remove(exclude.get(i));
+        }
       }
     }
+
 
     return possibleDirections;
   }

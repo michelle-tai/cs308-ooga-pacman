@@ -32,6 +32,10 @@ public class GameStep {
     }
 
     private void checkAndExecuteCollisions(List<Sprite> objectSet) {
+
+
+
+
         for(Sprite pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();
@@ -52,7 +56,5 @@ public class GameStep {
             ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite));
         }
     }
-
-
 
 }
