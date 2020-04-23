@@ -51,9 +51,10 @@ public class Controller {
     }
 
     public void setLevel(Level level){
-//        container.setCurrLevel(level);
-        container = new GameContainer(level);
+        container.setCurrLevel(level);
+//        container = new GameContainer(level);
         System.out.println("new level set in container");
+        System.out.println();
     }
 
 }

@@ -103,8 +103,8 @@ public class Visualizer {
             } catch(RuntimeException eee){
                 //todo: change
 //                setDefaults();
-                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
-//                throw new GameException(Main.MY_RESOURCES.getString("DefaultUsed"));
+//                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
+                throw new GameException(Main.ERROR_RESOURCES.getString("DefaultUsed"));
             }
         }
         ),

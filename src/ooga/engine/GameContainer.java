@@ -135,6 +135,11 @@ public class GameContainer {
 
     public void setCurrLevel(Level level){
         currLevel = level;
+        emptySpots = currLevel.getInitialEmptySpots();
+        myGhostSet = currLevel.getGhosts();
+        myPacManSet = currLevel.getPacMen();
+        myCoinSet = currLevel.getCoinSet();
+        myMap = currLevel.getModelMap();
     }
 
 }
