@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 import ooga.Player.Graphics.Styler;
 import ooga.Player.Visualizer;
-import ooga.controller.Controller;
 import ooga.data.PathManager;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
@@ -19,13 +18,10 @@ public class MapView {
 
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
-    public static final int FOOD_WIDTH = 10;
-    public static final int FOOD_HEIGHT = 10;
 
     private Group pacmen;
     private Group ghosts;
     private Visualizer myVisualizer;
-    private Controller myController;
     private boolean gameStatus;
     private Styler styler;
     private ResourceBundle myResources;
@@ -34,11 +30,7 @@ public class MapView {
     private Group coins;
 
     public MapView(Visualizer visualizer){
-        pacmen = new Group();
-        ghosts = new Group();
-        coins = new Group();
         myVisualizer = visualizer;
-        myController = new Controller();
         gameStatus = true;
         myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
@@ -46,8 +38,11 @@ public class MapView {
         pauseLabel.setId("pause");
     }
 
-    public Node createMap(String level, GameContainer container) {
+    public Group createMap(String level, GameContainer container) {
         totalMap = new Group();
+        pacmen = new Group();
+        ghosts = new Group();
+        coins = new Group();
         totalMap.getChildren().addAll(createMapFromContainer(level, container), coins, pacmen, ghosts);
         return totalMap;
     }
@@ -91,13 +86,9 @@ public class MapView {
        gameStatus = !gameStatus;
         if(!gameStatus){
             totalMap.getChildren().add(pauseLabel);
-            System.out.println("added pause");
         } else {
             totalMap.getChildren().remove(pauseLabel);
-            System.out.println("removed pause");
         }
     }
-
-    public boolean gameStatus() {return gameStatus;}
 
 }

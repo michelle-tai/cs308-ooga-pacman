@@ -62,6 +62,7 @@ public class Visualizer {
     private ResourceBundle myResources;
     private GameStep myGameStep;
     private Boolean gameStatus;
+    private Group map;
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -117,19 +118,14 @@ public class Visualizer {
     private BorderPane createView(){
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-        Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+        map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);
         viewPane.setCenter(map);
         viewPane.setRight(uInterface);
-        viewPane.setBottom(createPauseButton());
         viewPane.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         return viewPane;
-    }
-
-    private Button createPauseButton(){
-        return styler.createButton("PausePlay", e->pauseOrPlay());
     }
 
     public void addPacmen(int index, int row, int ID){
@@ -192,15 +188,8 @@ public class Visualizer {
 
     private void step(){
         myController.setGameStep();
-//        createPacMan.update();
         myGameStep.step();
         viewPane.requestFocus();
-//        for(PacManView pc : pacmanCollection){
-//            pc.update();
-//        }
-//        for(GhostView gv : ghostCollection){
-//            gv.update();
-//        }
         for(CoinView cw: coinCollection){
             cw.update();
         }
@@ -215,7 +204,7 @@ public class Visualizer {
         }
     }
 
-    private void pauseOrPlay(){
+    public void pauseOrPlay(){
         myMapView.changeGameStatus();
         changeGameStatus();
         if(!gameStatus){
@@ -232,6 +221,8 @@ public class Visualizer {
 
     private void changeGameStatus() {gameStatus = !gameStatus;}
 
+    public boolean getGameStatus() {return gameStatus;}
+
     public void setPacManSpeed(double speed){
         pacmanAnimation.setRate(speed);
     }
@@ -243,4 +234,11 @@ public class Visualizer {
     public Scene getMyScene(){return myScene;}
 
     public PacManView getCurrentPacMan(){return currentPacMan;}
+
+   public void restartLevel(){
+       myController.getContainer().clearContainer();
+       map = new Group();
+       map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+       viewPane.setCenter(map);
+   }
 }
