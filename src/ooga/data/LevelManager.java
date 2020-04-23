@@ -57,24 +57,8 @@ public class LevelManager {
       BufferedReader br = new BufferedReader(new FileReader(file));
       String string;
       int row = 0;
-      int ghostNum = 0;
-      int pacNum = 0;
-      int coinNum = 0;
       while ((string = br.readLine()) != null){
         for( int i = 0; i < string.length(); i++){
-//                    if (string.charAt(i) == 'x'){
-//                        generateBlock(i, row);
-//                    } else if (string.charAt(i) == '0') {
-//                        generateFood(i , row, coinNum);
-//                        coinNum++;
-//                    } else if (string.charAt(i) == 'p'){
-//                        generatePacMan(i, row, pacNum);
-//                        pacNum++;
-//                    } else if (string.charAt(i) == 'g'){
-//                        generateGhost(i, row, ghostNum);
-//                        ghostNum++;
-//                    }
-
           try {
             method = level.getClass().getMethod("method"+string.charAt(i), Integer.class, Integer.class);
           } catch (NoSuchMethodException e) {
