@@ -97,11 +97,12 @@ public class Visualizer {
         HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
             try {
                 myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid")));
+                System.out.println("new level set");
 //                currLevel = new Level(launchFileChooser(new Stage(), "Grid"));
 //                map = myController.setModelMap(currLevel.getModelMap());
             } catch(RuntimeException eee){
                 //todo: change
-                setDefaults();
+//                setDefaults();
                 new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
 //                throw new GameException(Main.MY_RESOURCES.getString("DefaultUsed"));
             }

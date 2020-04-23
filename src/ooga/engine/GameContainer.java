@@ -1,18 +1,11 @@
 package ooga.engine;
 
-
-import java.net.URI;
-import java.nio.file.Paths;
 import java.util.Map;
 import javafx.util.Pair;
 import ooga.Main;
 import ooga.data.Level;
-import ooga.data.PathManager;
-import ooga.engine.sprites.Block;
-import ooga.engine.sprites.Coin;
 import ooga.engine.sprites.PacMan;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -138,10 +131,6 @@ public class GameContainer {
         myPacManSet.clear();
         myGhostSet.clear();
         allGameObjects.clear();
-    }
-
-    public void setModelMap(HashMap<Pair<Integer,Integer>, HashSet<Sprite>> map){
-        myMap = map;
     }
 
     public void setCurrLevel(Level level){
