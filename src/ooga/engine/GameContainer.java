@@ -19,6 +19,7 @@ public class GameContainer {
     private List<Sprite> myGhostList = new ArrayList<>();
     private List<Sprite> myPacManList = new ArrayList<>();
     private List<Sprite> myCoinList = new ArrayList<>();
+    private List<Sprite> myBlockList = new ArrayList<>();
     private Level currLevel;
 
 
@@ -30,6 +31,7 @@ public class GameContainer {
         myGhostList.addAll(currLevel.getGhosts());
         myPacManList.addAll(currLevel.getPacMen());
         myCoinList.addAll(currLevel.getCoins());
+        myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
         System.out.println(myMap);
     }
@@ -74,8 +76,11 @@ public class GameContainer {
     }
 
     public Sprite getPacMan(int ID){
-        System.out.println(ID);
         return myPacManList.get(ID);
+    }
+
+    public Sprite getBlock() {
+        return myBlockList.get(0);
     }
 
     public Sprite getCoin(int ID){return myCoinList.get(ID);}
@@ -129,11 +134,13 @@ public class GameContainer {
         myCoinList.clear();
         myPacManList.clear();
         myGhostList.clear();
+        myBlockList.clear();
         allGameObjects.clear();
         emptySpots = currLevel.getInitialEmptySpots();
         myGhostList.addAll(currLevel.getGhosts());
         myPacManList.addAll(currLevel.getPacMen());
         myCoinList.addAll(currLevel.getCoins());
+        myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
         System.out.println(myMap);
     }
@@ -144,6 +151,7 @@ public class GameContainer {
         myGhostList = currLevel.getGhosts();
         myPacManList = currLevel.getPacMen();
         myCoinList = currLevel.getCoins();
+        myBlockList = currLevel.getBlockList();
         myMap = currLevel.getModelMap();
     }
 

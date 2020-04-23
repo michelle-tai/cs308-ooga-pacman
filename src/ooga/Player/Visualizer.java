@@ -30,6 +30,7 @@ import ooga.data.Level;
 import ooga.data.PathManager;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
+import ooga.engine.sprites.Sprite;
 
 public class Visualizer {
 
@@ -74,7 +75,7 @@ public class Visualizer {
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
-        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = myController.getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         myGameStep = new GameStep(myController.getContainer());
         gameStatus = true;
@@ -83,7 +84,7 @@ public class Visualizer {
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
         start.getStylesheets()
-                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.STARTFORMAT))
+                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.STARTFORMAT))
                         .toExternalForm());
         return start;
     }
@@ -115,7 +116,7 @@ public class Visualizer {
     private Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
-                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.LIGHTFORMAT))
+                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))
                         .toExternalForm());
         beginAnimation();
         return myScene;
@@ -163,6 +164,10 @@ public class Visualizer {
     public void addCoins(int index, int row, int ID){
         CoinView createCoins = new CoinView(myMapView.getCoins(), index, row, ID, myController);
         coinCollection.add(createCoins);
+    }
+
+    public Controller getController() {
+        return myController;
     }
 
     private void beginAnimation() {

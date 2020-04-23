@@ -55,8 +55,7 @@ public class GhostView {
     }
 
     private ImageView createGhostImage(int index, int rows){
-        String string = "resources/ghost/ghost" + (ID+1) + ".png";
-        ImageView ghostImage = new ImageView(PathManager.getFilePath(PathManager.GHOSTIMAGES, ID));
+        ImageView ghostImage = new ImageView(ghostModel.getImagePath());
         ghostImage.setFitWidth(GHOST_WIDTH);
         ghostImage.setFitHeight(GHOST_HEIGHT);
         ghostImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - ghostImage.getBoundsInLocal().getWidth() / 2));
@@ -66,7 +65,7 @@ public class GhostView {
     }
 
     private void changeImage(int imageIndex){
-        ImageView newImage = new ImageView(PathManager.getFilePath(PathManager.GHOSTIMAGES, imageIndex));
+        ImageView newImage = new ImageView(ghostModel.getScaredImagePath());
         newImage.setFitWidth(GHOST_WIDTH);
         newImage.setFitHeight(GHOST_WIDTH);
         myGhosts.getChildren().remove(myImage);

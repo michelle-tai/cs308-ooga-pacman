@@ -13,15 +13,16 @@ public class Ghost extends DynamicSprite{
   private int mySpeed;
   private int movedist = 35;
   private ControllableMovement ghostMove;
+  private String myScaredImagePath;
 
-  public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID, String imagePath){
+  public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID,
+      String imagePath, String scaredImagePath){
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID, imagePath);
     mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"));
     myStatus = 0;
+    myScaredImagePath = scaredImagePath;
     //ghostMove = new AggressiveMovement(this, targetSprites);
   }
-
-
 
   @Override
   public String getMovementType() {
@@ -34,7 +35,6 @@ public class Ghost extends DynamicSprite{
     ghostMove = new AggressiveMovement(this, targetSprites);
   }
 
-
   @Override
   public int getStatus() {
     return myStatus;
@@ -45,7 +45,13 @@ public class Ghost extends DynamicSprite{
     myStatus = newStatus;
   }
 
+  public String getScaredImagePath() {
+    return myScaredImagePath;
+  }
 
+  public void setScaredImagePath(String scaredImagePath) {
+    this.myScaredImagePath = scaredImagePath;
+  }
 
   public void move(MapGraphNode currentLocation){
     ghostMove.move(currentLocation);

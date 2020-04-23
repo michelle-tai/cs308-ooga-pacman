@@ -41,7 +41,19 @@ public class Controller {
 
     public Sprite getCurrentCoin(int ID) {return container.getCoin(ID);}
 
+    public Sprite getBlock() {
+        return container.getBlock();
+    }
+
+    public PathManager getCurrentPathManager() {
+        return myLevelManager.getPathManager();
+    }
+
     public void addScore(int score) { currentScore += score;}
+
+    public LevelManager getLevelManager() {
+        return myLevelManager;
+    }
 
     public SimpleIntegerProperty getCurrentScore(){
         return new SimpleIntegerProperty(currentScore);

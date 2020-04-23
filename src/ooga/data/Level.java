@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import ooga.Main;
@@ -19,10 +20,9 @@ import ooga.engine.sprites.PacMan;
 
 public class Level {
 
-    private Map<Pair<Integer, Integer>, Image> myImages = new HashMap<>();
     private Map<Pair<Integer, Integer>, Set<Sprite>> myMap = new HashMap<>();
 
-    private Set<Sprite> allGameObjects = new HashSet<Sprite>();
+    private Set<Sprite> allGameObjects = new HashSet<>();
     private Map<Pair<Integer, Integer>, MapGraphNode> emptySpots = new HashMap<>();
 
     private Integer maxWidth = 0;
@@ -31,6 +31,7 @@ public class Level {
     private List<Sprite> myGhostList = new ArrayList<>();
     private List<Sprite> myPacManList = new ArrayList<>();
     private List<Sprite> myCoinList = new ArrayList<>();
+    private List<Sprite> myBlockList = new ArrayList<>();
 
     private static Integer BlockWidth;
 
@@ -38,20 +39,12 @@ public class Level {
     private Integer pacManCount = 0;
     private Integer coinCount = 0;
 
-    public Level(){
-        ResourceBundle resourceBundle = PathManager.getResourceBundle(PathManager.PROPERTIES);
-        BlockWidth = Integer.parseInt(resourceBundle.getString("BlockDim"));
-    }
+    private PathManager myPathManager;
 
-    public Image getMapElementImage(int row, int col) {
-        Pair<Integer, Integer> pair = new Pair<>(row, col);
-        if (myImages.containsKey(pair)) {
-            return myImages.get(pair);
-        } else {
-            // TODO: handle error
-            System.out.println("Pair not in map");
-        }
-        return null;
+    public Level(PathManager pathManager){
+        myPathManager = pathManager;
+        ResourceBundle resourceBundle = myPathManager.getResourceBundle(PathManager.PROPERTIES);
+        BlockWidth = Integer.parseInt(resourceBundle.getString("BlockDim"));
     }
 
     public Map<Pair<Integer,Integer>, Set<Sprite>> getModelMap(){
@@ -59,21 +52,21 @@ public class Level {
     }
 
     public void methodx(Integer i, Integer row) {
-        Block modelBlock = new Block(BlockWidth * i, BlockWidth * row);
+        Block modelBlock = new Block(BlockWidth * i, BlockWidth * row,
+            myPathManager.getFilePath(PathManager.BLOCKIMAGE));
         addSpriteToMap(modelBlock, i, row);
         allGameObjects.add(modelBlock);
-
-        // @author Caleb Sanford
-        addImageToMap((PathManager.getFilePath(PathManager.BLOCKIMAGE)), i, row);
+        myBlockList.add(modelBlock);
     }
 
     public void methodg(Integer i, Integer row) {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
-        Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ghostCount);
+        Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim,
+            ghostDim, ghostCount, myPathManager.getFilePath(PathManager.GHOSTIMAGES, ghostCount),
+            myPathManager.getFilePath(PathManager.SCAREDGHOST));
         myGhostList.add(modelGhost);
         allGameObjects.add(modelGhost);
         addSpriteToMap(modelGhost, i, row);
-        addImageToMap(PathManager.getFilePath(PathManager.GHOSTIMAGES, ghostCount), i, row);
         addEmptySpot(i, row);
         modelGhost.setMovementType("", myPacManList); //TODO: load targets from data
 
@@ -83,13 +76,13 @@ public class Level {
 
     public void methodp(Integer i, Integer row) {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
-        PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, pacManCount);
+        PacMan modelPacMan = new PacMan(BlockWidth * i,
+            BlockWidth * row, pacManDim, pacManDim,
+            pacManCount, myPathManager.getFilePath(PathManager.PACKMANIMAGE, pacManCount));
         myPacManList.add(modelPacMan);
         allGameObjects.add(modelPacMan);
         addSpriteToMap(modelPacMan, i, row);
-        addImageToMap(PathManager.getFilePath(PathManager.PACKMANIMAGE, pacManCount), i, row);
         addEmptySpot(i, row);
-
         pacManCount++;
     }
 
@@ -121,6 +114,10 @@ public class Level {
         return allGameObjects;
     }
 
+    public List<Sprite> getBlockList() {
+        return myBlockList;
+    }
+
     public MapGraphNode[][] getInitialEmptySpots() {
         MapGraphNode[][] myNodes = new MapGraphNode[maxHeight][maxWidth];
         for (Pair<Integer, Integer> p : emptySpots.keySet()) {
@@ -138,13 +135,13 @@ public class Level {
 
 
     private void generateFood(Integer i, Integer row, Integer status) {
-        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, status, coinCount);
+        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, status, coinCount,
+            myPathManager.getFilePath(PathManager.FOODIMAGES, status));
         myCoinList.add(modelFood);
         addSpriteToMap(modelFood, i, row);
         allGameObjects.add(modelFood);
         addEmptySpot(i, row);
 
-        addImageToMap(PathManager.getFilePath(PathManager.FOODIMAGES, status), i, row);
         coinCount++;
     }
 
@@ -165,12 +162,6 @@ public class Level {
     private void calculateHeightWidth(int i, int row) {
         if (i+1 > maxWidth) maxWidth = i+1;
         if (row+1 > maxHeight) maxHeight = row+1;
-    }
-
-    private void addImageToMap(String imagePath, int i, int row) {
-        Pair<Integer, Integer> loc = new Pair<>(i,row);
-        Image image = new Image(imagePath);
-        myImages.put(loc, image);
     }
 
     private void addEmptySpot(int i, int row) {
