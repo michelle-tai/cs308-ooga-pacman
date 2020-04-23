@@ -94,7 +94,7 @@ public class Visualizer {
         vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
         HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
             try {
-                myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid")));
+//                myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid"))); //TODO
                 System.out.println("new level set");
 //                currLevel = new Level(launchFileChooser(new Stage(), "Grid"));
 //                map = myController.setModelMap(currLevel.getModelMap());

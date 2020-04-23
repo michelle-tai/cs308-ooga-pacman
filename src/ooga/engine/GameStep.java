@@ -1,6 +1,8 @@
 package ooga.engine;
 
 import ooga.data.Collision;
+import ooga.data.Level;
+import ooga.data.LevelManager;
 import ooga.engine.sprites.DynamicSprite;
 import ooga.engine.sprites.Sprite;
 
@@ -12,8 +14,10 @@ public class GameStep {
     private Collision collision;
     private GameContainer myContainer;
     private String myStatus;
+//    private LevelManager myLevelManager;
 
     public GameStep(GameContainer container) {
+//        myLevelManager = new LevelManager();
         myContainer = container;
         collision = new Collision();
         myCollisionHandler = new CollisionHandler();

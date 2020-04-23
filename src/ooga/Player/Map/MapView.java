@@ -1,5 +1,6 @@
 package ooga.Player.Map;
 
+import java.util.Set;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,7 +12,6 @@ import ooga.data.PathManager;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
 
-import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class MapView {
@@ -51,7 +51,7 @@ public class MapView {
 //        container.createMapFromFile(level);
         Group map = new Group();
         for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
-            HashSet<Sprite> objects = container.getModelMap().get(loc);
+            Set<Sprite> objects = container.getModelMap().get(loc);
             for (Sprite sprite : objects) {
                 if (sprite instanceof Block) {
                     map.getChildren().add(generateBlock(loc.getKey(), loc.getValue()));
