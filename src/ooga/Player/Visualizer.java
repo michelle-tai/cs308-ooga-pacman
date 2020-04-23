@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -18,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import ooga.Main;
 import ooga.Player.Ghost.GhostView;
 import ooga.Player.Graphics.NonUserInterface;
 import ooga.Player.Graphics.Styler;
@@ -26,6 +28,7 @@ import ooga.Player.Map.CoinView;
 import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
 import ooga.controller.Controller;
+import ooga.data.Level;
 import ooga.data.PathManager;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
@@ -61,6 +64,8 @@ public class Visualizer {
     private ResourceBundle myResources;
     private GameStep myGameStep;
     private Boolean gameStatus;
+    private Group map;
+    private Level currLevel;
 
     public Visualizer (Stage stage){
         myStage = stage;
@@ -89,7 +94,20 @@ public class Visualizer {
         VBox vbox = new VBox(VBOX_SPACING);
         vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
         vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
-        HBox hbox = new HBox(styler.createLink("UploadGrid", e->launchFileChooser(new Stage(), "Grid")),
+        HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
+            try {
+                myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid")));
+                System.out.println("new level set");
+//                currLevel = new Level(launchFileChooser(new Stage(), "Grid"));
+//                map = myController.setModelMap(currLevel.getModelMap());
+            } catch(RuntimeException eee){
+                //todo: change
+//                setDefaults();
+//                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
+                throw new GameException(Main.ERROR_RESOURCES.getString("DefaultUsed"));
+            }
+        }
+        ),
                 styler.createLink("UploadData", e->launchFileChooser(new Stage(), "Data")),
                 styler.createLink("UploadPlayers", e->launchFileChooser(new Stage(), "Players")));
         vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, styler.createButton("Start", e->myStage.setScene(setupScene())));
@@ -116,7 +134,8 @@ public class Visualizer {
     private BorderPane createView(){
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-        Node map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+//        map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+        map = myMapView.createMap(myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);
@@ -186,15 +205,8 @@ public class Visualizer {
 
     private void step(){
         myController.setGameStep();
-//        createPacMan.update();
         myGameStep.step();
         viewPane.requestFocus();
-//        for(PacManView pc : pacmanCollection){
-//            pc.update();
-//        }
-//        for(GhostView gv : ghostCollection){
-//            gv.update();
-//        }
         for(CoinView cw: coinCollection){
             cw.update();
         }
@@ -205,21 +217,28 @@ public class Visualizer {
             pc.handleKeyInput(code);
         }
         if(code == KeyCode.SPACE){
-            myMapView.changeGameStatus();
-            changeGameStatus();
-            if(!gameStatus){
-                otherAnimation.stop();
-                pacmanAnimation.stop();
-                ghostAnimation.stop();
-            } else{
-                pacmanAnimation.play();
-                ghostAnimation.play();
-                otherAnimation.play();
-            }
+            pauseOrPlay();
+        }
+    }
+
+    public void pauseOrPlay(){
+        myMapView.changeGameStatus();
+        changeGameStatus();
+        if(!gameStatus){
+            otherAnimation.stop();
+            pacmanAnimation.stop();
+            ghostAnimation.stop();
+        } else{
+            viewPane.requestFocus();
+            pacmanAnimation.play();
+            ghostAnimation.play();
+            otherAnimation.play();
         }
     }
 
     private void changeGameStatus() {gameStatus = !gameStatus;}
+
+    public boolean getGameStatus() {return gameStatus;}
 
     public void setPacManSpeed(double speed){
         pacmanAnimation.setRate(speed);
@@ -232,4 +251,19 @@ public class Visualizer {
     public Scene getMyScene(){return myScene;}
 
     public PacManView getCurrentPacMan(){return currentPacMan;}
+
+   public void restartLevel(){
+       myController.getContainer().clearContainer();
+       map = new Group();
+//       map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+       map = myMapView.createMap(myController.getContainer());
+
+       viewPane.setCenter(map);
+       System.out.println(currentPacMan);
+   }
+
+
+    private void setDefaults(){
+        map = myMapView.createMap(myController.getContainer());
+    }
 }

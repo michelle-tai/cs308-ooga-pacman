@@ -1,13 +1,11 @@
 package ooga.engine;
 
-
+import java.util.Map;
 import javafx.util.Pair;
 import ooga.Main;
-import ooga.engine.sprites.Block;
-import ooga.engine.sprites.Coin;
+import ooga.data.Level;
 import ooga.engine.sprites.PacMan;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,31 +17,28 @@ public class GameContainer {
 
     private static int BlockWidth = Integer.parseInt(Main.MY_RESOURCES.getString("BlockDim"));
 
-    private HashMap<Pair<Integer,Integer>, HashSet<Sprite>> myMap;
-
-
-//    private HashSet<Sprite> myGhostSet = new HashSet<Sprite>();
-//    private HashSet<Sprite> myPacManSet = new HashSet<Sprite>();
+    private Map<Pair<Integer,Integer>, HashSet<Sprite>> myMap;
     private HashSet<Sprite> allGameObjects = new HashSet<>();
-
-
-    private List<Ghost> myGhostList = new ArrayList<>();
-    private List<PacMan> myPacManList = new ArrayList<>();
     private MapGraphNode[][] emptySpots;
-
-
     private List<Sprite> myGhostSet = new ArrayList<>();
     private List<Sprite> myPacManSet = new ArrayList<>();
     private List<Sprite> myCoinSet = new ArrayList<>();
+    private Level currLevel;
 
 
    // private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
-    public GameContainer(){
-        myMap = new HashMap<>();
+    public GameContainer(Level level){
+        currLevel = level;
+        emptySpots = currLevel.getInitialEmptySpots();
+        myGhostSet = currLevel.getGhosts();
+        myPacManSet = currLevel.getPacMen();
+        myCoinSet = currLevel.getCoinSet();
+        myMap = currLevel.getModelMap();
+
     }
 
-    public HashMap<Pair<Integer,Integer>, HashSet<Sprite>> getModelMap(){
+    public Map<Pair<Integer,Integer>, HashSet<Sprite>> getModelMap(){
         return myMap;
     }
 
@@ -59,7 +54,7 @@ public class GameContainer {
 
     private MapGraphNode getNonNullMapNode(int i, int row){
         for(int col = i; col < emptySpots.length; col++){
-            for(int j = row; j <emptySpots[0].length; col++){
+            for(int j = row; j <emptySpots[0].length; j++){
                 if(emptySpots[col][j] != null){
                     return emptySpots[col][j];
                 }
@@ -68,109 +63,9 @@ public class GameContainer {
         return emptySpots[0][0];
     }
 
-    public HashSet<Sprite> getAllGameObjects(){ return allGameObjects;}
+    public HashSet<Sprite> getAllGameObjects(){ return currLevel.getAllGameObjects();}
 
-    public void createMapFromFile(String level){
-        File file = new File(level);
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String string;
-            int row = 0;
-            int ghostNum = 0;
-            int pacNum = 0;
-            int coinNum = 0;
-
-            emptySpots = new MapGraphNode[50][50]; //todo: read from data
-
-            while ((string = br.readLine()) != null){
-                for( int i = 0; i < string.length(); i++){
-                    if(string.charAt(i) != 'x'){
-                        emptySpots[i][row] = new MapGraphNode(i, row);
-                    }
-                    if (string.charAt(i) == 'x'){
-                        generateBlock(i, row);
-                    } else if (string.charAt(i) == 'o') {
-                        generateFood(i , row, coinNum);
-                        coinNum++;
-                    } else if (string.charAt(i) == 'p'){
-                        generatePacMan(i, row, pacNum);
-                        pacNum++;
-                    } else if (string.charAt(i) == 'g'){
-                        generateGhost(i, row, ghostNum);
-                        ghostNum++;
-                    }
-                }
-                row++;
-            }
-            initializeEmptySpots();
-            for(Sprite ghost : myGhostSet){
-                ghost.setMovementType("", myPacManSet); //todo: load targets from data
-            }
-        } catch(FileNotFoundException e){
-            //TODO: add error here
-            e.printStackTrace();
-            System.out.println("File not found");
-        } catch (IOException e) {
-            //TODO: add error here
-            System.out.println(e);
-        }
-    }
-
-    private void initializeEmptySpots(){
-        for(int i = 0; i < emptySpots.length; i++){
-            for(int row = 0; row <emptySpots[0].length; row++){
-//                System.out.println(row);
-//                System.out.println(i);
-                if(emptySpots[i][row] != null){
-                    emptySpots[i][row].addNeighbor(emptySpots);
-                }
-
-            }
-        }
-    }
-
-    private void generateGhost(int i, int row, int ID) {
-        int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
-        Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
-        myGhostSet.add(modelGhost);
-        allGameObjects.add(modelGhost);
-        addSpriteToMap(modelGhost, i, row);
-
-    }
-
-    private void generatePacMan(int i, int row, int ID) {
-        int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
-        PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
-        myPacManSet.add(modelPacMan);
-        allGameObjects.add(modelPacMan);
-        addSpriteToMap(modelPacMan, i, row);
-    }
-
-    private void generateFood(int i, int row, int ID) {
-        Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 1, ID);
-        myCoinSet.add(modelFood);
-        addSpriteToMap(modelFood, i, row);
-        allGameObjects.add(modelFood);
-    }
-
-    private void generateBlock(int i, int row) {
-        Block modelBlock = new Block(BlockWidth * i, BlockWidth * row);
-        addSpriteToMap(modelBlock, i, row);
-        allGameObjects.add(modelBlock);
-    }
-
-    private void addSpriteToMap(Sprite sprite, int i, int row){
-        Pair<Integer, Integer> loc = new Pair(i,row);
-        if(!myMap.containsKey(loc)){
-            HashSet<Sprite> locSet = new HashSet<>();
-            locSet.add(sprite);
-            myMap.put(loc, locSet);
-        }else{
-            HashSet locSet = myMap.get(loc);
-            locSet.add(sprite);
-            myMap.put(loc, locSet);
-        }
-    }
+    
 
     public List<Sprite> getGhosts(){
         return myGhostSet;
@@ -229,6 +124,23 @@ public class GameContainer {
                 myMap.put(loc, locSet);
             }
         }
+    }
+
+    public void clearContainer(){
+        myMap.clear();
+        myCoinSet.clear();
+        myPacManSet.clear();
+        myGhostSet.clear();
+        allGameObjects.clear();
+    }
+
+    public void setCurrLevel(Level level){
+        currLevel = level;
+        emptySpots = currLevel.getInitialEmptySpots();
+        myGhostSet = currLevel.getGhosts();
+        myPacManSet = currLevel.getPacMen();
+        myCoinSet = currLevel.getCoinSet();
+        myMap = currLevel.getModelMap();
     }
 
 }

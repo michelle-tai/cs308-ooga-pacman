@@ -84,21 +84,22 @@ public class PacManView {
      * @param code is the KeyCode value of the key pressed
      */
     public void handleKeyInput(KeyCode code){
-
-        if(code == KeyCode.RIGHT && myController.getContainer().getSpriteMapNode(pacmanModel).getRightNeighbor() != null){
-            updateOrientation(0);
-            pacmanModel.changeDirection(code.getName());
-        } else if (code == KeyCode.LEFT && myController.getContainer().getSpriteMapNode(pacmanModel).getLeftNeighbor() != null){
-            updateOrientation(1);
-            pacmanModel.changeDirection(code.getName());
-        } else if (code == KeyCode.UP && myController.getContainer().getSpriteMapNode(pacmanModel).getTopNeighbor() != null){
-            updateOrientation(2);
-            pacmanModel.changeDirection(code.getName());
-        } else if (code == KeyCode.DOWN && myController.getContainer().getSpriteMapNode(pacmanModel).getBottomNeighbor() != null){
-            updateOrientation(3);
-            pacmanModel.changeDirection(code.getName());
+        if(myVisualizer.getGameStatus()){
+            if(code == KeyCode.RIGHT && myController.getContainer().getSpriteMapNode(pacmanModel).getRightNeighbor() != null){
+                updateOrientation(0);
+                pacmanModel.changeDirection(code.getName());
+            } else if (code == KeyCode.LEFT && myController.getContainer().getSpriteMapNode(pacmanModel).getLeftNeighbor() != null){
+                updateOrientation(1);
+                pacmanModel.changeDirection(code.getName());
+            } else if (code == KeyCode.UP && myController.getContainer().getSpriteMapNode(pacmanModel).getTopNeighbor() != null){
+                updateOrientation(2);
+                pacmanModel.changeDirection(code.getName());
+            } else if (code == KeyCode.DOWN && myController.getContainer().getSpriteMapNode(pacmanModel).getBottomNeighbor() != null){
+                updateOrientation(3);
+                pacmanModel.changeDirection(code.getName());
+            }
         }
-        System.out.println("Key pressed is: " + code.getName());
+//        System.out.println("Key pressed is: " + code.getName());
     }
 
     private ImageView createPacManImage(int index, int rows){
