@@ -250,7 +250,7 @@ public class Visualizer {
     public PacManView getCurrentPacMan(){return currentPacMan;}
 
    public void restartLevel(){
-       myController.getContainer().clearContainer();
+       myController.resetGame();
        map = myMapView.createMap(myController.getContainer());
        map = new Group();
        map = myMapView.createMap(myController.getContainer());
