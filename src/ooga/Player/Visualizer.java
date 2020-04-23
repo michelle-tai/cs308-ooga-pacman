@@ -10,8 +10,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -134,7 +132,6 @@ public class Visualizer {
     private BorderPane createView(){
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-//        map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         map = myMapView.createMap(myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
@@ -253,15 +250,13 @@ public class Visualizer {
     public PacManView getCurrentPacMan(){return currentPacMan;}
 
    public void restartLevel(){
-       myController.getContainer().clearContainer();
-       map = new Group();
-//       map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
+       myController.resetGame();
        map = myMapView.createMap(myController.getContainer());
-
+       map = new Group();
+       map = myMapView.createMap(myController.getContainer());
        viewPane.setCenter(map);
        System.out.println(currentPacMan);
    }
-
 
     private void setDefaults(){
         map = myMapView.createMap(myController.getContainer());

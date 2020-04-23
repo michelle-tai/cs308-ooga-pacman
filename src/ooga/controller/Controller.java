@@ -54,4 +54,10 @@ public class Controller {
         System.out.println();
     }
 
+    public void resetGame() {
+        myLevelManager = new LevelManager();
+        container = new GameContainer(myLevelManager.getCurrentLevel());
+        gameStep = new GameStep(container);
+        currentScore = 0;
+    }
 }
