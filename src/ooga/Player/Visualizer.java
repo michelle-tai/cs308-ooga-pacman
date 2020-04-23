@@ -237,7 +237,6 @@ public class Visualizer {
 
    public void restartLevel(){
        myController.getContainer().clearContainer();
-       map = new Group();
        map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
        viewPane.setCenter(map);
    }
