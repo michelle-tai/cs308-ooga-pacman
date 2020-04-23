@@ -9,7 +9,7 @@ public class PathManager {
 
   public static final String COLLISIONS = "Collisions";
   public static final String ERRORS = "Errors";
-  public static final String PROPERTIES = "Properties";
+  public static final String PROPERTIES = "GameProperties";
   public static final String RULES = "Rules";
   public static final String LEVELS = "Levels";
   public static final String BLOCKIMAGE = "BlockImage";

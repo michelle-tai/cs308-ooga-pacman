@@ -1,5 +1,6 @@
 package ooga.Player.Map;
 
+import java.util.Set;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,7 +12,6 @@ import ooga.data.PathManager;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
 
-import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class MapView {
@@ -38,20 +38,20 @@ public class MapView {
         pauseLabel.setId("pause");
     }
 
-    public Group createMap(String level, GameContainer container) {
+    public Group createMap(GameContainer container) {
         totalMap = new Group();
         pacmen = new Group();
         ghosts = new Group();
         coins = new Group();
-        totalMap.getChildren().addAll(createMapFromContainer(level, container), coins, pacmen, ghosts);
+        totalMap.getChildren().addAll(createMapFromContainer(container), coins, pacmen, ghosts);
         return totalMap;
     }
 
-    private Node createMapFromContainer(String level, GameContainer container) {
-        container.createMapFromFile(level);
+    private Node createMapFromContainer(GameContainer container) {
+//        container.createMapFromFile(level);
         Group map = new Group();
         for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
-            HashSet<Sprite> objects = container.getModelMap().get(loc);
+            Set<Sprite> objects = container.getModelMap().get(loc);
             for (Sprite sprite : objects) {
                 if (sprite instanceof Block) {
                     map.getChildren().add(generateBlock(loc.getKey(), loc.getValue()));

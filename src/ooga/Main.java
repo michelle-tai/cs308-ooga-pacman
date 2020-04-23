@@ -19,6 +19,7 @@ import static javafx.application.Application.launch;
 public class Main extends Application {
     public static final ResourceBundle MY_RESOURCES = ResourceBundle
         .getBundle("GameProperties");
+    public static final ResourceBundle ERROR_RESOURCES = ResourceBundle.getBundle("ErrorMessages");
 
     public static final String TITLE = "Pac-Man";
 

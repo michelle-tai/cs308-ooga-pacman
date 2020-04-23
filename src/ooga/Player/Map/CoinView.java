@@ -34,7 +34,7 @@ public class CoinView {
     }
 
     private ImageView generateFood(int index, int rowNum, int ID){
-        ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGES, ID));
+        ImageView foodImage = new ImageView(PathManager.getFilePath(PathManager.FOODIMAGES, 0));
         if(coinModel.getStatus() == 0){
             foodImage.setFitWidth(FOOD_WIDTH);
             foodImage.setFitHeight(FOOD_HEIGHT);
