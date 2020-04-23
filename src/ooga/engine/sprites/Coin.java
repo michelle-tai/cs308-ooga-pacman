@@ -16,8 +16,8 @@ public class Coin extends StaticSprite {
 
     private String movementType = Main.MY_RESOURCES.getString("CoinMovement");
 
-    public Coin(int x, int y, int type, int ID) {
-        super(x, y);
+    public Coin(int x, int y, int type, int ID, String imagePath) {
+        super(x, y, imagePath);
         myID = ID;
         int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("CoinDim"));
         hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);

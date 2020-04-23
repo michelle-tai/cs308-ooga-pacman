@@ -14,8 +14,8 @@ public class Ghost extends DynamicSprite{
   private int movedist = 35;
   private ControllableMovement ghostMove;
 
-  public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
-    super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
+  public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID, String imagePath){
+    super(startingX, startingY, hitBoxWidth, hitBoxLength, ID, imagePath);
     mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"));
     myStatus = 0;
     //ghostMove = new AggressiveMovement(this, targetSprites);

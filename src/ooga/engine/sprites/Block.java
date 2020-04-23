@@ -13,8 +13,8 @@ public class Block extends StaticSprite {
 
     private static final String movementType = Main.MY_RESOURCES.getString("BlockMovement");
 
-    public Block(int x, int y) {
-        super(x, y);
+    public Block(int x, int y, String imagePath) {
+        super(x, y, imagePath);
         int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("BlockDim"));
         hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);
     }

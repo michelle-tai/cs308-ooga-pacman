@@ -1,4 +1,5 @@
 package ooga.engine.sprites;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 import java.util.List;
@@ -57,5 +58,17 @@ public interface Sprite {
   public int getStatus();
 
   public void setStatus(int newStatus);
+
+  /**
+   * Sets the path to the image representing the Sprite
+   * @param path String path to image
+   */
+  public void setImagePath(String path);
+
+  /**
+   * Gets the path to the Image of the Sprite
+   * @return String path
+   */
+  public String getImagePath();
 
 }
