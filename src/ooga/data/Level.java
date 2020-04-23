@@ -5,25 +5,38 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import ooga.Main;
+import ooga.engine.GameException;
+import ooga.engine.MapGraphNode;
 import ooga.engine.sprites.Sprite;
 import ooga.engine.sprites.Block;
 import ooga.engine.sprites.Coin;
 import ooga.engine.sprites.Ghost;
 import ooga.engine.sprites.PacMan;
 
+// pretty much holds the starting info a level, any updates are made in the game container
 public class Level {
 
     private Map<Pair<Integer, Integer>, Image> myImages = new HashMap<>();
-    private Map<Pair<Integer, Integer>, Sprite> myMap = new HashMap<>();
+    private Map<Pair<Integer, Integer>, HashSet<Sprite>> myMap = new HashMap<>();
 
-    private static Integer BlockWidth;
+    private Integer BlockWidth;
     private PathManager myPathManager = new PathManager();
+    private int levelHeight;
+    private int levelWidth;
+    private HashSet<Sprite> allGameObjects = new HashSet<>();
+    private MapGraphNode[][] emptySpots;
+    private List<Sprite> myGhostSet = new ArrayList<>();
+    private List<Sprite> myPacManSet = new ArrayList<>();
+    private List<Sprite> myCoinSet = new ArrayList<>();
 
     public Level(File level){
         ResourceBundle resourceBundle = ResourceBundle.getBundle(PathManager.PROPERTIES);
@@ -42,19 +55,46 @@ public class Level {
             return myImages.get(pair);
         } else {
             // TODO: handle error
-            System.out.println("Pair not in map");
+            throw new GameException(Main.ERROR_RESOURCES.getString("PairNotInMap"));
+//            System.out.println("Pair not in map");
         }
-        return null;
+//        return null;
     }
 
-    public Map<Pair<Integer,Integer>, Sprite> getModelMap(){
+    public MapGraphNode[][] getInitialEmptySpots(){
+        return emptySpots;
+    }
+    public Map<Pair<Integer,Integer>, HashSet<Sprite>> getModelMap(){
         return myMap;
+    }
+
+
+    public List<Sprite> getGhosts(){
+        return myGhostSet;
+    }
+    public List<Sprite> getPacMen() {
+        return myPacManSet;
+    }
+    public List<Sprite> getCoinSet() {
+        return myCoinSet;
+    }
+
+    public HashSet<Sprite> getAllGameObjects(){ return allGameObjects;}
+    public int getLevelHeight(){
+        return levelHeight;
+    }
+
+    public int getLevelWidth(){
+        return levelWidth;
     }
 
     /**
      * @author Olga Suchankova
      */
     private void createMapFromFile(File file){
+        if(file.length() == 0){
+            throw new GameException(Main.ERROR_RESOURCES.getString("EmptyFile"));
+        }
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String string;
@@ -62,8 +102,16 @@ public class Level {
             int ghostNum = 0;
             int pacNum = 0;
             int coinNum = 0;
-            while ((string = br.readLine()) != null){
-                for( int i = 0; i < string.length(); i++){
+            levelHeight = Integer.parseInt(br.readLine());
+            levelWidth = Integer.parseInt(br.readLine());
+            int currRow = 0;
+
+            emptySpots = new MapGraphNode[levelHeight][levelWidth];
+            while (((string = br.readLine()) != null) && (currRow < levelHeight)){
+                for( int i = 0; i < levelWidth; i++){
+                    if(string.charAt(i) != 'x'){
+                        emptySpots[i][row] = new MapGraphNode(i, row);
+                    }
                     if (string.charAt(i) == 'x'){
                         generateBlock(i, row);
                     } else if (string.charAt(i) == 'o') {
@@ -78,70 +126,82 @@ public class Level {
                     }
                 }
                 row++;
+                currRow++;
+            }
+            initializeEmptySpots();
+            for(Sprite ghost : myGhostSet){
+                ghost.setMovementType("", myPacManSet); //todo: load targets from data
             }
         } catch(FileNotFoundException e){
             //TODO: add error here
-            System.out.println("Test File not found");
-        } catch (IOException e) {
+            throw new GameException(Main.ERROR_RESOURCES.getString("FileNotFound"));
+//            System.out.println("Test File not found");
+        } catch (NumberFormatException e){
+            throw new GameException(Main.ERROR_RESOURCES.getString("WrongNumberFormat"));
+        } catch (IOException| RuntimeException e) {
             //TODO: add error here
-            System.out.println(e);
+            e.printStackTrace();
+            throw new GameException(Main.ERROR_RESOURCES.getString("GeneralError"));
+//            System.out.println(e);
+        }
+        System.out.println(levelHeight);
+        System.out.println(levelWidth);
+    }
+
+    private void initializeEmptySpots(){
+        for(int i = 0; i < emptySpots.length; i++){
+            for(int row = 0; row <emptySpots[0].length; row++){
+//                System.out.println(row);
+//                System.out.println(i);
+                if(emptySpots[i][row] != null){
+                    emptySpots[i][row].addNeighbor(emptySpots);
+                }
+
+            }
         }
     }
 
-    /**
-     * @author Olga Suchankova
-     */
     private void generateGhost(int i, int row, int ID) {
         int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim, ghostDim, ID);
+        myGhostSet.add(modelGhost);
+        allGameObjects.add(modelGhost);
         addSpriteToMap(modelGhost, i, row);
 
-        // @author Caleb Sanford
-        addImageToMap(myPathManager.getGhostPath(ID), i, row);
     }
 
-    /**
-     * @author Olga Suchankova
-     */
     private void generatePacMan(int i, int row, int ID) {
         int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
         PacMan modelPacMan = new PacMan(BlockWidth * i, BlockWidth * row, pacManDim, pacManDim, ID);
+        myPacManSet.add(modelPacMan);
+        allGameObjects.add(modelPacMan);
         addSpriteToMap(modelPacMan, i, row);
-
-        // @author Caleb Sanford
-        addImageToMap(myPathManager.getPacManPath(ID), i, row);
     }
 
-    /**
-     * @author Olga Suchankova
-     */
     private void generateFood(int i, int row, int ID) {
         Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, 0, ID);
+        myCoinSet.add(modelFood);
         addSpriteToMap(modelFood, i, row);
-
-        // @author Caleb Sanford
-        addImageToMap(myPathManager.getFilePath(PathManager.FOODIMAGE), i, row);
+        allGameObjects.add(modelFood);
     }
 
-    /**
-     * @author Olga Suchankova
-     */
     private void generateBlock(int i, int row) {
         Block modelBlock = new Block(BlockWidth * i, BlockWidth * row);
         addSpriteToMap(modelBlock, i, row);
-
-        // @author Caleb Sanford
-        addImageToMap((myPathManager.getFilePath(PathManager.BLOCKIMAGE)), i, row);
+        allGameObjects.add(modelBlock);
     }
 
     private void addSpriteToMap(Sprite sprite, int i, int row){
         Pair<Integer, Integer> loc = new Pair(i,row);
-        myMap.put(loc, sprite);
+        if(!myMap.containsKey(loc)){
+            HashSet<Sprite> locSet = new HashSet<>();
+            locSet.add(sprite);
+            myMap.put(loc, locSet);
+        }else{
+            HashSet locSet = myMap.get(loc);
+            locSet.add(sprite);
+            myMap.put(loc, locSet);
+        }
     }
 
-    private void addImageToMap(String imagePath, int i, int row) {
-        Pair<Integer, Integer> loc = new Pair(i,row);
-        Image image = new Image(imagePath);
-        myImages.put(loc, image);
-    }
 }
