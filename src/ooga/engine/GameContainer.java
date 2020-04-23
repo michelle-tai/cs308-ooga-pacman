@@ -1,15 +1,11 @@
 package ooga.engine;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 import javafx.util.Pair;
 import ooga.Main;
 import ooga.data.Level;
 import ooga.engine.sprites.PacMan;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 import ooga.engine.sprites.*;
 
@@ -17,12 +13,12 @@ public class GameContainer {
 
     private static int BlockWidth = Integer.parseInt(Main.MY_RESOURCES.getString("BlockDim"));
 
-    private Map<Pair<Integer, Integer>, Set<Sprite>> myMap;
+    private Map<Pair<Integer, Integer>, Set<Sprite>> myMap = new HashMap<Pair<Integer, Integer>, Set<Sprite>>();
     private HashSet<Sprite> allGameObjects = new HashSet<>();
-    private MapGraphNode[][] emptySpots;
-    private List<Sprite> myGhostList;
-    private List<Sprite> myPacManList;
-    private List<Sprite> myCoinList;
+    private MapGraphNode[][] emptySpots = new MapGraphNode[0][0];
+    private List<Sprite> myGhostList = new ArrayList<>();
+    private List<Sprite> myPacManList = new ArrayList<>();
+    private List<Sprite> myCoinList = new ArrayList<>();
     private Level currLevel;
 
 
@@ -31,10 +27,11 @@ public class GameContainer {
     public GameContainer(Level level){
         currLevel = level;
         emptySpots = currLevel.getInitialEmptySpots();
-        myGhostList = currLevel.getGhosts();
-        myPacManList = currLevel.getPacMen();
-        myCoinList = currLevel.getCoins();
-        myMap = currLevel.getModelMap();
+        myGhostList.addAll(currLevel.getGhosts());
+        myPacManList.addAll(currLevel.getPacMen());
+        myCoinList.addAll(currLevel.getCoins());
+        myMap.putAll(currLevel.getModelMap());
+        System.out.println(myMap);
     }
 
     public Map<Pair<Integer, Integer>, Set<Sprite>> getModelMap(){
@@ -133,6 +130,12 @@ public class GameContainer {
         myPacManList.clear();
         myGhostList.clear();
         allGameObjects.clear();
+        emptySpots = currLevel.getInitialEmptySpots();
+        myGhostList.addAll(currLevel.getGhosts());
+        myPacManList.addAll(currLevel.getPacMen());
+        myCoinList.addAll(currLevel.getCoins());
+        myMap.putAll(currLevel.getModelMap());
+        System.out.println(myMap);
     }
 
     public void setCurrLevel(Level level){

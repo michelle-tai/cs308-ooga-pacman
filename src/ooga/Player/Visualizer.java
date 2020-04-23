@@ -132,7 +132,6 @@ public class Visualizer {
     private BorderPane createView(){
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
-//        map = myMapView.createMap(PathManager.getFilePath(PathManager.LEVELS)+"level1", myController.getContainer());
         map = myMapView.createMap(myController.getContainer());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
@@ -255,11 +254,9 @@ public class Visualizer {
        map = myMapView.createMap(myController.getContainer());
        map = new Group();
        map = myMapView.createMap(myController.getContainer());
-
        viewPane.setCenter(map);
        System.out.println(currentPacMan);
    }
-
 
     private void setDefaults(){
         map = myMapView.createMap(myController.getContainer());
