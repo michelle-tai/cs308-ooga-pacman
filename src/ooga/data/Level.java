@@ -121,10 +121,17 @@ public class Level {
         return allGameObjects;
     }
 
-    public MapGraphNode[][] getInitialEmptySpots(){
+    public MapGraphNode[][] getInitialEmptySpots() {
         MapGraphNode[][] myNodes = new MapGraphNode[maxHeight][maxWidth];
-        for (Pair<Integer, Integer> p: emptySpots.keySet()){
+        for (Pair<Integer, Integer> p : emptySpots.keySet()) {
             myNodes[p.getKey()][p.getValue()] = emptySpots.get(p);
+        }
+        for (MapGraphNode[] myNode : myNodes) {
+            for (int row = 0; row < myNodes[0].length; row++) {
+                if (myNode[row] != null) {
+                    myNode[row].addNeighbor(myNodes);
+                }
+            }
         }
         return myNodes;
     }
@@ -156,8 +163,8 @@ public class Level {
     }
 
     private void calculateHeightWidth(int i, int row) {
-        if (i > maxWidth) maxWidth = i;
-        if (row > maxHeight) maxHeight = row;
+        if (i+1 > maxWidth) maxWidth = i+1;
+        if (row+1 > maxHeight) maxHeight = row+1;
     }
 
     private void addImageToMap(String imagePath, int i, int row) {

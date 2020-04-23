@@ -20,9 +20,9 @@ public class GameContainer {
     private Map<Pair<Integer, Integer>, Set<Sprite>> myMap;
     private HashSet<Sprite> allGameObjects = new HashSet<>();
     private MapGraphNode[][] emptySpots;
-    private List<Sprite> myGhostSet = new ArrayList<>();
-    private List<Sprite> myPacManSet = new ArrayList<>();
-    private List<Sprite> myCoinSet = new ArrayList<>();
+    private List<Sprite> myGhostList;
+    private List<Sprite> myPacManList;
+    private List<Sprite> myCoinList;
     private Level currLevel;
 
 
@@ -31,11 +31,10 @@ public class GameContainer {
     public GameContainer(Level level){
         currLevel = level;
         emptySpots = currLevel.getInitialEmptySpots();
-        myGhostSet = currLevel.getGhosts();
-        myPacManSet = currLevel.getPacMen();
-        myCoinSet = currLevel.getCoins();
+        myGhostList = currLevel.getGhosts();
+        myPacManList = currLevel.getPacMen();
+        myCoinList = currLevel.getCoins();
         myMap = currLevel.getModelMap();
-
     }
 
     public Map<Pair<Integer, Integer>, Set<Sprite>> getModelMap(){
@@ -67,19 +66,22 @@ public class GameContainer {
 
 
     public List<Sprite> getGhosts(){
-        return myGhostSet;
+        return myGhostList;
     }
 
     public Sprite getGhost(int ID){
-        return myGhostSet.get(ID);}
+        return myGhostList.get(ID);}
 
     public List<Sprite> getPacMen() {
-        return myPacManSet;
+        return myPacManList;
     }
 
-    public Sprite getPacMan(int ID){return myPacManSet.get(ID);}
+    public Sprite getPacMan(int ID){
+        System.out.println(ID);
+        return myPacManList.get(ID);
+    }
 
-    public Sprite getCoin(int ID){return myCoinSet.get(ID);}
+    public Sprite getCoin(int ID){return myCoinList.get(ID);}
 
     public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();
@@ -107,9 +109,9 @@ public class GameContainer {
 
     public void remove(Sprite gameObject){
         if(gameObject instanceof PacMan){
-            myPacManSet.remove(gameObject);
+            myPacManList.remove(gameObject);
         }else if(gameObject instanceof Ghost){
-            myGhostSet.remove(gameObject);
+            myGhostList.remove(gameObject);
         }
         int i= gameObject.getX() / BlockWidth;
         int row = gameObject.getY() / BlockWidth;
@@ -127,18 +129,18 @@ public class GameContainer {
 
     public void clearContainer(){
         myMap.clear();
-        myCoinSet.clear();
-        myPacManSet.clear();
-        myGhostSet.clear();
+        myCoinList.clear();
+        myPacManList.clear();
+        myGhostList.clear();
         allGameObjects.clear();
     }
 
     public void setCurrLevel(Level level){
         currLevel = level;
         emptySpots = currLevel.getInitialEmptySpots();
-        myGhostSet = currLevel.getGhosts();
-        myPacManSet = currLevel.getPacMen();
-        myCoinSet = currLevel.getCoins();
+        myGhostList = currLevel.getGhosts();
+        myPacManList = currLevel.getPacMen();
+        myCoinList = currLevel.getCoins();
         myMap = currLevel.getModelMap();
     }
 
