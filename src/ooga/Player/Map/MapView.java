@@ -38,17 +38,17 @@ public class MapView {
         pauseLabel.setId("pause");
     }
 
-    public Group createMap(String level, GameContainer container) {
+    public Group createMap(GameContainer container) {
         totalMap = new Group();
         pacmen = new Group();
         ghosts = new Group();
         coins = new Group();
-        totalMap.getChildren().addAll(createMapFromContainer(level, container), coins, pacmen, ghosts);
+        totalMap.getChildren().addAll(createMapFromContainer(container), coins, pacmen, ghosts);
         return totalMap;
     }
 
-    private Node createMapFromContainer(String level, GameContainer container) {
-        container.createMapFromFile(level);
+    private Node createMapFromContainer(GameContainer container) {
+//        container.createMapFromFile(level);
         Group map = new Group();
         for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
             HashSet<Sprite> objects = container.getModelMap().get(loc);
