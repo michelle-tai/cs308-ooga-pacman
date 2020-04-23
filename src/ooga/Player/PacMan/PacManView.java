@@ -103,7 +103,7 @@ public class PacManView {
 
     private ImageView createPacManImage(int index, int rows){
         String string = "resources/pacman/pacman1.png";
-        ImageView pacmanImage = new ImageView(PathManager.getPacManPath(ID));
+        ImageView pacmanImage = new ImageView(PathManager.getFilePath(PathManager.PACKMANIMAGE, ID));
         pacmanImage.setFitWidth(PACMAN_WIDTH);
         pacmanImage.setFitHeight(PACMAN_HEIGHT);
         pacmanImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - pacmanImage.getBoundsInLocal().getWidth() / 2));

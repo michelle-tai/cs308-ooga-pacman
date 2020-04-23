@@ -44,7 +44,7 @@ public class NonUserInterface {
     private HBox addLives(){
         HBox hbox = new HBox(VBOX_SPACING);
         for(int i=0; i < livesLeft.getValue(); i++){
-            ImageView pacmanImage = new ImageView(PathManager.getPacManPath(0));
+            ImageView pacmanImage = new ImageView(PathManager.getFilePath(PathManager.PACKMANIMAGE, 0));
             pacmanImage.setFitWidth(PACMAN_WIDTH);
             pacmanImage.setFitHeight(PACMAN_HEIGHT);
             hbox.getChildren().add(pacmanImage);
