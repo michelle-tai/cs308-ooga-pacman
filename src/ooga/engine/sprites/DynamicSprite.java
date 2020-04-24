@@ -13,10 +13,10 @@ public abstract class DynamicSprite implements Sprite {
     private int yPos;
     private Rectangle hitbox;
     private int movedist = 35;
+    private String myImagePath;
 
 
-
-    public DynamicSprite(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID) {
+    public DynamicSprite(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID, String imagePath) {
         myID = ID;
         xPos = startingX +20;
         yPos = startingY +20;
@@ -24,6 +24,7 @@ public abstract class DynamicSprite implements Sprite {
         prevY = yPos;
         homeXPos = xPos;
         homeYPos = yPos;
+        myImagePath = imagePath;
 
         hitbox = new Rectangle(startingX, startingY, hitBoxWidth, hitBoxLength);
     }
@@ -79,6 +80,16 @@ public abstract class DynamicSprite implements Sprite {
     public void setPreviousLocation(){
         xPos = prevX;
         yPos = prevY;
+    }
+
+    @Override
+    public void setImagePath(String path) {
+        myImagePath = path;
+    }
+
+    @Override
+    public String getImagePath() {
+        return myImagePath;
     }
 
 

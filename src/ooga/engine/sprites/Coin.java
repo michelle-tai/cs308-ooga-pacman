@@ -1,9 +1,11 @@
 package ooga.engine.sprites;
 
 import javafx.scene.shape.Rectangle;
+import javafx.util.Pair;
 import ooga.Main;
 
 import java.util.List;
+import ooga.data.PathManager;
 
 public class Coin extends StaticSprite {
 
@@ -14,12 +16,13 @@ public class Coin extends StaticSprite {
 
     private int[] myPoints = new int[]{1, 2 ,3};
 
-    private String movementType = Main.MY_RESOURCES.getString("CoinMovement");
+    private String movementType;
 
-    public Coin(int x, int y, int type, int ID) {
-        super(x, y);
+    public Coin(int x, int y, int type, int ID, String imagePath, PathManager pathManager) {
+        super(x, y, imagePath);
         myID = ID;
-        int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("CoinDim"));
+        movementType = pathManager.getString(PathManager.PROPERTIES, "CoinMovement");
+        int hitBoxDim = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES, "CoinDim"));
         hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);
         myStatus = type;
         myActivity = true;

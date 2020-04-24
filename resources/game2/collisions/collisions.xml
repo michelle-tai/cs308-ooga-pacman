@@ -1,0 +1,36 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<collisions>
+  <Status1>
+    <PacMan>
+      <Ghost>
+        <action>destroyPacMan</action>
+        <action>decrementLives</action>
+      </Ghost>
+      <Coin>
+        <action>Collect</action>
+      </Coin>
+    </PacMan>
+    <Ghost>
+      <PacMan>
+        <action>DestroyPacMan</action>
+      </PacMan>
+    </Ghost>
+  </Status1>
+  <Status2>
+    <PacMan>
+      <Ghost>
+        <action>destroyPacMan</action>
+        <action>decrementLives</action>
+        <action>test</action>
+      </Ghost>
+      <Coin>
+        <action>Collect</action>
+      </Coin>
+    </PacMan>
+    <Ghost>
+      <PacMan>
+        <action>DestroyPacMan</action>
+      </PacMan>
+    </Ghost>
+  </Status2>
+</collisions>

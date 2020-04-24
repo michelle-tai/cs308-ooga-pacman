@@ -45,18 +45,17 @@ public class GhostView {
         int status = ghostModel.getStatus();
         if (status == 0){
             changeImage(ID);
-            ghostModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed")));
+            ghostModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "GhostDefaultSpeed")));
         } else if (status == 1){
             changeImage(SCARED_GHOST);
-            ghostModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed")));
+            ghostModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "GhostDefaultSpeed")));
         } else if (status == 2){
-            ghostModel.setSpeed((Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"))) * 2);
+            ghostModel.setSpeed((Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "GhostDefaultSpeed"))) * 2);
         }
     }
 
     private ImageView createGhostImage(int index, int rows){
-        String string = "resources/ghost/ghost" + (ID+1) + ".png";
-        ImageView ghostImage = new ImageView(PathManager.getFilePath(PathManager.GHOSTIMAGES, ID));
+        ImageView ghostImage = new ImageView(ghostModel.getImagePath());
         ghostImage.setFitWidth(GHOST_WIDTH);
         ghostImage.setFitHeight(GHOST_HEIGHT);
         ghostImage.setX((BLOCK_WIDTH * (index)) + (BLOCK_WIDTH / 2 - ghostImage.getBoundsInLocal().getWidth() / 2));
@@ -66,7 +65,7 @@ public class GhostView {
     }
 
     private void changeImage(int imageIndex){
-        ImageView newImage = new ImageView(PathManager.getFilePath(PathManager.GHOSTIMAGES, imageIndex));
+        ImageView newImage = new ImageView(ghostModel.getScaredImagePath());
         newImage.setFitWidth(GHOST_WIDTH);
         newImage.setFitHeight(GHOST_WIDTH);
         myGhosts.getChildren().remove(myImage);

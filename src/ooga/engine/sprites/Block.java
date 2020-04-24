@@ -4,6 +4,7 @@ import javafx.scene.shape.Rectangle;
 import ooga.Main;
 
 import java.util.List;
+import ooga.data.PathManager;
 
 
 public class Block extends StaticSprite {
@@ -11,11 +12,12 @@ public class Block extends StaticSprite {
     private Rectangle hitbox;
     private int status;
 
-    private static final String movementType = Main.MY_RESOURCES.getString("BlockMovement");
+    private static String movementType;
 
-    public Block(int x, int y) {
-        super(x, y);
-        int hitBoxDim = Integer.parseInt(Main.MY_RESOURCES.getString("BlockDim"));
+    public Block(int x, int y, String imagePath, PathManager pathManager) {
+        super(x, y, imagePath);
+        movementType = pathManager.getString(PathManager.PROPERTIES, "BlockMovement");
+        int hitBoxDim = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES,"BlockDim"));
         hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);
     }
 

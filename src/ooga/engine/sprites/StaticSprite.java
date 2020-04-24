@@ -6,12 +6,13 @@ public abstract class StaticSprite implements Sprite {
 
     private int myXPos;
     private int myYPos;
+    private String myImagePath;
 
 
-    public StaticSprite(int x, int y){
+    public StaticSprite(int x, int y, String imagePath){
         myXPos = x;
         myYPos = y;
-
+        myImagePath = imagePath;
     }
 
     @Override
@@ -43,5 +44,15 @@ public abstract class StaticSprite implements Sprite {
     @Override
     public void setSpeed(int newSpeed) {
         //do nothing
+    }
+
+    @Override
+    public String getImagePath() {
+        return myImagePath;
+    }
+
+    @Override
+    public void setImagePath(String myImagePath) {
+        this.myImagePath = myImagePath;
     }
 }

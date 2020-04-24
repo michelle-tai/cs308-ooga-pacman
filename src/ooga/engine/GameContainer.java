@@ -5,13 +5,14 @@ import java.util.*;
 import javafx.util.Pair;
 import ooga.Main;
 import ooga.data.Level;
+import ooga.data.PathManager;
 import ooga.engine.sprites.PacMan;
 
 import ooga.engine.sprites.*;
 
 public class GameContainer {
 
-    private static int BlockWidth = Integer.parseInt(Main.MY_RESOURCES.getString("BlockDim"));
+    private static int BlockWidth;
 
     private Map<Pair<Integer, Integer>, Set<Sprite>> myMap = new HashMap<Pair<Integer, Integer>, Set<Sprite>>();
     private HashSet<Sprite> allGameObjects = new HashSet<>();
@@ -19,19 +20,22 @@ public class GameContainer {
     private List<Sprite> myGhostList = new ArrayList<>();
     private List<Sprite> myPacManList = new ArrayList<>();
     private List<Sprite> myCoinList = new ArrayList<>();
+    private List<Sprite> myBlockList = new ArrayList<>();
     private Level currLevel;
-
+    private PathManager myPathManager;
 
    // private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
-    public GameContainer(Level level){
+    public GameContainer(Level level, PathManager pathManager){
+        BlockWidth = Integer.parseInt(pathManager.getString("GameProperties", "BlockDim"));
         currLevel = level;
         emptySpots = currLevel.getInitialEmptySpots();
         myGhostList.addAll(currLevel.getGhosts());
         myPacManList.addAll(currLevel.getPacMen());
         myCoinList.addAll(currLevel.getCoins());
+        myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
-        System.out.println(myMap);
+        myPathManager = pathManager;
     }
 
     public Map<Pair<Integer, Integer>, Set<Sprite>> getModelMap(){
@@ -75,11 +79,18 @@ public class GameContainer {
     }
 
     public Sprite getPacMan(int ID){
-        System.out.println(ID);
         return myPacManList.get(ID);
     }
 
+    public Sprite getBlock() {
+        return myBlockList.get(0);
+    }
+
     public Sprite getCoin(int ID){return myCoinList.get(ID);}
+
+    public PathManager getPathManager() {
+        return myPathManager;
+    }
 
     public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();
@@ -130,11 +141,13 @@ public class GameContainer {
         myCoinList.clear();
         myPacManList.clear();
         myGhostList.clear();
+        myBlockList.clear();
         allGameObjects.clear();
         emptySpots = currLevel.getInitialEmptySpots();
         myGhostList.addAll(currLevel.getGhosts());
         myPacManList.addAll(currLevel.getPacMen());
         myCoinList.addAll(currLevel.getCoins());
+        myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
         System.out.println(myMap);
     }
@@ -145,6 +158,7 @@ public class GameContainer {
         myGhostList = currLevel.getGhosts();
         myPacManList = currLevel.getPacMen();
         myCoinList = currLevel.getCoins();
+        myBlockList = currLevel.getBlockList();
         myMap = currLevel.getModelMap();
     }
 

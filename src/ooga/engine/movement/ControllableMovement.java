@@ -15,7 +15,7 @@ public class ControllableMovement {
 
   public ControllableMovement(Sprite sprite){
     mySprite = sprite;
-    currDirection = Main.MY_RESOURCES.getString("Right");
+    currDirection = Main.RIGHT;
     mySpeed = sprite.getSpeed();
   }
 

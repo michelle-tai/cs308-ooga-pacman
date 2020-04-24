@@ -112,6 +112,10 @@ public class CollisionHandler {
         methodSet.add("setStatus");
         myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
 
+        methodSet = new HashSet<String>();
+        methodSet.add("setStatus");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
+
 
     }
 
