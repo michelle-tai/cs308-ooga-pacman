@@ -51,8 +51,6 @@ public class PacManView {
     }
 
     public void update(){
-
-//        pacmanModel.move();
         myImage.setX(pacmanModel.getX() - 20);
         myImage.setY(pacmanModel.getY() - 20);
         checkStatus();
@@ -67,8 +65,11 @@ public class PacManView {
         return pacmanModel.getPointsProperty();
     }
 
+    public void resetScore() {pacmanModel.getPointsProperty().setValue(0);}
+
     public void checkStatus(){
         int status = pacmanModel.getStatus();
+//        System.out.println(status);
         if (status == 0){
             pacmanModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "PacManDefaultSpeed")));
         } else if (status == 1){
@@ -99,7 +100,6 @@ public class PacManView {
                 pacmanModel.changeDirection(code.getName());
             }
         }
-//        System.out.println("Key pressed is: " + code.getName());
     }
 
     private ImageView createPacManImage(int index, int rows){

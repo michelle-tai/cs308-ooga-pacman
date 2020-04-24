@@ -20,8 +20,8 @@ public class Controller {
     private int currentScore;
     private LevelManager myLevelManager;
 
-    public Controller(){
-        myLevelManager = new LevelManager("defaultPacMan");
+    public Controller(String game){
+        myLevelManager = new LevelManager(game);
         container = new GameContainer(myLevelManager.getCurrentLevel(), myLevelManager.getPathManager());
         gameStep = new GameStep(container);
         currentScore = 0;

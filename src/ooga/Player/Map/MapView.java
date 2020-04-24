@@ -32,7 +32,7 @@ public class MapView {
     public MapView(Visualizer visualizer){
         myVisualizer = visualizer;
         gameStatus = true;
-        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
@@ -51,7 +51,6 @@ public class MapView {
     }
 
     private Node createMapFromContainer(GameContainer container) {
-//        container.createMapFromFile(level);
         Group map = new Group();
         for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
             Set<Sprite> objects = container.getModelMap().get(loc);

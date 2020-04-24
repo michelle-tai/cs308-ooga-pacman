@@ -23,7 +23,7 @@ public class UserInterface {
 
     public UserInterface(Visualizer visualizer){
         myVisualizer = visualizer;
-        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
     }
 
@@ -31,7 +31,7 @@ public class UserInterface {
     public Node createComponents(){
         BorderPane pane = new BorderPane();
         pane.setTop(createVbox());
-        pane.setBottom(styler.createLink("Restart", e->{myVisualizer.restartLevel();}));
+        pane.setBottom(styler.createLink("Exit", e->{myVisualizer.restartLevel();}));
         return pane;
     }
 

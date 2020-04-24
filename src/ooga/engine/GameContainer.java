@@ -149,7 +149,6 @@ public class GameContainer {
         myCoinList.addAll(currLevel.getCoins());
         myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
-        System.out.println(myMap);
     }
 
     public void setCurrLevel(Level level){

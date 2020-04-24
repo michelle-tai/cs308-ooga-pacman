@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javafx.scene.shape.Rectangle;
@@ -22,7 +23,7 @@ import ooga.engine.sprites.*;
 
 public class CollisionHandler {
 
-    private HashMap<Pair<String, String>, HashSet<String>> myCollisionRules;
+    private Map<Pair<String, String>, Set<String>> myCollisionRules;
     private char dotDeliminator = '.';
     private HashSet<String> myMethodNames;
     private Method[] myMethods;
@@ -34,9 +35,9 @@ public class CollisionHandler {
     method names in this class, in order to check against them so the NoSuchMethod exception will never be encountered with
     proper use.
      */
-    public CollisionHandler() {
-        mapTester();
-        //myCollisionRules = collisionRules;
+    public CollisionHandler(Map<Pair<String, String>, Set<String>> collisionRules) {
+//        mapTester();
+        myCollisionRules = collisionRules;
         Class<?> c = this.getClass();
 
         myMethods = c.getDeclaredMethods();

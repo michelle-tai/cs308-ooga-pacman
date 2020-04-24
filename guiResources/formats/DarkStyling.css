@@ -17,7 +17,7 @@
     -fx-text-alignment: center;
 }
 
-#Restart{
+#Exit{
     -fx-font-size: 40pt;
     -fx-font-weight: bold;
     -fx-underline: true;
