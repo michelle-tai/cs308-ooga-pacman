@@ -18,7 +18,7 @@ public class GameStep {
     public GameStep(GameContainer container) {
         myContainer = container;
         collision = new Collision(myContainer.getPathManager());
-        myCollisionHandler = new CollisionHandler(collision.getCollisionRules(1));
+        myCollisionHandler = new CollisionHandler(collision.getCollisionRules());
     }
 
     public void step(){

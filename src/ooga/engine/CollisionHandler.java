@@ -36,7 +36,7 @@ public class CollisionHandler {
     proper use.
      */
     public CollisionHandler(Map<Pair<String, String>, Set<String>> collisionRules) {
-        mapTester();
+//        mapTester();
         myCollisionRules = collisionRules;
         Class<?> c = this.getClass();
 
