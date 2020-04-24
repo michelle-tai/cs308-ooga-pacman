@@ -51,15 +51,42 @@ public class CollisionHandler {
         myCollisionRules = new HashMap<>();
         HashSet<String> methodSet = new HashSet<String>();
         methodSet.add("directMovement");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Block"), methodSet);
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Block0"), methodSet);
 
         methodSet = new HashSet<String>();
         methodSet.add("destroy");
-        myCollisionRules.put(new Pair<String, String>("Coin", "PacMan0"), methodSet);
+        myCollisionRules.put(new Pair<String, String>("Coin0", "PacMan0"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin1", "PacMan0"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin1", "PacMan1"), methodSet);
 
         methodSet = new HashSet<String>();
         methodSet.add("incrementPoints");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin"), methodSet);
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin0"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("incrementPoints");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("incrementPoints");
+        myCollisionRules.put(new Pair<String, String>("PacMan1", "Coin1"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("incrementPoints");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin2"), methodSet);
+
+
+        methodSet = new HashSet<String>();
+        methodSet.add("setStatus");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
+
+
 
 
     }
@@ -158,12 +185,15 @@ public class CollisionHandler {
         int nameIndex = spriteClassName.lastIndexOf(dotDeliminator);
         spriteClassName = spriteClassName.substring(nameIndex + 1);
 
-        if(sprite instanceof PacMan){ //potential generalize to be character ie (ghost or pacman)
-            PacMan pacManObj = (PacMan) sprite;
-            return spriteClassName + pacManObj.getStatus();
-        }else{
-            return spriteClassName;
-        }
+//        if(sprite instanceof PacMan){ //potential generalize to be character ie (ghost or pacman)
+//            PacMan pacManObj = (PacMan) sprite;
+//            return spriteClassName + sprite.getStatus();
+//        }else{
+//            return spriteClassName;
+//        }
+
+        return spriteClassName + sprite.getStatus();
+
     }
 
     //used in reflection
