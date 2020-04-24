@@ -50,32 +50,67 @@ Caleb: Data
 * also integrating data into the rest of the program
 
 
-### Resources Used
 * Stack Overflow
 * Java documentation 
 * Google
 * Our TA, Jack Proudfoot
+* Lecture videos
 
 
 ### Running the Program
 
-Main class:
+Main class: Main.java
 
 Data files needed: 
+within a game folder, you need a
+* collisions.xml
+* DarkStyling.css
+* LightStyling.css
+* StartStyling.css
+* Ghost images (png or jpg)
+* EnglishButtons.properties
+* .txt level files
+* images for the map
+* pacman image
+* ErrorMessages.properties
+* FilePaths.properties
+* GameProperties.properties
+* GameRules.txt
 
 Features implemented:
-
+* levels
+* game statuses
+* loading in different levels without exiting game
+* changing image of pacman midgame
+* dark and light mode
+* score
+* lives
+* pause
+* restart
+* custom collisions read in using reflection 
+* different ghost movements
+* everything set using files/properties
 
 
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
+* staying within a pac-man-like game
+* collision classes must be already created in the program before calling them in your
+custom collision file
+* user will enter a map that is enclosed by blocks on all 4 sides
+* user will need to create new game files in the exact same structure as the deafultPacMan
+* not too many pacman will be put into the game (since not enough keys to move infinite number of pacman technically
+)
 
 Interesting data files:
 
 Known Bugs:
 
 Extra credit:
+* light and dark styles
+* AI (differing types of movement for ghosts)
+* preferences
 
 
 ### Impressions
