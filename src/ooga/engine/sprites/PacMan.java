@@ -2,6 +2,7 @@ package ooga.engine.sprites;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
 import ooga.Main;
+import ooga.data.PathManager;
 import ooga.engine.MapGraphNode;
 import ooga.engine.movement.ControllableMovement;
 
@@ -33,15 +34,17 @@ public class PacMan extends DynamicSprite implements Sprite {
   private SimpleIntegerProperty myPoints;
 
 
-  public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID){
-    super(startingX, startingY, hitBoxWidth, hitBoxLength, ID);
+
+  public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID, String imagePath, PathManager pathManager){
+    super(startingX, startingY, hitBoxWidth, hitBoxLength, ID, imagePath);
+
     myPoints = new SimpleIntegerProperty();
     lifeCount = new SimpleIntegerProperty();
-    lifeCount.setValue(Integer.parseInt(Main.MY_RESOURCES.getString("MaxLives")));
-    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed"));
-    myStatus = Integer.parseInt(Main.MY_RESOURCES.getString("PacManInitStatus"));
-    pacManMovement = Main.MY_RESOURCES.getString("PacManMovement");
-    direction = Main.MY_RESOURCES.getString("Right");
+    lifeCount.setValue(Integer.parseInt(pathManager.getString(PathManager.PROPERTIES, "MaxLives")));
+    mySpeed = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES, "PacManDefaultSpeed"));
+    myStatus = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES, "PacManInitStatus"));
+    pacManMovement = pathManager.getString(PathManager.PROPERTIES, "PacManMovement");
+    direction = Main.RIGHT;
     myMovement = new ControllableMovement(this);
 
   }
@@ -174,9 +177,11 @@ public class PacMan extends DynamicSprite implements Sprite {
 
 }
 
+
   public SimpleIntegerProperty getPointsProperty(){
     return myPoints;
   }
+
 
   @Override
   public int getSpeed() {

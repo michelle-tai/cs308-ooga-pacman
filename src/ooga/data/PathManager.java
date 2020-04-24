@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class PathManager {
-  public static final String FILEPATHS = "FilePaths";
 
   public static final String COLLISIONS = "Collisions";
   public static final String ERRORS = "Errors";
@@ -20,19 +19,23 @@ public class PathManager {
   public static final String LIGHTFORMAT = "LightFormat";
   public static final String STARTFORMAT = "StartFormat";
   public static final String GHOSTIMAGES = "GhostImages";
+  public static final String SCAREDGHOST = "ScaredGhost";
   public static final String PACKMANIMAGE = "PackManImages";
   public static final String ENGLISHBUTTONS = "EnglishButtons";
 
-  private static ResourceBundle filePaths = ResourceBundle.getBundle(FILEPATHS);
+  private ResourceBundle filePaths;
+  private String gamePath;
 
-  public PathManager() {
+  public PathManager(String game) {
+    gamePath = game;
+    filePaths = ResourceBundle.getBundle(game + "/FilePaths");
   }
 
-  public static String getFilePath(String keyWord){
+  public String getFilePath(String keyWord){
     return filePaths.getString(keyWord);
   }
 
-  public static String getFilePath(String keyWord, Integer index) {
+  public String getFilePath(String keyWord, Integer index) {
     List<String> list = Arrays.asList(filePaths.getString(keyWord).split(","));
     if (index >= list.size()) {
       System.out.println("WARNING: Key requested does not have an associated image.");
@@ -41,13 +44,13 @@ public class PathManager {
     return list.get(index);
   }
 
-  public static ResourceBundle getResourceBundle (String name) {
+  public ResourceBundle getResourceBundle (String name) {
     return ResourceBundle.getBundle(getFilePath(name));
     // TODO add error checking
   }
 
-  public static String getProperty (String bundlePath, String key) {
-    ResourceBundle bundle = ResourceBundle.getBundle(bundlePath);
+  public String getString (String bundlePath, String key) {
+    ResourceBundle bundle = ResourceBundle.getBundle(gamePath+ "/" +bundlePath);
     return bundle.getString(key);
   }
 }

@@ -23,7 +23,7 @@ public class UserInterface {
 
     public UserInterface(Visualizer visualizer){
         myVisualizer = visualizer;
-        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
     }
 
@@ -37,12 +37,12 @@ public class UserInterface {
 
     private VBox createVbox(){
         VBox vbox = new VBox(VBOX_SPACING);
-        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(PathManager.getFilePath(PathManager.DARKFORMAT))),
-                styler.createButton("LightMode", e-> changeStyleSheet(PathManager.getFilePath(PathManager.LIGHTFORMAT))));
+        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(myVisualizer.getController().getCurrentPathManager().getFilePath(PathManager.DARKFORMAT))),
+                styler.createButton("LightMode", e-> changeStyleSheet(myVisualizer.getController().getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))));
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
-        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox,  styler.createButtonImage(e->myVisualizer.pauseOrPlay(), PathManager.getFilePath(PathManager.PLAYPAUSEIMAGE)),
+        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox,  styler.createButtonImage(e->myVisualizer.pauseOrPlay(), myVisualizer.getController().getCurrentPathManager().getFilePath(PathManager.PLAYPAUSEIMAGE)),
                 styler.createLabel("Change"),
                 styler.createButton("ChoosePacMan", e->myVisualizer.getCurrentPacMan().choosePacMan(myVisualizer.getCurrentPacMan().getPacManImage(new Stage()))));
                 return vbox;

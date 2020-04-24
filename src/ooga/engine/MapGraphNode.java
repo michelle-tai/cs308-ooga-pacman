@@ -1,9 +1,14 @@
 package ooga.engine;
 
+import ooga.Main;
+
 import java.util.ArrayList;
+import ooga.data.PathManager;
+import ooga.engine.sprites.Block;
 
 public class MapGraphNode {
 
+    private static int BlockWidth;
     private int xPos;
     private int yPos;
     private MapGraphNode topNeighbor;
@@ -12,17 +17,18 @@ public class MapGraphNode {
     private MapGraphNode leftNeighbor;
 
 
-    public MapGraphNode(int i, int row){
+    public MapGraphNode(int i, int row, PathManager pathManager){
+        BlockWidth = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES, "BlockDim"));
         xPos = i;
         yPos = row;
     }
 
     public int getXPos(){
-        return xPos;
+        return xPos * BlockWidth + BlockWidth/2;
     }
 
     public int getYPos(){
-        return yPos;
+        return yPos * BlockWidth + BlockWidth/2;
     }
 
     public void addNeighbor(MapGraphNode[][] grid){ //todo: make this more accurate

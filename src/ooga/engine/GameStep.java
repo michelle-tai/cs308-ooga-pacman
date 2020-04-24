@@ -14,12 +14,10 @@ public class GameStep {
     private Collision collision;
     private GameContainer myContainer;
     private String myStatus;
-//    private LevelManager myLevelManager;
 
     public GameStep(GameContainer container) {
-//        myLevelManager = new LevelManager();
         myContainer = container;
-        collision = new Collision();
+        collision = new Collision(myContainer.getPathManager());
         myCollisionHandler = new CollisionHandler();
     }
 
@@ -36,6 +34,9 @@ public class GameStep {
     }
 
     private void checkAndExecuteCollisions(List<Sprite> objectSet) {
+
+
+
         for(Sprite pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();
@@ -56,7 +57,5 @@ public class GameStep {
             ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite));
         }
     }
-
-
 
 }

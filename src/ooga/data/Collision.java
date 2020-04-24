@@ -17,8 +17,7 @@ import org.w3c.dom.Node;
 public class Collision {
   private List<Map<Pair<String, String>, Set<String>>> collisionList = new ArrayList<>();
 
-  public Collision () {
-    PathManager pathManager = new PathManager();
+  public Collision (PathManager pathManager) {
     Document xmlFile = convertXMLFileToXMLDocument(pathManager.getFilePath(PathManager.COLLISIONS));
     getCollisionRules(xmlFile);
   }
@@ -85,6 +84,7 @@ public class Collision {
     }
     catch (Exception e)
     {
+      //TODO
       e.printStackTrace();
     }
     return null;
