@@ -177,6 +177,9 @@ public class PacMan extends DynamicSprite implements Sprite {
 
 }
 
+  public void resetPoints(){
+    myPoints.setValue(0);
+  }
 
   public SimpleIntegerProperty getPointsProperty(){
     return myPoints;
