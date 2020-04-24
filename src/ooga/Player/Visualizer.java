@@ -250,12 +250,14 @@ public class Visualizer {
     public PacManView getCurrentPacMan(){return currentPacMan;}
 
    public void restartLevel(){
+       nonUserInterface.getScore().textProperty().unbind();
+       currentPacMan.resetScore();
        myController.resetGame();
-       map = myMapView.createMap(myController.getContainer());
        map = new Group();
        map = myMapView.createMap(myController.getContainer());
        viewPane.setCenter(map);
-       System.out.println(currentPacMan);
+       nonUserInterface.getScore().textProperty().bind(currentPacMan.pacmanScore().asString());
+
    }
 
     private void setDefaults(){

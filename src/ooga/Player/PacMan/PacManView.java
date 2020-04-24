@@ -51,7 +51,6 @@ public class PacManView {
     }
 
     public void update(){
-//        pacmanModel.move();
         myImage.setX(pacmanModel.getX() - 20);
         myImage.setY(pacmanModel.getY() - 20);
         checkStatus();
@@ -65,6 +64,8 @@ public class PacManView {
     public SimpleIntegerProperty pacmanScore(){
         return pacmanModel.getPointsProperty();
     }
+
+    public void resetScore() {pacmanModel.getPointsProperty().setValue(0);}
 
     public void checkStatus(){
         int status = pacmanModel.getStatus();

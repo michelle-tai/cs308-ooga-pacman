@@ -135,7 +135,6 @@ public class GameContainer {
         myPacManList.addAll(currLevel.getPacMen());
         myCoinList.addAll(currLevel.getCoins());
         myMap.putAll(currLevel.getModelMap());
-        System.out.println(myMap);
     }
 
     public void setCurrLevel(Level level){
