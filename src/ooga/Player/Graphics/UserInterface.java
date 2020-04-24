@@ -37,8 +37,8 @@ public class UserInterface {
 
     private VBox createVbox(){
         VBox vbox = new VBox(VBOX_SPACING);
-        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(myController.getCurrentPathManager().getFilePath(PathManager.DARKFORMAT))),
-                styler.createButton("LightMode", e-> changeStyleSheet(myController.getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))));
+        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(myController.getCurrentPathManager().GUI_RESOURCES.getString(PathManager.DARKFORMAT))),
+                styler.createButton("LightMode", e-> changeStyleSheet(myController.getCurrentPathManager().GUI_RESOURCES.getString(PathManager.LIGHTFORMAT))));
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
