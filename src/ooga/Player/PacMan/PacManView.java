@@ -55,6 +55,7 @@ public class PacManView {
         myImage.setY(pacmanModel.getY() - 20);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
+        System.out.println(pacmanModel.getLivesLeft().getValue());
     }
 
     public SimpleIntegerProperty pacmanLives(){
@@ -67,7 +68,6 @@ public class PacManView {
 
     private void checkStatus(){
         int status = pacmanModel.getStatus();
-        System.out.println(status);
         if (status == 0){
             pacmanModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "PacManDefaultSpeed")));
         } else if (status == 1){
