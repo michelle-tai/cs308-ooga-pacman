@@ -65,7 +65,7 @@ public class GameContainer {
 
     public HashSet<Sprite> getAllGameObjects(){ return currLevel.getAllGameObjects();}
 
-    
+
 
     public List<Sprite> getGhosts(){
         return myGhostSet;

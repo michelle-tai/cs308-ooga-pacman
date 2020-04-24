@@ -35,7 +35,6 @@ public class GameStep {
 
 
 
-
         for(Sprite pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();

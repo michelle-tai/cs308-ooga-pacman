@@ -1,14 +1,13 @@
 package ooga.engine.movement;
 
+import javafx.util.Pair;
 import ooga.Main;
 import ooga.engine.MapGraphNode;
 import ooga.engine.sprites.Sprite;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class AggressiveMovement extends ControllableMovement{
   // would need to either know the map or where pacman currently is
@@ -29,20 +28,34 @@ public class AggressiveMovement extends ControllableMovement{
         mySprite = sprite;
         directions.addAll(List.of("Right", "Left", "Up", "Down"));
         myTarget = targetSprites;
-        currDirection = Main.MY_RESOURCES.getString("");
+        currDirection = "";
         prevDirection = "";
 
     }
 
+    public String setNewDirection(String direction){
+        if(!currDirection.equals(direction)){
+            if((direction.equals("Right") && currDirection.equals("Left")) ||(direction.equals("Left") && currDirection.equals("Right"))){
+                directionChanged = false;
+            } else if ((direction.equals("Down") && currDirection.equals("Up")) ||(direction.equals("Up") && currDirection.equals("Down"))) {
+                directionChanged = false;
+            }else{
+                directionChanged = true;
+            }
+            prevDirection = currDirection;
+            currDirection = direction;
 
+        }
+        return currDirection;
+    }
 
 
     public void move(MapGraphNode currentLocation){
 
-
-        setNewDirection("Right");
-        String directionMethod = "move" + "Right";
-
+        String moveDir = pickDirection(currentLocation);
+        setNewDirection(moveDir);
+        String directionMethod = "move" + moveDir;
+        System.out.println(moveDir);
 
         try {
             Method method = this.getClass().getDeclaredMethod(directionMethod, MapGraphNode.class);
@@ -50,7 +63,7 @@ public class AggressiveMovement extends ControllableMovement{
             method.invoke(AggressiveMovement.this, currentLocation);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
             // Do nothing
-            System.out.println("hi");
+            //System.out.println("hi");
         }
 
         directionChanged = false;
@@ -65,18 +78,46 @@ public class AggressiveMovement extends ControllableMovement{
         List<String> potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
 
         HashSet<MapGraphNode> visited = new HashSet<>();
+        HashMap<MapGraphNode, Integer> distance = new HashMap<>();
 
         visited.add(currentLocation);
+        distance.put(currentLocation, 0);
 
+        Pair<Integer, String> minDist = new Pair<>(Integer.MAX_VALUE, "");
+
+
+        System.out.println(potentialDirections.size());
         for(String dir : potentialDirections){
             ArrayList<String> dirList = new ArrayList<>();
             dirList.add(dir);
-            visited.addAll(getNode(currentLocation, dirList));
-            List<MapGraphNode> quene = 
-            while
-        }
+            MapGraphNode dirNode = getNode(currentLocation, dirList).get(0);
+            visited.add(dirNode);
+            Queue<MapGraphNode> queue = new LinkedList<>();
+            queue.add(dirNode);
+            distance.put(dirNode, 0);
+            boolean foundTarget = false;
 
-        return "";
+            while(!queue.isEmpty() && !foundTarget){
+                MapGraphNode n = queue.poll();
+                System.out.println(visited.size());
+                for(MapGraphNode neighbor : getNode(currentLocation, RandomMovement.getDirections(currentLocation, new ArrayList<>()))){
+                    if(!visited.contains(neighbor)){
+                        queue.add(neighbor);
+                        visited.add(neighbor);
+                        distance.put(neighbor, distance.get(n) + 1);
+                        for(Sprite pM : myTarget){
+                            if(Math.abs(neighbor.getXPos() - pM.getX()) < 20 && Math.abs(neighbor.getYPos() - pM.getY()) < 20){
+                                foundTarget = true;
+                                if(distance.get(neighbor) < minDist.getKey()){
+                                    minDist = new Pair<>(distance.get(neighbor), dir);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return minDist.getValue();
     }
 
     protected void moveRight(MapGraphNode currentLocation){
@@ -123,16 +164,16 @@ public class AggressiveMovement extends ControllableMovement{
     private static List<MapGraphNode> getNode(MapGraphNode currentLocation, List<String> dir){
         List<MapGraphNode> ret = new ArrayList<>();
         for(String direction : dir ) {
-            if (direction.equals("Right")) {
+            if (direction.equals("Right") && currentLocation.getRightNeighbor() != null) {
                 ret.add(currentLocation.getRightNeighbor());
             }
-            if (direction.equals("Left")) {
+            if (direction.equals("Left") && currentLocation.getLeftNeighbor() != null) {
                 ret.add(currentLocation.getLeftNeighbor());
             }
-            if (direction.equals("Up")) {
+            if (direction.equals("Up") && currentLocation.getTopNeighbor() != null) {
                 ret.add(currentLocation.getTopNeighbor());
             }
-            if (direction.equals("Down")) {
+            if (direction.equals("Down") && currentLocation.getBottomNeighbor() != null) {
                 ret.add(currentLocation.getBottomNeighbor());
             }
         }

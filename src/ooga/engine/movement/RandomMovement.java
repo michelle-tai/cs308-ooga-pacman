@@ -178,7 +178,6 @@ public class RandomMovement extends ControllableMovement {
       }
     }
 
-
     return possibleDirections;
   }
 
