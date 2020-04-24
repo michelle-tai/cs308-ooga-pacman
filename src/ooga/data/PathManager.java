@@ -3,6 +3,7 @@ package ooga.data;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import ooga.engine.GameException;
 
 public class PathManager {
   public static final ResourceBundle GUI_RESOURCES = ResourceBundle.getBundle("GUIPaths");
@@ -23,6 +24,7 @@ public class PathManager {
   public static final String SCAREDGHOST = "ScaredGhost";
   public static final String PACKMANIMAGE = "PackManImages";
   public static final String ENGLISHBUTTONS = "EnglishButtons";
+  public static final String ERROR_MESSAGES = "ErrorMessages";
 
   private ResourceBundle filePaths;
   private String gamePath;
@@ -46,7 +48,11 @@ public class PathManager {
   }
 
   public ResourceBundle getResourceBundle (String name) {
-    return ResourceBundle.getBundle(getFilePath(name));
+    try{
+      return ResourceBundle.getBundle(getFilePath(name));
+    } catch(RuntimeException e){
+      throw new GameException(e.getMessage());
+    }
     // TODO add error checking
   }
 

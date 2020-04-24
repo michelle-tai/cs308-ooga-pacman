@@ -3,7 +3,6 @@ package ooga.Player.Map;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import ooga.controller.Controller;
-import ooga.data.PathManager;
 import ooga.engine.sprites.Coin;
 
 public class CoinView {
