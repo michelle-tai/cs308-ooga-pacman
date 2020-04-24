@@ -10,11 +10,14 @@ import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+import ooga.engine.GameException;
 
 public class LevelManager {
   private File[] levelFiles;
   private List<Level> myLevels = new ArrayList<>();
   private PathManager myPathManager;
+  private ResourceBundle errorResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ERROR_MESSAGES));
 
   private Level currentLevel;
 
@@ -69,27 +72,24 @@ public class LevelManager {
             method = level.getClass().getMethod("method"+string.charAt(i), Integer.class, Integer.class);
           } catch (NoSuchMethodException e) {
             e.printStackTrace();
+            throw new GameException(errorResources.getString("NoSuchMethodLevelManage"));
             //TODO
           }
           try {
             assert method != null;
             method.invoke(level, i, row);
-          } catch (IllegalArgumentException e) {
+          } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             // TODO
-          } catch (IllegalAccessException e) {
-            // TODO
-          } catch (InvocationTargetException e) {
-            // TODO
+            throw new GameException(e.getMessage());
           }
         }
         row++;
       }
     } catch(FileNotFoundException e){
       //TODO: add error here
-      System.out.println("Test File not found");
+      throw new GameException(errorResources.getString("FileNotFound"));
     } catch (IOException e) {
-      //TODO: add error here
-      System.out.println(e);
+      throw new GameException(errorResources.getString("GeneralError"));
     }
     return level;
   }

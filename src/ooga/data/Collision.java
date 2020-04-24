@@ -11,6 +11,7 @@ import java.util.Set;
 import javafx.util.Pair;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import ooga.engine.GameException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -89,8 +90,7 @@ public class Collision {
     catch (Exception e)
     {
       //TODO
-      e.printStackTrace();
+      throw new GameException(e.getMessage());
     }
-    return null;
   }
 }
