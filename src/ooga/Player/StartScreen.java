@@ -10,11 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.Player.Graphics.Styler;
-import ooga.data.PathManager;
-import ooga.engine.GameException;
 
 import java.io.File;
 import java.util.ResourceBundle;
+import ooga.data.PathManager;
 
 public class StartScreen {
 
@@ -31,7 +30,7 @@ public class StartScreen {
 
     public StartScreen(Stage stage){
         //TODO: need to get this resource bundle without the controller and not hardcoded
-        myResources = ResourceBundle.getBundle("defaultPacMan/languages/EnglishButtons");
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         myStage = stage;
     }
@@ -40,9 +39,9 @@ public class StartScreen {
         Scene start = new Scene(createStartScene());
         //TODO: need to get this style sheet without the controller and not hardcoded
 
-//        start.getStylesheets()
-//                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.STARTFORMAT))
-//                        .toExternalForm());
+        start.getStylesheets()
+                .add(getClass().getClassLoader().getResource(PathManager.GUI_RESOURCES.getString(PathManager.STARTFORMAT))
+                        .toExternalForm());
         return start;
     }
 

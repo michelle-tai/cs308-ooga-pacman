@@ -67,7 +67,7 @@ public class PacManView {
 
     private void checkStatus(){
         int status = pacmanModel.getStatus();
-//        System.out.println(status);
+        System.out.println(status);
         if (status == 0){
             pacmanModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "PacManDefaultSpeed")));
         } else if (status == 1){

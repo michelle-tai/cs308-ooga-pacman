@@ -34,7 +34,7 @@ public class MapView {
         myVisualizer = visualizer;
         myController = controller;
         gameStatus = true;
-        myResources = myController.getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
