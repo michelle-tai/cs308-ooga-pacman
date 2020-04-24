@@ -46,7 +46,7 @@ public class StartScreen {
         return start;
     }
 
-    public VBox createStartScene(){
+    private VBox createStartScene(){
         VBox vbox = new VBox(VBOX_SPACING);
         vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
         vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));

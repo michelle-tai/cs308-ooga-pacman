@@ -68,15 +68,13 @@ public class Visualizer {
     private GameStep myGameStep;
     private Boolean gameStatus;
     private Group map;
-    private Level currLevel;
-    private String currGame;
 
     public Visualizer (Stage stage, String currGame){
         myStage = stage;
         myController = new Controller(currGame);
-        myMapView = new MapView(this);
+        myMapView = new MapView(this, myController);
         nonUserInterface = new NonUserInterface(myController.getCurrentPathManager());
-        userInterface = new UserInterface(this);
+        userInterface = new UserInterface(this, myController);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
@@ -86,51 +84,6 @@ public class Visualizer {
         gameStatus = true;
     }
 
-//    public Scene startScene(){
-//        Scene start = new Scene(createStartScene());
-//        start.getStylesheets()
-//                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.STARTFORMAT))
-//                        .toExternalForm());
-//        return start;
-//    }
-//
-//    private VBox createStartScene(){
-//        VBox vbox = new VBox(VBOX_SPACING);
-//        vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
-//        vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
-//        HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
-//            try {
-////                myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid"))); //TODO
-//                System.out.println("new level set");
-////                currLevel = new Level(launchFileChooser(new Stage(), "Grid"));
-////                map = myController.setModelMap(currLevel.getModelMap());
-//            } catch(RuntimeException eee){
-//                //todo: change
-////                setDefaults();
-////                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
-//                throw new GameException(myController.getCurrentPathManager().getString(PathManager.PROPERTIES,"DefaultUsed"));
-//            }
-//        }
-//        ),
-//                styler.createLink("UploadData", e->launchFileChooser(new Stage(), "Data")),
-//                styler.createLink("UploadPlayers", e->launchFileChooser(new Stage(), "Players")));
-//        vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, createGameCombo(), styler.createButton("Start", e->myStage.setScene(setupScene())));
-//        return vbox;
-//    }
-//
-//    private ComboBox<String> createGameCombo(){
-//        ObservableList<String> path = FXCollections.observableArrayList();
-//        File resourcesFolder = new File("./resources");
-//        File [] gameFiles = resourcesFolder.listFiles();
-//        for(File f: gameFiles){
-//            path.add(f.getName());
-//        }
-//        ComboBox<String> paths = new ComboBox(path);
-//        paths.setOnAction( e-> {currGame = paths.getValue();});
-//        paths.setPromptText(myResources.getString("ChooseGame"));
-//        return paths;
-//    }
-
     public Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
@@ -138,14 +91,6 @@ public class Visualizer {
                         .toExternalForm());
         beginAnimation();
         return myScene;
-    }
-
-    private File launchFileChooser(Stage stage, String feature){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose" + feature);
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Data Files", "*.XML", "*.txt"));
-        return fileChooser.showOpenDialog(stage);
     }
 
     private BorderPane createView(){
@@ -167,7 +112,7 @@ public class Visualizer {
         setPacMan(ID);
     }
 
-    public void setPacMan(int index){
+    private void setPacMan(int index){
         currentPacMan = pacmanCollection.get(index);
         nonUserInterface.getLivesLeft().bind(currentPacMan.pacmanLives());
         nonUserInterface.getScore().textProperty().bind(currentPacMan.pacmanScore().asString());
@@ -182,10 +127,6 @@ public class Visualizer {
     public void addCoins(int index, int row, int ID){
         CoinView createCoins = new CoinView(myMapView.getCoins(), index, row, ID, myController);
         coinCollection.add(createCoins);
-    }
-
-    public Controller getController() {
-        return myController;
     }
 
     private void beginAnimation() {
@@ -280,7 +221,4 @@ public class Visualizer {
         myStage.setScene(myStartScreen.startScene());
    }
 
-    private void setDefaults(){
-        map = myMapView.createMap(myController.getContainer());
-    }
 }

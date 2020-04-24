@@ -18,7 +18,7 @@ public class Styler {
         myResources = resources;
     }
 
-    public String getResourceText(String input){return myResources.getString(input);}
+    private String getResourceText(String input){return myResources.getString(input);}
 
     public Label createLabel(String string){
         Label label = new Label(getResourceText(string));

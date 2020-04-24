@@ -8,10 +8,10 @@ import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 import ooga.Player.Graphics.Styler;
 import ooga.Player.Visualizer;
+import ooga.controller.Controller;
 import ooga.data.PathManager;
 import ooga.engine.*;
 import ooga.engine.sprites.*;
-
 import java.util.ResourceBundle;
 
 public class MapView {
@@ -28,11 +28,13 @@ public class MapView {
     private Group totalMap;
     private Label pauseLabel;
     private Group coins;
+    private Controller myController;
 
-    public MapView(Visualizer visualizer){
+    public MapView(Visualizer visualizer, Controller controller){
         myVisualizer = visualizer;
+        myController = controller;
         gameStatus = true;
-        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = myController.getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
@@ -67,7 +69,7 @@ public class MapView {
     }
 
     private ImageView generateBlock(int index, int rowNum){
-        ImageView blockImage = new ImageView(myVisualizer.getController().getBlock().getImagePath());
+        ImageView blockImage = new ImageView(myController.getBlock().getImagePath());
         blockImage.setFitWidth(BLOCK_WIDTH);
         blockImage.setFitHeight(BLOCK_HEIGHT);
         blockImage.setX(BLOCK_WIDTH * index);

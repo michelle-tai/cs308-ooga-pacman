@@ -8,8 +8,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ooga.Player.Visualizer;
-
 import java.util.ResourceBundle;
+import ooga.controller.Controller;
 import ooga.data.PathManager;
 
 public class UserInterface {
@@ -19,14 +19,14 @@ public class UserInterface {
     private Styler styler;
     private ResourceBundle myResources;
     private Visualizer myVisualizer;
+    private Controller myController;
 
-
-    public UserInterface(Visualizer visualizer){
+    public UserInterface(Visualizer visualizer, Controller controller){
+        myController = controller;
         myVisualizer = visualizer;
-        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = myController.getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
     }
-
 
     public Node createComponents(){
         BorderPane pane = new BorderPane();
@@ -37,12 +37,12 @@ public class UserInterface {
 
     private VBox createVbox(){
         VBox vbox = new VBox(VBOX_SPACING);
-        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(myVisualizer.getController().getCurrentPathManager().getFilePath(PathManager.DARKFORMAT))),
-                styler.createButton("LightMode", e-> changeStyleSheet(myVisualizer.getController().getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))));
+        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(myController.getCurrentPathManager().getFilePath(PathManager.DARKFORMAT))),
+                styler.createButton("LightMode", e-> changeStyleSheet(myController.getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))));
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
-        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox,  styler.createButtonImage(e->myVisualizer.pauseOrPlay(), myVisualizer.getController().getCurrentPathManager().getFilePath(PathManager.PLAYPAUSEIMAGE)),
+        vbox.getChildren().addAll( styler.createLabel("Settings"), hbox,  styler.createButtonImage(e->myVisualizer.pauseOrPlay(),myController.getCurrentPathManager().getFilePath(PathManager.PLAYPAUSEIMAGE)),
                 styler.createLabel("Change"),
                 styler.createButton("ChoosePacMan", e->myVisualizer.getCurrentPacMan().choosePacMan(myVisualizer.getCurrentPacMan().getPacManImage(new Stage()))));
                 return vbox;

@@ -14,7 +14,6 @@ public class GhostView {
     private static final int GHOST_HEIGHT = 35;
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
-    public static final int SCARED_GHOST = 5;
 
     private Group myGhosts;
     private ImageView myImage;
@@ -33,7 +32,6 @@ public class GhostView {
     }
 
     public void update() {
-//        ghostModel.move();
         myImage.setX(ghostModel.getX() - 20);
         myImage.setY(ghostModel.getY() - 20);
         checkStatus();
@@ -43,12 +41,13 @@ public class GhostView {
     private void checkStatus(){
         int status = ghostModel.getStatus();
         if (status == 0){
-            changeImage(ID);
+            changeImage(0);
             ghostModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "GhostDefaultSpeed")));
         } else if (status == 1){
-            changeImage(SCARED_GHOST);
+            changeImage(1);
             ghostModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "GhostDefaultSpeed")));
         } else if (status == 2){
+            changeImage(0);
             ghostModel.setSpeed((Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "GhostDefaultSpeed"))) * 2);
         }
     }
@@ -64,7 +63,12 @@ public class GhostView {
     }
 
     private void changeImage(int imageIndex){
-        ImageView newImage = new ImageView(ghostModel.getScaredImagePath());
+        ImageView newImage = new ImageView();
+        if( imageIndex == 0){
+            newImage = new ImageView(ghostModel.getImagePath());
+        } else if (imageIndex == 1){
+            newImage = new ImageView(ghostModel.getScaredImagePath());
+        }
         newImage.setFitWidth(GHOST_WIDTH);
         newImage.setFitHeight(GHOST_WIDTH);
         myGhosts.getChildren().remove(myImage);
@@ -73,7 +77,7 @@ public class GhostView {
         set(ghostModel.getX(), ghostModel.getY());
     }
 
-    public void set(int newX, int newY){
+    private void set(int newX, int newY){
         myImage.setX(newX);
         myImage.setY(newY);
     }

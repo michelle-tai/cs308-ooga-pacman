@@ -65,9 +65,7 @@ public class PacManView {
         return pacmanModel.getPointsProperty();
     }
 
-    public void resetScore() {pacmanModel.getPointsProperty().setValue(0);}
-
-    public void checkStatus(){
+    private void checkStatus(){
         int status = pacmanModel.getStatus();
 //        System.out.println(status);
         if (status == 0){
@@ -158,7 +156,7 @@ public class PacManView {
         return fileChooser.showOpenDialog(stage);
     }
 
-    public void setShape(ImageView pacMan){
+    private void setShape(ImageView pacMan){
         pacMan.setFitWidth(PACMAN_WIDTH);
         pacMan.setFitHeight(PACMAN_HEIGHT);
         myPacMen.getChildren().remove(myImage);
@@ -167,7 +165,7 @@ public class PacManView {
         set(pacmanModel.getX(), pacmanModel.getY());
     }
 
-    public void set(int newX, int newY){
+    private void set(int newX, int newY){
         myImage.setX(newX);
         myImage.setY(newY);
     }
