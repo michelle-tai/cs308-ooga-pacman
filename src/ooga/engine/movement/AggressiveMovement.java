@@ -75,49 +75,8 @@ public class AggressiveMovement extends ControllableMovement{
         exclude.add(RandomMovement.directionOpposites.get(currDirection));
         exclude.add(RandomMovement.directionOpposites.get(prevDirection));
 
-        List<String> potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
 
-        HashSet<MapGraphNode> visited = new HashSet<>();
-        HashMap<MapGraphNode, Integer> distance = new HashMap<>();
-
-        visited.add(currentLocation);
-        distance.put(currentLocation, 0);
-
-        Pair<Integer, String> minDist = new Pair<>(Integer.MAX_VALUE, "");
-
-
-        System.out.println(potentialDirections.size());
-        for(String dir : potentialDirections){
-            ArrayList<String> dirList = new ArrayList<>();
-            dirList.add(dir);
-            MapGraphNode dirNode = getNode(currentLocation, dirList).get(0);
-            visited.add(dirNode);
-            Queue<MapGraphNode> queue = new LinkedList<>();
-            queue.add(dirNode);
-            distance.put(dirNode, 0);
-            boolean foundTarget = false;
-
-            while(!queue.isEmpty() && !foundTarget){
-                MapGraphNode n = queue.poll();
-                System.out.println(visited.size());
-                for(MapGraphNode neighbor : getNode(currentLocation, RandomMovement.getDirections(currentLocation, new ArrayList<>()))){
-                    if(!visited.contains(neighbor)){
-                        queue.add(neighbor);
-                        visited.add(neighbor);
-                        distance.put(neighbor, distance.get(n) + 1);
-                        for(Sprite pM : myTarget){
-                            if(Math.abs(neighbor.getXPos() - pM.getX()) < 20 && Math.abs(neighbor.getYPos() - pM.getY()) < 20){
-                                foundTarget = true;
-                                if(distance.get(neighbor) < minDist.getKey()){
-                                    minDist = new Pair<>(distance.get(neighbor), dir);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return minDist.getValue();
+        return "";
     }
 
     protected void moveRight(MapGraphNode currentLocation){

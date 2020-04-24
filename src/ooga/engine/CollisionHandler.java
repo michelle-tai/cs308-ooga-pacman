@@ -66,6 +66,24 @@ public class CollisionHandler {
         myCollisionRules.put(new Pair<String, String>("Coin1", "PacMan1"), methodSet);
 
         methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan0"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan1"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan2"), methodSet);
+
+
+
+
+
+
+
+        methodSet = new HashSet<String>();
         methodSet.add("incrementPoints");
         myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin0"), methodSet);
 
@@ -86,7 +104,13 @@ public class CollisionHandler {
         methodSet.add("setStatus");
         myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
 
+        methodSet = new HashSet<String>();
+        methodSet.add("setStatus");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
 
+        methodSet = new HashSet<String>();
+        methodSet.add("setStatus");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
 
 
     }
