@@ -2,15 +2,15 @@
 <collisions>
   <PacMan status="0">
     <Ghost status="0">
-      <action>destroy</action>
+      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Ghost status="1">
-      <action>destroy</action>
+      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Ghost status="2">
-      <action>destroy</action>
+      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Coin status="0">
@@ -25,15 +25,15 @@
   </PacMan>
   <PacMan status="1">
     <Ghost status="0">
-      <action>destroy</action>
+      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Ghost status="1">
-      <action>destroy</action>
+      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Ghost status="2">
-      <action>destroy</action>
+      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Coin status="0">
@@ -48,16 +48,16 @@
   </PacMan>
   <PacMan status="2">
     <Ghost status="0">
-      <action>destroy</action>
       <action>decrementLives</action>
+      <action>respawn</action>
     </Ghost>
     <Ghost status="1">
-      <action>destroy</action>
       <action>decrementLives</action>
+      <action>respawn</action>
     </Ghost>
     <Ghost status="2">
-      <action>destroy</action>
       <action>decrementLives</action>
+      <action>respawn</action>
     </Ghost>
     <Coin status="0">
       <action>incrementPoints</action>
