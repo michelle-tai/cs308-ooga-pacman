@@ -30,6 +30,7 @@ public class StartScreen {
     private ResourceBundle myResources;
 
     public StartScreen(Stage stage){
+        //TODO: need to get this resource bundle without the controller and not hardcoded
         myResources = ResourceBundle.getBundle("defaultPacMan/languages/EnglishButtons");
         styler = new Styler(myResources);
         myStage = stage;
@@ -37,6 +38,8 @@ public class StartScreen {
 
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
+        //TODO: need to get this style sheet without the controller and not hardcoded
+
 //        start.getStylesheets()
 //                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.STARTFORMAT))
 //                        .toExternalForm());
