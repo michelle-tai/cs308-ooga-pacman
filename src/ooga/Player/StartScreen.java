@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -26,18 +28,17 @@ public class StartScreen {
     private Visualizer myVisualizer;
     private String currGame;
     private ResourceBundle myResources;
+    private Label testLabel;
 
     public StartScreen(Stage stage){
-        //TODO: need to get this resource bundle without the controller and not hardcoded
         myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         myStage = stage;
+
     }
 
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
-        //TODO: need to get this style sheet without the controller and not hardcoded
-
         start.getStylesheets()
                 .add(getClass().getClassLoader().getResource(PathManager.GUI_RESOURCES.getString(PathManager.STARTFORMAT))
                         .toExternalForm());
@@ -46,6 +47,10 @@ public class StartScreen {
 
     private VBox createStartScene(){
         VBox vbox = new VBox(VBOX_SPACING);
+        vbox.setId("vbox");
+        testLabel = new Label();
+        testLabel.setId("Game");
+        testLabel.setText(currGame);
         vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
         vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
         HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
@@ -92,6 +97,8 @@ public class StartScreen {
                 new FileChooser.ExtensionFilter("Data Files", "*.XML", "*.txt"));
         return fileChooser.showOpenDialog(stage);
     }
+
+    public Stage getStage() {return myStage;}
 
 
 }

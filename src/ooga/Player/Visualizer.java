@@ -22,6 +22,7 @@ import ooga.Player.Map.MapView;
 import ooga.Player.PacMan.PacManView;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
+import ooga.engine.GameException;
 import ooga.engine.GameStep;
 
 public class Visualizer {
@@ -47,7 +48,8 @@ public class Visualizer {
     private Timeline otherAnimation;
     private BorderPane viewPane;
     private Controller myController;
-    private ResourceBundle myResources;
+    private ResourceBundle errorResources;
+
     private GameStep myGameStep;
     private Boolean gameStatus;
 
@@ -60,9 +62,9 @@ public class Visualizer {
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
-        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         myGameStep = new GameStep(myController.getContainer());
         gameStatus = true;
+        errorResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ERROR_MESSAGES));
     }
 
     public Scene setupScene(){
@@ -133,6 +135,7 @@ public class Visualizer {
             errorAlert.setHeaderText(e.getMessage());
             errorAlert.setContentText(ERROR_DIALOG);
             errorAlert.showAndWait();
+            throw new GameException(errorResources.getString("CouldNotStartAnimation"));
         }
     }
 
