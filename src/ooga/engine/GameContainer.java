@@ -97,14 +97,14 @@ public class GameContainer {
         int i = X/BlockWidth;
         int row = Y/BlockWidth;
         addToNeighborhood(neighborhood, i, row);
-        addToNeighborhood(neighborhood, i -1, row -1);
-        addToNeighborhood(neighborhood, i , row -1);
-        addToNeighborhood(neighborhood, i + 1, row -1);
-        addToNeighborhood(neighborhood, i -1, row + 1);
-        addToNeighborhood(neighborhood, i , row + 1);
-        addToNeighborhood(neighborhood, i + 1, row + 1);
-        addToNeighborhood(neighborhood, i - 1, row );
-        addToNeighborhood(neighborhood, i + 1, row );
+//        addToNeighborhood(neighborhood, i -1, row -1);
+//        addToNeighborhood(neighborhood, i , row -1);
+//        addToNeighborhood(neighborhood, i + 1, row -1);
+//        addToNeighborhood(neighborhood, i -1, row + 1);
+//        addToNeighborhood(neighborhood, i , row + 1);
+//        addToNeighborhood(neighborhood, i + 1, row + 1);
+//        addToNeighborhood(neighborhood, i - 1, row );
+//        addToNeighborhood(neighborhood, i + 1, row );
 
         return neighborhood;
     }

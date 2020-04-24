@@ -172,16 +172,25 @@ public class CollisionHandler {
 
     private void invokeMethods(Pair<String, String> collisionObjects, GameContainer container, Sprite firstSprite, Sprite secondSprite){
 
+        boolean flag = false;
+
         try {
             Set<String> methodSet = myCollisionRules.get(collisionObjects);
+
             if(null != methodSet){
+
+                if(methodSet.contains("respawn")){
+                    methodSet.remove("respawn");
+                    flag = true;
+                }
+                
                 for (String mName : methodSet) {
-                   // if (myMethodNames.contains(m)) {
-                    for(Method m : myMethods){
-                        if(m.getName().startsWith(mName)){
+                    // if (myMethodNames.contains(m)) {
+                    for (Method m : myMethods) {
+                        if (m.getName().startsWith(mName) && !flag) {
                             try {
                                 m.invoke(this, firstSprite, container, secondSprite);
-                            } catch (InvocationTargetException e){
+                            } catch (InvocationTargetException e) {
                                 System.err.println("An InvocationTargetException was caught!");
                                 Throwable cause = e.getCause();
                                 System.out.format("Invocation of %s failed because of: %s%n",
@@ -196,8 +205,8 @@ public class CollisionHandler {
 //                        collisionMethod.invoke(this, firstSprite, container, secondSprite);
                     }
 
-                   // }
-            }
+                    // }
+                }
 
             }
         //}catch (NoSuchMethodException e) {
@@ -207,6 +216,9 @@ public class CollisionHandler {
             System.out.println("illegalAccess");
         //do nothing
         }
+        if(flag){
+            respawn(firstSprite, container, secondSprite);
+        }
     }
 
     private String simpleStringName(Sprite sprite){
@@ -214,12 +226,6 @@ public class CollisionHandler {
         int nameIndex = spriteClassName.lastIndexOf(dotDeliminator);
         spriteClassName = spriteClassName.substring(nameIndex + 1);
 
-//        if(sprite instanceof PacMan){ //potential generalize to be character ie (ghost or pacman)
-//            PacMan pacManObj = (PacMan) sprite;
-//            return spriteClassName + sprite.getStatus();
-//        }else{
-//            return spriteClassName;
-//        }
 
         return spriteClassName + sprite.getStatus();
 
@@ -283,5 +289,6 @@ public class CollisionHandler {
 
     private void setStatus(Sprite sprite, GameContainer container, Sprite actor){
         sprite.setStatus(actor.getStatus());
+        System.out.println(sprite.getStatus());
     }
 }
