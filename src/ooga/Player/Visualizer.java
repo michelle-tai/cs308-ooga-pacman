@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -41,7 +42,7 @@ public class Visualizer {
     public static final int STARTSCREEN_HEIGHT = 400;
     public static final int VBOX_INSETS = 100;
     public static final int VBOX_SPACING = 10;
-
+    public static final String ERROR_DIALOG = "Animation could not begin";
 
     private Stage myStage;
     private MapView myMapView;
@@ -184,7 +185,10 @@ public class Visualizer {
             ghostAnimation.play();
         }
         catch (java.lang.Exception e){
-            throw new GameException(e); //can change later
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText(e.getMessage());
+            errorAlert.setContentText(ERROR_DIALOG);
+            errorAlert.showAndWait();
         }
     }
 

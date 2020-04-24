@@ -69,6 +69,7 @@ public class PacManView {
 
     public void checkStatus(){
         int status = pacmanModel.getStatus();
+        System.out.println(status);
         if (status == 0){
             pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")));
         } else if (status == 1){
@@ -99,11 +100,9 @@ public class PacManView {
                 pacmanModel.changeDirection(code.getName());
             }
         }
-//        System.out.println("Key pressed is: " + code.getName());
     }
 
     private ImageView createPacManImage(int index, int rows){
-        String string = "resources/pacman/pacman1.png";
         ImageView pacmanImage = new ImageView(PathManager.getFilePath(PathManager.PACKMANIMAGE, ID));
         pacmanImage.setFitWidth(PACMAN_WIDTH);
         pacmanImage.setFitHeight(PACMAN_HEIGHT);

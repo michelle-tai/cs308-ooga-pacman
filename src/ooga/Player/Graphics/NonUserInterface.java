@@ -3,6 +3,7 @@ package ooga.Player.Graphics;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,7 @@ public class NonUserInterface {
     public static final int VBOX_SPACING = 10;
     private static final int PACMAN_WIDTH = 25;
     private static final int PACMAN_HEIGHT = 25;
+    public static final String ERROR_DIALOG = "No rules found";
 
     private Styler styler;
     private ResourceBundle myResources;
@@ -62,8 +64,10 @@ public class NonUserInterface {
                 rules.appendText(line + "\n");
             }
         } catch(IOException e){
-            //TODO catch the error
-            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText(e.getMessage());
+            errorAlert.setContentText(ERROR_DIALOG);
+            errorAlert.showAndWait();
         }
         rules.setEditable(false);
         rules.setWrapText(true);
