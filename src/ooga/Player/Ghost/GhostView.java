@@ -6,7 +6,6 @@ import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
-import ooga.engine.sprites.Sprite;
 import ooga.engine.sprites.*;
 
 public class GhostView {
@@ -78,7 +77,4 @@ public class GhostView {
         myImage.setX(newX);
         myImage.setY(newY);
     }
-
-    public int getSpeed() {return ghostModel.getSpeed();}
-
 }

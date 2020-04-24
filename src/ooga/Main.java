@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import ooga.Player.StartScreen;
 import ooga.Player.Visualizer;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
@@ -30,8 +31,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        Visualizer myVisualizer = new Visualizer(stage);
-        stage.setScene(myVisualizer.startScene());
+        StartScreen myStartScreen = new StartScreen(stage);
+        stage.setScene(myStartScreen.startScene());
         stage.setTitle(TITLE);
         stage.show();
     }
