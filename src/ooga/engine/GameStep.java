@@ -14,12 +14,10 @@ public class GameStep {
     private Collision collision;
     private GameContainer myContainer;
     private String myStatus;
-//    private LevelManager myLevelManager;
 
     public GameStep(GameContainer container) {
-//        myLevelManager = new LevelManager();
         myContainer = container;
-        collision = new Collision();
+        collision = new Collision(myContainer.getPathManager());
         myCollisionHandler = new CollisionHandler();
     }
 

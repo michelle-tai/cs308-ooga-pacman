@@ -21,8 +21,8 @@ public class Controller {
     private LevelManager myLevelManager;
 
     public Controller(){
-        myLevelManager = new LevelManager();
-        container = new GameContainer(myLevelManager.getCurrentLevel());
+        myLevelManager = new LevelManager("defaultPacMan");
+        container = new GameContainer(myLevelManager.getCurrentLevel(), myLevelManager.getPathManager());
         gameStep = new GameStep(container);
         currentScore = 0;
     }

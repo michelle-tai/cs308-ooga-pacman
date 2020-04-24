@@ -53,17 +53,17 @@ public class Level {
 
     public void methodx(Integer i, Integer row) {
         Block modelBlock = new Block(BlockWidth * i, BlockWidth * row,
-            myPathManager.getFilePath(PathManager.BLOCKIMAGE));
+            myPathManager.getFilePath(PathManager.BLOCKIMAGE), myPathManager);
         addSpriteToMap(modelBlock, i, row);
         allGameObjects.add(modelBlock);
         myBlockList.add(modelBlock);
     }
 
     public void methodg(Integer i, Integer row) {
-        int ghostDim = Integer.parseInt(Main.MY_RESOURCES.getString("GhostWidth"));
+        int ghostDim = Integer.parseInt(myPathManager.getString(PathManager.PROPERTIES,"GhostWidth"));
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim,
             ghostDim, ghostCount, myPathManager.getFilePath(PathManager.GHOSTIMAGES, ghostCount),
-            myPathManager.getFilePath(PathManager.SCAREDGHOST));
+            myPathManager.getFilePath(PathManager.SCAREDGHOST), myPathManager);
         myGhostList.add(modelGhost);
         allGameObjects.add(modelGhost);
         addSpriteToMap(modelGhost, i, row);
@@ -75,10 +75,10 @@ public class Level {
     }
 
     public void methodp(Integer i, Integer row) {
-        int pacManDim = Integer.parseInt(Main.MY_RESOURCES.getString("MainCharacterWidth"));
+        int pacManDim = Integer.parseInt(myPathManager.getString(PathManager.PROPERTIES,"MainCharacterWidth"));
         PacMan modelPacMan = new PacMan(BlockWidth * i,
             BlockWidth * row, pacManDim, pacManDim,
-            pacManCount, myPathManager.getFilePath(PathManager.PACKMANIMAGE, pacManCount));
+            pacManCount, myPathManager.getFilePath(PathManager.PACKMANIMAGE, pacManCount), myPathManager);
         myPacManList.add(modelPacMan);
         allGameObjects.add(modelPacMan);
         addSpriteToMap(modelPacMan, i, row);
@@ -136,7 +136,7 @@ public class Level {
 
     private void generateFood(Integer i, Integer row, Integer status) {
         Coin modelFood = new Coin(BlockWidth * i, BlockWidth * row, status, coinCount,
-            myPathManager.getFilePath(PathManager.FOODIMAGES, status));
+            myPathManager.getFilePath(PathManager.FOODIMAGES, status), myPathManager);
         myCoinList.add(modelFood);
         addSpriteToMap(modelFood, i, row);
         allGameObjects.add(modelFood);

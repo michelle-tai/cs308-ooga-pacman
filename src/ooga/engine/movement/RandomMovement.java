@@ -21,7 +21,7 @@ public class RandomMovement extends ControllableMovement {
     super(sprite);
     mySprite = sprite;
     directions.addAll(List.of("Right", "Left", "Up", "Down"));
-    currDirection = Main.MY_RESOURCES.getString("Right");
+    currDirection = Main.RIGHT;
   }
 
   //not the best design but will change later

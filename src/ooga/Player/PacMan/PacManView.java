@@ -69,11 +69,11 @@ public class PacManView {
     public void checkStatus(){
         int status = pacmanModel.getStatus();
         if (status == 0){
-            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")));
+            pacmanModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES, "PacManDefaultSpeed")));
         } else if (status == 1){
-            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")));
+            pacmanModel.setSpeed(Integer.parseInt((myController.getCurrentPathManager().getString(PathManager.PROPERTIES,"PacManDefaultSpeed"))));
         } else if (status == 2){
-            pacmanModel.setSpeed(Integer.parseInt(Main.MY_RESOURCES.getString("PacManDefaultSpeed")) * 2);
+            pacmanModel.setSpeed(Integer.parseInt(myController.getCurrentPathManager().getString(PathManager.PROPERTIES,"PacManDefaultSpeed")) * 2);
         }
     }
 

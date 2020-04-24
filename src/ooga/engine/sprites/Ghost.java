@@ -1,6 +1,7 @@
 package ooga.engine.sprites;
 
 import ooga.Main;
+import ooga.data.PathManager;
 import ooga.engine.MapGraphNode;
 import ooga.engine.movement.AggressiveMovement;
 import ooga.engine.movement.ControllableMovement;
@@ -16,9 +17,9 @@ public class Ghost extends DynamicSprite{
   private String myScaredImagePath;
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID,
-      String imagePath, String scaredImagePath){
+      String imagePath, String scaredImagePath, PathManager pathManager){
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID, imagePath);
-    mySpeed = Integer.parseInt(Main.MY_RESOURCES.getString("GhostDefaultSpeed"));
+    mySpeed = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES,"GhostDefaultSpeed"));
     myStatus = 0;
     myScaredImagePath = scaredImagePath;
     //ghostMove = new AggressiveMovement(this, targetSprites);

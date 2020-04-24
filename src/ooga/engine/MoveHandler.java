@@ -32,21 +32,23 @@ public class MoveHandler {
 
     //used in reflection
     private void standard(Sprite sprite, String direction){
-        if(direction.equals(Main.MY_RESOURCES.getString("Right"))){
-            sprite.setX(sprite.getSpeed() + sprite.getX());
-            System.out.println("moved right -> new x : " + sprite.getX());
-        }
-        else if(direction.equals(Main.MY_RESOURCES.getString("Left"))){
-            sprite.setX(-sprite.getSpeed() + sprite.getX());
-            System.out.println("moved left -> new x : " + sprite.getX());
-        }
-        else if(direction.equals(Main.MY_RESOURCES.getString("Down"))){
-            sprite.setY(sprite.getSpeed() + sprite.getY());
-            System.out.println("moved down -> new y : " + sprite.getY());
-        }
-        else if(direction.equals(Main.MY_RESOURCES.getString("Up"))){
-            sprite.setY(sprite.getSpeed() + sprite.getY());
-            System.out.println("moved up -> new y : " + sprite.getY());
+        switch (direction) {
+            case Main.RIGHT:
+                sprite.setX(sprite.getSpeed() + sprite.getX());
+                System.out.println("moved right -> new x : " + sprite.getX());
+                break;
+            case Main.LEFT:
+                sprite.setX(-sprite.getSpeed() + sprite.getX());
+                System.out.println("moved left -> new x : " + sprite.getX());
+                break;
+            case Main.DOWN:
+                sprite.setY(sprite.getSpeed() + sprite.getY());
+                System.out.println("moved down -> new y : " + sprite.getY());
+                break;
+            case Main.UP:
+                sprite.setY(sprite.getSpeed() + sprite.getY());
+                System.out.println("moved up -> new y : " + sprite.getY());
+                break;
         }
     }
 

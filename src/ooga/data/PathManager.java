@@ -24,8 +24,10 @@ public class PathManager {
   public static final String ENGLISHBUTTONS = "EnglishButtons";
 
   private ResourceBundle filePaths;
+  private String gamePath;
 
   public PathManager(String game) {
+    gamePath = game;
     filePaths = ResourceBundle.getBundle(game + "/FilePaths");
   }
 
@@ -47,8 +49,8 @@ public class PathManager {
     // TODO add error checking
   }
 
-  public String getProperty (String bundlePath, String key) {
-    ResourceBundle bundle = ResourceBundle.getBundle(bundlePath);
+  public String getString (String bundlePath, String key) {
+    ResourceBundle bundle = ResourceBundle.getBundle(gamePath+ "/" +bundlePath);
     return bundle.getString(key);
   }
 }

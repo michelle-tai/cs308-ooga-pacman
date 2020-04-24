@@ -70,7 +70,7 @@ public class Visualizer {
         myStage = stage;
         myController = new Controller();
         myMapView = new MapView(this);
-        nonUserInterface = new NonUserInterface();
+        nonUserInterface = new NonUserInterface(myController.getCurrentPathManager());
         userInterface = new UserInterface(this);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
@@ -103,7 +103,7 @@ public class Visualizer {
                 //todo: change
 //                setDefaults();
 //                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
-                throw new GameException(Main.ERROR_RESOURCES.getString("DefaultUsed"));
+                throw new GameException(myController.getCurrentPathManager().getString(PathManager.PROPERTIES,"DefaultUsed"));
             }
         }
         ),
