@@ -23,7 +23,7 @@ public class UserInterface {
 
     public UserInterface(Visualizer visualizer){
         myVisualizer = visualizer;
-        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
     }
 

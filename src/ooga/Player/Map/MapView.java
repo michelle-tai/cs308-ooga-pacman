@@ -32,7 +32,7 @@ public class MapView {
     public MapView(Visualizer visualizer){
         myVisualizer = visualizer;
         gameStatus = true;
-        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
