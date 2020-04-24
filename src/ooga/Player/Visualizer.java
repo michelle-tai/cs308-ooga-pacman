@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -31,6 +34,7 @@ import ooga.data.Level;
 import ooga.data.PathManager;
 import ooga.engine.GameException;
 import ooga.engine.GameStep;
+import ooga.engine.sprites.Sprite;
 
 public class Visualizer {
 
@@ -65,58 +69,72 @@ public class Visualizer {
     private Boolean gameStatus;
     private Group map;
     private Level currLevel;
+    private String currGame;
 
-    public Visualizer (Stage stage){
+    public Visualizer (Stage stage, String currGame){
         myStage = stage;
-        myController = new Controller();
+        myController = new Controller(currGame);
         myMapView = new MapView(this);
-        nonUserInterface = new NonUserInterface();
+        nonUserInterface = new NonUserInterface(myController.getCurrentPathManager());
         userInterface = new UserInterface(this);
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
-        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = myController.getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         myGameStep = new GameStep(myController.getContainer());
         gameStatus = true;
     }
 
-    public Scene startScene(){
-        Scene start = new Scene(createStartScene());
-        start.getStylesheets()
-                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.STARTFORMAT))
-                        .toExternalForm());
-        return start;
-    }
+//    public Scene startScene(){
+//        Scene start = new Scene(createStartScene());
+//        start.getStylesheets()
+//                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.STARTFORMAT))
+//                        .toExternalForm());
+//        return start;
+//    }
+//
+//    private VBox createStartScene(){
+//        VBox vbox = new VBox(VBOX_SPACING);
+//        vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
+//        vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
+//        HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
+//            try {
+////                myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid"))); //TODO
+//                System.out.println("new level set");
+////                currLevel = new Level(launchFileChooser(new Stage(), "Grid"));
+////                map = myController.setModelMap(currLevel.getModelMap());
+//            } catch(RuntimeException eee){
+//                //todo: change
+////                setDefaults();
+////                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
+//                throw new GameException(myController.getCurrentPathManager().getString(PathManager.PROPERTIES,"DefaultUsed"));
+//            }
+//        }
+//        ),
+//                styler.createLink("UploadData", e->launchFileChooser(new Stage(), "Data")),
+//                styler.createLink("UploadPlayers", e->launchFileChooser(new Stage(), "Players")));
+//        vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, createGameCombo(), styler.createButton("Start", e->myStage.setScene(setupScene())));
+//        return vbox;
+//    }
+//
+//    private ComboBox<String> createGameCombo(){
+//        ObservableList<String> path = FXCollections.observableArrayList();
+//        File resourcesFolder = new File("./resources");
+//        File [] gameFiles = resourcesFolder.listFiles();
+//        for(File f: gameFiles){
+//            path.add(f.getName());
+//        }
+//        ComboBox<String> paths = new ComboBox(path);
+//        paths.setOnAction( e-> {currGame = paths.getValue();});
+//        paths.setPromptText(myResources.getString("ChooseGame"));
+//        return paths;
+//    }
 
-    private VBox createStartScene(){
-        VBox vbox = new VBox(VBOX_SPACING);
-        vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
-        vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
-        HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
-            try {
-//                myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid"))); //TODO
-                System.out.println("new level set");
-//                currLevel = new Level(launchFileChooser(new Stage(), "Grid"));
-//                map = myController.setModelMap(currLevel.getModelMap());
-            } catch(RuntimeException eee){
-                //todo: change
-//                setDefaults();
-//                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
-                throw new GameException(Main.ERROR_RESOURCES.getString("DefaultUsed"));
-            }
-        }
-        ),
-                styler.createLink("UploadData", e->launchFileChooser(new Stage(), "Data")),
-                styler.createLink("UploadPlayers", e->launchFileChooser(new Stage(), "Players")));
-        vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, styler.createButton("Start", e->myStage.setScene(setupScene())));
-        return vbox;
-    }
-
-    private Scene setupScene(){
+    public Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
-                .add(getClass().getClassLoader().getResource(PathManager.getFilePath(PathManager.LIGHTFORMAT))
+                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))
                         .toExternalForm());
         beginAnimation();
         return myScene;
@@ -164,6 +182,10 @@ public class Visualizer {
     public void addCoins(int index, int row, int ID){
         CoinView createCoins = new CoinView(myMapView.getCoins(), index, row, ID, myController);
         coinCollection.add(createCoins);
+    }
+
+    public Controller getController() {
+        return myController;
     }
 
     private void beginAnimation() {
@@ -254,14 +276,8 @@ public class Visualizer {
     public PacManView getCurrentPacMan(){return currentPacMan;}
 
    public void restartLevel(){
-       nonUserInterface.getScore().textProperty().unbind();
-       currentPacMan.resetScore();
-       myController.resetGame();
-       map = new Group();
-       map = myMapView.createMap(myController.getContainer());
-       viewPane.setCenter(map);
-       nonUserInterface.getScore().textProperty().bind(currentPacMan.pacmanScore().asString());
-
+        StartScreen myStartScreen = new StartScreen(myStage);
+        myStage.setScene(myStartScreen.startScene());
    }
 
     private void setDefaults(){

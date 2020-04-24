@@ -1,0 +1,4 @@
+Press the spacebar to pause the game.
+When the game is paused, you can change the images of the characters.
+Use the arrow keys to control the movement of the Pac-Man.
+Avoid the ghosts unless powered up! Eat the coins/pellets to gain more points.

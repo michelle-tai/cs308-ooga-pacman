@@ -25,9 +25,11 @@ public class NonUserInterface {
     private SimpleIntegerProperty livesLeft;
     private SimpleIntegerProperty score;
     private Label currentScore;
+    private PathManager myPathManager;
 
-    public NonUserInterface(){
-        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
+    public NonUserInterface(PathManager pathManager){
+        myPathManager = pathManager;
+        myResources = myPathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         livesLeft = new SimpleIntegerProperty();
         score = new SimpleIntegerProperty();
@@ -46,7 +48,7 @@ public class NonUserInterface {
     private HBox addLives(){
         HBox hbox = new HBox(VBOX_SPACING);
         for(int i=0; i < livesLeft.getValue(); i++){
-            ImageView pacmanImage = new ImageView(PathManager.getFilePath(PathManager.PACKMANIMAGE, 0));
+            ImageView pacmanImage = new ImageView(myPathManager.getFilePath(PathManager.PACKMANIMAGE, 0));
             pacmanImage.setFitWidth(PACMAN_WIDTH);
             pacmanImage.setFitHeight(PACMAN_HEIGHT);
             hbox.getChildren().add(pacmanImage);
@@ -56,7 +58,7 @@ public class NonUserInterface {
 
     private TextArea readRules(){
         TextArea rules = new TextArea();
-        File file = new File(PathManager.getFilePath(PathManager.RULES));
+        File file = new File(myPathManager.getFilePath(PathManager.RULES));
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;

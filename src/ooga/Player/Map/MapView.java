@@ -32,7 +32,7 @@ public class MapView {
     public MapView(Visualizer visualizer){
         myVisualizer = visualizer;
         gameStatus = true;
-        myResources = PathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
         styler = new Styler(myResources);
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
@@ -67,7 +67,7 @@ public class MapView {
     }
 
     private ImageView generateBlock(int index, int rowNum){
-        ImageView blockImage = new ImageView(PathManager.getFilePath(PathManager.BLOCKIMAGE));
+        ImageView blockImage = new ImageView(myVisualizer.getController().getBlock().getImagePath());
         blockImage.setFitWidth(BLOCK_WIDTH);
         blockImage.setFitHeight(BLOCK_HEIGHT);
         blockImage.setX(BLOCK_WIDTH * index);

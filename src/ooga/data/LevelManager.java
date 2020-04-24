@@ -7,16 +7,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LevelManager {
   private File[] levelFiles;
   private List<Level> myLevels = new ArrayList<>();
+  private PathManager myPathManager;
 
   private Level currentLevel;
 
-  public LevelManager() {
+  public LevelManager(String gamePath) {
+    myPathManager = new PathManager(gamePath);
     getAllLevelFiles();
     createLevels();
     currentLevel = getLevel(1);
@@ -39,7 +42,7 @@ public class LevelManager {
   }
 
   private void getAllLevelFiles() {
-    File levelFolder = new File(PathManager.getFilePath(PathManager.LEVELS));
+    File levelFolder = new File(myPathManager.getFilePath(PathManager.LEVELS));
     levelFiles = levelFolder.listFiles();
   }
 
@@ -49,10 +52,13 @@ public class LevelManager {
     }
   }
 
+  public PathManager getPathManager() {
+    return myPathManager;
+  }
 
   private Level createLevelFromFile(File file){
     Method method = null;
-    Level level = new Level();
+    Level level = new Level(myPathManager);
     try{
       BufferedReader br = new BufferedReader(new FileReader(file));
       String string;

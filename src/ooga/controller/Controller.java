@@ -20,9 +20,9 @@ public class Controller {
     private int currentScore;
     private LevelManager myLevelManager;
 
-    public Controller(){
-        myLevelManager = new LevelManager();
-        container = new GameContainer(myLevelManager.getCurrentLevel());
+    public Controller(String game){
+        myLevelManager = new LevelManager(game);
+        container = new GameContainer(myLevelManager.getCurrentLevel(), myLevelManager.getPathManager());
         gameStep = new GameStep(container);
         currentScore = 0;
     }
@@ -41,7 +41,19 @@ public class Controller {
 
     public Sprite getCurrentCoin(int ID) {return container.getCoin(ID);}
 
+    public Sprite getBlock() {
+        return container.getBlock();
+    }
+
+    public PathManager getCurrentPathManager() {
+        return myLevelManager.getPathManager();
+    }
+
     public void addScore(int score) { currentScore += score;}
+
+    public LevelManager getLevelManager() {
+        return myLevelManager;
+    }
 
     public SimpleIntegerProperty getCurrentScore(){
         return new SimpleIntegerProperty(currentScore);
@@ -52,12 +64,5 @@ public class Controller {
 //        container = new GameContainer(level);
         System.out.println("new level set in container");
         System.out.println();
-    }
-
-    public void resetGame() {
-        myLevelManager = new LevelManager();
-        container = new GameContainer(myLevelManager.getCurrentLevel());
-        gameStep = new GameStep(container);
-        currentScore = 0;
     }
 }
