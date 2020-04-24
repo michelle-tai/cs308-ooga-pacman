@@ -5,12 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.Player.Graphics.Styler;
-
 import java.io.File;
 import java.util.ResourceBundle;
 import ooga.data.PathManager;
@@ -27,18 +28,27 @@ public class StartScreen {
     private Visualizer myVisualizer;
     private String currGame;
     private ResourceBundle myResources;
+    private Label testLabel;
 
+    /**
+     * Creates an instance of the start screen both when the main class is run and when the exit button is clicked
+     * @param stage - stage passed in from the main class
+     */
     public StartScreen(Stage stage){
-        //TODO: need to get this resource bundle without the controller and not hardcoded
         myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         myStage = stage;
+        testLabel = new Label();
+        testLabel.setId("Game");
+        testLabel.setText(currGame);
     }
 
+    /**
+     * Creates the scene in which is set to the stage for the start screen and adds the CSS
+     * @return
+     */
     public Scene startScene(){
         Scene start = new Scene(createStartScene());
-        //TODO: need to get this style sheet without the controller and not hardcoded
-
         start.getStylesheets()
                 .add(getClass().getClassLoader().getResource(PathManager.GUI_RESOURCES.getString(PathManager.STARTFORMAT))
                         .toExternalForm());
@@ -49,20 +59,7 @@ public class StartScreen {
         VBox vbox = new VBox(VBOX_SPACING);
         vbox.setPrefSize(STARTSCREEN_WIDTH, STARTSCREEN_HEIGHT);
         vbox.setPadding(new Insets(VBOX_INSETS, VBOX_INSETS, VBOX_INSETS, VBOX_INSETS));
-        HBox hbox = new HBox(styler.createLink("UploadGrid", e-> {
-                    try {
-//                myController.setLevel(new Level(launchFileChooser(new Stage(), "Grid"))); //TODO
-                        System.out.println("new level set");
-//                currLevel = new Level(launchFileChooser(new Stage(), "Grid"));
-//                map = myController.setModelMap(currLevel.getModelMap());
-                    } catch(RuntimeException eee){
-                        //todo: change
-//                setDefaults();
-//                new Alert(AlertType.WARNING, Main.MY_RESOURCES.getString("DefaultUsed")).showAndWait();
-//                        throw new GameException(myController.getCurrentPathManager().getString(PathManager.PROPERTIES,"DefaultUsed"));
-                    }
-                }
-        ),
+        HBox hbox = new HBox(
                 styler.createLink("UploadData", e->launchFileChooser(new Stage(), "Data")),
                 styler.createLink("UploadPlayers", e->launchFileChooser(new Stage(), "Players")));
         vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, createGameCombo(), styler.createButton("Start", e->{
@@ -82,6 +79,7 @@ public class StartScreen {
         ComboBox<String> paths = new ComboBox(path);
         paths.setOnAction( e-> {currGame = paths.getValue();});
         paths.setPromptText("ChooseGame");
+        paths.setId("ChooseGame");
         return paths;
     }
 
@@ -92,6 +90,4 @@ public class StartScreen {
                 new FileChooser.ExtensionFilter("Data Files", "*.XML", "*.txt"));
         return fileChooser.showOpenDialog(stage);
     }
-
-
 }
