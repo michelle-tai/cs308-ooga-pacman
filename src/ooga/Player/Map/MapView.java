@@ -48,7 +48,6 @@ public class MapView {
     }
 
     private Node createMapFromContainer(GameContainer container) {
-//        container.createMapFromFile(level);
         Group map = new Group();
         for(Pair<Integer, Integer> loc : container.getModelMap().keySet()) {
             Set<Sprite> objects = container.getModelMap().get(loc);
