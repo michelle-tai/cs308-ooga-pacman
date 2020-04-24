@@ -2,7 +2,6 @@ package ooga.Player.Ghost;
 
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
-import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
@@ -14,6 +13,7 @@ public class GhostView {
     private static final int GHOST_HEIGHT = 35;
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
+    public static final int GHOST_SHIFT = 20;
 
     private Group myGhosts;
     private ImageView myImage;
@@ -32,8 +32,8 @@ public class GhostView {
     }
 
     public void update() {
-        myImage.setX(ghostModel.getX() - 20);
-        myImage.setY(ghostModel.getY() - 20);
+        myImage.setX(ghostModel.getX() - GHOST_SHIFT);
+        myImage.setY(ghostModel.getY() - GHOST_SHIFT);
         checkStatus();
         myVisualizer.setGhostSpeed(ghostModel.getSpeed());
     }

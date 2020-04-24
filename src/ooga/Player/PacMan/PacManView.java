@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
@@ -31,13 +30,13 @@ public class PacManView {
     public static final double LEFT_ROTATE = 180;
     public static final double UP_ROTATE = 270;
     public static final double DOWN_ROTATE = 90;
+    public static final int IMAGE_SHIFT = 20;
 
     private Group myPacMen;
     private ImageView myImage;
     private PacMan pacmanModel;
     private Controller myController;
     private Visualizer myVisualizer;
-    private SimpleIntegerProperty score;
     private int ID;
 
     public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller, Visualizer visualizer){
@@ -47,18 +46,20 @@ public class PacManView {
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
         myImage = createPacManImage(indexNum, rowNum);
-        score = new SimpleIntegerProperty();
     }
 
     public void update(){
-        myImage.setX(pacmanModel.getX() - 20);
-        myImage.setY(pacmanModel.getY() - 20);
+        myImage.setX(pacmanModel.getX() - IMAGE_SHIFT);
+        myImage.setY(pacmanModel.getY() - IMAGE_SHIFT);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
         System.out.println(pacmanModel.getLivesLeft().getValue());
     }
 
-    public SimpleIntegerProperty pacmanLives(){
+    public SimpleIntegerProperty pacmanLives() {
+        pacmanModel.getLivesLeft().addListener( e->{
+            myVisualizer.pauseOrPlay();
+        });
         return pacmanModel.getLivesLeft();
     }
 
@@ -85,16 +86,16 @@ public class PacManView {
     public void handleKeyInput(KeyCode code){
         if(myVisualizer.getGameStatus()){
             if(code == KeyCode.RIGHT && myController.getContainer().getSpriteMapNode(pacmanModel).getRightNeighbor() != null){
-                updateOrientation(0);
+                updateOrientation("right");
                 pacmanModel.changeDirection(code.getName());
             } else if (code == KeyCode.LEFT && myController.getContainer().getSpriteMapNode(pacmanModel).getLeftNeighbor() != null){
-                updateOrientation(1);
+                updateOrientation("left");
                 pacmanModel.changeDirection(code.getName());
             } else if (code == KeyCode.UP && myController.getContainer().getSpriteMapNode(pacmanModel).getTopNeighbor() != null){
-                updateOrientation(2);
+                updateOrientation("up");
                 pacmanModel.changeDirection(code.getName());
             } else if (code == KeyCode.DOWN && myController.getContainer().getSpriteMapNode(pacmanModel).getBottomNeighbor() != null){
-                updateOrientation(3);
+                updateOrientation("down");
                 pacmanModel.changeDirection(code.getName());
             }
         }
@@ -170,15 +171,15 @@ public class PacManView {
         myImage.setY(newY);
     }
 
-    private void updateOrientation(int direction){
+    private void updateOrientation(String direction){
         switch(direction){
-            case 0: myImage.setRotate(RIGHT_ROTATE);
+            case "right": myImage.setRotate(RIGHT_ROTATE);
             break;
-            case 1: myImage.setRotate(LEFT_ROTATE);
+            case "left": myImage.setRotate(LEFT_ROTATE);
             break;
-            case 2: myImage.setRotate(UP_ROTATE);
+            case "up": myImage.setRotate(UP_ROTATE);
             break;
-            case 3: myImage.setRotate(DOWN_ROTATE);
+            case "down": myImage.setRotate(DOWN_ROTATE);
             break;
         }
     }

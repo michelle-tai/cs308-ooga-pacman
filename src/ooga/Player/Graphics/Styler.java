@@ -28,6 +28,7 @@ public class Styler {
 
     public Button createButton(String string, EventHandler e){
         Button button = new Button(getResourceText(string));
+        button.setId(string);
         button.setOnAction(e);
         return button;
     }

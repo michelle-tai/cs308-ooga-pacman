@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.Player.Graphics.Styler;
-
 import java.io.File;
 import java.util.ResourceBundle;
 import ooga.data.PathManager;
@@ -82,6 +81,7 @@ public class StartScreen {
         ComboBox<String> paths = new ComboBox(path);
         paths.setOnAction( e-> {currGame = paths.getValue();});
         paths.setPromptText("ChooseGame");
+        paths.setId("ChooseGame");
         return paths;
     }
 
