@@ -102,6 +102,7 @@ custom collision file
 * user will need to create new game files in the exact same structure as the deafultPacMan
 * not too many pacman will be put into the game (since not enough keys to move infinite number of pacman technically
 )
+* only sprites rn are pacman, ghost, coins and blocks
 
 Interesting data files:
 
