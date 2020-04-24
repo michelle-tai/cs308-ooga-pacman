@@ -39,8 +39,8 @@ public class MapView {
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
 
-        BLOCK_WIDTH = Integer.parseInt(myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
-        BLOCK_HEIGHT = Integer.parseInt(myVisualizer.getController().getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
+        BLOCK_WIDTH = Integer.parseInt(myController.getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
+        BLOCK_HEIGHT = Integer.parseInt(myController.getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
     }
 
     public Group createMap(GameContainer container) {

@@ -183,7 +183,7 @@ public class CollisionHandler {
                     methodSet.remove("respawn");
                     flag = true;
                 }
-                
+
                 for (String mName : methodSet) {
                     // if (myMethodNames.contains(m)) {
                     for (Method m : myMethods) {
@@ -290,5 +290,6 @@ public class CollisionHandler {
     private void setStatus(Sprite sprite, GameContainer container, Sprite actor){
         sprite.setStatus(actor.getStatus());
         System.out.println(sprite.getStatus());
+        System.out.println("hi");
     }
 }
