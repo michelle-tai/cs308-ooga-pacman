@@ -228,7 +228,10 @@ public class CollisionHandler {
     private void destroy(Sprite sprite, GameContainer container, Sprite actor){
         count++;
         container.remove(sprite);
-        ((Coin) sprite).setActive();
+        if(sprite instanceof Coin){
+            ((Coin) sprite).setActive();
+        }
+
 
     }
 

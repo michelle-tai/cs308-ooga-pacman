@@ -63,7 +63,6 @@ public class AggressiveMovement extends ControllableMovement{
             method.invoke(AggressiveMovement.this, currentLocation);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
             // Do nothing
-            //System.out.println("hi");
         }
 
         directionChanged = false;
@@ -75,8 +74,23 @@ public class AggressiveMovement extends ControllableMovement{
         exclude.add(RandomMovement.directionOpposites.get(currDirection));
         exclude.add(RandomMovement.directionOpposites.get(prevDirection));
 
+        List<String> potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
+        System.out.println(potentialDirections.size());
 
-        return "";
+        if(potentialDirections.size() > 1){
+            Pair<Double, String> minDist = new Pair<>((double) Integer.MAX_VALUE, "");
+            for(String dir : potentialDirections) {
+                for (Sprite pM : myTarget) {
+                    MapGraphNode  moveLoc = getNode(currentLocation, dir);
+                    double dist = distanceFromTarget(moveLoc.getXPos(), moveLoc.getYPos(), pM);
+                    if (dist < minDist.getKey()) {
+                        minDist = new Pair<>(dist, dir);
+                    }
+                }
+            }
+            return minDist.getValue();
+        }
+        return potentialDirections.get(0);
     }
 
     protected void moveRight(MapGraphNode currentLocation){
@@ -96,17 +110,12 @@ public class AggressiveMovement extends ControllableMovement{
     }
 
 
-    private double distanceFromPacMan(int X, int Y){
+    private double distanceFromTarget(int X, int Y, Sprite target){
         double min = Integer.MAX_VALUE;
-        for(Sprite pM : myTarget){
-            int pMX = pM.getX();
-            int pMY = pM.getY();
-            double distance = Math.sqrt(Math.pow(X-pMX, 2) + Math.pow(Y-pMY, 2));
-            if(distance < min){
-                min = distance;
-            }
-        }
-        return min;
+        int pMX = target.getX();
+        int pMY = target.getY();
+        double distance = Math.sqrt(Math.pow(X-pMX, 2) + Math.pow(Y-pMY, 2));
+        return distance;
     }
 
 
@@ -120,23 +129,21 @@ public class AggressiveMovement extends ControllableMovement{
     }
 
     //todo: potentially implement map for neighbors so you dont need lots of if statements
-    private static List<MapGraphNode> getNode(MapGraphNode currentLocation, List<String> dir){
-        List<MapGraphNode> ret = new ArrayList<>();
-        for(String direction : dir ) {
+    private static MapGraphNode getNode(MapGraphNode currentLocation, String direction){
+
             if (direction.equals("Right") && currentLocation.getRightNeighbor() != null) {
-                ret.add(currentLocation.getRightNeighbor());
+                return currentLocation.getRightNeighbor();
             }
             if (direction.equals("Left") && currentLocation.getLeftNeighbor() != null) {
-                ret.add(currentLocation.getLeftNeighbor());
+                return currentLocation.getLeftNeighbor();
             }
             if (direction.equals("Up") && currentLocation.getTopNeighbor() != null) {
-                ret.add(currentLocation.getTopNeighbor());
+                return currentLocation.getTopNeighbor();
             }
             if (direction.equals("Down") && currentLocation.getBottomNeighbor() != null) {
-                ret.add(currentLocation.getBottomNeighbor());
+                return currentLocation.getBottomNeighbor();
             }
-        }
-        return ret;
+            return null;
     }
 
 

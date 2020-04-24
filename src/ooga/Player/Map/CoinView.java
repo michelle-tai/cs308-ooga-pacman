@@ -10,8 +10,8 @@ public class CoinView {
 
     public static final int FOOD_WIDTH = 10;
     public static final int FOOD_HEIGHT = 10;
-    public static final int BLOCK_WIDTH = 40;
-    public static final int BLOCK_HEIGHT = 40;
+    private int BLOCK_WIDTH;
+    private int BLOCK_HEIGHT;
 
     private Group myCoins;
     private ImageView myImage;
@@ -23,7 +23,12 @@ public class CoinView {
         myCoins = coins;
         myController = controller;
         coinModel = (Coin) myController.getCurrentCoin(ID);
+        BLOCK_WIDTH = Integer.parseInt(myController.getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
+        BLOCK_HEIGHT = Integer.parseInt(myController.getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
+
         myImage = generateFood(indexNum, rowNum, ID);
+
+
     }
 
     public void update(){

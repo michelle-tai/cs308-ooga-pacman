@@ -92,7 +92,7 @@ public class GameContainer {
         return myPathManager;
     }
 
-    public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
+    public Set<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();
         int i = X/BlockWidth;
         int row = Y/BlockWidth;

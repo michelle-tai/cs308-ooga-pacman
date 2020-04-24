@@ -8,6 +8,7 @@ import ooga.engine.sprites.Sprite;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GameStep {
     private CollisionHandler myCollisionHandler;
@@ -40,7 +41,7 @@ public class GameStep {
         for(Sprite pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();
-            HashSet<Sprite> neighborhood = myContainer.getNeighborhood(X, Y);
+            Set<Sprite> neighborhood = myContainer.getNeighborhood(X, Y);
             if(!neighborhood.contains(pM)){
                 //todo: throw error
             }else{

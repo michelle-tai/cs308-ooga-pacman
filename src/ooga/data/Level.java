@@ -160,8 +160,8 @@ public class Level {
     }
 
     private void calculateHeightWidth(int i, int row) {
-        if (i+1 > maxWidth) maxWidth = i+1;
-        if (row+1 > maxHeight) maxHeight = row+1;
+        if (i+1 > maxWidth) maxWidth = i+8;
+        if (row+1 > maxHeight) maxHeight = row+8;
     }
 
     private void addEmptySpot(int i, int row) {

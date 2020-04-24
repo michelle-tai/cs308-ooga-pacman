@@ -18,8 +18,8 @@ public abstract class DynamicSprite implements Sprite {
 
     public DynamicSprite(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID, String imagePath) {
         myID = ID;
-        xPos = startingX +20;
-        yPos = startingY +20;
+        xPos = startingX + hitBoxLength/2;
+        yPos = startingY + hitBoxWidth/2;
         prevX = xPos;
         prevY = yPos;
         homeXPos = xPos;
