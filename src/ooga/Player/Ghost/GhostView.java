@@ -35,8 +35,8 @@ public class GhostView {
 
     public void update() {
 //        ghostModel.move();
-        myImage.setX(ghostModel.getX());
-        myImage.setY(ghostModel.getY());
+        myImage.setX(ghostModel.getX() - 20);
+        myImage.setY(ghostModel.getY() - 20);
         checkStatus();
         myVisualizer.setGhostSpeed(ghostModel.getSpeed());
     }

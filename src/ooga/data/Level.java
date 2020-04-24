@@ -166,7 +166,7 @@ public class Level {
 
     private void addEmptySpot(int i, int row) {
         Pair<Integer, Integer> pair = new Pair<>(i, row);
-        MapGraphNode node = new MapGraphNode(i, row);
+        MapGraphNode node = new MapGraphNode(i, row, myPathManager);
         emptySpots.put(pair, node);
     }
 }

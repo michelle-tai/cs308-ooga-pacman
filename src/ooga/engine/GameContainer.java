@@ -43,8 +43,8 @@ public class GameContainer {
     }
 
     public MapGraphNode getSpriteMapNode(Sprite sprite){
-        int i = sprite.getX()/BlockWidth;
-        int row = sprite.getY()/BlockWidth;
+        int i = (sprite.getX())/BlockWidth;
+        int row = (sprite.getY())/BlockWidth;
         if(emptySpots[i][row] != null){
             return emptySpots[i][row];
         }else{
@@ -64,6 +64,7 @@ public class GameContainer {
     }
 
     public Set<Sprite> getAllGameObjects(){ return currLevel.getAllGameObjects();}
+
 
 
     public List<Sprite> getGhosts(){

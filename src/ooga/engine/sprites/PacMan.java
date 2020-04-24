@@ -34,8 +34,10 @@ public class PacMan extends DynamicSprite implements Sprite {
   private SimpleIntegerProperty myPoints;
 
 
+
   public PacMan(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID, String imagePath, PathManager pathManager){
     super(startingX, startingY, hitBoxWidth, hitBoxLength, ID, imagePath);
+
     myPoints = new SimpleIntegerProperty();
     lifeCount = new SimpleIntegerProperty();
     lifeCount.setValue(Integer.parseInt(pathManager.getString(PathManager.PROPERTIES, "MaxLives")));
@@ -175,9 +177,11 @@ public class PacMan extends DynamicSprite implements Sprite {
 
 }
 
+
   public SimpleIntegerProperty getPointsProperty(){
     return myPoints;
   }
+
 
   @Override
   public int getSpeed() {
