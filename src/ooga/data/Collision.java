@@ -15,51 +15,55 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public class Collision {
-  private List<Map<Pair<String, String>, Set<String>>> collisionList = new ArrayList<>();
+  private Map<Pair<String, String>, Set<String>> collisionMap = new HashMap<>();
 
   public Collision (PathManager pathManager) {
     Document xmlFile = convertXMLFileToXMLDocument(pathManager.getFilePath(PathManager.COLLISIONS));
-    getCollisionRules(xmlFile);
+    getCollisionRulesFromXML(xmlFile);
   }
 
   public Collision (String filepath) {
     Document xmlFile = convertXMLFileToXMLDocument(filepath);
-    getCollisionRules(xmlFile);
+    getCollisionRulesFromXML(xmlFile);
   }
 
   public Set<String> getActions(Integer status, String sprite1, String sprite2) {
     Pair<String, String> set = new Pair<>(sprite1, sprite2);
-    return collisionList.get(status-1).get(set);
+    return collisionMap.get(set);
   }
 
-  public Map<Pair<String, String>, Set<String>> getCollisionRules(Integer status) {
-    return collisionList.get(status-1);
+  public Map<Pair<String, String>, Set<String>> getCollisionRules() {
+    return collisionMap;
   }
 
-  private void getCollisionRules(Document collisions) {
-    for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++){
-      Map<Pair<String, String>, Set<String>> map = new HashMap<>();
-      if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName().compareTo("#text") != 0){
+  private void getCollisionRulesFromXML(Document collisions) {
+    System.out.println("Start");
+    for (int i = 0; i < collisions.getChildNodes().item(0).getChildNodes().getLength(); i++) {
+      if (collisions.getChildNodes().item(0).getChildNodes().item(i).getNodeName()
+          .compareTo("#text") != 0) {
         Node node = collisions.getChildNodes().item(0).getChildNodes().item(i);
-          for (int j = 0; j < node.getChildNodes().getLength(); j++) {
-            Node subnode = node.getChildNodes().item(j);
-              for (int k = 0; k < subnode.getChildNodes().getLength(); k++) {
-                Pair<String, String> keys;
-                HashSet<String> values = new HashSet<>();
-                Node subnode2 = subnode.getChildNodes().item(k);
-                if (subnode2.getNodeName().compareTo("#text") != 0) {
-                  keys = new Pair<>(subnode2.getParentNode().getNodeName(), subnode2.getNodeName());
-                  for (int l = 0; l < subnode2.getChildNodes().getLength(); l++) {
-                    Node subnode3 = subnode2.getChildNodes().item(l);
-                    if (subnode3.getNodeName().compareTo("#text") != 0) {
-                      values.add(subnode3.getTextContent());
-                    }
-                  }
-                  map.put(keys, values);
+        String sprite1 =
+            node.getNodeName() + node.getAttributes().getNamedItem("status").getNodeValue();
+        for (int j = 0; j < node.getChildNodes().getLength(); j++) {
+          Pair<String, String> keys;
+          HashSet<String> values = new HashSet<>();
+          Node subnode2 = node.getChildNodes().item(j);
+          if (subnode2.getNodeName().compareTo("#text") != 0) {
+            String sprite2 =
+                subnode2.getNodeName() + subnode2.getAttributes().getNamedItem("status")
+                    .getNodeValue();
+            if (subnode2.getNodeName().compareTo("#text") != 0) {
+              keys = new Pair<>(sprite1, sprite2);
+              for (int l = 0; l < subnode2.getChildNodes().getLength(); l++) {
+                Node subnode3 = subnode2.getChildNodes().item(l);
+                if (subnode3.getNodeName().compareTo("#text") != 0) {
+                  values.add(subnode3.getTextContent());
                 }
               }
+              collisionMap.put(keys, values);
             }
-        collisionList.add(map);
+          }
+        }
       }
     }
   }
@@ -89,13 +93,4 @@ public class Collision {
     }
     return null;
   }
-
-  public String toString(){
-    StringBuilder s = new StringBuilder();
-    for (Map<Pair<String, String>, Set<String>> h: collisionList){
-      s.append(h.toString());
-    }
-    return s.toString();
-  }
-
 }
