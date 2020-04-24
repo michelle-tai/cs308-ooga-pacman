@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class PathManager {
+  public static final ResourceBundle GUI_RESOURCES = ResourceBundle.getBundle("GUIPaths");
 
   public static final String COLLISIONS = "Collisions";
   public static final String ERRORS = "Errors";

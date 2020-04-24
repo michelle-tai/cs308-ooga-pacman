@@ -80,7 +80,7 @@ public class Visualizer {
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
-        myResources = myController.getCurrentPathManager().getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         myGameStep = new GameStep(myController.getContainer());
         gameStatus = true;
@@ -134,7 +134,7 @@ public class Visualizer {
     public Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
-                .add(getClass().getClassLoader().getResource(myController.getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))
+                .add(getClass().getClassLoader().getResource(PathManager.GUI_RESOURCES.getString(PathManager.LIGHTFORMAT))
                         .toExternalForm());
         beginAnimation();
         return myScene;

@@ -29,7 +29,7 @@ public class NonUserInterface {
 
     public NonUserInterface(PathManager pathManager){
         myPathManager = pathManager;
-        myResources = myPathManager.getResourceBundle(PathManager.ENGLISHBUTTONS);
+        myResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ENGLISHBUTTONS));
         styler = new Styler(myResources);
         livesLeft = new SimpleIntegerProperty();
         score = new SimpleIntegerProperty();
