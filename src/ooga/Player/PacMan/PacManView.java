@@ -39,6 +39,15 @@ public class PacManView {
     private Visualizer myVisualizer;
     private int ID;
 
+    /**
+     * Creates an instance of the pacman in the view for each instance of the pacman in the backend
+     * @param pacmen - group of pacman created in the visualizer
+     * @param indexNum - the column number of the pacman used for placement
+     * @param rowNum - the row number of the pacman used for placement
+     * @param IDvalue - the ID value of the pacman used for identification
+     * @param controller - an instance of the controller
+     * @param visualizer - and instance of the visualizer
+     */
     public PacManView(Group pacmen, int indexNum, int rowNum, int IDvalue, Controller controller, Visualizer visualizer){
         myController = controller;
         myVisualizer = visualizer;
@@ -48,6 +57,9 @@ public class PacManView {
         myImage = createPacManImage(indexNum, rowNum);
     }
 
+    /**
+     * Updates the position of the pacman at every step and checks the status in order to adjust other game elements.
+     */
     public void update(){
         myImage.setX(pacmanModel.getX() - IMAGE_SHIFT);
         myImage.setY(pacmanModel.getY() - IMAGE_SHIFT);
@@ -56,6 +68,10 @@ public class PacManView {
         System.out.println(pacmanModel.getLivesLeft().getValue());
     }
 
+    /**
+     * Used for binding the live count in the backend with the front end
+     * @return a simple integer property to bind the values
+     */
     public SimpleIntegerProperty pacmanLives() {
         pacmanModel.getLivesLeft().addListener( e->{
             myVisualizer.pauseOrPlay();
@@ -63,6 +79,10 @@ public class PacManView {
         return pacmanModel.getLivesLeft();
     }
 
+    /**
+     * used for binding the score in the backend with the front end
+     * @return a simple integer property to bind the values
+     */
     public SimpleIntegerProperty pacmanScore(){
         return pacmanModel.getPointsProperty();
     }
@@ -111,6 +131,10 @@ public class PacManView {
         return pacmanImage;
     }
 
+    /**
+     * Allows user to choose a new image for the pacman in the user interface.
+     * @param imageFile - the new image for the pacman
+     */
     public void choosePacMan(File imageFile) {
         ImageView pacmanImage = new ImageView();
         try {
@@ -148,6 +172,11 @@ public class PacManView {
         errorAlert.showAndWait();
     }
 
+    /**
+     * creates a file chooser for the new pacman
+     * @param stage - stage to create a file chooser
+     * @return a new file of an image
+     */
     public File getPacManImage(Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose PacMan Image");

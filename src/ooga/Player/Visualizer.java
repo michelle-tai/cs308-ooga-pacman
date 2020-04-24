@@ -49,10 +49,14 @@ public class Visualizer {
     private BorderPane viewPane;
     private Controller myController;
     private ResourceBundle errorResources;
-
     private GameStep myGameStep;
     private Boolean gameStatus;
 
+    /**
+     * The main part of the view which is created after the start screen and essentially runs the entire program
+     * @param stage - passed in through the start screen
+     * @param currGame - indicates which version of the game the user has selected
+     */
     public Visualizer (Stage stage, String currGame){
         myStage = stage;
         myController = new Controller(currGame);
@@ -67,6 +71,10 @@ public class Visualizer {
         errorResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ERROR_MESSAGES));
     }
 
+    /**
+     * Sets up the initial scene for the visualizer and creates all necessary components
+     * @return the scene to set for the stage
+     */
     public Scene setupScene(){
         myScene = new Scene(createView());
         myScene.getStylesheets()
@@ -89,6 +97,12 @@ public class Visualizer {
         return viewPane;
     }
 
+    /**
+     * Creates an instance of the PacmanView class every time it is called in MapView
+     * @param index - the column of the pacman for placement
+     * @param row - the row of the pacman for placement
+     * @param ID - the ID of the pacman in order to identify and differentiate
+     */
     public void addPacmen(int index, int row, int ID){
         PacManView createPacMan = new PacManView(myMapView.getPacmen(), index, row, ID, myController, this);
         pacmanCollection.add(createPacMan);
@@ -101,12 +115,24 @@ public class Visualizer {
         nonUserInterface.getScore().textProperty().bind(currentPacMan.pacmanScore().asString());
     }
 
+    /**
+     * Creates an instance of the GhostView class every time it is called in MapView
+     * @param index - the column of the ghost for placement
+     * @param row - the row of the ghost for placement
+     * @param ID - the ID of the ghost in order to identify and differentiate
+     */
     public void addGhosts(int index, int row, int ID){
         GhostView createGhosts = new GhostView(myMapView.getGhosts(), index, row, ID, myController, this);
         ghostCollection.add(createGhosts);
         currentGhost = ghostCollection.get(ghostCollection.size() -1 );
     }
 
+    /**
+     * Creates an instance of the CoinView class every time it is called in MapView
+     * @param index - the column of the coin for placement
+     * @param row - the row of the coin for placement
+     * @param ID - the ID of the coin in order to identify and differentiate
+     */
     public void addCoins(int index, int row, int ID){
         CoinView createCoins = new CoinView(myMapView.getCoins(), index, row, ID, myController);
         coinCollection.add(createCoins);
@@ -169,6 +195,9 @@ public class Visualizer {
         }
     }
 
+    /**
+     * Depending on the game status, pauses/plays the animation of the game.
+     */
     public void pauseOrPlay(){
         myMapView.changeGameStatus();
         changeGameStatus();
@@ -186,23 +215,42 @@ public class Visualizer {
 
     private void changeGameStatus() {gameStatus = !gameStatus;}
 
+    /**
+     * @return the current game status to know if the paused label should be displayed
+     */
     public boolean getGameStatus() {return gameStatus;}
 
+    /**
+     * Sets the pacman speed based on the speeds in the data files
+     * @param speed - speed from data file
+     */
     public void setPacManSpeed(double speed){
         pacmanAnimation.setRate(speed);
     }
 
+    /**
+     * Sets the ghost speed based on the speeds in the data files
+     * @param speed - speed from data file
+     */
     public void setGhostSpeed(double speed){
         ghostAnimation.setRate(speed);
     }
 
+    /**
+     * @return the current scene in order to alter the CSS
+     */
     public Scene getMyScene(){return myScene;}
 
+    /**
+     * @return the most recently created pacman
+     */
     public PacManView getCurrentPacMan(){return currentPacMan;}
 
+    /**
+     * Exits back to start screen when the exit link is clicked
+     */
    public void restartLevel(){
         StartScreen myStartScreen = new StartScreen(myStage);
         myStage.setScene(myStartScreen.startScene());
    }
-
 }

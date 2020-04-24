@@ -30,6 +30,11 @@ public class MapView {
     private Group coins;
     private Controller myController;
 
+    /**
+     * Creates a front end version of the map from the backend game container
+     * @param visualizer - an instance of the visualizer
+     * @param controller - an instance of the controller
+     */
     public MapView(Visualizer visualizer, Controller controller){
         myVisualizer = visualizer;
         myController = controller;
@@ -40,6 +45,11 @@ public class MapView {
         pauseLabel.setId("pause");
     }
 
+    /**
+     * Creates a map from the game container every time this method is called
+     * @param container - the game container used to create the map in the back end
+     * @return a group of nodes making up the map in the view
+     */
     public Group createMap(GameContainer container) {
         totalMap = new Group();
         pacmen = new Group();
@@ -77,12 +87,24 @@ public class MapView {
         return blockImage;
     }
 
+    /**
+     * @return the group of pacmen created from the mapview
+     */
     public Group getPacmen(){return pacmen;}
 
+    /**
+     * @return the group of ghosts created from the mapview
+     */
     public Group getGhosts(){return ghosts;}
 
+    /**
+     * @return the group of coins created from the mapview
+     */
     public Group getCoins(){return coins;}
 
+    /**
+     * changes the game status so that the game can be paused
+     */
     public void changeGameStatus(){
        gameStatus = !gameStatus;
         if(!gameStatus){

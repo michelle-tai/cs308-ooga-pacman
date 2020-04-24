@@ -21,6 +21,11 @@ public class UserInterface {
     private Visualizer myVisualizer;
     private Controller myController;
 
+    /**
+     * Creates the components on the right side of the screen in which the user interacts with.
+     * @param visualizer - an instance of the visualizer
+     * @param controller - an instance of the controller
+     */
     public UserInterface(Visualizer visualizer, Controller controller){
         myController = controller;
         myVisualizer = visualizer;
@@ -28,6 +33,10 @@ public class UserInterface {
         styler = new Styler(myResources);
     }
 
+    /**
+     * Creates all the components in this class and adds them to a node to be returned
+     * @return a node containing all necessary elements
+     */
     public Node createComponents(){
         BorderPane pane = new BorderPane();
         pane.setTop(createVbox());
