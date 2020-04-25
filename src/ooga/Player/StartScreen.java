@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import ooga.Player.Graphics.Styler;
 import java.io.File;
 import java.util.ResourceBundle;
+import ooga.Player.InteractiveLevelMaker.InteractiveLevelEditor;
 import ooga.data.PathManager;
 
 public class StartScreen {
@@ -65,7 +66,12 @@ public class StartScreen {
         vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, createGameCombo(), styler.createButton("Start", e->{
                     myVisualizer = new Visualizer(myStage, currGame);
                     myStage.setScene(myVisualizer.setupScene());
-                }));
+                }), styler.createButton("CreateLevel", e -> {
+            InteractiveLevelEditor inter = new InteractiveLevelEditor(myStage);
+            Scene scene = new Scene(inter.getPane());
+            myStage.setScene(scene);
+            myStage.show();
+        }));
         return vbox;
     }
 
