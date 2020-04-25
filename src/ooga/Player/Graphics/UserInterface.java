@@ -21,6 +21,11 @@ public class UserInterface {
     private Visualizer myVisualizer;
     private Controller myController;
 
+    /**
+     * Creates the components on the right side of the screen in which the user interacts with.
+     * @param visualizer - an instance of the visualizer
+     * @param controller - an instance of the controller
+     */
     public UserInterface(Visualizer visualizer, Controller controller){
         myController = controller;
         myVisualizer = visualizer;
@@ -28,6 +33,10 @@ public class UserInterface {
         styler = new Styler(myResources);
     }
 
+    /**
+     * Creates all the components in this class and adds them to a node to be returned
+     * @return a node containing all necessary elements
+     */
     public Node createComponents(){
         BorderPane pane = new BorderPane();
         pane.setTop(createVbox());
@@ -37,8 +46,8 @@ public class UserInterface {
 
     private VBox createVbox(){
         VBox vbox = new VBox(VBOX_SPACING);
-        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(myController.getCurrentPathManager().getFilePath(PathManager.DARKFORMAT))),
-                styler.createButton("LightMode", e-> changeStyleSheet(myController.getCurrentPathManager().getFilePath(PathManager.LIGHTFORMAT))));
+        HBox hbox = new HBox(styler.createButton("DarkMode", e->changeStyleSheet(myController.getCurrentPathManager().GUI_RESOURCES.getString(PathManager.DARKFORMAT))),
+                styler.createButton("LightMode", e-> changeStyleSheet(myController.getCurrentPathManager().GUI_RESOURCES.getString(PathManager.LIGHTFORMAT))));
         VBox.setVgrow(vbox, Priority.ALWAYS);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));

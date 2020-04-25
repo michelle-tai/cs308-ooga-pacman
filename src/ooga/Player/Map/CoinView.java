@@ -18,6 +18,14 @@ public class CoinView {
     private Coin coinModel;
 
 
+    /**
+     * Creates an instance of each coin in the front end from the map created in the backend.
+     * @param coins - a group of all the coins used
+     * @param indexNum - the column of the coin used for placement
+     * @param rowNum - the row of the coin used for placement
+     * @param ID - the id given to the coin to help with identification
+     * @param controller - an instance of the controller
+     */
     public CoinView(Group coins, int indexNum, int rowNum, int ID, Controller controller){
         myCoins = coins;
         myController = controller;
@@ -25,6 +33,9 @@ public class CoinView {
         myImage = generateFood(indexNum, rowNum, ID);
     }
 
+    /**
+     * updates the status of each coin at every step and keeps track of the points
+     */
     public void update(){
         if(!coinModel.checkActive()){
             myCoins.getChildren().remove(myImage);
