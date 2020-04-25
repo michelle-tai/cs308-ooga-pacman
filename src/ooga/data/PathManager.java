@@ -54,7 +54,6 @@ public class PathManager {
     } catch(RuntimeException e){
       throw new GameException(e.getMessage());
     }
-    // TODO add error checking
   }
 
   public String getString (String bundlePath, String key) {
