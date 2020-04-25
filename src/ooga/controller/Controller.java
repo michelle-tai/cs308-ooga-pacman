@@ -15,34 +15,30 @@ import ooga.engine.sprites.Sprite;
 
 public class Controller {
 
-    private GameContainer container;
     private GameStep gameStep;
     private int currentScore;
     private LevelManager myLevelManager;
 
     public Controller(String game){
         myLevelManager = new LevelManager(game);
-        container = new GameContainer(myLevelManager.getCurrentLevel(), myLevelManager.getPathManager());
-        gameStep = new GameStep(container);
+        gameStep = new GameStep(myLevelManager);
         currentScore = 0;
     }
 
-    public Map<Pair<Integer, Integer>, Set<Sprite>> getGameContainerMap(){ return container.getModelMap();}
-
     public GameContainer getContainer(){
-        return container;
+        return gameStep.getGameContainer();
     }
 
     public void setGameStep() {gameStep.step();}
 
-    public Sprite getCurrentGhost(int ID) {return container.getGhost(ID);}
+    public Sprite getCurrentGhost(int ID) {return gameStep.getGameContainer().getGhost(ID);}
 
-    public Sprite getCurrentPacMan(int ID) {return container.getPacMan(ID);}
+    public Sprite getCurrentPacMan(int ID) {return gameStep.getGameContainer().getPacMan(ID);}
 
-    public Sprite getCurrentCoin(int ID) {return container.getCoin(ID);}
+    public Sprite getCurrentCoin(int ID) {return gameStep.getGameContainer().getCoin(ID);}
 
     public Sprite getBlock() {
-        return container.getBlock();
+        return gameStep.getGameContainer().getBlock();
     }
 
     public PathManager getCurrentPathManager() {
@@ -60,7 +56,7 @@ public class Controller {
     }
 
     public void setLevel(Level level){
-        container.setCurrLevel(level);
+        gameStep.getGameContainer().setCurrLevel(level);
 //        container = new GameContainer(level);
         System.out.println("new level set in container");
         System.out.println();

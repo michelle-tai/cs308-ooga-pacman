@@ -1,36 +1,110 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 <collisions>
-  <Status1>
-    <PacMan>
-      <Ghost>
-        <action>destroyPacMan</action>
-        <action>decrementLives</action>
-      </Ghost>
-      <Coin>
-        <action>Collect</action>
-      </Coin>
-    </PacMan>
-    <Ghost>
-      <PacMan>
-        <action>DestroyPacMan</action>
-      </PacMan>
+  <PacMan status="0">
+    <Ghost status="0">
+      <action>decrementLives</action>
+      <action>setGhostsHome</action>
     </Ghost>
-  </Status1>
-  <Status2>
-    <PacMan>
-      <Ghost>
-        <action>destroyPacMan</action>
-        <action>decrementLives</action>
-        <action>test</action>
-      </Ghost>
-      <Coin>
-        <action>Collect</action>
-      </Coin>
-    </PacMan>
-    <Ghost>
-      <PacMan>
-        <action>DestroyPacMan</action>
-      </PacMan>
+    <Ghost status="1">
+      <action>decrementLives</action>
     </Ghost>
-  </Status2>
+    <Ghost status="2">
+      <action>decrementLives</action>
+    </Ghost>
+    <Coin status="0">
+      <action>incrementPoints</action>
+    </Coin>
+    <Coin status="1">
+    <action>incrementPoints</action>
+      <action>setStatus</action>
+    </Coin>
+    <Coin status="2">
+      <action>incrementPoints</action>
+    </Coin>
+  </PacMan>
+  <PacMan status="1">
+    <Ghost status="0">
+      <action>respawn</action>
+      <action>decrementLives</action>
+    </Ghost>
+    <Ghost status="1">
+      <action>respawn</action>
+      <action>decrementLives</action>
+    </Ghost>
+    <Ghost status="2">
+      <action>respawn</action>
+      <action>decrementLives</action>
+    </Ghost>
+    <Coin status="0">
+      <action>incrementPoints</action>
+    </Coin>
+    <Coin status="1">
+      <action>incrementPoints</action>
+    </Coin>
+    <Coin status="2">
+      <action>incrementPoints</action>
+    </Coin>
+  </PacMan>
+  <PacMan status="2">
+    <Ghost status="0">
+      <action>decrementLives</action>
+      <action>respawn</action>
+    </Ghost>
+    <Ghost status="1">
+      <action>decrementLives</action>
+      <action>respawn</action>
+    </Ghost>
+    <Ghost status="2">
+      <action>decrementLives</action>
+      <action>respawn</action>
+    </Ghost>
+    <Coin status="0">
+      <action>incrementPoints</action>
+    </Coin>
+    <Coin status="1">
+      <action>incrementPoints</action>
+    </Coin>
+    <Coin status="2">
+      <action>incrementPoints</action>
+    </Coin>
+  </PacMan>
+  <Ghost status="1">
+    <PacMan status="1">
+      <action>destroy</action>
+      <action>respawn</action>
+    </PacMan>
+  </Ghost>
+  <Coin status="0">
+    <PacMan status="0">
+      <action>destroy</action>
+    </PacMan>
+    <PacMan status="1">
+      <action>destroy</action>
+    </PacMan>
+    <PacMan status="2">
+      <action>destroy</action>
+    </PacMan>
+  </Coin>
+  <Coin status="1">
+    <PacMan status="0">
+      <action>destroy</action>
+    </PacMan>
+    <PacMan status="1">
+      <action>destroy</action>
+    </PacMan>
+    <PacMan status="2">
+      <action>destroy</action>
+    </PacMan>
+  </Coin>
+  <Coin status="2">
+    <PacMan status="0">
+      <action>destroy</action>
+    </PacMan>
+    <PacMan status="1">
+      <action>destroy</action>
+    </PacMan>
+    <PacMan status="2">
+      <action>destroy</action>
+    </PacMan>
+  </Coin>
 </collisions>

@@ -61,10 +61,13 @@ public class Level {
         Ghost modelGhost = new Ghost(BlockWidth * i, BlockWidth * row, ghostDim,
             ghostDim, ghostCount, myPathManager.getFilePath(PathManager.GHOSTIMAGES, ghostCount),
             myPathManager.getFilePath(PathManager.SCAREDGHOST), myPathManager);
+
         myGhostList.add(modelGhost);
         allGameObjects.add(modelGhost);
+
         addSpriteToMap(modelGhost, i, row);
         addEmptySpot(i, row);
+
         modelGhost.setMovementType("", myPacManList); //TODO: load targets from data
 
 

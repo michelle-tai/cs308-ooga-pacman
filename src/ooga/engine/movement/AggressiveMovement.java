@@ -2,6 +2,7 @@ package ooga.engine.movement;
 
 import javafx.util.Pair;
 import ooga.Main;
+import ooga.data.PathManager;
 import ooga.engine.MapGraphNode;
 import ooga.engine.sprites.DynamicSprite;
 import ooga.engine.sprites.Sprite;
@@ -25,12 +26,14 @@ public class AggressiveMovement extends ControllableMovement{
     private String prevDirection;
     private boolean directionChanged = true;
     private int timeOutSide;
-    private int outsideX = 277;
-    private int outsideY = 237;
+    private int outsideX = 0;
+    private int outsideY = 0;
+    private int timeDisperse;
+    private int upTime;
 
 
 
-    public AggressiveMovement(Sprite sprite, List<Sprite> targetSprites, int ID){
+    public AggressiveMovement(Sprite sprite, List<Sprite> targetSprites, int ID, int lagTime, int disperseTime){
         super(sprite);
         mySprite = sprite;
         directions.addAll(List.of("Right", "Left", "Up", "Down"));
@@ -41,9 +44,9 @@ public class AggressiveMovement extends ControllableMovement{
         myTarget = targetSprites;
         currDirection = "";
         prevDirection = "";
-        timeOutSide = ID * 50;
-        assignZone(ID);
-
+        timeOutSide = ID * lagTime;
+        timeDisperse =  disperseTime;
+        upTime = 0;
     }
 
     public String setNewDirection(String direction){
@@ -67,29 +70,29 @@ public class AggressiveMovement extends ControllableMovement{
     }
 
     private void assignZone(int ID){
-        int modID = (int) (Math.random()*4);
-        System.out.println(modID);
-        switch(modID){
-            case 0:
-                zone = new Pair<>(500,0);
-            case 1:
-                zone = new Pair<>(0, 0);
-            case 2:
-                zone = new Pair<>(0, 500);
-            case 3:
-                zone = new Pair<>(0, 0);
+        int modID = ID%4;
+        System.out.print(modID);
+        if(modID == 0){
+            zone = new Pair<>(0, 0);
+        }else if(modID == 1){
+            zone = new Pair<>(0, outsideY*outsideY);
+        }else if(modID == 2){
+            zone = new Pair<>(outsideX*outsideX, 0);
+        }else if(modID ==3){
+            zone = new Pair<>(outsideX*outsideX, outsideY*outsideY);
         }
     }
 
 
-    public void move(MapGraphNode currentLocation, int upTime){
+    public void move(MapGraphNode currentLocation){
+        upTime++;
 
         if(upTime == timeOutSide){
             mySprite.setX(outsideX);
             mySprite.setY(outsideY);
         }else {
 
-            String moveDir = pickDirection(currentLocation, upTime);
+            String moveDir = pickDirection(currentLocation);
             setNewDirection(moveDir);
             String directionMethod = "move" + moveDir;
 
@@ -106,7 +109,7 @@ public class AggressiveMovement extends ControllableMovement{
 
     }
 
-    private String pickDirection(MapGraphNode currentLocation, int upTime){
+    private String pickDirection(MapGraphNode currentLocation){
 
         List<String> exclude = new ArrayList<String>();
 
@@ -127,7 +130,7 @@ public class AggressiveMovement extends ControllableMovement{
             Pair<Double, String> minDist = new Pair<>((double) Integer.MAX_VALUE, "");
             for(String dir : potentialDirections) {
                 Set<Pair<Integer,Integer>> target = new HashSet<>();
-                if(upTime < 10*timeOutSide || true){
+                if(upTime < timeOutSide + timeDisperse){
                     target.add(zone);
                 }else{
                     for(Sprite pM : myTarget){
@@ -249,6 +252,17 @@ public class AggressiveMovement extends ControllableMovement{
                 return currentLocation.getBottomNeighbor();
             }
             return null;
+    }
+
+    public void ghostSpawn(int X, int Y, int itter){
+        outsideX = X;
+        outsideY = Y;
+        assignZone(itter);
+
+    }
+
+    public void resetUpTime(){
+        upTime = 0;
     }
 
 

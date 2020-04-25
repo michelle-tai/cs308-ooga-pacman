@@ -17,28 +17,40 @@ public class GameStep {
     private Collision collision;
     private GameContainer myContainer;
     private String myStatus;
+    private LevelManager myLevelManager;
+    private Integer level = 0;
 
-    public GameStep(GameContainer container) {
-        myContainer = container;
+    public GameStep(LevelManager levelManager) {
+        myLevelManager = levelManager;
+        myLevelManager.setCurrentLevel(level);
+        myContainer = new GameContainer(myLevelManager.getCurrentLevel(), myLevelManager.getPathManager());
         collision = new Collision(myContainer.getPathManager());
         myCollisionHandler = new CollisionHandler(collision.getCollisionRules());
     }
 
     public void step(){
-        moveSprites(myContainer.getPacMen());
-        moveSprites(myContainer.getGhosts());
-        myContainer.mapStep();
-        checkAndExecuteCollisions(myContainer.getPacMen());
-        checkAndExecuteCollisions(myContainer.getGhosts());
+        if (myContainer.getCompleteStatus()) {
+            level++;
+            myLevelManager.setCurrentLevel(level);
+            myContainer = new GameContainer(myLevelManager.getCurrentLevel(), myLevelManager.getPathManager());
+        } else {
+            moveSprites(myContainer.getPacMen());
+            moveSprites(myContainer.getGhosts());
+            myContainer.mapStep();
+            checkAndExecuteCollisions(myContainer.getPacMen());
+            checkAndExecuteCollisions(myContainer.getGhosts());
+        }
     }
 
     public String getStatus(){
         return myStatus;
     }
 
+    public GameContainer getGameContainer() {
+        return myContainer;
+    }
+
     private void checkAndExecuteCollisions(List<Sprite> objectSet) {
-
-
         for(Sprite pM : objectSet){
             int X = pM.getX();
             int Y = pM.getY();
@@ -56,7 +68,7 @@ public class GameStep {
 
     private void moveSprites(List<Sprite> objectSet){
         for(Sprite sprite : objectSet){
-            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite), myContainer.getUpTime());
+            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite));
         }
     }
 
