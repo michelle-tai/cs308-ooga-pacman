@@ -40,6 +40,7 @@ public class GameContainer {
         myPathManager = pathManager;
         upTime = 0;
         completeStatus = false;
+        setGhostSpawn();
     }
 
     public Map<Pair<Integer, Integer>, Set<Sprite>> getModelMap(){
@@ -155,6 +156,14 @@ public class GameContainer {
         myCoinList.addAll(currLevel.getCoins());
         myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
+    }
+
+    private void setGhostSpawn(){
+        int ghostSpawnX = getGhost(0).getX();
+        int ghostSpawnY = getGhost(0).getY();
+        for(Sprite ghost : getGhosts()){
+            ((Ghost) ghost).setGhostSpawn(ghostSpawnX, ghostSpawnY);
+        }
     }
 
     public void setCurrLevel(Level level){

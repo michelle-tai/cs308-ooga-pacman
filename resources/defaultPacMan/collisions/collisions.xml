@@ -17,6 +17,7 @@
     <Coin status="1">
     <action>incrementPoints</action>
       <action>setStatus</action>
+      <action>setGhostStatus</action>
     </Coin>
     <Coin status="2">
       <action>incrementPoints</action>

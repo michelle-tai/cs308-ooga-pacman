@@ -68,17 +68,7 @@ public class AggressiveMovement extends ControllableMovement{
 
     private void assignZone(int ID){
         int modID = (int) (Math.random()*4);
-        System.out.println(modID);
-        switch(modID){
-            case 0:
-                zone = new Pair<>(500,0);
-            case 1:
-                zone = new Pair<>(0, 0);
-            case 2:
-                zone = new Pair<>(0, 500);
-            case 3:
-                zone = new Pair<>(0, 0);
-        }
+        zone = new Pair<>(0,0);
     }
 
 
@@ -127,7 +117,7 @@ public class AggressiveMovement extends ControllableMovement{
             Pair<Double, String> minDist = new Pair<>((double) Integer.MAX_VALUE, "");
             for(String dir : potentialDirections) {
                 Set<Pair<Integer,Integer>> target = new HashSet<>();
-                if(upTime < 10*timeOutSide || true){
+                if(upTime < 1*timeOutSide){
                     target.add(zone);
                 }else{
                     for(Sprite pM : myTarget){
@@ -249,6 +239,11 @@ public class AggressiveMovement extends ControllableMovement{
                 return currentLocation.getBottomNeighbor();
             }
             return null;
+    }
+
+    public void ghostSpawn(int X, int Y){
+        outsideX = X;
+        outsideY = Y;
     }
 
 
