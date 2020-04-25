@@ -26,6 +26,7 @@ public class PathManager {
   public static final String ENGLISHBUTTONS = "EnglishButtons";
   public static final String ERROR_MESSAGES = "ErrorMessages";
   public static final String SONG = "Song";
+  public static final String DIES = "Died";
 
   private ResourceBundle filePaths;
   private String gamePath;
