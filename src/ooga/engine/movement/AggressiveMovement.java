@@ -68,7 +68,7 @@ public class AggressiveMovement extends ControllableMovement{
 
     private void assignZone(int ID){
         int modID = (int) (Math.random()*4);
-        System.out.println(modID);
+//        System.out.println(modID);
         switch(modID){
             case 0:
                 zone = new Pair<>(500,0);

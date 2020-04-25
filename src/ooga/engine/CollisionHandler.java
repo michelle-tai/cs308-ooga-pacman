@@ -234,7 +234,7 @@ public class CollisionHandler {
     }
 
     private void respawn(Sprite sprite, GameContainer container, Sprite actor){
-        System.out.println("respawn");
+//        System.out.println("respawn");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.setHome();
@@ -246,7 +246,7 @@ public class CollisionHandler {
     }
 
     private void decrementLives(Sprite sprite, GameContainer container, Sprite actor){
-        System.out.println("decrementLives");
+//        System.out.println("decrementLives");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.decrementLives();

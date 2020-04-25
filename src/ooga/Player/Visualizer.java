@@ -1,6 +1,5 @@
 package ooga.Player;
 
-import java.beans.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -31,7 +30,7 @@ public class Visualizer {
 
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
-    public static final int FRAMES_PER_SECOND = 10;
+    public static final int FRAMES_PER_SECOND = 20;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final String ERROR_DIALOG = "Animation could not begin";
 
@@ -51,7 +50,6 @@ public class Visualizer {
     private BorderPane viewPane;
     private Controller myController;
     private ResourceBundle errorResources;
-    private GameStep myGameStep;
     private Boolean gameStatus;
 
     /**
@@ -68,7 +66,6 @@ public class Visualizer {
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
-        myGameStep = new GameStep(myController.getContainer());
         gameStatus = true;
         errorResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ERROR_MESSAGES));
     }
@@ -82,7 +79,7 @@ public class Visualizer {
         myScene.getStylesheets()
                 .add(getClass().getClassLoader().getResource(PathManager.GUI_RESOURCES.getString(PathManager.LIGHTFORMAT))
                         .toExternalForm());
-        //beginAnimation();
+        beginAnimation();
         return myScene;
     }
 
@@ -90,7 +87,6 @@ public class Visualizer {
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
         Node map = myMapView.createMap(myController.getContainer());
-        map.setOnKeyPressed(e-> beginAnimation());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);
@@ -98,7 +94,6 @@ public class Visualizer {
         viewPane.setRight(uInterface);
         viewPane.setOnKeyPressed(e -> {
             handleKeyInput(e.getCode());
-            //beginAnimation();
         });
         return viewPane;
     }
@@ -189,7 +184,6 @@ public class Visualizer {
 
     private void step(){
         myController.setGameStep();
-        myGameStep.step();
         viewPane.requestFocus();
         for(CoinView cw: coinCollection){
             cw.update();

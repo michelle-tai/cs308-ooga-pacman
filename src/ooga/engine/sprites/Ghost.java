@@ -61,12 +61,12 @@ public class Ghost extends DynamicSprite{
 
   public void move(MapGraphNode currentLocation, int runTime){
     ghostMove.move(currentLocation, runTime);
-    System.out.println("");
-    System.out.println(getID());
+//    System.out.println("");
+//    System.out.println(getID());
     if(getID() == 0){
-      System.out.println("zero 0");
+//      System.out.println("zero 0");
     }
-    System.out.println("");
+//    System.out.println("");
   }
 
 

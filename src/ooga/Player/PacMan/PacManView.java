@@ -65,7 +65,8 @@ public class PacManView {
         myImage.setY(pacmanModel.getY() - IMAGE_SHIFT);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
-        System.out.println(pacmanModel.getLivesLeft().getValue());
+        System.out.println(pacmanModel.getStatus());
+//        System.out.println(pacmanModel.getLivesLeft().getValue());
     }
 
     /**
