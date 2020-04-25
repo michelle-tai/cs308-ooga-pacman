@@ -18,8 +18,8 @@ public abstract class DynamicSprite implements Sprite {
 
     public DynamicSprite(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID, String imagePath) {
         myID = ID;
-        xPos = startingX +20;
-        yPos = startingY +20;
+        xPos = startingX + hitBoxLength/2;
+        yPos = startingY + hitBoxWidth/2;
         prevX = xPos;
         prevY = yPos;
         homeXPos = xPos;
@@ -77,9 +77,12 @@ public abstract class DynamicSprite implements Sprite {
         setY(homeYPos);
     }
 
-    public void setPreviousLocation(){
-        xPos = prevX;
-        yPos = prevY;
+    public int getPrevX(){
+        return prevX;
+    }
+
+    public int getPrevY(){
+        return prevY;
     }
 
     @Override
@@ -93,6 +96,6 @@ public abstract class DynamicSprite implements Sprite {
     }
 
 
-    public abstract void move(MapGraphNode currentLocation);
+    public abstract void move(MapGraphNode currentLocation, int Runtime);
 
 }
