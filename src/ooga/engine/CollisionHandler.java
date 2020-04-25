@@ -67,6 +67,24 @@ public class CollisionHandler {
         myCollisionRules.put(new Pair<String, String>("Coin1", "PacMan1"), methodSet);
 
         methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan0"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan1"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("destroy");
+        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan2"), methodSet);
+
+
+
+
+
+
+
+        methodSet = new HashSet<String>();
         methodSet.add("incrementPoints");
         myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin0"), methodSet);
 
@@ -87,7 +105,17 @@ public class CollisionHandler {
         methodSet.add("setStatus");
         myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
 
+        methodSet = new HashSet<String>();
+        methodSet.add("setStatus");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
 
+        methodSet = new HashSet<String>();
+        methodSet.add("setStatus");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
+
+        methodSet = new HashSet<String>();
+        methodSet.add("setStatus");
+        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
 
 
     }
@@ -144,16 +172,19 @@ public class CollisionHandler {
 
     private void invokeMethods(Pair<String, String> collisionObjects, GameContainer container, Sprite firstSprite, Sprite secondSprite){
 
+
         try {
             Set<String> methodSet = myCollisionRules.get(collisionObjects);
+
             if(null != methodSet){
+
                 for (String mName : methodSet) {
-                   // if (myMethodNames.contains(m)) {
-                    for(Method m : myMethods){
-                        if(m.getName().startsWith(mName)){
+                    // if (myMethodNames.contains(m)) {
+                    for (Method m : myMethods) {
+                        if (m.getName().startsWith(mName)) {
                             try {
                                 m.invoke(this, firstSprite, container, secondSprite);
-                            } catch (InvocationTargetException e){
+                            } catch (InvocationTargetException e) {
                                 System.err.println("An InvocationTargetException was caught!");
                                 Throwable cause = e.getCause();
                                 System.out.format("Invocation of %s failed because of: %s%n",
@@ -168,8 +199,8 @@ public class CollisionHandler {
 //                        collisionMethod.invoke(this, firstSprite, container, secondSprite);
                     }
 
-                   // }
-            }
+                    // }
+                }
 
             }
         //}catch (NoSuchMethodException e) {
@@ -186,12 +217,6 @@ public class CollisionHandler {
         int nameIndex = spriteClassName.lastIndexOf(dotDeliminator);
         spriteClassName = spriteClassName.substring(nameIndex + 1);
 
-//        if(sprite instanceof PacMan){ //potential generalize to be character ie (ghost or pacman)
-//            PacMan pacManObj = (PacMan) sprite;
-//            return spriteClassName + sprite.getStatus();
-//        }else{
-//            return spriteClassName;
-//        }
 
         return spriteClassName + sprite.getStatus();
 
@@ -201,11 +226,15 @@ public class CollisionHandler {
     private void destroy(Sprite sprite, GameContainer container, Sprite actor){
         count++;
         container.remove(sprite);
-        ((Coin) sprite).setActive();
+        if(sprite instanceof Coin){
+            ((Coin) sprite).setActive();
+        }
+
 
     }
 
     private void respawn(Sprite sprite, GameContainer container, Sprite actor){
+        System.out.println("respawn");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.setHome();
@@ -217,9 +246,11 @@ public class CollisionHandler {
     }
 
     private void decrementLives(Sprite sprite, GameContainer container, Sprite actor){
+        System.out.println("decrementLives");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.decrementLives();
+            respawn(sprite, container, actor);
             if(pM.getLivesLeft().getValue() == 0){
                 container.remove(sprite);
             }
@@ -237,20 +268,18 @@ public class CollisionHandler {
         }
     }
 
-    private void directMovement(Sprite sprite, GameContainer container, Sprite actor){
-//        System.out.println("directMovementMethod");
-//        if(sprite instanceof PacMan){
-//            PacMan pM = (PacMan) sprite;
-//            pM.setPreviousLocation();
-//        }
-//        if(sprite instanceof Ghost){
-//            Ghost g = (Ghost) sprite;
-//            g.setPreviousLocation();
-//        }
+    private void setGhostsHome(Sprite sprite, GameContainer container, Sprite actor){
+        for(Sprite ghost : container.getGhosts()){
+            ((DynamicSprite) ghost).setHome();
+        }
+        container.resetUptime();
     }
+
 
 
     private void setStatus(Sprite sprite, GameContainer container, Sprite actor){
         sprite.setStatus(actor.getStatus());
+//        System.out.println(sprite.getStatus());
+//        System.out.println("setStatus");
     }
 }

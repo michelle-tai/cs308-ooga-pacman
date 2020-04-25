@@ -23,6 +23,8 @@ public class GameContainer {
     private List<Sprite> myBlockList = new ArrayList<>();
     private Level currLevel;
     private PathManager myPathManager;
+    private int upTime;
+    private boolean completeStatus;
 
    // private String myMovementType = Main.MY_RESOURCES.getString("GameMovement");
 
@@ -36,6 +38,8 @@ public class GameContainer {
         myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
         myPathManager = pathManager;
+        upTime = 0;
+        completeStatus = false;
     }
 
     public Map<Pair<Integer, Integer>, Set<Sprite>> getModelMap(){
@@ -92,19 +96,20 @@ public class GameContainer {
         return myPathManager;
     }
 
-    public HashSet<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
+    public Set<Sprite> getNeighborhood(int X, int Y){  //todo bound neighborhood size to max single frame bounding speed
         HashSet<Sprite> neighborhood = new HashSet<Sprite>();
         int i = X/BlockWidth;
         int row = Y/BlockWidth;
+
         addToNeighborhood(neighborhood, i, row);
-        addToNeighborhood(neighborhood, i -1, row -1);
-        addToNeighborhood(neighborhood, i , row -1);
-        addToNeighborhood(neighborhood, i + 1, row -1);
-        addToNeighborhood(neighborhood, i -1, row + 1);
-        addToNeighborhood(neighborhood, i , row + 1);
-        addToNeighborhood(neighborhood, i + 1, row + 1);
-        addToNeighborhood(neighborhood, i - 1, row );
-        addToNeighborhood(neighborhood, i + 1, row );
+//        addToNeighborhood(neighborhood, i -1, row -1);
+//        addToNeighborhood(neighborhood, i , row -1);
+//        addToNeighborhood(neighborhood, i + 1, row -1);
+//        addToNeighborhood(neighborhood, i -1, row + 1);
+//        addToNeighborhood(neighborhood, i , row + 1);
+//        addToNeighborhood(neighborhood, i + 1, row + 1);
+//        addToNeighborhood(neighborhood, i - 1, row );
+//        addToNeighborhood(neighborhood, i + 1, row );
 
         return neighborhood;
     }
@@ -136,6 +141,7 @@ public class GameContainer {
         }
     }
 
+
     public void clearContainer(){
         myMap.clear();
         myCoinList.clear();
@@ -161,4 +167,52 @@ public class GameContainer {
         myMap = currLevel.getModelMap();
     }
 
+    public void mapStep(){
+        upTime++;
+        Set<Sprite> dynamicSprite = new HashSet<>();
+        dynamicSprite.addAll(myGhostList);
+        dynamicSprite.addAll(myPacManList);
+
+        for(Sprite sprite : dynamicSprite){
+            DynamicSprite dSprite = (DynamicSprite) sprite;
+            int i= dSprite.getPrevX() / BlockWidth;
+            int row = dSprite.getPrevY() / BlockWidth;
+
+            Pair<Integer, Integer> loc = new Pair(i, row);
+
+            if(myMap.containsKey(loc)){
+                Set<Sprite> locSet = myMap.get(loc);
+                if(locSet.contains(dSprite)){
+                    locSet.remove(dSprite);
+                    myMap.put(loc, locSet);
+                }
+            }
+
+            loc = new Pair<>(sprite.getX()/BlockWidth,sprite.getY()/BlockWidth);
+            if(!myMap.containsKey(loc)){
+                HashSet<Sprite> locSet = new HashSet<>();
+                locSet.add(sprite);
+                myMap.put(loc, locSet);
+            }else{
+                Set<Sprite> locSet = myMap.get(loc);
+                locSet.add(sprite);
+                myMap.put(loc, locSet);
+            }
+        }
+        if(myCoinList.size() == 0){
+            completeStatus = true;
+        }
+
+    }
+
+    public void resetUptime(){
+        upTime = 0;
+    }
+    public int getUpTime(){
+        return upTime;
+    }
+
+    public boolean getCompleteStatus(){
+        return completeStatus;
+    }
 }
