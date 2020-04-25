@@ -127,6 +127,8 @@ public class GameContainer {
             myPacManList.remove(gameObject);
         }else if(gameObject instanceof Ghost){
             myGhostList.remove(gameObject);
+        } else if (gameObject instanceof Coin){
+            myCoinList.remove(gameObject);
         }
         int i= gameObject.getX() / BlockWidth;
         int row = gameObject.getY() / BlockWidth;

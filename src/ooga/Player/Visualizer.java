@@ -66,7 +66,6 @@ public class Visualizer {
         ghostCollection = new ArrayList<>();
         pacmanCollection = new ArrayList<>();
         coinCollection = new ArrayList<>();
-        myGameStep = new GameStep(myController.getContainer());
         gameStatus = true;
         errorResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ERROR_MESSAGES));
     }
@@ -179,7 +178,6 @@ public class Visualizer {
 
     private void step(){
         myController.setGameStep();
-        myGameStep.step();
         viewPane.requestFocus();
         for(CoinView cw: coinCollection){
             cw.update();
