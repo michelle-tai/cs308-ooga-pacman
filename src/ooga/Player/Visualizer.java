@@ -1,5 +1,6 @@
 package ooga.Player;
 
+import java.beans.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -80,7 +82,7 @@ public class Visualizer {
         myScene.getStylesheets()
                 .add(getClass().getClassLoader().getResource(PathManager.GUI_RESOURCES.getString(PathManager.LIGHTFORMAT))
                         .toExternalForm());
-        beginAnimation();
+        //beginAnimation();
         return myScene;
     }
 
@@ -88,12 +90,16 @@ public class Visualizer {
         viewPane = new BorderPane();
         viewPane.setPadding(new Insets(VIEWPANE_MARGIN, VIEWPANE_PADDING, VIEWPANE_PADDING, VIEWPANE_PADDING));
         Node map = myMapView.createMap(myController.getContainer());
+        map.setOnKeyPressed(e-> beginAnimation());
         Node nonUInferface = nonUserInterface.createComponents();
         Node uInterface = userInterface.createComponents();
         viewPane.setLeft(nonUInferface);
         viewPane.setCenter(map);
         viewPane.setRight(uInterface);
-        viewPane.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+        viewPane.setOnKeyPressed(e -> {
+            handleKeyInput(e.getCode());
+            //beginAnimation();
+        });
         return viewPane;
     }
 
@@ -163,6 +169,10 @@ public class Visualizer {
             errorAlert.showAndWait();
             throw new GameException(errorResources.getString("CouldNotStartAnimation"));
         }
+    }
+
+    public void beginGameAnimation(){
+
     }
 
     private void pacmanStep(){
