@@ -35,14 +35,17 @@ public class PathManager {
   }
 
   public String getFilePath(String keyWord){
-    return filePaths.getString(keyWord);
+    try {
+      return filePaths.getString(keyWord);
+    } catch (RuntimeException e){
+      throw new GameException(e.getMessage());
+    }
   }
 
   public String getFilePath(String keyWord, Integer index) {
     List<String> list = Arrays.asList(filePaths.getString(keyWord).split(","));
     if (index >= list.size()) {
-      System.out.println("WARNING: Key requested does not have an associated image.");
-      index = list.size()-1;
+      throw new GameException("Key requested does not have an associated image");
     }
     return list.get(index);
   }
@@ -56,7 +59,11 @@ public class PathManager {
   }
 
   public String getString (String bundlePath, String key) {
-    ResourceBundle bundle = ResourceBundle.getBundle(gamePath+ "/" +bundlePath);
-    return bundle.getString(key);
+    try{
+      ResourceBundle bundle = ResourceBundle.getBundle(gamePath+ "/" +bundlePath);
+      return bundle.getString(key);
+    } catch(RuntimeException e){
+      throw new GameException(e.getMessage());
+    }
   }
 }
