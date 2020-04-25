@@ -248,7 +248,7 @@ public class CollisionHandler {
             PacMan pM = (PacMan) sprite;
             pM.decrementLives();
             respawn(sprite, container, actor);
-            if(pM.getLivesLeft().getValue() == 0){
+            if(pM.getLivesLeft().getValue() < 0){
                 container.remove(sprite);
             }
         }
@@ -268,7 +268,9 @@ public class CollisionHandler {
     private void setGhostsHome(Sprite sprite, GameContainer container, Sprite actor){
         for(Sprite ghost : container.getGhosts()){
             ((DynamicSprite) ghost).setHome();
+
         }
+        container.mapStep();
         container.resetUptime();
     }
 
