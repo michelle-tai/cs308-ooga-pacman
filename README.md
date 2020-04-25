@@ -110,12 +110,13 @@ Interesting data files:
 Known Bugs: 
 * some non-deafult level games throws an error for some reason
 * sometimes the different coins don't show up correctly
-* sometimes the ghosts don't change when pacman gets powered up
+* when pacman powers up and collides with ghost, pacman still dies
 
 Extra credit:
 * light and dark styles
 * AI (differing types of movement for ghosts)
 * preferences
+* interactive level editor
 
 
 ### Impressions
