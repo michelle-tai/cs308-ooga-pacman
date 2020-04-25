@@ -16,8 +16,8 @@ import java.util.ResourceBundle;
 
 public class MapView {
 
-    public static final int BLOCK_WIDTH = 40;
-    public static final int BLOCK_HEIGHT = 40;
+    private int BLOCK_WIDTH;
+    private int BLOCK_HEIGHT;
 
     private Group pacmen;
     private Group ghosts;
@@ -43,6 +43,9 @@ public class MapView {
         styler = new Styler(myResources);
         pauseLabel = styler.createLabel("Pause");
         pauseLabel.setId("pause");
+
+        BLOCK_WIDTH = Integer.parseInt(myController.getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
+        BLOCK_HEIGHT = Integer.parseInt(myController.getCurrentPathManager().getResourceBundle(PathManager.PROPERTIES).getString("BlockDim"));
     }
 
     /**

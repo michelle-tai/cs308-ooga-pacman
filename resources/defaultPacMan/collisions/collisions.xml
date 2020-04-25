@@ -2,15 +2,13 @@
 <collisions>
   <PacMan status="0">
     <Ghost status="0">
-      <action>respawn</action>
       <action>decrementLives</action>
+      <action>setGhostsHome</action>
     </Ghost>
     <Ghost status="1">
-      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Ghost status="2">
-      <action>respawn</action>
       <action>decrementLives</action>
     </Ghost>
     <Coin status="0">
@@ -18,6 +16,7 @@
     </Coin>
     <Coin status="1">
     <action>incrementPoints</action>
+      <action>setStatus</action>
     </Coin>
     <Coin status="2">
       <action>incrementPoints</action>

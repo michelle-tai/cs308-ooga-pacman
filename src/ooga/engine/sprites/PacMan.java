@@ -113,8 +113,8 @@ public class PacMan extends DynamicSprite implements Sprite {
 //    yPos += movedDistY;
 //  }
 
-  public void move(MapGraphNode currentLocation){
-    myMovement.move(currentLocation);
+  public void move(MapGraphNode currentLocation, int upTime){
+    myMovement.move(currentLocation, upTime);
   }
 //  public void move(){
 //    myMovement.move();
