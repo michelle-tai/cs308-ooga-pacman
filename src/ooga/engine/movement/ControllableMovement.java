@@ -36,7 +36,7 @@ public class ControllableMovement {
 
 
 
-  public void move(MapGraphNode currentLocation){
+  public void move(MapGraphNode currentLocation, int upTime){
     String directionMethod = "move" + currDirection;
 
     try {

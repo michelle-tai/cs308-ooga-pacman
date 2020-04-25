@@ -16,16 +16,18 @@ public class Ghost extends DynamicSprite{
   private int movedist = 35;
   private ControllableMovement ghostMove;
   private String myScaredImagePath;
+  private int ID;
 
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID,
       String imagePath, String scaredImagePath, PathManager pathManager){
+
     super(startingX  , startingY, hitBoxWidth, hitBoxLength, ID, imagePath);
     mySpeed = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES,"GhostDefaultSpeed"));
-
     myStatus = 0;
     myScaredImagePath = scaredImagePath;
     //ghostMove = new AggressiveMovement(this, targetSprites);
+    this.ID = ID;
   }
 
   @Override
@@ -36,7 +38,7 @@ public class Ghost extends DynamicSprite{
   @Override
   public void setMovementType(String movementType, List<Sprite> targetSprites) {
     //todo: fix with reflection
-    ghostMove = new RandomMovement(this);
+    ghostMove = new AggressiveMovement(this, targetSprites, this.getID());
   }
 
   @Override
@@ -57,13 +59,17 @@ public class Ghost extends DynamicSprite{
     this.myScaredImagePath = scaredImagePath;
   }
 
-  public void move(MapGraphNode currentLocation){
-    ghostMove.move(currentLocation);
+  public void move(MapGraphNode currentLocation, int runTime){
+    ghostMove.move(currentLocation, runTime);
+    System.out.println("");
+    System.out.println(getID());
+    if(getID() == 0){
+      System.out.println("zero 0");
+    }
+    System.out.println("");
   }
 
-//  public void move(){
-//    ghostMove.move();
-//  }
+
 
   @Override
   public int getSpeed() {
@@ -73,6 +79,11 @@ public class Ghost extends DynamicSprite{
   @Override
   public void setSpeed(int newSpeed) {
     mySpeed = newSpeed;
+  }
+
+  @Override
+  public int getID(){
+    return ID;
   }
 
 

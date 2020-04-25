@@ -35,7 +35,7 @@ public class RandomMovement extends ControllableMovement {
 
   //not the best design but will change later
   @Override
-  public void move(MapGraphNode currentLocation){
+  public void move(MapGraphNode currentLocation, int upTime){
     //todo: change the design struture rn, but it have this do nothing rn
     List<String> avoid = new ArrayList<>();
     avoid.add(directionOpposites.get(currDirection));
@@ -172,7 +172,9 @@ public class RandomMovement extends ControllableMovement {
 
     for(int i = 0; i < exclude.size(); i++){
       if(possibleDirections.size() > 1){
+
         if(possibleDirections.contains(exclude.get(i))){
+
           possibleDirections.remove(exclude.get(i));
         }
       }

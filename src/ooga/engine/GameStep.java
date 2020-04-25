@@ -4,6 +4,8 @@ import ooga.data.Collision;
 import ooga.data.Level;
 import ooga.data.LevelManager;
 import ooga.engine.sprites.DynamicSprite;
+import ooga.engine.sprites.Ghost;
+import ooga.engine.sprites.PacMan;
 import ooga.engine.sprites.Sprite;
 
 import java.util.HashSet;
@@ -23,11 +25,11 @@ public class GameStep {
     }
 
     public void step(){
-        checkAndExecuteCollisions(myContainer.getPacMen());
-        checkAndExecuteCollisions(myContainer.getGhosts());
         moveSprites(myContainer.getPacMen());
         moveSprites(myContainer.getGhosts());
-
+        myContainer.mapStep();
+        checkAndExecuteCollisions(myContainer.getPacMen());
+        checkAndExecuteCollisions(myContainer.getGhosts());
     }
 
     public String getStatus(){
@@ -35,7 +37,6 @@ public class GameStep {
     }
 
     private void checkAndExecuteCollisions(List<Sprite> objectSet) {
-
 
 
         for(Sprite pM : objectSet){
@@ -55,7 +56,7 @@ public class GameStep {
 
     private void moveSprites(List<Sprite> objectSet){
         for(Sprite sprite : objectSet){
-            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite));
+            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite), myContainer.getUpTime());
         }
     }
 

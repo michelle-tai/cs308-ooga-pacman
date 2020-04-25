@@ -77,9 +77,12 @@ public abstract class DynamicSprite implements Sprite {
         setY(homeYPos);
     }
 
-    public void setPreviousLocation(){
-        xPos = prevX;
-        yPos = prevY;
+    public int getPrevX(){
+        return prevX;
+    }
+
+    public int getPrevY(){
+        return prevY;
     }
 
     @Override
@@ -93,6 +96,6 @@ public abstract class DynamicSprite implements Sprite {
     }
 
 
-    public abstract void move(MapGraphNode currentLocation);
+    public abstract void move(MapGraphNode currentLocation, int Runtime);
 
 }

@@ -172,22 +172,16 @@ public class CollisionHandler {
 
     private void invokeMethods(Pair<String, String> collisionObjects, GameContainer container, Sprite firstSprite, Sprite secondSprite){
 
-        boolean flag = false;
 
         try {
             Set<String> methodSet = myCollisionRules.get(collisionObjects);
 
             if(null != methodSet){
 
-                if(methodSet.contains("respawn")){
-                    methodSet.remove("respawn");
-                    flag = true;
-                }
-
                 for (String mName : methodSet) {
                     // if (myMethodNames.contains(m)) {
                     for (Method m : myMethods) {
-                        if (m.getName().startsWith(mName) && !flag) {
+                        if (m.getName().startsWith(mName)) {
                             try {
                                 m.invoke(this, firstSprite, container, secondSprite);
                             } catch (InvocationTargetException e) {
@@ -216,9 +210,6 @@ public class CollisionHandler {
             System.out.println("illegalAccess");
         //do nothing
         }
-        if(flag){
-            respawn(firstSprite, container, secondSprite);
-        }
     }
 
     private String simpleStringName(Sprite sprite){
@@ -243,6 +234,7 @@ public class CollisionHandler {
     }
 
     private void respawn(Sprite sprite, GameContainer container, Sprite actor){
+        System.out.println("respawn");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.setHome();
@@ -254,9 +246,11 @@ public class CollisionHandler {
     }
 
     private void decrementLives(Sprite sprite, GameContainer container, Sprite actor){
+        System.out.println("decrementLives");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.decrementLives();
+            respawn(sprite, container, actor);
             if(pM.getLivesLeft().getValue() == 0){
                 container.remove(sprite);
             }
@@ -274,22 +268,18 @@ public class CollisionHandler {
         }
     }
 
-    private void directMovement(Sprite sprite, GameContainer container, Sprite actor){
-//        System.out.println("directMovementMethod");
-//        if(sprite instanceof PacMan){
-//            PacMan pM = (PacMan) sprite;
-//            pM.setPreviousLocation();
-//        }
-//        if(sprite instanceof Ghost){
-//            Ghost g = (Ghost) sprite;
-//            g.setPreviousLocation();
-//        }
+    private void setGhostsHome(Sprite sprite, GameContainer container, Sprite actor){
+        for(Sprite ghost : container.getGhosts()){
+            ((DynamicSprite) ghost).setHome();
+        }
+        container.resetUptime();
     }
+
 
 
     private void setStatus(Sprite sprite, GameContainer container, Sprite actor){
         sprite.setStatus(actor.getStatus());
-        System.out.println(sprite.getStatus());
-        System.out.println("hi");
+//        System.out.println(sprite.getStatus());
+//        System.out.println("setStatus");
     }
 }
