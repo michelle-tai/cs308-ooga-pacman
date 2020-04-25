@@ -102,11 +102,15 @@ custom collision file
 * user will need to create new game files in the exact same structure as the deafultPacMan
 * not too many pacman will be put into the game (since not enough keys to move infinite number of pacman technically
 )
-* only sprites rn are pacman, ghost, coins and blocks
+* only sprites right now are pacman, ghost, coins and blocks
 
 Interesting data files:
+* our level files and games
 
-Known Bugs:
+Known Bugs: 
+* some non-deafult level games throws an error for some reason
+* sometimes the different coins don't show up correctly
+* sometimes the ghosts don't change when pacman gets powered up
 
 Extra credit:
 * light and dark styles
@@ -115,4 +119,9 @@ Extra credit:
 
 
 ### Impressions
+* This assignment was interesting since we got to apply everything we learned throughout the 
+semester to a single project. 
+* It was a bit tedious and stressful to integrate everything toward the end
+* Testing was interesting to learn, but we found it hard to apply for our project?
+
 
