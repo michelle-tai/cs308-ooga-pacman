@@ -16,16 +16,28 @@ public class Ghost extends DynamicSprite{
   private int movedist = 35;
   private ControllableMovement ghostMove;
   private String myScaredImagePath;
+  private int timeSinceStatusSet;
+  private int powerUpTime = 20;
+  private int timeOutSide = 0;
+  private int timeDisperse = 0;
 
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID,
       String imagePath, String scaredImagePath, PathManager pathManager){
+
 
     super(startingX  , startingY, hitBoxWidth, hitBoxLength, ID, imagePath);
     mySpeed = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES,"GhostDefaultSpeed"));
     myStatus = 0;
     myScaredImagePath = scaredImagePath;
     //ghostMove = new AggressiveMovement(this, targetSprites);
+    timeSinceStatusSet = 0;
+
+    powerUpTime = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES,"powerUpTime"));
+
+    timeOutSide = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES,"GhostLagTime"));
+    timeDisperse = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES,"GhostDisperseTime"));
+
   }
 
   @Override
@@ -35,8 +47,8 @@ public class Ghost extends DynamicSprite{
 
   @Override
   public void setMovementType(String movementType, List<Sprite> targetSprites) {
-    //todo: fix with reflection
-    ghostMove = new AggressiveMovement(this, targetSprites, this.getID());
+
+    ghostMove = new AggressiveMovement(this, targetSprites, this.getID(), timeOutSide, timeDisperse);
   }
 
   @Override
@@ -47,6 +59,7 @@ public class Ghost extends DynamicSprite{
   @Override
   public void setStatus(int newStatus) {
     myStatus = newStatus;
+    timeSinceStatusSet = 0;
   }
 
   public String getScaredImagePath() {
@@ -57,11 +70,13 @@ public class Ghost extends DynamicSprite{
     this.myScaredImagePath = scaredImagePath;
   }
 
-  public void move(MapGraphNode currentLocation, int runTime){
-    ghostMove.move(currentLocation, runTime);
+  public void move(MapGraphNode currentLocation){
+    ghostMove.move(currentLocation);
+    timeSinceStatusSet++;
+    if(timeSinceStatusSet > powerUpTime){
+      myStatus = 0;
+    }
   }
-
-
 
   @Override
   public int getSpeed() {
@@ -73,8 +88,15 @@ public class Ghost extends DynamicSprite{
     mySpeed = newSpeed;
   }
 
-  public void setGhostSpawn(int X, int Y){
-    ((AggressiveMovement) ghostMove).ghostSpawn(X, Y);
+  public void setGhostSpawn(int X, int Y, int itter){
+    ((AggressiveMovement) ghostMove).ghostSpawn(X, Y, itter);
+  }
+
+  @Override
+  public void setHome(){
+    super.setHome();
+    myStatus = 0;
+    ((AggressiveMovement)ghostMove).resetUpTime();
   }
 
 }

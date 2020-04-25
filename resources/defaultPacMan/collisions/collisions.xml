@@ -71,7 +71,6 @@
   </PacMan>
   <Ghost status="1">
     <PacMan status="1">
-      <action>destroy</action>
       <action>respawn</action>
     </PacMan>
   </Ghost>
