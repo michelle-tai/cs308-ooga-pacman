@@ -64,6 +64,7 @@ public abstract class DynamicSprite implements Sprite {
     @Override
     public abstract void setStatus(int newStatus);
 
+
     public int getID(){
         return myID;
     }
@@ -96,6 +97,6 @@ public abstract class DynamicSprite implements Sprite {
     }
 
 
-    public abstract void move(MapGraphNode currentLocation, int Runtime);
+    public abstract void move(MapGraphNode currentLocation);
 
 }

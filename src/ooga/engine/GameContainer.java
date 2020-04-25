@@ -40,6 +40,7 @@ public class GameContainer {
         myPathManager = pathManager;
         upTime = 0;
         completeStatus = false;
+        setGhostSpawn();
     }
 
     public Map<Pair<Integer, Integer>, Set<Sprite>> getModelMap(){
@@ -126,6 +127,8 @@ public class GameContainer {
             myPacManList.remove(gameObject);
         }else if(gameObject instanceof Ghost){
             myGhostList.remove(gameObject);
+        } else if (gameObject instanceof Coin){
+            myCoinList.remove(gameObject);
         }
         int i= gameObject.getX() / BlockWidth;
         int row = gameObject.getY() / BlockWidth;
@@ -142,6 +145,7 @@ public class GameContainer {
     }
 
 
+
     public void clearContainer(){
         myMap.clear();
         myCoinList.clear();
@@ -155,6 +159,19 @@ public class GameContainer {
         myCoinList.addAll(currLevel.getCoins());
         myBlockList.addAll(currLevel.getBlockList());
         myMap.putAll(currLevel.getModelMap());
+    }
+
+    private void setGhostSpawn(){
+        int itter = 0;
+        if(getGhosts().size() > 0){
+
+            int ghostSpawnX = getGhost(0).getX();
+            int ghostSpawnY = getGhost(0).getY();
+            for(Sprite ghost : getGhosts()){
+                ((Ghost) ghost).setGhostSpawn(ghostSpawnX, ghostSpawnY, itter);
+                itter++;
+            }
+        }
     }
 
     public void setCurrLevel(Level level){
