@@ -2,7 +2,6 @@ package ooga.Player.Ghost;
 
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
-import ooga.Main;
 import ooga.Player.Visualizer;
 import ooga.controller.Controller;
 import ooga.data.PathManager;
@@ -14,6 +13,7 @@ public class GhostView {
     private static final int GHOST_HEIGHT = 35;
     public static final int BLOCK_WIDTH = 40;
     public static final int BLOCK_HEIGHT = 40;
+    public static final int GHOST_SHIFT = 20;
 
     private Group myGhosts;
     private ImageView myImage;
@@ -22,6 +22,15 @@ public class GhostView {
     private Visualizer myVisualizer;
     private int ID;
 
+    /**
+     * This class creates an instance of the ghostview and has its own individual properties
+     * @param ghosts - takes in the group of all ghosts
+     * @param indexNum - takes in the column in order to set location
+     * @param rowNum - takes in the row in order to set location
+     * @param idValue - takes in an ID value
+     * @param controller - takes in an instance of the controller
+     * @param visualizer - takes in an instance of the visualizer
+     */
     public GhostView(Group ghosts, int indexNum, int rowNum, int idValue, Controller controller, Visualizer visualizer){
         myController = controller;
         myVisualizer = visualizer;
@@ -31,9 +40,12 @@ public class GhostView {
         myImage = createGhostImage(indexNum, rowNum);
     }
 
+    /**
+     * Updates the position of the ghost at every step and checks its status to change it imaging.
+     */
     public void update() {
-        myImage.setX(ghostModel.getX() - 20);
-        myImage.setY(ghostModel.getY() - 20);
+        myImage.setX(ghostModel.getX() - GHOST_SHIFT);
+        myImage.setY(ghostModel.getY() - GHOST_SHIFT);
         checkStatus();
         myVisualizer.setGhostSpeed(ghostModel.getSpeed());
     }
