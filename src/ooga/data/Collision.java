@@ -89,7 +89,6 @@ public class Collision {
     }
     catch (Exception e)
     {
-      //TODO
       throw new GameException(e.getMessage());
     }
   }

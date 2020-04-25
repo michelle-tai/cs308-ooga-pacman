@@ -71,22 +71,18 @@ public class LevelManager {
           try {
             method = level.getClass().getMethod("method"+string.charAt(i), Integer.class, Integer.class);
           } catch (NoSuchMethodException e) {
-            e.printStackTrace();
             throw new GameException(errorResources.getString("NoSuchMethodLevelManage"));
-            //TODO
           }
           try {
             assert method != null;
             method.invoke(level, i, row);
           } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-            // TODO
             throw new GameException(e.getMessage());
           }
         }
         row++;
       }
     } catch(FileNotFoundException e){
-      //TODO: add error here
       throw new GameException(errorResources.getString("FileNotFound"));
     } catch (IOException e) {
       throw new GameException(errorResources.getString("GeneralError"));
