@@ -127,7 +127,7 @@ public class AggressiveMovement extends ControllableMovement{
             Pair<Double, String> minDist = new Pair<>((double) Integer.MAX_VALUE, "");
             for(String dir : potentialDirections) {
                 Set<Pair<Integer,Integer>> target = new HashSet<>();
-                if(upTime < 10*timeOutSide || true){
+                if(upTime < 1*timeOutSide){
                     target.add(zone);
                 }else{
                     for(Sprite pM : myTarget){
@@ -249,6 +249,11 @@ public class AggressiveMovement extends ControllableMovement{
                 return currentLocation.getBottomNeighbor();
             }
             return null;
+    }
+
+    public void ghostSpawn(int X, int Y){
+        outsideX = X;
+        outsideY = Y;
     }
 
 

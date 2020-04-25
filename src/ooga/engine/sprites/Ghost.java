@@ -16,7 +16,6 @@ public class Ghost extends DynamicSprite{
   private int movedist = 35;
   private ControllableMovement ghostMove;
   private String myScaredImagePath;
-  private int ID;
 
 
   public Ghost(int startingX, int startingY, int hitBoxWidth, int hitBoxLength, int ID,
@@ -27,7 +26,6 @@ public class Ghost extends DynamicSprite{
     myStatus = 0;
     myScaredImagePath = scaredImagePath;
     //ghostMove = new AggressiveMovement(this, targetSprites);
-    this.ID = ID;
   }
 
   @Override
@@ -81,10 +79,8 @@ public class Ghost extends DynamicSprite{
     mySpeed = newSpeed;
   }
 
-  @Override
-  public int getID(){
-    return ID;
+  public void setGhostSpawn(int X, int Y){
+    ((AggressiveMovement) ghostMove).ghostSpawn(X, Y);
   }
-
 
 }

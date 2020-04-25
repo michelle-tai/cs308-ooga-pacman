@@ -2,10 +2,7 @@ package ooga.engine;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
@@ -281,5 +278,13 @@ public class CollisionHandler {
         sprite.setStatus(actor.getStatus());
 //        System.out.println(sprite.getStatus());
 //        System.out.println("setStatus");
+    }
+
+    private void setGhostStatus(Sprite sprite, GameContainer container, Sprite actor){
+
+        List<Sprite> ghosts = container.getGhosts();
+        for(Sprite g : ghosts){
+            g.setStatus(1);
+        }
     }
 }
