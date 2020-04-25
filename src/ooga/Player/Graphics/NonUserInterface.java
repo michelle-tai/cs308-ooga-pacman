@@ -29,6 +29,7 @@ public class NonUserInterface {
     private Label currentScore;
     private PathManager myPathManager;
     private ResourceBundle errorResources;
+    private Label currentLives;
 
     /**
      * This class creates all the visual components on the let side of the screen that the user does not interact with.
@@ -40,6 +41,7 @@ public class NonUserInterface {
         styler = new Styler(myResources);
         livesLeft = new SimpleIntegerProperty();
         currentScore = new Label();
+        currentLives = new Label();
         errorResources = ResourceBundle.getBundle(PathManager.GUI_RESOURCES.getString(PathManager.ERROR_MESSAGES));
     }
 
@@ -49,7 +51,7 @@ public class NonUserInterface {
      */
     public Node createComponents(){
         VBox vbox = new VBox(VBOX_SPACING);
-        vbox.getChildren().addAll( styler.createLabel("LiveCount"), addLives(),
+        vbox.getChildren().addAll( styler.createLabel("LiveCount"), currentLives, addLives(),
                 styler.createLabel("CurrentScore"), currentScore,
                 styler.createLabel("DefaultRules"), readRules());
         vbox.setPadding(new Insets(VBOX_SPACING, VBOX_SPACING, VBOX_SPACING, VBOX_SPACING));
@@ -59,6 +61,7 @@ public class NonUserInterface {
     private HBox addLives() {
         HBox hbox = new HBox(VBOX_SPACING);
         List<ImageView> list = new ArrayList<>();
+        System.out.println("nonuserinterface value" + livesLeft.getValue());
         for (int i = 0; i < livesLeft.getValue(); i++) {
             ImageView pacmanImage = new ImageView(myPathManager.getFilePath(PathManager.PACKMANIMAGE, 0));
             pacmanImage.setFitWidth(PACMAN_WIDTH);
