@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,7 +30,7 @@ public class Visualizer {
 
     public static final int VIEWPANE_PADDING = 10;
     public static final int VIEWPANE_MARGIN = 0;
-    public static final int FRAMES_PER_SECOND = 10;
+    public static final int FRAMES_PER_SECOND = 20;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final String ERROR_DIALOG = "Animation could not begin";
 
@@ -49,7 +50,6 @@ public class Visualizer {
     private BorderPane viewPane;
     private Controller myController;
     private ResourceBundle errorResources;
-    private GameStep myGameStep;
     private Boolean gameStatus;
 
     /**
@@ -92,7 +92,9 @@ public class Visualizer {
         viewPane.setLeft(nonUInferface);
         viewPane.setCenter(map);
         viewPane.setRight(uInterface);
-        viewPane.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+        viewPane.setOnKeyPressed(e -> {
+            handleKeyInput(e.getCode());
+        });
         return viewPane;
     }
 
@@ -162,6 +164,10 @@ public class Visualizer {
             errorAlert.showAndWait();
             throw new GameException(errorResources.getString("CouldNotStartAnimation"));
         }
+    }
+
+    public void beginGameAnimation(){
+
     }
 
     private void pacmanStep(){

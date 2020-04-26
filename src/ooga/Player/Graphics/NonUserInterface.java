@@ -59,6 +59,7 @@ public class NonUserInterface {
     private HBox addLives() {
         HBox hbox = new HBox(VBOX_SPACING);
         List<ImageView> list = new ArrayList<>();
+        System.out.println("nonuserinterface value" + livesLeft.getValue());
         for (int i = 0; i < livesLeft.getValue(); i++) {
             ImageView pacmanImage = new ImageView(myPathManager.getFilePath(PathManager.PACKMANIMAGE, 0));
             pacmanImage.setFitWidth(PACMAN_WIDTH);
@@ -66,13 +67,12 @@ public class NonUserInterface {
             list.add(pacmanImage);
         }
         livesLeft.addListener(
-                    e -> {
-                        hbox.getChildren().clear();
-                        System.out.println(hbox.getChildren());
-                        list.remove(list.size()-1);
-                       System.out.println(list);
-                       hbox.getChildren().addAll(list);
-                    }
+                (observable, oldValue, newValue) ->
+                {
+                    hbox.getChildren().clear();
+                    list.remove(list.size()-1);
+                    hbox.getChildren().addAll(list);
+                }
             );
        hbox.getChildren().addAll(list);
             return hbox;

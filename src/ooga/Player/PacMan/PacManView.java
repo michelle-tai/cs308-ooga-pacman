@@ -7,6 +7,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.Player.Visualizer;
@@ -38,6 +40,9 @@ public class PacManView {
     private Controller myController;
     private Visualizer myVisualizer;
     private int ID;
+    private MediaPlayer songPlayer;
+    private int livesLeft;
+    private int previousLives;
 
     /**
      * Creates an instance of the pacman in the view for each instance of the pacman in the backend
@@ -55,6 +60,9 @@ public class PacManView {
         ID = IDvalue;
         pacmanModel = (PacMan) myController.getCurrentPacMan(ID);
         myImage = createPacManImage(indexNum, rowNum);
+        Media song = new Media(new File(PathManager.GUI_RESOURCES.getString(PathManager.DIES)).toURI().toString());
+        songPlayer = new MediaPlayer(song);
+        previousLives = 0;
     }
 
     /**
@@ -65,7 +73,8 @@ public class PacManView {
         myImage.setY(pacmanModel.getY() - IMAGE_SHIFT);
         checkStatus();
         myVisualizer.setPacManSpeed(pacmanModel.getSpeed());
-        System.out.println(pacmanModel.getLivesLeft().getValue());
+//        System.out.println(pacmanModel.getStatus());
+        System.out.println(pacmanModel.getLivesLeft().getValue()  );
     }
 
     /**
@@ -74,7 +83,7 @@ public class PacManView {
      */
     public SimpleIntegerProperty pacmanLives() {
         pacmanModel.getLivesLeft().addListener( e->{
-            myVisualizer.pauseOrPlay();
+           checkLives();
         });
         return pacmanModel.getLivesLeft();
     }
@@ -87,6 +96,16 @@ public class PacManView {
         return pacmanModel.getPointsProperty();
     }
 
+    private void checkLives(){
+        songPlayer.stop();
+        myVisualizer.pauseOrPlay();
+        songPlayer.play();
+//        if(previousLives != livesLeft){
+//            previousLives = livesLeft;
+//            myVisualizer.pauseOrPlay();
+//            songPlayer.play();
+//        }
+    }
     private void checkStatus(){
         int status = pacmanModel.getStatus();
         if (status == 0){

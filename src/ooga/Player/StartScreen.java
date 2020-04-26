@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.Player.Graphics.Styler;
@@ -30,6 +32,7 @@ public class StartScreen {
     private String currGame;
     private ResourceBundle myResources;
     private Label testLabel;
+    private MediaPlayer songPlayer;
 
     /**
      * Creates an instance of the start screen both when the main class is run and when the exit button is clicked
@@ -53,6 +56,9 @@ public class StartScreen {
         start.getStylesheets()
                 .add(getClass().getClassLoader().getResource(PathManager.GUI_RESOURCES.getString(PathManager.STARTFORMAT))
                         .toExternalForm());
+        Media song = new Media(new File(PathManager.GUI_RESOURCES.getString(PathManager.SONG)).toURI().toString());
+        songPlayer = new MediaPlayer(song);
+        songPlayer.play();
         return start;
     }
 
@@ -66,6 +72,7 @@ public class StartScreen {
         vbox.getChildren().addAll(styler.createLabel("Pac-Man"), hbox, createGameCombo(), styler.createButton("Start", e->{
                     myVisualizer = new Visualizer(myStage, currGame);
                     myStage.setScene(myVisualizer.setupScene());
+                    songPlayer.stop();
                 }), styler.createButton("CreateLevel", e -> {
             InteractiveLevelEditor inter = new InteractiveLevelEditor(myStage);
             Scene scene = new Scene(inter.getPane());
