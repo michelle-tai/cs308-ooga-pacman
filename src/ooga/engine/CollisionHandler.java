@@ -240,6 +240,7 @@ public class CollisionHandler {
             Ghost g = (Ghost) sprite;
             g.setHome();
         }
+        container.mapStep();
     }
 
     private void decrementLives(Sprite sprite, GameContainer container, Sprite actor){

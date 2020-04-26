@@ -164,11 +164,12 @@ public class GameContainer {
     private void setGhostSpawn(){
         int itter = 0;
         if(getGhosts().size() > 0){
-            itter++;
+
             int ghostSpawnX = getGhost(0).getX();
             int ghostSpawnY = getGhost(0).getY();
             for(Sprite ghost : getGhosts()){
-                ((Ghost) ghost).setGhostSpawn(ghostSpawnX, ghostSpawnY);
+                ((Ghost) ghost).setGhostSpawn(ghostSpawnX, ghostSpawnY, itter);
+                itter++;
             }
         }
     }

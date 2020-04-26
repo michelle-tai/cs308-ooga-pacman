@@ -68,7 +68,7 @@ public class GameStep {
 
     private void moveSprites(List<Sprite> objectSet){
         for(Sprite sprite : objectSet){
-            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite), myContainer.getUpTime());
+            ((DynamicSprite) sprite).move(myContainer.getSpriteMapNode(sprite));
         }
     }
 

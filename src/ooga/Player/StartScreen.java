@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import ooga.Player.Graphics.Styler;
 import java.io.File;
 import java.util.ResourceBundle;
+import ooga.Player.InteractiveLevelMaker.InteractiveLevelEditor;
 import ooga.data.PathManager;
 
 public class StartScreen {
@@ -72,7 +73,12 @@ public class StartScreen {
                     myVisualizer = new Visualizer(myStage, currGame);
                     myStage.setScene(myVisualizer.setupScene());
                     songPlayer.stop();
-                }));
+                }), styler.createButton("CreateLevel", e -> {
+            InteractiveLevelEditor inter = new InteractiveLevelEditor(myStage);
+            Scene scene = new Scene(inter.getPane());
+            myStage.setScene(scene);
+            myStage.show();
+        }));
         return vbox;
     }
 
