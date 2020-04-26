@@ -6,10 +6,8 @@
       <action>setGhostsHome</action>
     </Ghost>
     <Ghost status="1">
-      <action>decrementLives</action>
     </Ghost>
     <Ghost status="2">
-      <action>decrementLives</action>
     </Ghost>
     <Coin status="0">
       <action>incrementPoints</action>
@@ -29,12 +27,8 @@
       <action>decrementLives</action>
     </Ghost>
     <Ghost status="1">
-      <action>respawn</action>
-      <action>decrementLives</action>
     </Ghost>
     <Ghost status="2">
-      <action>respawn</action>
-      <action>decrementLives</action>
     </Ghost>
     <Coin status="0">
       <action>incrementPoints</action>
