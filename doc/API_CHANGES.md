@@ -156,3 +156,111 @@ public static ResourceBundle getResourceBundle (String name)
 
 public static String getProperty (String bundlePath, String key)
 - gets a property from the given ResourceBundle
+
+## Engine
+
+### MapGraphNode
+
+public int getXPos()
+- get the central X position of the MapGraphNode object.
+
+public int getYPos()
+- get the central Y position of the MapGraphNode object.
+
+public void addNeighbor(MapGraphNode[][] grid)
+ - further initializes the MapGraphNode object by adding MapGraphNode neighbor information and pointers.
+ 
+public MapGraphNode getTopNeighbor()
+ - get the top neighbor of the mapGraphNode
+ 
+public MapGraphNode getBottomNeighbor()
+ - get the bottom neighbor of the mapGraphNode
+ 
+public MapGraphNode getRightNeighbor()
+  - get the right neighbor of the mapGraphNode
+  
+public MapGraphNode getLeftNeighbor()
+   - get the left neighbor of the mapGraphNode
+
+#### GameStep
+
+public GameContainer getGameContainer()
+- returns the GameContainer object that the current game is looping through
+
+public MapGraphNode getSpriteMapNode(Sprite sprite)
+- returns the MapGraphNode that the input sprite is currently located at
+
+public List<Sprite> getGhosts()
+- retruns all the ghost objects in the game
+
+public Sprite getGhost(int ID)
+- returns the ghost with an associated ID
+
+public List<Sprite> getGhosts()
+- retruns all the PacMan objects in the game
+
+public Sprite getGhost(int ID)
+- returns the PacMan with an associated ID
+
+public Sprite getBlock()
+- returns a block object
+
+public Sprite getCoin(int ID)
+- returns the coin object with an associated ID
+
+public PathManager getPathManager()
+- returns the path manager that the GameContainer is using
+
+public Set<Sprite> getNeighborhood(int X, int Y)
+-returns all sprites geographically close to the input cooridinates
+
+public void remove(Sprite gameObject)
+- removes an object from the game completely in the backend
+
+public void clearContainer()
+- when called, removes pointers to all in game objects
+
+public void setCurrLevel(Level level)
+- loads new information into the GameContainer class
+
+public void mapStep()
+- updates the backend datastrctures in order for all other methods to work properly
+
+public boolean getCompleteStatus()
+-checks to see if all the coins were removed from the game, signifying game completion
+
+#### Movement Classes
+
+public String setNewDirection(String direction)
+- updates information necessary to move through the mapgraphnode structure
+
+public void move (MapGraphNode currentLocation)
+- calls the appropriate method to update the backend location of the sprite
+
+#### AggressiveMovement Specific
+
+public void ghostSpawn ( int X, int Y, int itter)
+- further initialization of movement class
+
+public void resetUpTime()
+ - sets the time of the movement class to 0
+ 
+#### Sprite
+
+public String getImagePath()
+-image file representing the sprite
+
+public void setImagePath(String myImagePath)
+-image file representing the sprite
+
+public void setHome()
+-send the sprite to spawn location
+
+
+#### PacMan
+public void resetPoints()
+-reset the pacman points
+
+public void changeDirection(String dir)
+-change the pacman orrientation
+

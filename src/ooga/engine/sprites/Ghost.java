@@ -70,6 +70,7 @@ public class Ghost extends DynamicSprite{
     this.myScaredImagePath = scaredImagePath;
   }
 
+
   public void move(MapGraphNode currentLocation){
     ghostMove.move(currentLocation);
     timeSinceStatusSet++;

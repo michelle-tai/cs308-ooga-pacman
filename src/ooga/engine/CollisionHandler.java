@@ -45,115 +45,43 @@ public class CollisionHandler {
     }
 
 
-    private void mapTester(){
-        myCollisionRules = new HashMap<>();
-        HashSet<String> methodSet = new HashSet<String>();
-        methodSet.add("directMovement");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Block0"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("destroy");
-        myCollisionRules.put(new Pair<String, String>("Coin0", "PacMan0"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("destroy");
-        myCollisionRules.put(new Pair<String, String>("Coin1", "PacMan0"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("destroy");
-        myCollisionRules.put(new Pair<String, String>("Coin1", "PacMan1"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("destroy");
-        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan0"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("destroy");
-        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan1"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("destroy");
-        myCollisionRules.put(new Pair<String, String>("Coin2", "PacMan2"), methodSet);
-
-
-
-
-
-
-
-        methodSet = new HashSet<String>();
-        methodSet.add("incrementPoints");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin0"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("incrementPoints");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("incrementPoints");
-        myCollisionRules.put(new Pair<String, String>("PacMan1", "Coin1"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("incrementPoints");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin2"), methodSet);
-
-
-        methodSet = new HashSet<String>();
-        methodSet.add("setStatus");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("setStatus");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("setStatus");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
-
-        methodSet = new HashSet<String>();
-        methodSet.add("setStatus");
-        myCollisionRules.put(new Pair<String, String>("PacMan0", "Coin1"), methodSet);
-
-
-    }
-
-    /*
-    private method which checks if the hitboxes of two sprites overlap, and returns a boolean value true if they do
-    and false if they dont. It is used by the public checkAndExecuteMethod to check if a collision occurred.
-     */
-    private boolean checkCollision(Sprite firstSprite, Sprite secondSprite) {
-
-        Rectangle firstBox = firstSprite.getHitBox();
-        Rectangle secondBox = secondSprite.getHitBox();
-        double topXFirst = firstBox.getX();
-        double bottomXFirst = topXFirst + firstBox.getWidth();
-        double topYFirst = firstBox.getY();
-        double bottomYFirst = topYFirst + firstBox.getHeight();
-
-        double topXSecond = secondBox.getX();
-        double bottomXSecond = topXSecond + secondBox.getWidth();
-        double topYSecond = secondBox.getY();
-        double bottomYSecond = topYSecond + secondBox.getHeight();
-
-
-        if (topXFirst > bottomXSecond // R1 is right to R2
-                || bottomXFirst < topXSecond // R1 is left to R2
-                || topYFirst < bottomYSecond // R1 is above R2
-                || bottomYFirst > topYSecond) { // R1 is below R1
-            return true;
-        }
-            return true;
-
-//        Shape intersection = Shape.intersect(firstSprite.getHitBox(), secondSprite.getHitBox());
-//        return !firstSprite.equals(secondSprite) && intersection.getBoundsInLocal().getWidth() != -1;
-        }
+//    /*
+//    private method which checks if the hitboxes of two sprites overlap, and returns a boolean value true if they do
+//    and false if they dont. It is used by the public checkAndExecuteMethod to check if a collision occurred.
+//     */
+//    private boolean checkCollision(Sprite firstSprite, Sprite secondSprite) {
+//
+//        Rectangle firstBox = firstSprite.getHitBox();
+//        Rectangle secondBox = secondSprite.getHitBox();
+//        double topXFirst = firstBox.getX();
+//        double bottomXFirst = topXFirst + firstBox.getWidth();
+//        double topYFirst = firstBox.getY();
+//        double bottomYFirst = topYFirst + firstBox.getHeight();
+//
+//        double topXSecond = secondBox.getX();
+//        double bottomXSecond = topXSecond + secondBox.getWidth();
+//        double topYSecond = secondBox.getY();
+//        double bottomYSecond = topYSecond + secondBox.getHeight();
+//
+//
+//        if (topXFirst > bottomXSecond // R1 is right to R2
+//                || bottomXFirst < topXSecond // R1 is left to R2
+//                || topYFirst < bottomYSecond // R1 is above R2
+//                || bottomYFirst > topYSecond) { // R1 is below R1
+//            return true;
+//        }
+//            return true;
+//
+////        Shape intersection = Shape.intersect(firstSprite.getHitBox(), secondSprite.getHitBox());
+////        return !firstSprite.equals(secondSprite) && intersection.getBoundsInLocal().getWidth() != -1;
+//        }
 
     /*
     Method that uses reflection to call the appropriate methods that modify sprite status and the game status as required.
      */
     public void checkAndExecute(Sprite firstSprite, Sprite secondSprite, GameContainer container) {
 
-        if (true) {
+      //  if (true) {
             String firstSpriteName = simpleStringName(firstSprite);
             String secondSpriteName = simpleStringName(secondSprite);
 
@@ -164,7 +92,7 @@ public class CollisionHandler {
             invokeMethods(collisionObjects2, container, secondSprite, firstSprite);
 
 
-        }
+       // }
     }
 
     private void invokeMethods(Pair<String, String> collisionObjects, GameContainer container, Sprite firstSprite, Sprite secondSprite){
@@ -231,20 +159,21 @@ public class CollisionHandler {
     }
 
     private void respawn(Sprite sprite, GameContainer container, Sprite actor){
-        System.out.println("respawn");
+//        System.out.println("respawn");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.setHome();
         }
         if(sprite instanceof Ghost){
             Ghost g = (Ghost) sprite;
+            sprite.setStatus(0);
             g.setHome();
         }
         container.mapStep();
     }
 
     private void decrementLives(Sprite sprite, GameContainer container, Sprite actor){
-        System.out.println("decrementLives");
+//        System.out.println("decrementLives");
         if(sprite instanceof PacMan){
             PacMan pM = (PacMan) sprite;
             pM.decrementLives();
