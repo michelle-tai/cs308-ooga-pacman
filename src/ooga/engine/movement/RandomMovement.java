@@ -10,6 +10,16 @@ import ooga.Main;
 import ooga.engine.MapGraphNode;
 import ooga.engine.sprites.Sprite;
 
+/**
+ * This defines a type of movement that any moveable sprite can have. This movement is like controllable movement,
+ * but instead of having key presses dictate the new direction, a direction is randomly generated for the sprite to move.
+ *
+ * Dependencies: Sprite, MapGraphNode
+ *
+ * @author Michelle Tai
+ * @author Olga Suchankova
+ */
+
 public class RandomMovement extends ControllableMovement {
   private static List<String> directions = new ArrayList<>();
   protected static HashMap<String, String> directionOpposites = new HashMap<>();
@@ -32,7 +42,12 @@ public class RandomMovement extends ControllableMovement {
   }
 
 
-
+  /**
+   * Moves the sprite to a new location by calculating the new x and y positions.
+   * This method accepts a MapGraphNode, which helps determine is that sprite can actually move in
+   * the direction requested.
+   * @param currentLocation is the current location of the sprite
+   */
   //not the best design but will change later
   @Override
   public void move(MapGraphNode currentLocation){
