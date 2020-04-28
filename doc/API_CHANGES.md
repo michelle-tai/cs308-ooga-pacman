@@ -111,6 +111,18 @@ public Hyperlink createLink
 public Node createComponents()
 - creates all the components to be added to the front ends
 
+#### InteractiveLevelEditor  
+
+- public Pane getPane() 
+  - Returns a pane so that it can be added to the scene/stage in the visualizer
+
+#### CustomImageView  
+
+public void getPath()
+-  returns the path of the image, which is used as a key in a properties file to return the 
+corresponding character that is to be written to the text file
+public String setPath()
+- sets the path of the image
 
 ### Data
 
@@ -263,4 +275,6 @@ public void resetPoints()
 
 public void changeDirection(String dir)
 -change the pacman orrientation
+
+
 
