@@ -111,6 +111,18 @@ public Hyperlink createLink
 public Node createComponents()
 - creates all the components to be added to the front ends
 
+#### InteractiveLevelEditor  
+
+- public Pane getPane() 
+  - Returns a pane so that it can be added to the scene/stage in the visualizer
+
+#### CustomImageView  
+
+public void getPath()
+-  returns the path of the image, which is used as a key in a properties file to return the 
+corresponding character that is to be written to the text file
+public String setPath()
+- sets the path of the image
 
 ### Data
 
@@ -122,11 +134,40 @@ public Map<Pair<String, String>, Set<String>> getCollisionRules(Integer status)
 - get the Map containing the collision rules
 
 #### Level
-public Image getMapElementImage(int row, int col)
-- get a map element image located at the given row and col
-
 public Map<Pair<Integer,Integer>, Sprite> getModelMap()
 - get the map containing the sprite locations
+
+public List<Sprite> getGhosts()
+- returns a list of the ghosts in the current level
+
+public List<Sprite> getPacMen()
+- returns a list of the PacMen in the current level
+
+public List<Sprite> getCoins() 
+- returns a list of the coins in the current level
+
+public Set<Sprite> getAllGameObjects()
+- returns a list of all the game objects in the current level
+
+public List<Sprite> getBlockList()
+- returns a list of the blocks in the current level
+
+public void methodx(Integer i, Integer row)
+- used by reflection
+
+public void methodg(Integer i, Integer row)
+- used by reflection
+
+public void methodp(Integer i, Integer row)
+- used by reflection
+
+public void method0(Integer i, Integer row)
+- used by reflection
+
+public void method1(Integer i, Integer row)
+- used by reflection
+public void method2(Integer i, Integer row)
+- used by reflection
 
 #### LevelManger
 public Level getCurrentLevel()
@@ -141,18 +182,128 @@ public Level getLevel(Integer index)
 public Integer getNumberOfLevels()
 - gets the total number of levels
 
+public PathManager getPathManager()
+- gets the PathManger object used by the LevelManger
+
 #### PathManager
 public static String getFilePath(String key)
 - returns a filepath associated with the given key
 
-public static String getGhostPath(Integer index)
-- gets the ghost image path at the given index
-
-public static String getPacManPath(Integer index)
-- gets the PacMan image path at the given index
+public static String getFilePath(String keyWord, Integer index)
+- gets the image path of the keyword at the given index
 
 public static ResourceBundle getResourceBundle (String name)
 - gets a ResourceBundle associated with the given name
 
-public static String getProperty (String bundlePath, String key)
+public static String getString (String bundlePath, String key)
 - gets a property from the given ResourceBundle
+
+## Engine
+
+### MapGraphNode
+
+public int getXPos()
+- get the central X position of the MapGraphNode object.
+
+public int getYPos()
+- get the central Y position of the MapGraphNode object.
+
+public void addNeighbor(MapGraphNode[][] grid)
+ - further initializes the MapGraphNode object by adding MapGraphNode neighbor information and pointers.
+ 
+public MapGraphNode getTopNeighbor()
+ - get the top neighbor of the mapGraphNode
+ 
+public MapGraphNode getBottomNeighbor()
+ - get the bottom neighbor of the mapGraphNode
+ 
+public MapGraphNode getRightNeighbor()
+  - get the right neighbor of the mapGraphNode
+  
+public MapGraphNode getLeftNeighbor()
+   - get the left neighbor of the mapGraphNode
+
+#### GameStep
+
+public GameContainer getGameContainer()
+- returns the GameContainer object that the current game is looping through
+
+public MapGraphNode getSpriteMapNode(Sprite sprite)
+- returns the MapGraphNode that the input sprite is currently located at
+
+public List<Sprite> getGhosts()
+- retruns all the ghost objects in the game
+
+public Sprite getGhost(int ID)
+- returns the ghost with an associated ID
+
+public List<Sprite> getGhosts()
+- retruns all the PacMan objects in the game
+
+public Sprite getGhost(int ID)
+- returns the PacMan with an associated ID
+
+public Sprite getBlock()
+- returns a block object
+
+public Sprite getCoin(int ID)
+- returns the coin object with an associated ID
+
+public PathManager getPathManager()
+- returns the path manager that the GameContainer is using
+
+public Set<Sprite> getNeighborhood(int X, int Y)
+-returns all sprites geographically close to the input cooridinates
+
+public void remove(Sprite gameObject)
+- removes an object from the game completely in the backend
+
+public void clearContainer()
+- when called, removes pointers to all in game objects
+
+public void setCurrLevel(Level level)
+- loads new information into the GameContainer class
+
+public void mapStep()
+- updates the backend datastrctures in order for all other methods to work properly
+
+public boolean getCompleteStatus()
+-checks to see if all the coins were removed from the game, signifying game completion
+
+#### Movement Classes
+
+public String setNewDirection(String direction)
+- updates information necessary to move through the mapgraphnode structure
+
+public void move (MapGraphNode currentLocation)
+- calls the appropriate method to update the backend location of the sprite
+
+#### AggressiveMovement Specific
+
+public void ghostSpawn ( int X, int Y, int itter)
+- further initialization of movement class
+
+public void resetUpTime()
+ - sets the time of the movement class to 0
+ 
+#### Sprite
+
+public String getImagePath()
+-image file representing the sprite
+
+public void setImagePath(String myImagePath)
+-image file representing the sprite
+
+public void setHome()
+-send the sprite to spawn location
+
+
+#### PacMan
+public void resetPoints()
+-reset the pacman points
+
+public void changeDirection(String dir)
+-change the pacman orrientation
+
+
+

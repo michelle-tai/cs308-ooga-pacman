@@ -68,7 +68,6 @@ public class GameContainer {
         return emptySpots[0][0];
     }
 
-    public Set<Sprite> getAllGameObjects(){ return currLevel.getAllGameObjects();}
 
 
 
@@ -224,9 +223,6 @@ public class GameContainer {
 
     public void resetUptime(){
         upTime = 0;
-    }
-    public int getUpTime(){
-        return upTime;
     }
 
     public boolean getCompleteStatus(){

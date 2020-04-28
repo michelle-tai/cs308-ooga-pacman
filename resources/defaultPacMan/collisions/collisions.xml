@@ -30,6 +30,8 @@
     </Ghost>
     <Ghost status="2">
     </Ghost>
+    <Ghost status="2">
+    </Ghost>
     <Coin status="0">
       <action>incrementPoints</action>
     </Coin>
