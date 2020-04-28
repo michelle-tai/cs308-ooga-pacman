@@ -6,6 +6,16 @@ import ooga.Main;
 import ooga.engine.MapGraphNode;
 import ooga.engine.sprites.Sprite;
 
+/**
+ * This defines a type of movement that any moveable sprite can have. The movement is controlled through
+ * the keys, and these keys can easily be changed in the properties file.
+ *
+ * Dependencies: Sprite, MapGraphNode
+ *
+ * @author Michelle Tai
+ * @author Olga Suchankova
+ */
+
 public class ControllableMovement {
   private Sprite mySprite;
   private String currDirection;
@@ -19,6 +29,12 @@ public class ControllableMovement {
     mySpeed = sprite.getSpeed();
   }
 
+  /**
+   * Sets the new direction in which the sprite is moving. This is so that the frontend can read the key pressed, translate it to
+   * either a "right," "left," "up," "down" string using the property file, and pass it to this backend method.
+   * @param direction is the new direction the sprite is moving
+   * @return the current direction
+   */
   public String setNewDirection(String direction){
     if(!currDirection.equals(direction)){
       if((direction.equals("Right") && currDirection.equals("Left")) ||(direction.equals("Left") && currDirection.equals("Right"))){
@@ -34,8 +50,12 @@ public class ControllableMovement {
   }
 
 
-
-
+  /**
+   * Moves the sprite to a new location by calculating the new x and y positions.
+   * This method accepts a MapGraphNode, which helps determine is that sprite can actually move in
+   * the direction requested.
+   * @param currentLocation is the current location of the sprite
+   */
   public void move(MapGraphNode currentLocation){
     String directionMethod = "move" + currDirection;
 
