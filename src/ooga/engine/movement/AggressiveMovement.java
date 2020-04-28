@@ -11,6 +11,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+/*
+This class enables aggressive (following pacman) behavior of Ghost objects. To use, call the move(MapGraphNode) currentLocation)
+method, and the rest is done internally. The constructor requires target inputs, and a sprite who's location is actually
+edited.
+
+@author : Olga Suchankova, Michelle Tai
+ */
+
+
 public class AggressiveMovement extends ControllableMovement{
   // would need to either know the map or where pacman currently is
   // i guess can have a target method and based on the target, ...
@@ -49,9 +58,13 @@ public class AggressiveMovement extends ControllableMovement{
         upTime = 0;
     }
 
+    /**
+     * Method changes the status of internal variables that are used in correctly setting the new location of the
+     * sprite when the object is moved
+     * @param direction is the new direction the sprite is moving
+     * @return essentially the same string as the input.
+     */
     public String setNewDirection(String direction){
-
-
         if(!currDirection.equals(direction)){
             if((direction.equals("Right") && currDirection.equals("Left")) ||(direction.equals("Left") && currDirection.equals("Right"))){
                 directionChanged = false;
@@ -94,7 +107,10 @@ public class AggressiveMovement extends ControllableMovement{
         }
     }
 
-
+    /**
+     * method which uses private methods to decide which direction to move in
+     * @param currentLocation is the current location of the sprite
+     */
     public void move (MapGraphNode currentLocation){
         upTime++;
 
