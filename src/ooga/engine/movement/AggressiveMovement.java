@@ -95,186 +95,185 @@ public class AggressiveMovement extends ControllableMovement{
     }
 
 
-        public void move (MapGraphNode currentLocation){
-            upTime++;
+    public void move (MapGraphNode currentLocation){
+        upTime++;
 
-            if (upTime == timeOutSide) {
-                mySprite.setX(outsideX);
-                mySprite.setY(outsideY);
-            } else {
+        if (upTime == timeOutSide) {
+            mySprite.setX(outsideX);
+            mySprite.setY(outsideY);
+        } else {
 
-                String moveDir = pickDirection(currentLocation);
-                setNewDirection(moveDir);
-                String directionMethod = "move" + moveDir;
+            String moveDir = pickDirection(currentLocation);
+            setNewDirection(moveDir);
+            String directionMethod = "move" + moveDir;
 
-                try {
-                    Method method = this.getClass().getDeclaredMethod(directionMethod, MapGraphNode.class);
-                    method.setAccessible(true);
-                    method.invoke(AggressiveMovement.this, currentLocation);
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
-                    // Do nothing
-                }
-
-                directionChanged = false;
+            try {
+                Method method = this.getClass().getDeclaredMethod(directionMethod, MapGraphNode.class);
+                method.setAccessible(true);
+                method.invoke(AggressiveMovement.this, currentLocation);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+                // Do nothing
             }
 
-        }
-
-        private String pickDirection (MapGraphNode currentLocation){
-
-            List<String> exclude = new ArrayList<String>();
-
-            List<String> potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
-            exclude.add(directionOpposites.get(currDirection));
-            if (potentialDirections.size() >= 3) {
-                return findMinLoop(RandomMovement.getDirections(currentLocation, exclude), currentLocation, upTime);
-            }
-
-            exclude.add(directionOpposites.get(prevDirection));
-            //potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
-            return findMinLoop(RandomMovement.getDirections(currentLocation, exclude), currentLocation, upTime);
-
-        }
-
-        private String findMinLoop (List < String > potentialDirections, MapGraphNode currentLocation,int upTime){
-            if (potentialDirections.size() > 1) {
-                Pair<Double, String> minDist = new Pair<>((double) Integer.MAX_VALUE, "");
-                for (String dir : potentialDirections) {
-                    Set<Pair<Integer, Integer>> target = new HashSet<>();
-                    if (upTime < timeOutSide + timeDisperse) {
-                        target.add(zone);
-                    } else {
-                        for (Sprite pM : myTarget) {
-                            target.add(new Pair<>(pM.getX(), pM.getY()));
-                        }
-                    }
-                    for (Pair<Integer, Integer> pM : target) {
-                        MapGraphNode moveLoc = getNode(currentLocation, dir);
-                        double dist = distanceFromTarget(moveLoc.getXPos(), moveLoc.getYPos(), pM);
-                        if (dist < minDist.getKey()) {
-                            minDist = new Pair<>(dist, dir);
-                        }
-                    }
-                }
-                return minDist.getValue();
-            }
-            return potentialDirections.get(0);
-        }
-
-        protected void moveRight (MapGraphNode currentLocation){
-            if (!directionChanged) {
-                if (currentLocation.getRightNeighbor() != null) {
-                    int newX = mySprite.getX() + (movedist * 1 * 1);
-                    mySprite.setX(newX);
-                } else {
-                    int newX = currentLocation.getXPos();
-                    mySprite.setX(newX);
-                }
-            } else {
-                if (currentLocation.getRightNeighbor() != null) {
-                    int newX = currentLocation.getXPos();
-                    int newY = currentLocation.getYPos();
-                    mySprite.setY(newY);
-                    mySprite.setX(newX);
-                }
-            }
-        }
-
-        protected void moveLeft (MapGraphNode currentLocation){
-            if (!directionChanged) {
-                if (currentLocation.getLeftNeighbor() != null) {
-                    int newX = mySprite.getX() + (movedist * 1 * -1);
-                    mySprite.setX(newX);
-                } else {
-                    int newX = currentLocation.getXPos();
-                    mySprite.setX(newX);
-                }
-            } else {
-                if (currentLocation.getLeftNeighbor() != null) {
-                    int newX = currentLocation.getXPos();
-                    int newY = currentLocation.getYPos();
-                    mySprite.setY(newY);
-                    mySprite.setX(newX);
-                }
-            }
-        }
-
-        protected void moveUp (MapGraphNode currentLocation){
-            if (!directionChanged) {
-                if (currentLocation.getTopNeighbor() != null) {
-                    int newY = mySprite.getY() + (movedist * 1 * -1);
-                    mySprite.setY(newY);
-                } else {
-                    int newY = currentLocation.getYPos();
-                    mySprite.setY(newY);
-                }
-            } else {
-                if (currentLocation.getTopNeighbor() != null) {
-                    int newY = currentLocation.getYPos();
-                    int newX = currentLocation.getXPos();
-                    mySprite.setY(newY);
-                    mySprite.setX(newX);
-                }
-            }
-        }
-
-        protected void moveDown (MapGraphNode currentLocation){
-            if (!directionChanged) {
-                if (currentLocation.getBottomNeighbor() != null) {
-                    int newY = mySprite.getY() + (movedist * 1 * 1);
-                    mySprite.setY(newY);
-                } else {
-                    int newY = currentLocation.getYPos();
-                    mySprite.setY(newY);
-
-                }
-            } else {
-                if (currentLocation.getBottomNeighbor() != null) {
-                    int newY = currentLocation.getYPos();
-                    int newX = currentLocation.getXPos();
-                    mySprite.setY(newY);
-                    mySprite.setX(newX);
-                }
-            }
-        }
-
-
-        private double distanceFromTarget ( int X, int Y, Pair<Integer, Integer > target){
-            int pMX = target.getKey();
-            int pMY = target.getValue();
-            double distance = Math.sqrt(Math.pow(X - pMX, 2) + Math.pow(Y - pMY, 2));
-            return distance;
-        }
-
-
-        //todo: potentially implement map for neighbors so you dont need lots of if statements
-        private static MapGraphNode getNode (MapGraphNode currentLocation, String direction){
-
-            if (direction.equals("Right") && currentLocation.getRightNeighbor() != null) {
-                return currentLocation.getRightNeighbor();
-            }
-            if (direction.equals("Left") && currentLocation.getLeftNeighbor() != null) {
-                return currentLocation.getLeftNeighbor();
-            }
-            if (direction.equals("Up") && currentLocation.getTopNeighbor() != null) {
-                return currentLocation.getTopNeighbor();
-            }
-            if (direction.equals("Down") && currentLocation.getBottomNeighbor() != null) {
-                return currentLocation.getBottomNeighbor();
-            }
-            return null;
-        }
-
-        public void ghostSpawn ( int X, int Y, int itter){
-            outsideX = X;
-            outsideY = Y;
-            assignZone(itter);
-
-        }
-
-        public void resetUpTime() {
-            upTime = 0;
+            directionChanged = false;
         }
 
     }
+
+    private String pickDirection (MapGraphNode currentLocation){
+
+        List<String> exclude = new ArrayList<String>();
+
+        List<String> potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
+        exclude.add(directionOpposites.get(currDirection));
+        if (potentialDirections.size() >= 3) {
+            return findMinLoop(RandomMovement.getDirections(currentLocation, exclude), currentLocation, upTime);
+        }
+
+        exclude.add(directionOpposites.get(prevDirection));
+        //potentialDirections = RandomMovement.getDirections(currentLocation, exclude);
+        return findMinLoop(RandomMovement.getDirections(currentLocation, exclude), currentLocation, upTime);
+
+    }
+
+    private String findMinLoop (List < String > potentialDirections, MapGraphNode currentLocation,int upTime){
+        if (potentialDirections.size() > 1) {
+            Pair<Double, String> minDist = new Pair<>((double) Integer.MAX_VALUE, "");
+            for (String dir : potentialDirections) {
+                Set<Pair<Integer, Integer>> target = new HashSet<>();
+                if (upTime < timeOutSide + timeDisperse) {
+                    target.add(zone);
+                } else {
+                    for (Sprite pM : myTarget) {
+                        target.add(new Pair<>(pM.getX(), pM.getY()));
+                    }
+                }
+                for (Pair<Integer, Integer> pM : target) {
+                    MapGraphNode moveLoc = getNode(currentLocation, dir);
+                    double dist = distanceFromTarget(moveLoc.getXPos(), moveLoc.getYPos(), pM);
+                    if (dist < minDist.getKey()) {
+                        minDist = new Pair<>(dist, dir);
+                    }
+                }
+            }
+            return minDist.getValue();
+        }
+        return potentialDirections.get(0);
+    }
+
+    protected void moveRight (MapGraphNode currentLocation){
+        if (!directionChanged) {
+            if (currentLocation.getRightNeighbor() != null) {
+                int newX = mySprite.getX() + (movedist * 1 * 1);
+                mySprite.setX(newX);
+            } else {
+                int newX = currentLocation.getXPos();
+                mySprite.setX(newX);
+            }
+        } else {
+            if (currentLocation.getRightNeighbor() != null) {
+                int newX = currentLocation.getXPos();
+                int newY = currentLocation.getYPos();
+                mySprite.setY(newY);
+                mySprite.setX(newX);
+            }
+        }
+    }
+
+    protected void moveLeft (MapGraphNode currentLocation){
+        if (!directionChanged) {
+            if (currentLocation.getLeftNeighbor() != null) {
+                int newX = mySprite.getX() + (movedist * 1 * -1);
+                mySprite.setX(newX);
+            } else {
+                int newX = currentLocation.getXPos();
+                mySprite.setX(newX);
+            }
+        } else {
+            if (currentLocation.getLeftNeighbor() != null) {
+                int newX = currentLocation.getXPos();
+                int newY = currentLocation.getYPos();
+                mySprite.setY(newY);
+                mySprite.setX(newX);
+            }
+        }
+    }
+
+    protected void moveUp (MapGraphNode currentLocation){
+        if (!directionChanged) {
+            if (currentLocation.getTopNeighbor() != null) {
+                int newY = mySprite.getY() + (movedist * 1 * -1);
+                mySprite.setY(newY);
+            } else {
+                int newY = currentLocation.getYPos();
+                mySprite.setY(newY);
+            }
+        } else {
+            if (currentLocation.getTopNeighbor() != null) {
+                int newY = currentLocation.getYPos();
+                int newX = currentLocation.getXPos();
+                mySprite.setY(newY);
+                mySprite.setX(newX);
+            }
+        }
+    }
+
+    protected void moveDown (MapGraphNode currentLocation){
+        if (!directionChanged) {
+            if (currentLocation.getBottomNeighbor() != null) {
+                int newY = mySprite.getY() + (movedist * 1 * 1);
+                mySprite.setY(newY);
+            } else {
+                int newY = currentLocation.getYPos();
+                mySprite.setY(newY);
+
+            }
+        } else {
+            if (currentLocation.getBottomNeighbor() != null) {
+                int newY = currentLocation.getYPos();
+                int newX = currentLocation.getXPos();
+                mySprite.setY(newY);
+                mySprite.setX(newX);
+            }
+        }
+    }
+
+
+    private double distanceFromTarget ( int X, int Y, Pair<Integer, Integer > target){
+        int pMX = target.getKey();
+        int pMY = target.getValue();
+        double distance = Math.sqrt(Math.pow(X - pMX, 2) + Math.pow(Y - pMY, 2));
+        return distance;
+    }
+
+
+    //todo: potentially implement map for neighbors so you dont need lots of if statements
+    private static MapGraphNode getNode (MapGraphNode currentLocation, String direction){
+
+        if (direction.equals("Right") && currentLocation.getRightNeighbor() != null) {
+            return currentLocation.getRightNeighbor();
+        }
+        if (direction.equals("Left") && currentLocation.getLeftNeighbor() != null) {
+            return currentLocation.getLeftNeighbor();
+        }
+        if (direction.equals("Up") && currentLocation.getTopNeighbor() != null) {
+            return currentLocation.getTopNeighbor();
+        }
+        if (direction.equals("Down") && currentLocation.getBottomNeighbor() != null) {
+            return currentLocation.getBottomNeighbor();
+        }
+        return null;
+    }
+
+    public void ghostSpawn ( int X, int Y, int itter){
+        outsideX = X;
+        outsideY = Y;
+        assignZone(itter);
+
+    }
+
+    public void resetUpTime() {
+        upTime = 0;
+    }
+}
 

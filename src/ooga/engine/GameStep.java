@@ -16,7 +16,6 @@ public class GameStep {
     private CollisionHandler myCollisionHandler;
     private Collision collision;
     private GameContainer myContainer;
-    private String myStatus;
     private LevelManager myLevelManager;
     private Integer level = 0;
 
@@ -40,10 +39,6 @@ public class GameStep {
             checkAndExecuteCollisions(myContainer.getPacMen());
             checkAndExecuteCollisions(myContainer.getGhosts());
         }
-    }
-
-    public String getStatus(){
-        return myStatus;
     }
 
     public GameContainer getGameContainer() {
