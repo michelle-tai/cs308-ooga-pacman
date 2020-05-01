@@ -26,6 +26,18 @@ import javafx.util.Callback;
 import ooga.Player.StartScreen;
 import ooga.engine.GameException;
 
+/**
+ * This is the gui for the user to create a level. To create the level, the user enter the width
+ * and height of the grid they want to create, and when a grid block is clicked, the current value of the
+ * combobox, which is an image path, is used to replace the image at the grid location. Is it easy
+ * to add multiple images/objects that the user can put into the level file–you just need to add the image into
+ * the combobox and the corresponding image and character key for the text file into the properties file.
+ *
+ * Dependencies: Stage, CreateLevelFile, CustomImageView
+ *
+ * @author Michelle Tai
+ */
+
 public class InteractiveLevelEditor {
   private ComboBox gameImages = new ComboBox();
 
@@ -71,6 +83,10 @@ public class InteractiveLevelEditor {
 
   }
 
+  /**
+   *
+   * @return the Pane that holds all of the gui for this level creator
+   */
   public Pane getPane(){
     return overallPane;
   }

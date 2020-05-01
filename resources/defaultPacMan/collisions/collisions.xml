@@ -27,10 +27,10 @@
       <action>decrementLives</action>
     </Ghost>
     <Ghost status="1">
-
     </Ghost>
     <Ghost status="2">
-
+    </Ghost>
+    <Ghost status="2">
     </Ghost>
     <Coin status="0">
       <action>incrementPoints</action>

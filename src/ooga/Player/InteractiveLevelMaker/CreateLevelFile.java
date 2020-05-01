@@ -7,6 +7,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 import ooga.engine.GameException;
 
+/**
+ * Writes a text file that is saved into the data folder. The text file be used in any game.
+ * The constructor requires a String name for the file, and a List of strings which is then used as keys to a
+ * property file to write the corresponding character to the text file. While this isn't the best design, since I
+ * am showing the implementation of the List, I could change it so that it would accept an object instead of a
+ * list, thus hiding the implementation.
+ * @author Michelle Tai
+ */
+
 public class CreateLevelFile {
   private String fileName;
   private List<List<String>> myList;

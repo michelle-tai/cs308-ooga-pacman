@@ -111,6 +111,18 @@ public Hyperlink createLink
 public Node createComponents()
 - creates all the components to be added to the front ends
 
+#### InteractiveLevelEditor  
+
+- public Pane getPane() 
+  - Returns a pane so that it can be added to the scene/stage in the visualizer
+
+#### CustomImageView  
+
+public void getPath()
+-  returns the path of the image, which is used as a key in a properties file to return the 
+corresponding character that is to be written to the text file
+public String setPath()
+- sets the path of the image
 
 ### Data
 
@@ -122,11 +134,40 @@ public Map<Pair<String, String>, Set<String>> getCollisionRules(Integer status)
 - get the Map containing the collision rules
 
 #### Level
-public Image getMapElementImage(int row, int col)
-- get a map element image located at the given row and col
-
 public Map<Pair<Integer,Integer>, Sprite> getModelMap()
 - get the map containing the sprite locations
+
+public List<Sprite> getGhosts()
+- returns a list of the ghosts in the current level
+
+public List<Sprite> getPacMen()
+- returns a list of the PacMen in the current level
+
+public List<Sprite> getCoins() 
+- returns a list of the coins in the current level
+
+public Set<Sprite> getAllGameObjects()
+- returns a list of all the game objects in the current level
+
+public List<Sprite> getBlockList()
+- returns a list of the blocks in the current level
+
+public void methodx(Integer i, Integer row)
+- used by reflection
+
+public void methodg(Integer i, Integer row)
+- used by reflection
+
+public void methodp(Integer i, Integer row)
+- used by reflection
+
+public void method0(Integer i, Integer row)
+- used by reflection
+
+public void method1(Integer i, Integer row)
+- used by reflection
+public void method2(Integer i, Integer row)
+- used by reflection
 
 #### LevelManger
 public Level getCurrentLevel()
@@ -141,20 +182,20 @@ public Level getLevel(Integer index)
 public Integer getNumberOfLevels()
 - gets the total number of levels
 
+public PathManager getPathManager()
+- gets the PathManger object used by the LevelManger
+
 #### PathManager
 public static String getFilePath(String key)
 - returns a filepath associated with the given key
 
-public static String getGhostPath(Integer index)
-- gets the ghost image path at the given index
-
-public static String getPacManPath(Integer index)
-- gets the PacMan image path at the given index
+public static String getFilePath(String keyWord, Integer index)
+- gets the image path of the keyword at the given index
 
 public static ResourceBundle getResourceBundle (String name)
 - gets a ResourceBundle associated with the given name
 
-public static String getProperty (String bundlePath, String key)
+public static String getString (String bundlePath, String key)
 - gets a property from the given ResourceBundle
 
 ## Engine
@@ -263,4 +304,6 @@ public void resetPoints()
 
 public void changeDirection(String dir)
 -change the pacman orrientation
+
+
 
