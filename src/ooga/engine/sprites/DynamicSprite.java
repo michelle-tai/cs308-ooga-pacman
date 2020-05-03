@@ -52,7 +52,7 @@ public abstract class DynamicSprite implements Sprite {
         yPos = newY;
     }
 
-    @Override
+
     public Rectangle getHitBox() {
         return hitbox;
     }

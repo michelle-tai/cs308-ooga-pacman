@@ -48,7 +48,7 @@ public class RandomMovement extends ControllableMovement {
    * the direction requested.
    * @param currentLocation is the current location of the sprite
    */
-  //not the best design but will change later
+
   @Override
   public void move(MapGraphNode currentLocation){
     //todo: change the design struture rn, but it have this do nothing rn

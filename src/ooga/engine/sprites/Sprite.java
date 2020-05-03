@@ -34,11 +34,6 @@ public interface Sprite {
    */
   public void setY(int newY);
 
-  /**
-   * Get the hitbox of the sprite, which is used to determine whether or not object have collided
-   * @return a Rectangle object the represents the hitbox
-   */
-  public Rectangle getHitBox();
 
   public String getMovementType();
 

@@ -9,7 +9,6 @@ import ooga.data.PathManager;
 
 public class Coin extends StaticSprite {
 
-    private Rectangle hitbox;
     private int myStatus;
     private boolean myActivity;
     private int myID;
@@ -22,16 +21,11 @@ public class Coin extends StaticSprite {
         super(x, y, imagePath);
         myID = ID;
         movementType = pathManager.getString(PathManager.PROPERTIES, "CoinMovement");
-        int hitBoxDim = Integer.parseInt(pathManager.getString(PathManager.PROPERTIES, "CoinDim"));
-        hitbox = new Rectangle(x, y, hitBoxDim, hitBoxDim);
         myStatus = type;
         myActivity = true;
     }
 
-    @Override
-    public Rectangle getHitBox() {
-        return hitbox;
-    }
+
 
     @Override
     public String getMovementType() {
@@ -60,6 +54,5 @@ public class Coin extends StaticSprite {
     public int getPoints(){
         return myPoints[myStatus];
     }
-
 
 }

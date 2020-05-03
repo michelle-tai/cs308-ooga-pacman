@@ -68,8 +68,7 @@ public class ControllableMovement {
     directionChanged = false;
   }
 
-
-  //todo: get rid of magic values
+  
   protected void moveRight(MapGraphNode currentLocation) {
 //    int newX = mySprite.getX() + (movedist * mySpeed * 1);
 //    mySprite.setX(newX);

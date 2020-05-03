@@ -21,9 +21,6 @@ edited.
 
 
 public class AggressiveMovement extends ControllableMovement{
-  // would need to either know the map or where pacman currently is
-  // i guess can have a target method and based on the target, ...
-    //todo: make it so ghosts leave their spawn location;
 
     private Sprite mySprite;
     private int movedist = 3;
@@ -108,7 +105,7 @@ public class AggressiveMovement extends ControllableMovement{
     }
 
     /**
-     * method which uses private methods to decide which direction to move in
+     * method which uses private methods to decide which direction to move in.
      * @param currentLocation is the current location of the sprite
      */
     public void move (MapGraphNode currentLocation){
@@ -281,13 +278,22 @@ public class AggressiveMovement extends ControllableMovement{
         return null;
     }
 
+    /**
+     * Initialization method for Aggressive Movement Class. Sets outside of the cage location for ghosts and calls a function
+     * which customizes the ghost movement for each instance of the ghost.
+     * @param X xloc of outside cage location
+     * @param Y yloc of outside cage location
+     * @param itter used in switch case statement
+     */
     public void ghostSpawn ( int X, int Y, int itter){
         outsideX = X;
         outsideY = Y;
         assignZone(itter);
-
     }
 
+    /**
+     * resets the internal time of the movement class to 0. Used for when ghost is sent back to home.
+     */
     public void resetUpTime() {
         upTime = 0;
     }
